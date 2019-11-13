@@ -97,6 +97,9 @@
 		377C2225237C2E7C0046D4E8 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 377C2224237C2E7C0046D4E8 /* swiftgen.yml */; };
 		377C2227237C2EC90046D4E8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 377C2226237C2EC90046D4E8 /* Localizable.strings */; };
 		377C222A237C302C0046D4E8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2229237C302C0046D4E8 /* Strings.swift */; };
+		377C2232237C36700046D4E8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2231237C36700046D4E8 /* Fonts.swift */; };
+		377C2234237C38AA0046D4E8 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2233237C38AA0046D4E8 /* Global.swift */; };
+		377C2237237C39E50046D4E8 /* UIAlert+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +216,13 @@
 		377C2224237C2E7C0046D4E8 /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		377C2226237C2EC90046D4E8 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		377C2229237C302C0046D4E8 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		377C222C237C35280046D4E8 /* CircularStd-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.otf"; sourceTree = "<group>"; };
+		377C222D237C35280046D4E8 /* CircularStd-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.otf"; sourceTree = "<group>"; };
+		377C222E237C35290046D4E8 /* CircularStd-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Black.otf"; sourceTree = "<group>"; };
+		377C222F237C35290046D4E8 /* CircularStd-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Medium.otf"; sourceTree = "<group>"; };
+		377C2231237C36700046D4E8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		377C2233237C38AA0046D4E8 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlert+Extensions.swift"; sourceTree = "<group>"; };
 		B99CB3917DC37CF75D05357E /* Pods_GitHubViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitHubViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E44CD98BF8971AEBE0BB60 /* Pods-GitHubViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubViewer.release.xcconfig"; path = "Target Support Files/Pods-GitHubViewer/Pods-GitHubViewer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -309,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				377C213A237C06800046D4E8 /* AppDelegate.swift */,
+				377C2231237C36700046D4E8 /* Fonts.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -316,6 +327,7 @@
 		377C216B237C1DC60046D4E8 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				377C2233237C38AA0046D4E8 /* Global.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -331,6 +343,7 @@
 		377C216D237C1E0C0046D4E8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				377C222B237C34E70046D4E8 /* Fonts */,
 				377C2221237C2DBC0046D4E8 /* Strings */,
 				377C2148237C06810046D4E8 /* Info.plist */,
 				377C2145237C06810046D4E8 /* LaunchScreen.storyboard */,
@@ -351,6 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				377C2173237C23460046D4E8 /* Utopia */,
+				377C2235237C39880046D4E8 /* Extensions */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -594,6 +608,25 @@
 			path = Strings;
 			sourceTree = "<group>";
 		};
+		377C222B237C34E70046D4E8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				377C222E237C35290046D4E8 /* CircularStd-Black.otf */,
+				377C222C237C35280046D4E8 /* CircularStd-Bold.otf */,
+				377C222D237C35280046D4E8 /* CircularStd-Book.otf */,
+				377C222F237C35290046D4E8 /* CircularStd-Medium.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		377C2235237C39880046D4E8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		470AD1F98E747DF6EE71E0F8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -817,6 +850,7 @@
 				377C21DC237C23640046D4E8 /* HorizontalAlignmentLayout.swift in Sources */,
 				377C21DB237C23640046D4E8 /* PaginationFlowLayout.swift in Sources */,
 				377C2215237C23640046D4E8 /* UIBarButtonItem+Signals.swift in Sources */,
+				377C2234237C38AA0046D4E8 /* Global.swift in Sources */,
 				377C2205237C23640046D4E8 /* Reachability.swift in Sources */,
 				377C21E0237C23640046D4E8 /* UIButton+layout.swift in Sources */,
 				377C2220237C23640046D4E8 /* Collections+ext.swift in Sources */,
@@ -835,6 +869,7 @@
 				377C21D3237C23640046D4E8 /* CodableUtilities.swift in Sources */,
 				377C2212237C23640046D4E8 /* UIControl+Signals.swift in Sources */,
 				377C21DF237C23640046D4E8 /* UICollectionView+Reusable.swift in Sources */,
+				377C2237237C39E50046D4E8 /* UIAlert+Extensions.swift in Sources */,
 				377C21E5237C23640046D4E8 /* UIScrollView+ext.swift in Sources */,
 				377C2211237C23640046D4E8 /* ImageSettable.swift in Sources */,
 				377C2210237C23640046D4E8 /* SwiftyImage.swift in Sources */,
@@ -868,6 +903,7 @@
 				377C221A237C23640046D4E8 /* InteractiveDismiss.swift in Sources */,
 				377C21FC237C23640046D4E8 /* Optional+ext.swift in Sources */,
 				377C220D237C23640046D4E8 /* TimingFunction.swift in Sources */,
+				377C2232237C36700046D4E8 /* Fonts.swift in Sources */,
 				377C21F3237C23640046D4E8 /* BarButtons.swift in Sources */,
 				377C21EC237C23640046D4E8 /* UITableView+Reusable.swift in Sources */,
 				377C21E4237C23640046D4E8 /* UIButton+ext.swift in Sources */,

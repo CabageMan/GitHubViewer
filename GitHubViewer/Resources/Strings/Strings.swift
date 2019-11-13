@@ -8,6 +8,12 @@ import Foundation
 extension String {
 
   enum General {
+    // Cancel
+    static let cancel = String.tr("Localizable", "general.cancel")
+    // Coming soon ...
+    static let comingSoon = String.tr("Localizable", "general.coming_soon")
+    // Ok
+    static let ok = String.tr("Localizable", "general.ok")
     // Welcome
     static let welcome = String.tr("Localizable", "general.welcome")
   }

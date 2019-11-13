@@ -1,2 +1,5 @@
 //MARK: - General
-"general.welcome" = "Welcome";
+"general.welcome"       = "Welcome";
+"general.ok"            = "Ok";
+"general.cancel"        = "Cancel";
+"general.coming_soon"   = "Coming soon ...";
