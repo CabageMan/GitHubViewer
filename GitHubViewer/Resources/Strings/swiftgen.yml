@@ -1,0 +1,7 @@
+strings:
+    inputs:
+        Localizable.strings
+    outputs:
+        templatePath: StringsGenerationTemplate.stencil
+        output: Strings.swift
+
