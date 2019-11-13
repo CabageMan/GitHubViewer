@@ -1,0 +1,20 @@
+PODS:
+  - TinyConstraints (4.0.1)
+  - Wormholy (1.5.1)
+
+DEPENDENCIES:
+  - TinyConstraints
+  - Wormholy
+
+SPEC REPOS:
+  trunk:
+    - TinyConstraints
+    - Wormholy
+
+SPEC CHECKSUMS:
+  TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
+  Wormholy: f01b096b449a9fcab864a10f7e5b5693b1225c88
+
+PODFILE CHECKSUM: 4f5df2561dc76bf751c7899d6a0b22bfa7349a83
+
+COCOAPODS: 1.8.4
