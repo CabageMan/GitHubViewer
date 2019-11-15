@@ -12,5 +12,12 @@ final class IntroVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Global.showCustomMessage(message: String.General.welcome)
+        findIssue()
+    }
+    
+    private func findIssue() {
+        GitHubViewerApollo.shared.client.fetch(query: FindIssueIdQuery()) { result in
+            log("Result: \(result)")
+        }
     }
 }

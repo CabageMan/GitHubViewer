@@ -1,0 +1,18 @@
+query FindIssueID {
+  repository(owner:"octocat", name:"Hello-World") {
+    issue(number:349) {
+      id
+    }
+  }
+}
+
+mutation AddReactionToIssue {
+  addReaction(input:{subjectId:"MDU6SXNzdWUyMzEzOTE1NTE=",content:HOORAY}) {
+    reaction {
+      content
+    }
+    subject {
+      id
+    }
+  }
+}

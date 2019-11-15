@@ -6,6 +6,9 @@ use_frameworks!
 def shared_pods
   #Utilities
 
+  #Networking
+  pod 'Apollo'
+
   #UIKit
   pod 'TinyConstraints'
 end
