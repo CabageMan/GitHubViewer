@@ -12,6 +12,19 @@
 		375AB8A1237D863C007E390A /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 375AB8A0237D863C007E390A /* schema.json */; };
 		375EB186237EA072005B6252 /* GraphQLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB185237EA072005B6252 /* GraphQLAPI.swift */; };
 		375EB188237EA1BD005B6252 /* GitHubViewerApollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB187237EA1BD005B6252 /* GitHubViewerApollo.swift */; };
+		375EB18A237EBFCE005B6252 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB189237EBFCE005B6252 /* Theme.swift */; };
+		375EB18C237ECE3E005B6252 /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB18B237ECE3E005B6252 /* AuthVC.swift */; };
+		375EB192237EE0A9005B6252 /* SFCompactDisplay-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 375EB18D237ED256005B6252 /* SFCompactDisplay-Thin.otf */; };
+		375EB193237EE0AD005B6252 /* SFCompactRounded-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 375EB18E237ED289005B6252 /* SFCompactRounded-Thin.otf */; };
+		375EB194237EE0B0005B6252 /* SFProDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 375EB18F237ED2BD005B6252 /* SFProDisplay-Light.otf */; };
+		375EB195237EE0B3005B6252 /* CircularStd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 377C222F237C35290046D4E8 /* CircularStd-Medium.otf */; };
+		375EB196237EE0B6005B6252 /* CircularStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 377C222D237C35280046D4E8 /* CircularStd-Book.otf */; };
+		375EB197237EE0B9005B6252 /* CircularStd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 377C222C237C35280046D4E8 /* CircularStd-Bold.otf */; };
+		375EB198237EE0BC005B6252 /* CircularStd-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 377C222E237C35290046D4E8 /* CircularStd-Black.otf */; };
+		375EB19A237EE663005B6252 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB199237EE663005B6252 /* Device.swift */; };
+		375EB19C237EEC2E005B6252 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB19B237EEC2E005B6252 /* Buttons.swift */; };
+		375EB19E237EEC92005B6252 /* Primitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB19D237EEC92005B6252 /* Primitives.swift */; };
+		375EB1A0237EF4AB005B6252 /* UIControl+Actionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB19F237EF4AB005B6252 /* UIControl+Actionable.swift */; };
 		377C213B237C06800046D4E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C213A237C06800046D4E8 /* AppDelegate.swift */; };
 		377C2141237C06810046D4E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377C2140237C06810046D4E8 /* Assets.xcassets */; };
 		377C2144237C06810046D4E8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377C2143237C06810046D4E8 /* Preview Assets.xcassets */; };
@@ -129,6 +142,15 @@
 		375AB8A0237D863C007E390A /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		375EB185237EA072005B6252 /* GraphQLAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLAPI.swift; sourceTree = "<group>"; };
 		375EB187237EA1BD005B6252 /* GitHubViewerApollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubViewerApollo.swift; sourceTree = "<group>"; };
+		375EB189237EBFCE005B6252 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		375EB18B237ECE3E005B6252 /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
+		375EB18D237ED256005B6252 /* SFCompactDisplay-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactDisplay-Thin.otf"; sourceTree = "<group>"; };
+		375EB18E237ED289005B6252 /* SFCompactRounded-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactRounded-Thin.otf"; sourceTree = "<group>"; };
+		375EB18F237ED2BD005B6252 /* SFProDisplay-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Light.otf"; sourceTree = "<group>"; };
+		375EB199237EE663005B6252 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		375EB19B237EEC2E005B6252 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		375EB19D237EEC92005B6252 /* Primitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitives.swift; sourceTree = "<group>"; };
+		375EB19F237EF4AB005B6252 /* UIControl+Actionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Actionable.swift"; sourceTree = "<group>"; };
 		377C2137237C06800046D4E8 /* GitHubViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		377C213A237C06800046D4E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		377C2140237C06810046D4E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -272,6 +294,27 @@
 			path = GraphQLAPI;
 			sourceTree = "<group>";
 		};
+		375EB190237ED2DE005B6252 /* SF */ = {
+			isa = PBXGroup;
+			children = (
+				375EB18F237ED2BD005B6252 /* SFProDisplay-Light.otf */,
+				375EB18E237ED289005B6252 /* SFCompactRounded-Thin.otf */,
+				375EB18D237ED256005B6252 /* SFCompactDisplay-Thin.otf */,
+			);
+			path = SF;
+			sourceTree = "<group>";
+		};
+		375EB191237ED2F4005B6252 /* Circular */ = {
+			isa = PBXGroup;
+			children = (
+				377C222E237C35290046D4E8 /* CircularStd-Black.otf */,
+				377C222C237C35280046D4E8 /* CircularStd-Bold.otf */,
+				377C222D237C35280046D4E8 /* CircularStd-Book.otf */,
+				377C222F237C35290046D4E8 /* CircularStd-Medium.otf */,
+			);
+			path = Circular;
+			sourceTree = "<group>";
+		};
 		377C212E237C06800046D4E8 = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +383,7 @@
 			children = (
 				377C213A237C06800046D4E8 /* AppDelegate.swift */,
 				377C2231237C36700046D4E8 /* Fonts.swift */,
+				375EB189237EBFCE005B6252 /* Theme.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -355,7 +399,7 @@
 		377C216C237C1DD80046D4E8 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				377C216E237C1F240046D4E8 /* Autorization */,
+				377C216E237C1F240046D4E8 /* Authorization */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -372,19 +416,22 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		377C216E237C1F240046D4E8 /* Autorization */ = {
+		377C216E237C1F240046D4E8 /* Authorization */ = {
 			isa = PBXGroup;
 			children = (
 				377C216F237C1F5D0046D4E8 /* IntroVC.swift */,
+				375EB18B237ECE3E005B6252 /* AuthVC.swift */,
 			);
-			path = Autorization;
+			path = Authorization;
 			sourceTree = "<group>";
 		};
 		377C2171237C23030046D4E8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				375EB199237EE663005B6252 /* Device.swift */,
 				377C2173237C23460046D4E8 /* Utopia */,
 				377C2235237C39880046D4E8 /* Extensions */,
+				375EB19F237EF4AB005B6252 /* UIControl+Actionable.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -392,6 +439,8 @@
 		377C2172237C23300046D4E8 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				375EB19B237EEC2E005B6252 /* Buttons.swift */,
+				375EB19D237EEC92005B6252 /* Primitives.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -631,10 +680,8 @@
 		377C222B237C34E70046D4E8 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				377C222E237C35290046D4E8 /* CircularStd-Black.otf */,
-				377C222C237C35280046D4E8 /* CircularStd-Bold.otf */,
-				377C222D237C35280046D4E8 /* CircularStd-Book.otf */,
-				377C222F237C35290046D4E8 /* CircularStd-Medium.otf */,
+				375EB191237ED2F4005B6252 /* Circular */,
+				375EB190237ED2DE005B6252 /* SF */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -777,9 +824,16 @@
 				377C2227237C2EC90046D4E8 /* Localizable.strings in Resources */,
 				377C2225237C2E7C0046D4E8 /* swiftgen.yml in Resources */,
 				375AB8A1237D863C007E390A /* schema.json in Resources */,
+				375EB192237EE0A9005B6252 /* SFCompactDisplay-Thin.otf in Resources */,
 				377C2223237C2E340046D4E8 /* StringsGenerationTemplate.stencil in Resources */,
+				375EB194237EE0B0005B6252 /* SFProDisplay-Light.otf in Resources */,
+				375EB193237EE0AD005B6252 /* SFCompactRounded-Thin.otf in Resources */,
+				375EB198237EE0BC005B6252 /* CircularStd-Black.otf in Resources */,
 				377C2144237C06810046D4E8 /* Preview Assets.xcassets in Resources */,
 				377C2141237C06810046D4E8 /* Assets.xcassets in Resources */,
+				375EB196237EE0B6005B6252 /* CircularStd-Book.otf in Resources */,
+				375EB195237EE0B3005B6252 /* CircularStd-Medium.otf in Resources */,
+				375EB197237EE0B9005B6252 /* CircularStd-Bold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,6 +957,7 @@
 				377C21F8237C23640046D4E8 /* InputVisibilityController.swift in Sources */,
 				377C21F4237C23640046D4E8 /* StatusBarAppearance.swift in Sources */,
 				377C2214237C23640046D4E8 /* SignalSubscription.swift in Sources */,
+				375EB19A237EE663005B6252 /* Device.swift in Sources */,
 				377C220E237C23640046D4E8 /* None.swift in Sources */,
 				377C21DD237C23640046D4E8 /* Snapshot.swift in Sources */,
 				377C21FB237C23640046D4E8 /* Require.swift in Sources */,
@@ -926,6 +981,7 @@
 				377C2208237C23640046D4E8 /* Literals.swift in Sources */,
 				377C21E3237C23640046D4E8 /* UINavigationController+ext.swift in Sources */,
 				377C220C237C23640046D4E8 /* Comparable+ext.swift in Sources */,
+				375EB19C237EEC2E005B6252 /* Buttons.swift in Sources */,
 				377C21D8237C23640046D4E8 /* PinnedHeaderFlowLayout.swift in Sources */,
 				377C21F6237C23640046D4E8 /* TouchInteraction.swift in Sources */,
 				377C21D6237C23640046D4E8 /* ValidatableView.swift in Sources */,
@@ -933,7 +989,9 @@
 				375EB188237EA1BD005B6252 /* GitHubViewerApollo.swift in Sources */,
 				377C2207237C23640046D4E8 /* NSAttributedStrings+ext.swift in Sources */,
 				377C21FF237C23640046D4E8 /* Time.swift in Sources */,
+				375EB18A237EBFCE005B6252 /* Theme.swift in Sources */,
 				377C2219237C23640046D4E8 /* ScaleModalTransitioning.swift in Sources */,
+				375EB19E237EEC92005B6252 /* Primitives.swift in Sources */,
 				377C2170237C1F5D0046D4E8 /* IntroVC.swift in Sources */,
 				377C21E6237C23640046D4E8 /* UIAlertController+ext.swift in Sources */,
 				377C21DE237C23640046D4E8 /* UISearchUtilities.swift in Sources */,
@@ -947,6 +1005,7 @@
 				377C21FC237C23640046D4E8 /* Optional+ext.swift in Sources */,
 				377C220D237C23640046D4E8 /* TimingFunction.swift in Sources */,
 				377C2232237C36700046D4E8 /* Fonts.swift in Sources */,
+				375EB1A0237EF4AB005B6252 /* UIControl+Actionable.swift in Sources */,
 				377C21F3237C23640046D4E8 /* BarButtons.swift in Sources */,
 				377C21EC237C23640046D4E8 /* UITableView+Reusable.swift in Sources */,
 				377C21E4237C23640046D4E8 /* UIButton+ext.swift in Sources */,
@@ -963,6 +1022,7 @@
 				377C21FD237C23640046D4E8 /* String+Extensions.swift in Sources */,
 				377C2200237C23640046D4E8 /* UIColor+Extensions.swift in Sources */,
 				377C221F237C23640046D4E8 /* String+ext.swift in Sources */,
+				375EB18C237ECE3E005B6252 /* AuthVC.swift in Sources */,
 				377C21D7237C23640046D4E8 /* Toggler.swift in Sources */,
 				377C221C237C23640046D4E8 /* Haptic.swift in Sources */,
 				377C21E7237C23640046D4E8 /* UIImage+Gradient.swift in Sources */,

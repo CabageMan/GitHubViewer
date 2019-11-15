@@ -3,3 +3,9 @@
 "general.ok"            = "Ok";
 "general.cancel"        = "Cancel";
 "general.coming_soon"   = "Coming soon ...";
+"general.next"          = "Next";
+
+
+//MARK: - Authentication
+"auth.welcome" = "Welcome to\nGitHubViewer";
+

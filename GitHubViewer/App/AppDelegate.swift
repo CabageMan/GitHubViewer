@@ -1,4 +1,5 @@
 import UIKit
+@_exported import TinyConstraints
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
