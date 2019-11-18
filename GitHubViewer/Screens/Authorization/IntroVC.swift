@@ -10,7 +10,7 @@ final class IntroVC: UIViewController {
         }
     }
     
-    //MARK: -Life Cycle
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .mainBackground
@@ -25,8 +25,7 @@ final class IntroVC: UIViewController {
     private func setup() {
         let logo = UIImageView().add(to: view).then {
             $0.centerInSuperview()
-            $0.width(Theme.imageSide)
-            $0.height(Theme.imageSide)
+            $0.size(CGSize(Theme.imageSide))
             
             $0.image = #imageLiteral(resourceName: "OctoCat")
             $0.contentMode = .scaleAspectFit
@@ -51,18 +50,17 @@ final class IntroVC: UIViewController {
             $0.leftToSuperview(offset: Theme.buttonSideOffset)
             $0.rightToSuperview(offset: -Theme.buttonSideOffset)
             $0.setTitle(String.General.next, for: .normal)
-            $0.addTarget(for: .touchUpInside) { [weak self] in
-                self?.nextButtonTap()
-            }
+            $0.addTarget(for: .touchUpInside) { [weak self] in self?.nextButtonTap() }
         }
     }
     
-    //MARK: -Actions
+    //MARK: - Actions
     private func nextButtonTap() {
         Global.showComingSoon()
     }
 }
 
+//MARK: - Theme
 extension IntroVC {
     enum Theme {
         // Fonts

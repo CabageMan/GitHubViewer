@@ -7,5 +7,14 @@
 
 
 //MARK: - Authentication
-"auth.welcome" = "Welcome to\nGitHubViewer";
-
+"auth.welcome"              = "Welcome to\nGitHubViewer";
+"auth.sign_in_to_github"    = "Sign in to GitHub";
+"auth.username_or_email"    = "Username or email address";
+"auth.password"             = "Password";
+"auth.forgot_password"      = "Forgot Password";
+"auth.sign_in"              = "Sign in";
+"auth.new_to_github"        = "New to GitHub? Create an account.";
+"auth.terms"                = "Terms";
+"auth.privacy"              = "Privacy";
+"auth.security"             = "Security";
+"auth.contact_github"       = "Contact GitHub";

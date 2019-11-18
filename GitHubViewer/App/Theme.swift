@@ -31,4 +31,26 @@ extension CGFloat {
     
     // Buttons
     static let defaultButtonHeight: CGFloat = 50.0
+    
+    // Safe Area
+    static let defaultPadding: CGFloat = 5.0
+    static var safeLeft: CGFloat {
+        return AppDelegate.shared.window?.safeAreaInsets.left ?? defaultPadding
+    }
+    
+    static var safeRight: CGFloat {
+        return AppDelegate.shared.window?.safeAreaInsets.right ?? defaultPadding
+    }
+    
+    static var safeTop: CGFloat {
+        return AppDelegate.shared.window?.safeAreaInsets.top ?? defaultPadding
+    }
+    
+    static var safeBottom: CGFloat {
+        return AppDelegate.shared.window?.safeAreaInsets.bottom ?? defaultPadding
+    }
+    
+    static var statusBarHeight: CGFloat {
+        return UIApplication.shared.statusBarFrame.height
+    }
 }

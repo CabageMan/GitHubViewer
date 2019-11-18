@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		261AA21CA3B03502701C2B0F /* Pods_GitHubViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B99CB3917DC37CF75D05357E /* Pods_GitHubViewer.framework */; };
+		3702A15B238298CE006D9598 /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702A15A238298CE006D9598 /* TitledTextField.swift */; };
+		3707CC8E2382D542008D2D3E /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3707CC8D2382D542008D2D3E /* UIStackView+Extension.swift */; };
 		37446773237D728B00762EB8 /* Queries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 37446772237D728B00762EB8 /* Queries.graphql */; };
 		375AB8A1237D863C007E390A /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 375AB8A0237D863C007E390A /* schema.json */; };
 		375EB186237EA072005B6252 /* GraphQLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB185237EA072005B6252 /* GraphQLAPI.swift */; };
@@ -138,6 +140,8 @@
 
 /* Begin PBXFileReference section */
 		33FD2CB0A93D3482F510EAA6 /* Pods-GitHubViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubViewer.debug.xcconfig"; path = "Target Support Files/Pods-GitHubViewer/Pods-GitHubViewer.debug.xcconfig"; sourceTree = "<group>"; };
+		3702A15A238298CE006D9598 /* TitledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
+		3707CC8D2382D542008D2D3E /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		37446772237D728B00762EB8 /* Queries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Queries.graphql; sourceTree = "<group>"; };
 		375AB8A0237D863C007E390A /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		375EB185237EA072005B6252 /* GraphQLAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLAPI.swift; sourceTree = "<group>"; };
@@ -441,6 +445,7 @@
 			children = (
 				375EB19B237EEC2E005B6252 /* Buttons.swift */,
 				375EB19D237EEC92005B6252 /* Primitives.swift */,
+				3702A15A238298CE006D9598 /* TitledTextField.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -690,6 +695,7 @@
 			isa = PBXGroup;
 			children = (
 				377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */,
+				3707CC8D2382D542008D2D3E /* UIStackView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -985,6 +991,7 @@
 				377C21D8237C23640046D4E8 /* PinnedHeaderFlowLayout.swift in Sources */,
 				377C21F6237C23640046D4E8 /* TouchInteraction.swift in Sources */,
 				377C21D6237C23640046D4E8 /* ValidatableView.swift in Sources */,
+				3707CC8E2382D542008D2D3E /* UIStackView+Extension.swift in Sources */,
 				377C2203237C23640046D4E8 /* DateUtilities.swift in Sources */,
 				375EB188237EA1BD005B6252 /* GitHubViewerApollo.swift in Sources */,
 				377C2207237C23640046D4E8 /* NSAttributedStrings+ext.swift in Sources */,
@@ -1028,6 +1035,7 @@
 				377C21E7237C23640046D4E8 /* UIImage+Gradient.swift in Sources */,
 				377C21DA237C23640046D4E8 /* SnappingFlowLayout.swift in Sources */,
 				377C21E2237C23640046D4E8 /* UITextField+ext.swift in Sources */,
+				3702A15B238298CE006D9598 /* TitledTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
