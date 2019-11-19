@@ -1,26 +1,30 @@
 PODS:
-  - Apollo (0.19.0):
-    - Apollo/Core (= 0.19.0)
-  - Apollo/Core (0.19.0)
+  - Apollo (0.20.0):
+    - Apollo/Core (= 0.20.0)
+  - Apollo/Core (0.20.0)
+  - OAuthSwift (2.1.0)
   - TinyConstraints (4.0.1)
   - Wormholy (1.5.1)
 
 DEPENDENCIES:
   - Apollo
+  - OAuthSwift
   - TinyConstraints
   - Wormholy
 
 SPEC REPOS:
   trunk:
     - Apollo
+    - OAuthSwift
     - TinyConstraints
     - Wormholy
 
 SPEC CHECKSUMS:
-  Apollo: 4f0fea775a98bba34935764e49d27f2d3b1a5f21
+  Apollo: 46b40c7023c1d49f2220a0364cdff8829674d9d3
+  OAuthSwift: ab1675598273e04355e0282459c328e65c9ddacd
   TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
   Wormholy: f01b096b449a9fcab864a10f7e5b5693b1225c88
 
-PODFILE CHECKSUM: 9bcd32c3c4aa6c69b476ae4b91834dc45b0a9ccb
+PODFILE CHECKSUM: 751c184459715093deaaa438dbc78bdbe5973f7b
 
 COCOAPODS: 1.8.4

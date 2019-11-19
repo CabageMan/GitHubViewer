@@ -8,6 +8,7 @@ def shared_pods
 
   #Networking
   pod 'Apollo'
+  pod 'OAuthSwift'
 
   #UIKit
   pod 'TinyConstraints'

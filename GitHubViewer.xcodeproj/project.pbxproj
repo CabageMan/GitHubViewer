@@ -11,11 +11,12 @@
 		3702A15B238298CE006D9598 /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702A15A238298CE006D9598 /* TitledTextField.swift */; };
 		3707CC8E2382D542008D2D3E /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3707CC8D2382D542008D2D3E /* UIStackView+Extension.swift */; };
 		37446773237D728B00762EB8 /* Queries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 37446772237D728B00762EB8 /* Queries.graphql */; };
+		3752AE602383EC5C00170C79 /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3752AE5F2383EC5C00170C79 /* AuthVC.swift */; };
 		375AB8A1237D863C007E390A /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 375AB8A0237D863C007E390A /* schema.json */; };
 		375EB186237EA072005B6252 /* GraphQLAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB185237EA072005B6252 /* GraphQLAPI.swift */; };
 		375EB188237EA1BD005B6252 /* GitHubViewerApollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB187237EA1BD005B6252 /* GitHubViewerApollo.swift */; };
 		375EB18A237EBFCE005B6252 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB189237EBFCE005B6252 /* Theme.swift */; };
-		375EB18C237ECE3E005B6252 /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB18B237ECE3E005B6252 /* AuthVC.swift */; };
+		375EB18C237ECE3E005B6252 /* AuthVCOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB18B237ECE3E005B6252 /* AuthVCOld.swift */; };
 		375EB192237EE0A9005B6252 /* SFCompactDisplay-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 375EB18D237ED256005B6252 /* SFCompactDisplay-Thin.otf */; };
 		375EB193237EE0AD005B6252 /* SFCompactRounded-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 375EB18E237ED289005B6252 /* SFCompactRounded-Thin.otf */; };
 		375EB194237EE0B0005B6252 /* SFProDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 375EB18F237ED2BD005B6252 /* SFProDisplay-Light.otf */; };
@@ -143,11 +144,12 @@
 		3702A15A238298CE006D9598 /* TitledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
 		3707CC8D2382D542008D2D3E /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		37446772237D728B00762EB8 /* Queries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Queries.graphql; sourceTree = "<group>"; };
+		3752AE5F2383EC5C00170C79 /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
 		375AB8A0237D863C007E390A /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		375EB185237EA072005B6252 /* GraphQLAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLAPI.swift; sourceTree = "<group>"; };
 		375EB187237EA1BD005B6252 /* GitHubViewerApollo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubViewerApollo.swift; sourceTree = "<group>"; };
 		375EB189237EBFCE005B6252 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		375EB18B237ECE3E005B6252 /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
+		375EB18B237ECE3E005B6252 /* AuthVCOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVCOld.swift; sourceTree = "<group>"; };
 		375EB18D237ED256005B6252 /* SFCompactDisplay-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactDisplay-Thin.otf"; sourceTree = "<group>"; };
 		375EB18E237ED289005B6252 /* SFCompactRounded-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFCompactRounded-Thin.otf"; sourceTree = "<group>"; };
 		375EB18F237ED2BD005B6252 /* SFProDisplay-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Light.otf"; sourceTree = "<group>"; };
@@ -403,7 +405,7 @@
 		377C216C237C1DD80046D4E8 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				377C216E237C1F240046D4E8 /* Authorization */,
+				377C216E237C1F240046D4E8 /* Authentication */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -420,13 +422,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		377C216E237C1F240046D4E8 /* Authorization */ = {
+		377C216E237C1F240046D4E8 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
 				377C216F237C1F5D0046D4E8 /* IntroVC.swift */,
-				375EB18B237ECE3E005B6252 /* AuthVC.swift */,
+				375EB18B237ECE3E005B6252 /* AuthVCOld.swift */,
+				3752AE5F2383EC5C00170C79 /* AuthVC.swift */,
 			);
-			path = Authorization;
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		377C2171237C23030046D4E8 /* Utilities */ = {
@@ -987,6 +990,7 @@
 				377C2208237C23640046D4E8 /* Literals.swift in Sources */,
 				377C21E3237C23640046D4E8 /* UINavigationController+ext.swift in Sources */,
 				377C220C237C23640046D4E8 /* Comparable+ext.swift in Sources */,
+				3752AE602383EC5C00170C79 /* AuthVC.swift in Sources */,
 				375EB19C237EEC2E005B6252 /* Buttons.swift in Sources */,
 				377C21D8237C23640046D4E8 /* PinnedHeaderFlowLayout.swift in Sources */,
 				377C21F6237C23640046D4E8 /* TouchInteraction.swift in Sources */,
@@ -1029,7 +1033,7 @@
 				377C21FD237C23640046D4E8 /* String+Extensions.swift in Sources */,
 				377C2200237C23640046D4E8 /* UIColor+Extensions.swift in Sources */,
 				377C221F237C23640046D4E8 /* String+ext.swift in Sources */,
-				375EB18C237ECE3E005B6252 /* AuthVC.swift in Sources */,
+				375EB18C237ECE3E005B6252 /* AuthVCOld.swift in Sources */,
 				377C21D7237C23640046D4E8 /* Toggler.swift in Sources */,
 				377C221C237C23640046D4E8 /* Haptic.swift in Sources */,
 				377C21E7237C23640046D4E8 /* UIImage+Gradient.swift in Sources */,
@@ -1203,6 +1207,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"GitHubViewer/Preview Content\"";
+				DEVELOPMENT_TEAM = 2KQUWKMD6T;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GitHubViewer/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1223,6 +1228,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"GitHubViewer/Preview Content\"";
+				DEVELOPMENT_TEAM = 2KQUWKMD6T;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = GitHubViewer/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

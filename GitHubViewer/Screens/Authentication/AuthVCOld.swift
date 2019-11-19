@@ -1,6 +1,6 @@
 import UIKit
 
-final class AuthVC: UIViewController {
+final class AuthVCOld: UIViewController {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +102,7 @@ final class AuthVC: UIViewController {
 }
 
 //MARK: - Actions
-extension AuthVC {
+extension AuthVCOld {
     private func findIssue() {
         GitHubViewerApollo.shared.client.fetch(query: FindIssueIdQuery()) { result in
             log("Result: \(result)")
@@ -115,7 +115,7 @@ extension AuthVC {
 }
 
 //MARK: - Theme
-extension AuthVC {
+extension AuthVCOld {
     enum Theme {
         // Fonts
         static let titleFont: UIFont = .cf(style: .compactDisplayThin, size: 23.0)
