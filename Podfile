@@ -5,6 +5,7 @@ use_frameworks!
 
 def shared_pods
   #Utilities
+  pod 'KeychainAccess'
 
   #Networking
   pod 'Apollo'
