@@ -137,6 +137,14 @@
 		377C2234237C38AA0046D4E8 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2233237C38AA0046D4E8 /* Global.swift */; };
 		377C2237237C39E50046D4E8 /* UIAlert+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */; };
 		37B82912238683A100E991D4 /* AuthNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B82911238683A100E991D4 /* AuthNavigationViewController.swift */; };
+		37B829172386BE6500E991D4 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829162386BE6500E991D4 /* TabBarView.swift */; };
+		37B829192386BEA000E991D4 /* ReposCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829182386BEA000E991D4 /* ReposCoordinator.swift */; };
+		37B8291B2386BEAC00E991D4 /* ReposVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B8291A2386BEAC00E991D4 /* ReposVC.swift */; };
+		37B8291D2386BECA00E991D4 /* PRCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B8291C2386BECA00E991D4 /* PRCoordinator.swift */; };
+		37B8291F2386BED400E991D4 /* PRVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B8291E2386BED400E991D4 /* PRVC.swift */; };
+		37B829212386BEE600E991D4 /* IssuesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829202386BEE600E991D4 /* IssuesCoordinator.swift */; };
+		37B829232386BEF900E991D4 /* IssuesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829222386BEF900E991D4 /* IssuesVC.swift */; };
+		37B829252386D0B500E991D4 /* UiView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829242386D0B500E991D4 /* UiView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -293,6 +301,14 @@
 		377C2233237C38AA0046D4E8 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlert+Extensions.swift"; sourceTree = "<group>"; };
 		37B82911238683A100E991D4 /* AuthNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigationViewController.swift; sourceTree = "<group>"; };
+		37B829162386BE6500E991D4 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		37B829182386BEA000E991D4 /* ReposCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposCoordinator.swift; sourceTree = "<group>"; };
+		37B8291A2386BEAC00E991D4 /* ReposVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposVC.swift; sourceTree = "<group>"; };
+		37B8291C2386BECA00E991D4 /* PRCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PRCoordinator.swift; sourceTree = "<group>"; };
+		37B8291E2386BED400E991D4 /* PRVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PRVC.swift; sourceTree = "<group>"; };
+		37B829202386BEE600E991D4 /* IssuesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesCoordinator.swift; sourceTree = "<group>"; };
+		37B829222386BEF900E991D4 /* IssuesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesVC.swift; sourceTree = "<group>"; };
+		37B829242386D0B500E991D4 /* UiView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UiView+Extension.swift"; sourceTree = "<group>"; };
 		B99CB3917DC37CF75D05357E /* Pods_GitHubViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitHubViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E44CD98BF8971AEBE0BB60 /* Pods-GitHubViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubViewer.release.xcconfig"; path = "Target Support Files/Pods-GitHubViewer/Pods-GitHubViewer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -348,6 +364,7 @@
 			children = (
 				373C58D9238588AC003F2BEB /* TabBarCoordinator.swift */,
 				373C58DB23858994003F2BEB /* TabBarViewController.swift */,
+				37B829162386BE6500E991D4 /* TabBarView.swift */,
 			);
 			path = TabBarController;
 			sourceTree = "<group>";
@@ -495,6 +512,9 @@
 			isa = PBXGroup;
 			children = (
 				377C216E237C1F240046D4E8 /* Authentication */,
+				37B829132386BE0000E991D4 /* Repositories */,
+				37B829142386BE1000E991D4 /* PullRequests */,
+				37B829152386BE2400E991D4 /* Issues */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -790,8 +810,36 @@
 			children = (
 				377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */,
 				3707CC8D2382D542008D2D3E /* UIStackView+Extension.swift */,
+				37B829242386D0B500E991D4 /* UiView+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		37B829132386BE0000E991D4 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				37B829182386BEA000E991D4 /* ReposCoordinator.swift */,
+				37B8291A2386BEAC00E991D4 /* ReposVC.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		37B829142386BE1000E991D4 /* PullRequests */ = {
+			isa = PBXGroup;
+			children = (
+				37B8291C2386BECA00E991D4 /* PRCoordinator.swift */,
+				37B8291E2386BED400E991D4 /* PRVC.swift */,
+			);
+			path = PullRequests;
+			sourceTree = "<group>";
+		};
+		37B829152386BE2400E991D4 /* Issues */ = {
+			isa = PBXGroup;
+			children = (
+				37B829202386BEE600E991D4 /* IssuesCoordinator.swift */,
+				37B829222386BEF900E991D4 /* IssuesVC.swift */,
+			);
+			path = Issues;
 			sourceTree = "<group>";
 		};
 		470AD1F98E747DF6EE71E0F8 /* Frameworks */ = {
@@ -1040,6 +1088,8 @@
 				377C2216237C23640046D4E8 /* Signal.swift in Sources */,
 				377C221E237C23640046D4E8 /* Random.swift in Sources */,
 				377C2218237C23640046D4E8 /* TransitioningDelegate.swift in Sources */,
+				37B829232386BEF900E991D4 /* IssuesVC.swift in Sources */,
+				37B8291D2386BECA00E991D4 /* PRCoordinator.swift in Sources */,
 				377C21F7237C23640046D4E8 /* KeyboardObserver.swift in Sources */,
 				377C21D5237C23640046D4E8 /* StringValidators.swift in Sources */,
 				377C21DC237C23640046D4E8 /* HorizontalAlignmentLayout.swift in Sources */,
@@ -1103,7 +1153,9 @@
 				373C58D123858064003F2BEB /* NavigationViewController.swift in Sources */,
 				373C58C823857072003F2BEB /* BaseCoordinator.swift in Sources */,
 				375EB19E237EEC92005B6252 /* Primitives.swift in Sources */,
+				37B8291B2386BEAC00E991D4 /* ReposVC.swift in Sources */,
 				377C2170237C1F5D0046D4E8 /* IntroVC.swift in Sources */,
+				37B829212386BEE600E991D4 /* IssuesCoordinator.swift in Sources */,
 				373C58C623857020003F2BEB /* RouterProtocol.swift in Sources */,
 				3752AE622384393900170C79 /* APIAccessTokenStorage.swift in Sources */,
 				377C21E6237C23640046D4E8 /* UIAlertController+ext.swift in Sources */,
@@ -1114,6 +1166,7 @@
 				377C21E8237C23640046D4E8 /* UIGestureRecognizer+ext.swift in Sources */,
 				377C220A237C23640046D4E8 /* SimpleError.swift in Sources */,
 				377C221B237C23640046D4E8 /* UIView+transitions.swift in Sources */,
+				37B829252386D0B500E991D4 /* UiView+Extension.swift in Sources */,
 				373C58C023853254003F2BEB /* Environment.swift in Sources */,
 				373C58C2238563E7003F2BEB /* AppCoordinator.swift in Sources */,
 				377C221A237C23640046D4E8 /* InteractiveDismiss.swift in Sources */,
@@ -1131,6 +1184,7 @@
 				377C21FE237C23640046D4E8 /* ScrollDismission.swift in Sources */,
 				377C2204237C23640046D4E8 /* NSAttributedString+Extensions.swift in Sources */,
 				377C21D9237C23640046D4E8 /* VerticalAlignmentLayout.swift in Sources */,
+				37B829172386BE6500E991D4 /* TabBarView.swift in Sources */,
 				377C21EA237C23640046D4E8 /* UIStackView+ext.swift in Sources */,
 				377C2213237C23640046D4E8 /* AssociatedObject.swift in Sources */,
 				377C21F2237C23640046D4E8 /* Display.swift in Sources */,
@@ -1143,9 +1197,11 @@
 				377C221F237C23640046D4E8 /* String+ext.swift in Sources */,
 				375EB18C237ECE3E005B6252 /* AuthVCOld.swift in Sources */,
 				377C21D7237C23640046D4E8 /* Toggler.swift in Sources */,
+				37B829192386BEA000E991D4 /* ReposCoordinator.swift in Sources */,
 				377C221C237C23640046D4E8 /* Haptic.swift in Sources */,
 				377C21E7237C23640046D4E8 /* UIImage+Gradient.swift in Sources */,
 				377C21DA237C23640046D4E8 /* SnappingFlowLayout.swift in Sources */,
+				37B8291F2386BED400E991D4 /* PRVC.swift in Sources */,
 				377C21E2237C23640046D4E8 /* UITextField+ext.swift in Sources */,
 				3702A15B238298CE006D9598 /* TitledTextField.swift in Sources */,
 			);

@@ -44,6 +44,21 @@ extension String {
     // Welcome
     static let welcome = String.tr("Localizable", "general.welcome")
   }
+
+  enum Issues {
+    // Issues
+    static let title = String.tr("Localizable", "issues.title")
+  }
+
+  enum Pr {
+    // Pull Requests
+    static let title = String.tr("Localizable", "pr.title")
+  }
+
+  enum Repos {
+    // Repositories
+    static let title = String.tr("Localizable", "repos.title")
+  }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name
 

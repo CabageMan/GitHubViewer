@@ -26,7 +26,7 @@ final class NavigationViewController: UINavigationController {
         delegate = nil
     }
     
-    func popToRootViewController(animated: Bool = true, completion: @escaping () -> Void) {
+    func popToRootViewController(animated: Bool = true, completion: (() -> Void)? = nil) {
         isPopedToRoot = true
         CATransaction.begin()
         CATransaction.setCompletionBlock(completion)

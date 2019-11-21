@@ -18,3 +18,12 @@
 "auth.privacy"              = "Privacy";
 "auth.security"             = "Security";
 "auth.contact_github"       = "Contact GitHub";
+
+//MARK: - Repositories
+"repos.title"   = "Repositories";
+
+//MARK: - Pull Requests
+"pr.title"  = "Pull Requests";
+
+//MARK: - Issues
+"issues.title"  = "Issues";
