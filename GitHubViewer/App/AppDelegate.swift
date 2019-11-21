@@ -14,13 +14,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.backgroundColor = .white
         return window
     }()
+    
+    private lazy var appCoordinator: AppCoordinator = {
+        return AppCoordinator(window: window!)
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let nc = UINavigationController(rootViewController: AuthVC())
-        nc.isNavigationBarHidden = true
-        window?.rootViewController = nc
-        window?.makeKeyAndVisible()
+//        let nc = UINavigationController(rootViewController: AuthVC())
+//        nc.isNavigationBarHidden = true
+//        window?.rootViewController = nc
+//        window?.makeKeyAndVisible()
+        appCoordinator.start()
         
         return true
     }

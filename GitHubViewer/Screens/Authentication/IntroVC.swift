@@ -10,6 +10,8 @@ final class IntroVC: UIViewController {
         }
     }
     
+    var completion: () -> Void = { }
+    
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +58,7 @@ final class IntroVC: UIViewController {
     
     //MARK: - Actions
     private func nextButtonTap() {
-        Global.showComingSoon()
+        completion()
     }
 }
 

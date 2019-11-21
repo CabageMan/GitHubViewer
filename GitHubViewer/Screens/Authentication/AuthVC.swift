@@ -3,7 +3,9 @@ import OAuthSwift
 
 final class AuthVC: UIViewController {
     
-    //MARK: - Life ycle
+    var userDidLogin: (AuthCoordinator.AuthResult) -> Void = { _ in }
+    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         

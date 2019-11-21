@@ -42,14 +42,22 @@ final class APIClient {
         accessToken = authToken
     }
     
+    func removeAccessToken() {
+        accessTokenStorage.clear()
+        accessToken = nil
+    }
+    
     func showLogin(in vc: UIViewController) {
         oauthSwift.allowMissingStateCheck = true
         oauthSwift.authorizeURLHandler = SafariURLHandler(viewController: vc, oauthSwift: oauthSwift)
-        oauthSwift.authorize(withCallbackURL: callBackURL, scope: "", state: "") { [weak self] result in
+        oauthSwift.authorize(withCallbackURL: callBackURL, scope: "", state: "") { [weak self, weak vc] result in
+            guard let authVC = vc as? AuthVC else { return }
             switch result {
             case .success(let (credential, response, parameters)):
                 self?.setAccessToken(credential.oauthToken)
+                authVC.userDidLogin(.success)
             case .failure(let error):
+                authVC.userDidLogin(.failure)
                 log("Error: \(error.localizedDescription)")
             }
         }

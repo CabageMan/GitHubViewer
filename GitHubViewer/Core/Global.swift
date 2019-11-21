@@ -8,8 +8,8 @@ struct Global {
     static let apiClient = createAPICLient(environment: Global.environment)
     
     static var isOnboardingComplete: Bool {
-        get { return false }
-        set {  }
+        get { return Storage.getValue(for: .isOnboardingComplete) ?? false }
+        set { Storage.set(value: newValue, for: .isOnboardingComplete) }
     }
     
     static private func createAPICLient(environment: Environment) -> APIClient {
