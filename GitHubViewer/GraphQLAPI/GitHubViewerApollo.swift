@@ -5,6 +5,6 @@ class GitHubViewerApollo {
   let client: ApolloClient
 
   init() {
-    client = ApolloClient(url: URL(string: "https://api.github.com/graphql")!)
+    client = ApolloClient(url: Global.apiClient.baseURL)
   }
 }

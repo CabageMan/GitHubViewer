@@ -1,7 +1,21 @@
 import UIKit
+import KeychainAccess
 
 struct Global {
     //MARK: - Static Properties
+    static var environment: Environment = .staging
+    
+    static let apiClient = createAPICLient(environment: Global.environment)
+    
+    static var isOnboardingComplete: Bool {
+        get { return Storage.getValue(for: .isOnboardingComplete) ?? false }
+        set { Storage.set(value: newValue, for: .isOnboardingComplete) }
+    }
+    
+    static private func createAPICLient(environment: Environment) -> APIClient {
+        let keyChain = Keychain(service: environment.baseURL.absoluteString)
+        return APIClient(environment: environment, accessTokenStorage: AccessTokenStorage(keyChain))
+    }
     
     //MARK: - Alert Messages
     static func showCustomMessage(message: String) {
