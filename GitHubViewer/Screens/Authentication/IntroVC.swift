@@ -2,29 +2,17 @@ import UIKit
 
 final class IntroVC: UIViewController {
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        if #available(iOS 13.0, *) {
-            return .darkContent
-        } else {
-            return .default
-        }
-    }
-    
     var completion: () -> Void = { }
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .mainBackground
         setup()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
     private func setup() {
+        view.backgroundColor = .mainBackground
+        
         let logo = UIImageView().add(to: view).then {
             $0.centerInSuperview()
             $0.size(CGSize(Theme.imageSide))
@@ -67,12 +55,10 @@ extension IntroVC {
     enum Theme {
         // Fonts
         static let titleFont: UIFont = .cf(style: .compactDisplayThin, size: 30.0)
-        // Colors
         
         // Sizes
         static let imageSide: CGFloat = UIScreen.main.bounds.width
         static let titleHeight: CGFloat = 75.0
-        static let nextButtonWidth: CGFloat = 137.0
         
         // Offsets
         static let buttonSideOffset: CGFloat = 90.0
