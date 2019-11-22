@@ -29,7 +29,8 @@ final class ReposVC: UIViewController {
     }
     
     private func getRepositories() {
-        GitHubViewerApollo.shared.client.fetch(query: GetOwnUserQuery()) { result in
+        let order = RepositoryOrder(field: .createdAt, direction: .desc)
+        GitHubViewerApollo.shared.client.fetch(query: GetOwnUserQuery(order: order, numberOfRepositories: 20)) { result in
             log("Result: \(result)")
         }
     }

@@ -136,6 +136,8 @@
 		377C2232237C36700046D4E8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2231237C36700046D4E8 /* Fonts.swift */; };
 		377C2234237C38AA0046D4E8 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2233237C38AA0046D4E8 /* Global.swift */; };
 		377C2237237C39E50046D4E8 /* UIAlert+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */; };
+		37A80ADC238816AB00BA2496 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADB238816AB00BA2496 /* User.swift */; };
+		37A80ADE2388174E00BA2496 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADD2388174E00BA2496 /* Repository.swift */; };
 		37AD89572387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */; };
 		37B82912238683A100E991D4 /* AuthNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B82911238683A100E991D4 /* AuthNavigationViewController.swift */; };
 		37B829172386BE6500E991D4 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829162386BE6500E991D4 /* TabBarView.swift */; };
@@ -301,6 +303,8 @@
 		377C2231237C36700046D4E8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		377C2233237C38AA0046D4E8 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlert+Extensions.swift"; sourceTree = "<group>"; };
+		37A80ADB238816AB00BA2496 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		37A80ADD2388174E00BA2496 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
 		37B82911238683A100E991D4 /* AuthNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigationViewController.swift; sourceTree = "<group>"; };
 		37B829162386BE6500E991D4 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -394,6 +398,7 @@
 		3744676E237D56C900762EB8 /* GraphQLAPI */ = {
 			isa = PBXGroup;
 			children = (
+				37A80ADA2388167700BA2496 /* Models */,
 				373C58BD23851FA0003F2BEB /* APIClient.swift */,
 				3752AE612384393900170C79 /* APIAccessTokenStorage.swift */,
 				375EB187237EA1BD005B6252 /* GitHubViewerApollo.swift */,
@@ -818,6 +823,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		37A80ADA2388167700BA2496 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				37A80ADB238816AB00BA2496 /* User.swift */,
+				37A80ADD2388174E00BA2496 /* Repository.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		37B829132386BE0000E991D4 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -1173,6 +1187,7 @@
 				37B829252386D0B500E991D4 /* UiView+Extensions.swift in Sources */,
 				373C58C023853254003F2BEB /* Environment.swift in Sources */,
 				373C58C2238563E7003F2BEB /* AppCoordinator.swift in Sources */,
+				37A80ADE2388174E00BA2496 /* Repository.swift in Sources */,
 				377C221A237C23640046D4E8 /* InteractiveDismiss.swift in Sources */,
 				377C21FC237C23640046D4E8 /* Optional+ext.swift in Sources */,
 				373C58BE23851FA0003F2BEB /* APIClient.swift in Sources */,
@@ -1195,6 +1210,7 @@
 				377C221D237C23640046D4E8 /* Hapticable.swift in Sources */,
 				373C58BC238515D6003F2BEB /* Storage.swift in Sources */,
 				377C21EF237C23640046D4E8 /* UIView+ext.swift in Sources */,
+				37A80ADC238816AB00BA2496 /* User.swift in Sources */,
 				377C2217237C23640046D4E8 /* AlphaTransition.swift in Sources */,
 				377C21FD237C23640046D4E8 /* String+Extensions.swift in Sources */,
 				377C2200237C23640046D4E8 /* UIColor+Extensions.swift in Sources */,

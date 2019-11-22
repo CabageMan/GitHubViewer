@@ -1,7 +1,16 @@
+#QUERIES
 # Get Own User
-query GetOwnUser {
+query GetOwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
     viewer {
         name
         login
+        repositories(last:$numberOfRepositories orderBy:$order) {
+            totalCount
+            nodes {
+                name
+                id
+                createdAt
+            }
+        }
     }
 }
