@@ -394,12 +394,12 @@
 		3744676E237D56C900762EB8 /* GraphQLAPI */ = {
 			isa = PBXGroup;
 			children = (
+				373C58BD23851FA0003F2BEB /* APIClient.swift */,
+				3752AE612384393900170C79 /* APIAccessTokenStorage.swift */,
 				375EB187237EA1BD005B6252 /* GitHubViewerApollo.swift */,
 				37446772237D728B00762EB8 /* Queries.graphql */,
 				375AB8A0237D863C007E390A /* schema.json */,
 				375EB185237EA072005B6252 /* GraphQLAPI.swift */,
-				3752AE612384393900170C79 /* APIAccessTokenStorage.swift */,
-				373C58BD23851FA0003F2BEB /* APIClient.swift */,
 			);
 			path = GraphQLAPI;
 			sourceTree = "<group>";

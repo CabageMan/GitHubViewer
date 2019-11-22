@@ -104,9 +104,9 @@ final class AuthVCOld: UIViewController {
 //MARK: - Actions
 extension AuthVCOld {
     private func findIssue() {
-        GitHubViewerApollo.shared.client.fetch(query: FindIssueIdQuery()) { result in
-            log("Result: \(result)")
-        }
+//        GitHubViewerApollo.shared.client.fetch(query: FindIssueIdQuery()) { result in
+//            log("Result: \(result)")
+//        }
     }
     
     private func onCreateAccountTap() {

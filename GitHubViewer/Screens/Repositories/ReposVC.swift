@@ -13,6 +13,7 @@ final class ReposVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        getRepositories()
     }
     
     private func setupUI() {
@@ -25,5 +26,11 @@ final class ReposVC: UIViewController {
     //MARK: - Actions
     private func menuTapped() {
         Global.showComingSoon()
+    }
+    
+    private func getRepositories() {
+        GitHubViewerApollo.shared.client.fetch(query: GetOwnUserQuery()) { result in
+            log("Result: \(result)")
+        }
     }
 }
