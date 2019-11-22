@@ -25,6 +25,10 @@ extension UIColor {
 }
 
 //MARK: - Sizes
+extension CGSize {
+    static let barButton: CGSize = CGSize(44.0, 44.0)
+}
+
 extension CGFloat {
     // Common
     static let defaultCornerRadius: CGFloat = 5.0

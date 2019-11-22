@@ -9,9 +9,9 @@ final class TabBarView: UIView {
         
         var normalImage: UIImage? {
             switch self {
-            case .repositories: return #imageLiteral(resourceName: "repository")
-            case .pullRequests: return #imageLiteral(resourceName: "pullRequest")
-            case .issues: return #imageLiteral(resourceName: "issue")
+            case .repositories: return #imageLiteral(resourceName: "repository15")
+            case .pullRequests: return #imageLiteral(resourceName: "pullRequest15")
+            case .issues: return #imageLiteral(resourceName: "issue15")
             }
         }
         
@@ -32,6 +32,9 @@ final class TabBarView: UIView {
         private let imageView: UIImageView
         private let selectedImageView: UIImageView
         private let titleLabel: UILabel
+        private var imageVerticalConstraint: NSLayoutConstraint!
+        private var selectedImageVerticalConstraint: NSLayoutConstraint!
+        private var titleBottomConstraint: NSLayoutConstraint!
         
         init(tab: Tab) {
             self.tab = tab
@@ -49,35 +52,41 @@ final class TabBarView: UIView {
         private func setup() {
             imageView.add(to: self).do {
                 $0.centerXToSuperview()
-                $0.centerYToSuperview(offset: -Theme.tabBarItemPadding)
+                imageVerticalConstraint = $0.centerYToSuperview(offset: -Theme.tabBarItemPadding)
             }
             
             selectedImageView.add(to: self).do {
                 $0.centerXToSuperview()
-                $0.centerYToSuperview(offset: -Theme.tabBarItemPadding)
+                selectedImageVerticalConstraint = $0.centerYToSuperview(offset: -Theme.tabBarItemPadding)
                 $0.tintColor = .selectedFieldBorder
                 $0.alpha = 0
             }
             
             titleLabel.add(to: self).do {
                 $0.centerXToSuperview()
-                $0.bottomToSuperview(offset: -Theme.tabBarItemPadding)
+                titleBottomConstraint = $0.bottomToSuperview(offset: -Theme.tabBarItemPadding)
                 $0.font = Theme.itemNormalFont
                 $0.textColor = .darkCoal
             }
         }
         
         //MARK: - Tab Bar Item Actions
+        #warning("Fix text blinking during animation")
         func setSelected(_ selected: Bool) {
             DispatchQueue.main.async { [weak self] in
-                self?.titleLabel.fadeTransition(duration: Theme.selectingAnimationDuration)
-                self?.titleLabel.textColor = selected ? .selectedFieldBorder : .darkCoal
-                self?.titleLabel.font = selected ? Theme.itemSelectedFont : Theme.itemNormalFont
+                guard let self = self else { return }
+                self.titleLabel.fadeTransition(duration: Theme.selectingAnimationDuration)
+                self.titleLabel.textColor = selected ? .selectedFieldBorder : .darkCoal
+                self.titleLabel.font = selected ? Theme.itemSelectedFont : Theme.itemNormalFont
+                let padding = selected ? -Theme.tabBarItemSelectedPadding : -Theme.tabBarItemPadding
+                self.imageVerticalConstraint.constant = padding
+                self.selectedImageVerticalConstraint.constant = padding
+                self.titleBottomConstraint.constant = padding
                 
-                #warning("Add moving image to top animation")
                 UIView.animate(withDuration: Theme.selectingAnimationDuration) {
-                    self?.imageView.alpha = selected ? 0 : 1
-                    self?.selectedImageView.alpha = selected ? 1 : 0
+                    self.imageView.alpha = selected ? 0 : 1
+                    self.selectedImageView.alpha = selected ? 1 : 0
+                    self.layoutIfNeeded()
                 }
             }
         }
@@ -102,7 +111,7 @@ final class TabBarView: UIView {
     
     //MARK: - Acctions
     private func setupUI() {
-        backgroundColor = .textGray
+        backgroundColor = .white
         
         let container = UIView().add(to: self).then {
             $0.edgesToSuperview(excluding: .bottom)
@@ -146,6 +155,7 @@ extension TabBarView {
         
         // Offsets
         static let tabBarItemPadding: CGFloat = 5.0
+        static let tabBarItemSelectedPadding: CGFloat = 13.0
         
         // Timing
         static let selectingAnimationDuration: TimeInterval = 0.2

@@ -4,20 +4,17 @@ final class NavigationViewController: UINavigationController {
     var isPopedToRoot = false
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        if #available(iOS 13.0, *) {
-            return .darkContent
-        } else {
-            return .default
-        }
+        return .lightContent
     }
     
     override func viewDidLoad() {
         view.backgroundColor = .mainBackground
         navigationBar.do {
             $0.isTranslucent = false
-            $0.tintColor = .white
             $0.shadowImage = UIImage()
+            $0.tintColor = .white
             $0.barTintColor = .barBlack
+            $0.titleTextAttributes = [.foregroundColor: UIColor.white]
         }
         delegate = self
     }
