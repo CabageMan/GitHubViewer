@@ -10,6 +10,8 @@
 		261AA21CA3B03502701C2B0F /* Pods_GitHubViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B99CB3917DC37CF75D05357E /* Pods_GitHubViewer.framework */; };
 		3702A15B238298CE006D9598 /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702A15A238298CE006D9598 /* TitledTextField.swift */; };
 		3707CC8E2382D542008D2D3E /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3707CC8D2382D542008D2D3E /* UIStackView+Extensions.swift */; };
+		372D9662238C1206006BE68B /* ReposDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D9661238C1206006BE68B /* ReposDetailsVC.swift */; };
+		372D9665238C161E006BE68B /* ReposDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D9664238C161E006BE68B /* ReposDetailsCoordinator.swift */; };
 		373C58BC238515D6003F2BEB /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BB238515D6003F2BEB /* Storage.swift */; };
 		373C58BE23851FA0003F2BEB /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BD23851FA0003F2BEB /* APIClient.swift */; };
 		373C58C023853254003F2BEB /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BF23853254003F2BEB /* Environment.swift */; };
@@ -173,6 +175,8 @@
 		33FD2CB0A93D3482F510EAA6 /* Pods-GitHubViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubViewer.debug.xcconfig"; path = "Target Support Files/Pods-GitHubViewer/Pods-GitHubViewer.debug.xcconfig"; sourceTree = "<group>"; };
 		3702A15A238298CE006D9598 /* TitledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
 		3707CC8D2382D542008D2D3E /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
+		372D9661238C1206006BE68B /* ReposDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposDetailsVC.swift; sourceTree = "<group>"; };
+		372D9664238C161E006BE68B /* ReposDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposDetailsCoordinator.swift; sourceTree = "<group>"; };
 		373C58BB238515D6003F2BEB /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		373C58BD23851FA0003F2BEB /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		373C58BF23853254003F2BEB /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -349,6 +353,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		372D9663238C15EA006BE68B /* RepositoryDetails */ = {
+			isa = PBXGroup;
+			children = (
+				372D9664238C161E006BE68B /* ReposDetailsCoordinator.swift */,
+				372D9661238C1206006BE68B /* ReposDetailsVC.swift */,
+			);
+			path = RepositoryDetails;
+			sourceTree = "<group>";
+		};
 		373C58C423856FA1003F2BEB /* Routing */ = {
 			isa = PBXGroup;
 			children = (
@@ -524,6 +537,7 @@
 			children = (
 				377C216E237C1F240046D4E8 /* Authentication */,
 				37B829132386BE0000E991D4 /* Repositories */,
+				372D9663238C15EA006BE68B /* RepositoryDetails */,
 				37B829142386BE1000E991D4 /* PullRequests */,
 				37B829152386BE2400E991D4 /* Issues */,
 			);
@@ -1189,12 +1203,14 @@
 				377C21F5237C23640046D4E8 /* GradientView.swift in Sources */,
 				377C2208237C23640046D4E8 /* Literals.swift in Sources */,
 				377C21E3237C23640046D4E8 /* UINavigationController+ext.swift in Sources */,
+				372D9662238C1206006BE68B /* ReposDetailsVC.swift in Sources */,
 				373C58D8238585FF003F2BEB /* NavigationDismissionAC.swift in Sources */,
 				377C220C237C23640046D4E8 /* Comparable+ext.swift in Sources */,
 				3752AE602383EC5C00170C79 /* AuthVC.swift in Sources */,
 				375EB19C237EEC2E005B6252 /* Buttons.swift in Sources */,
 				377C21D8237C23640046D4E8 /* PinnedHeaderFlowLayout.swift in Sources */,
 				37C41C6F238BC58A00AB06D4 /* RepositoriesCollection.swift in Sources */,
+				372D9665238C161E006BE68B /* ReposDetailsCoordinator.swift in Sources */,
 				377C21F6237C23640046D4E8 /* TouchInteraction.swift in Sources */,
 				377C21D6237C23640046D4E8 /* ValidatableView.swift in Sources */,
 				3707CC8E2382D542008D2D3E /* UIStackView+Extensions.swift in Sources */,

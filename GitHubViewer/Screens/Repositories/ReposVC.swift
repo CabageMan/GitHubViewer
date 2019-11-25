@@ -4,6 +4,8 @@ final class ReposVC: UIViewController {
     
     private let collection = RepositoriesCollection()
     
+    var onReposCellTap: (Repository) -> Void = { _ in }
+    
     //MARK: - Life Cycle
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -21,7 +23,7 @@ final class ReposVC: UIViewController {
     private func setupUI() {
         view.backgroundColor = .mainBackground
         
-        let menuButtonItem = UIBarButtonItem.rightButton(image: #imageLiteral(resourceName: "menu20")) { [weak self] in self?.menuTapped() }
+        let menuButtonItem = UIBarButtonItem.rightButton(image: #imageLiteral(resourceName: "menu20")) { [weak self] in self?.onMenuButtonTap() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
         collection.collectionView.add(to: view).do {
@@ -30,7 +32,7 @@ final class ReposVC: UIViewController {
     }
     
     //MARK: - Actions
-    private func menuTapped() {
+    private func onMenuButtonTap() {
         Global.showComingSoon()
     }
     
@@ -43,6 +45,7 @@ final class ReposVC: UIViewController {
                 Global.apiClient.ownUser = User(user: viewer)
                 if let repositories = Global.apiClient.ownUser?.repositories {
                     self?.collection.items = repositories
+                    self?.collection.onCellTap = { [weak self] repo in self?.onReposCellTap(repo) }
                 }
             case .failure(let error):
                 log("Error: \(error.localizedDescription)")

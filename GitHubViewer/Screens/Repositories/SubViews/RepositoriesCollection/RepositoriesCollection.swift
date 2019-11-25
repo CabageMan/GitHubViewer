@@ -8,6 +8,8 @@ final class RepositoriesCollection: NSObject {
         didSet { collectionView.reloadData() }
     }
     
+    var onCellTap: (Repository) -> Void = { _ in }
+    
     //MARK: - Initializers
     override init() {
         super.init()
@@ -39,6 +41,10 @@ extension RepositoriesCollection: UICollectionViewDataSource {
 extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: Theme.cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        onCellTap(items[indexPath.row])
     }
 }
 
