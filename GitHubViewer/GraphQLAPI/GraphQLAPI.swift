@@ -136,11 +136,11 @@ public enum OrderDirection: RawRepresentable, Equatable, Hashable, CaseIterable,
   }
 }
 
-public final class GetOwnUserQuery: GraphQLQuery {
+public final class OwnUserQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
-    query GetOwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
+    query OwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
       viewer {
         __typename
         name
@@ -150,16 +150,16 @@ public final class GetOwnUserQuery: GraphQLQuery {
           totalCount
           nodes {
             __typename
-            name
-            id
-            createdAt
+            ...RepositoriesListFragment
           }
         }
       }
     }
     """
 
-  public let operationName = "GetOwnUser"
+  public let operationName = "OwnUser"
+
+  public var queryDocument: String { return operationDefinition.appending(RepositoriesListFragment.fragmentDefinition) }
 
   public var order: RepositoryOrder
   public var numberOfRepositories: Int
@@ -312,9 +312,7 @@ public final class GetOwnUserQuery: GraphQLQuery {
 
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("name", type: .nonNull(.scalar(String.self))),
-            GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-            GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+            GraphQLFragmentSpread(RepositoriesListFragment.self),
           ]
 
           public private(set) var resultMap: ResultMap
@@ -323,8 +321,8 @@ public final class GetOwnUserQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(name: String, id: GraphQLID, createdAt: String) {
-            self.init(unsafeResultMap: ["__typename": "Repository", "name": name, "id": id, "createdAt": createdAt])
+          public init(id: GraphQLID, name: String, createdAt: String, isPrivate: Bool, isFork: Bool) {
+            self.init(unsafeResultMap: ["__typename": "Repository", "id": id, "name": name, "createdAt": createdAt, "isPrivate": isPrivate, "isFork": isFork])
           }
 
           public var __typename: String {
@@ -336,36 +334,127 @@ public final class GetOwnUserQuery: GraphQLQuery {
             }
           }
 
-          /// The name of the repository.
-          public var name: String {
+          public var fragments: Fragments {
             get {
-              return resultMap["name"]! as! String
+              return Fragments(unsafeResultMap: resultMap)
             }
             set {
-              resultMap.updateValue(newValue, forKey: "name")
+              resultMap += newValue.resultMap
             }
           }
 
-          public var id: GraphQLID {
-            get {
-              return resultMap["id"]! as! GraphQLID
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "id")
-            }
-          }
+          public struct Fragments {
+            public private(set) var resultMap: ResultMap
 
-          /// Identifies the date and time when the object was created.
-          public var createdAt: String {
-            get {
-              return resultMap["createdAt"]! as! String
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
             }
-            set {
-              resultMap.updateValue(newValue, forKey: "createdAt")
+
+            public var repositoriesListFragment: RepositoriesListFragment {
+              get {
+                return RepositoriesListFragment(unsafeResultMap: resultMap)
+              }
+              set {
+                resultMap += newValue.resultMap
+              }
             }
           }
         }
       }
+    }
+  }
+}
+
+public struct RepositoriesListFragment: GraphQLFragment {
+  /// The raw GraphQL definition of this fragment.
+  public static let fragmentDefinition =
+    """
+    fragment RepositoriesListFragment on Repository {
+      __typename
+      id
+      name
+      createdAt
+      isPrivate
+      isFork
+    }
+    """
+
+  public static let possibleTypes = ["Repository"]
+
+  public static let selections: [GraphQLSelection] = [
+    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+    GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("name", type: .nonNull(.scalar(String.self))),
+    GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+    GraphQLField("isPrivate", type: .nonNull(.scalar(Bool.self))),
+    GraphQLField("isFork", type: .nonNull(.scalar(Bool.self))),
+  ]
+
+  public private(set) var resultMap: ResultMap
+
+  public init(unsafeResultMap: ResultMap) {
+    self.resultMap = unsafeResultMap
+  }
+
+  public init(id: GraphQLID, name: String, createdAt: String, isPrivate: Bool, isFork: Bool) {
+    self.init(unsafeResultMap: ["__typename": "Repository", "id": id, "name": name, "createdAt": createdAt, "isPrivate": isPrivate, "isFork": isFork])
+  }
+
+  public var __typename: String {
+    get {
+      return resultMap["__typename"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  public var id: GraphQLID {
+    get {
+      return resultMap["id"]! as! GraphQLID
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  /// The name of the repository.
+  public var name: String {
+    get {
+      return resultMap["name"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "name")
+    }
+  }
+
+  /// Identifies the date and time when the object was created.
+  public var createdAt: String {
+    get {
+      return resultMap["createdAt"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "createdAt")
+    }
+  }
+
+  /// Identifies if the repository is private.
+  public var isPrivate: Bool {
+    get {
+      return resultMap["isPrivate"]! as! Bool
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "isPrivate")
+    }
+  }
+
+  /// Identifies if the repository is a fork.
+  public var isFork: Bool {
+    get {
+      return resultMap["isFork"]! as! Bool
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "isFork")
     }
   }
 }

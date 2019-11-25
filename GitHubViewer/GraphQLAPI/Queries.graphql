@@ -1,15 +1,22 @@
-#QUERIES
+# Fragments
+fragment RepositoriesListFragment on Repository {
+    id
+    name
+    createdAt
+    isPrivate
+    isFork
+}
+
+# QUERIES
 # Get Own User
-query GetOwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
+query OwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
     viewer {
         name
         login
         repositories(last:$numberOfRepositories orderBy:$order) {
             totalCount
             nodes {
-                name
-                id
-                createdAt
+                ...RepositoriesListFragment
             }
         }
     }

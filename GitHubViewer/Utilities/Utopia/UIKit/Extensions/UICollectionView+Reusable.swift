@@ -1,6 +1,10 @@
 import UIKit
 
 public extension UICollectionView {
+    
+  convenience init(layout: UICollectionViewFlowLayout) {
+    self.init(frame: .zero, collectionViewLayout: layout)
+  }
 
   func registerCell<T: UICollectionViewCell>(
     _ type: T.Type,

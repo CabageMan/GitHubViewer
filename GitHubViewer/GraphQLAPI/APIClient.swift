@@ -14,6 +14,10 @@ final class APIClient {
         didSet { accessTokenDidChange?(accessToken) }
     }
     
+    var ownUser: User? {
+        didSet { log("User is setted: \(ownUser)") }
+    }
+    
     var isLoggedIn: Bool {
         return accessToken != nil
     }

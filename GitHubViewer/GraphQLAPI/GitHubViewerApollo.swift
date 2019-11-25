@@ -20,7 +20,7 @@ extension GitHubViewerApollo: HTTPNetworkTransportPreflightDelegate {
     }
 }
 
-//MARK: -Retry Delegate
+//MARK: - Retry Delegate
 extension GitHubViewerApollo: HTTPNetworkTransportRetryDelegate {
     func networkTransport(_ networkTransport: HTTPNetworkTransport, receivedError error: Error, for request: URLRequest, response: URLResponse?, retryHandler: @escaping (Bool) -> Void) {
         // Here we have to implement request retry functionality, including refresh auth token.
