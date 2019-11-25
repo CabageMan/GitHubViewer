@@ -17,7 +17,7 @@ final class IntroVC: UIViewController {
             $0.centerInSuperview()
             $0.size(CGSize(Theme.imageSide))
             
-            $0.image = #imageLiteral(resourceName: "OctoCat")
+            $0.image = #imageLiteral(resourceName: "OctoCatColored")
             $0.contentMode = .scaleAspectFit
         }
         

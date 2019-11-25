@@ -16,17 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OctoCat" translatesAutoresizingMaskIntoConstraints="NO" id="mFA-t7-Gi5">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OctoCatColored" translatesAutoresizingMaskIntoConstraints="NO" id="mFA-t7-Gi5">
+                                <rect key="frame" x="5" y="0.0" width="404" height="896"/>
                                 <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="mFA-t7-Gi5" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Xmd-GM-sXL"/>
+                            <constraint firstItem="mFA-t7-Gi5" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="5" id="Xmd-GM-sXL"/>
                             <constraint firstItem="mFA-t7-Gi5" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="d3p-6s-Dkf"/>
                             <constraint firstAttribute="bottom" secondItem="mFA-t7-Gi5" secondAttribute="bottom" id="fWl-uE-njN"/>
-                            <constraint firstAttribute="trailing" secondItem="mFA-t7-Gi5" secondAttribute="trailing" id="fzm-5n-xji"/>
+                            <constraint firstAttribute="trailing" secondItem="mFA-t7-Gi5" secondAttribute="trailing" constant="5" id="fzm-5n-xji"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -37,6 +37,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="OctoCat" width="1024" height="1024"/>
+        <image name="OctoCatColored" width="929" height="928"/>
     </resources>
 </document>
