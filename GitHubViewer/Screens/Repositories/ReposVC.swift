@@ -4,6 +4,9 @@ final class ReposVC: UIViewController {
     
     private let collection = RepositoriesCollection()
     
+    private let viewModel = ReposVM()
+    private let keyBoardObserver = KeyboardObserver()
+    
     var onReposCellTap: (Repository) -> Void = { _ in }
     
     //MARK: - Life Cycle
@@ -17,7 +20,8 @@ final class ReposVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        getRepositories()
+        setupViewModel()
+        viewModel.getOwnUser()
     }
     
     private func setupUI() {
@@ -28,28 +32,22 @@ final class ReposVC: UIViewController {
         
         collection.collectionView.add(to: view).do {
             $0.edgesToSuperview()
+            $0.keyboardDismissMode = .onDrag
+        }
+        collection.onCellTap = { [weak self] repo in
+            self?.collection.headerView?.searchField.textField.resignFirstResponder()
+            self?.onReposCellTap(repo)
+        }
+    }
+    
+    private func setupViewModel() {
+        viewModel.ownerHasBeenFetched = { [weak self] repositories in
+            self?.collection.items = repositories
         }
     }
     
     //MARK: - Actions
     private func onMenuButtonTap() {
         Global.showComingSoon()
-    }
-    
-    private func getRepositories() {
-        let order = RepositoryOrder(field: .createdAt, direction: .desc)
-        GitHubViewerApollo.shared.client.fetch(query: OwnUserQuery(order: order, numberOfRepositories: 30)) { [weak self] response in
-            switch response {
-            case .success(let result):
-                guard let viewer = result.data?.viewer else { return }
-                Global.apiClient.ownUser = User(user: viewer)
-                if let repositories = Global.apiClient.ownUser?.repositories {
-                    self?.collection.items = repositories
-                    self?.collection.onCellTap = { [weak self] repo in self?.onReposCellTap(repo) }
-                }
-            case .failure(let error):
-                log("Error: \(error.localizedDescription)")
-            }
-        }
     }
 }

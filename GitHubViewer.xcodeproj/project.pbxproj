@@ -29,6 +29,8 @@
 		3743F457238D1A8100C54A0A /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743F456238D1A8100C54A0A /* ProfileCoordinator.swift */; };
 		3743F459238D1A8C00C54A0A /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743F458238D1A8C00C54A0A /* ProfileVC.swift */; };
 		3743F45E238D213400C54A0A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743F45D238D213400C54A0A /* UIColor+Extension.swift */; };
+		3743F460238D4F4F00C54A0A /* ReposVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743F45F238D4F4F00C54A0A /* ReposVM.swift */; };
+		3743F462238D552300C54A0A /* RepositoryCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743F461238D552300C54A0A /* RepositoryCollectionHeader.swift */; };
 		37446773237D728B00762EB8 /* Queries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 37446772237D728B00762EB8 /* Queries.graphql */; };
 		3752AE602383EC5C00170C79 /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3752AE5F2383EC5C00170C79 /* AuthVC.swift */; };
 		3752AE622384393900170C79 /* APIAccessTokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3752AE612384393900170C79 /* APIAccessTokenStorage.swift */; };
@@ -197,6 +199,8 @@
 		3743F456238D1A8100C54A0A /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		3743F458238D1A8C00C54A0A /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		3743F45D238D213400C54A0A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		3743F45F238D4F4F00C54A0A /* ReposVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposVM.swift; sourceTree = "<group>"; };
+		3743F461238D552300C54A0A /* RepositoryCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCollectionHeader.swift; sourceTree = "<group>"; };
 		37446772237D728B00762EB8 /* Queries.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Queries.graphql; sourceTree = "<group>"; };
 		3752AE5F2383EC5C00170C79 /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
 		3752AE612384393900170C79 /* APIAccessTokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIAccessTokenStorage.swift; sourceTree = "<group>"; };
@@ -872,6 +876,7 @@
 			children = (
 				37B829182386BEA000E991D4 /* ReposCoordinator.swift */,
 				37B8291A2386BEAC00E991D4 /* ReposVC.swift */,
+				3743F45F238D4F4F00C54A0A /* ReposVM.swift */,
 				37C41C6C238BC54F00AB06D4 /* SubViews */,
 			);
 			path = Repositories;
@@ -924,6 +929,7 @@
 		37C41C73238BC9BE00AB06D4 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				3743F461238D552300C54A0A /* RepositoryCollectionHeader.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -1186,6 +1192,7 @@
 				377C2205237C23640046D4E8 /* Reachability.swift in Sources */,
 				377C21E0237C23640046D4E8 /* UIButton+layout.swift in Sources */,
 				377C2220237C23640046D4E8 /* Collections+ext.swift in Sources */,
+				3743F462238D552300C54A0A /* RepositoryCollectionHeader.swift in Sources */,
 				377C2202237C23640046D4E8 /* Result.swift in Sources */,
 				377C21F9237C23640046D4E8 /* TouchRecognizer.swift in Sources */,
 				377C2201237C23640046D4E8 /* Associated.swift in Sources */,
@@ -1211,6 +1218,7 @@
 				377C21F1237C23640046D4E8 /* GestureRecognizerDelegate.swift in Sources */,
 				377C21D4237C23640046D4E8 /* Validation.swift in Sources */,
 				377C21EB237C23640046D4E8 /* CoreAnimation+ext.swift in Sources */,
+				3743F460238D4F4F00C54A0A /* ReposVM.swift in Sources */,
 				377C2209237C23640046D4E8 /* AsyncOperation.swift in Sources */,
 				3752AE6423843BD900170C79 /* AccessTokenStorage.swift in Sources */,
 				377C21FA237C23640046D4E8 /* Math.swift in Sources */,

@@ -61,6 +61,8 @@ extension String {
   }
 
   enum Repos {
+    // Find a repository...
+    static let findRepository = String.tr("Localizable", "repos.findRepository")
     // Repositories
     static let title = String.tr("Localizable", "repos.title")
   }

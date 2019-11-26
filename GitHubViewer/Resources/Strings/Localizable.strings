@@ -20,7 +20,8 @@
 "auth.contact_github"       = "Contact GitHub";
 
 //MARK: - Repositories
-"repos.title"   = "Repositories";
+"repos.title"           = "Repositories";
+"repos.findRepository"  = "Find a repository...";
 
 //MARK: - Pull Requests
 "pr.title"  = "Pull Requests";
