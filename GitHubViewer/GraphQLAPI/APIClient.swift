@@ -15,7 +15,7 @@ final class APIClient {
     }
     
     var ownUser: User? {
-        didSet { log("User is setted: \(ownUser)") }
+        didSet { ownUserDidChange?() }
     }
     
     var isLoggedIn: Bool {
@@ -23,6 +23,7 @@ final class APIClient {
     }
     
     var accessTokenDidChange: ((AccessToken?) -> Void)? = nil
+    var ownUserDidChange: (() -> Void)? = nil
     
     //MARK: - Initializers
     init(environment: Environment, accessTokenStorage: AccessTokenStorage) {

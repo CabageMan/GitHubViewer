@@ -321,10 +321,6 @@ public final class OwnUserQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(id: GraphQLID, name: String, createdAt: String, isPrivate: Bool, isFork: Bool) {
-            self.init(unsafeResultMap: ["__typename": "Repository", "id": id, "name": name, "createdAt": createdAt, "isPrivate": isPrivate, "isFork": isFork])
-          }
-
           public var __typename: String {
             get {
               return resultMap["__typename"]! as! String
@@ -365,6 +361,294 @@ public final class OwnUserQuery: GraphQLQuery {
   }
 }
 
+public final class RepositoryDetailsQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition =
+    """
+    query RepositoryDetails($ownerName: String!, $repositoryName: String!) {
+      repository(owner: $ownerName, name: $repositoryName) {
+        __typename
+        assignableUsers(first: 13) {
+          __typename
+          nodes {
+            __typename
+            name
+          }
+        }
+        pushedAt
+        resourcePath
+        url
+        updatedAt
+        forkCount
+        parent {
+          __typename
+          name
+        }
+      }
+    }
+    """
+
+  public let operationName = "RepositoryDetails"
+
+  public var ownerName: String
+  public var repositoryName: String
+
+  public init(ownerName: String, repositoryName: String) {
+    self.ownerName = ownerName
+    self.repositoryName = repositoryName
+  }
+
+  public var variables: GraphQLMap? {
+    return ["ownerName": ownerName, "repositoryName": repositoryName]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("repository", arguments: ["owner": GraphQLVariable("ownerName"), "name": GraphQLVariable("repositoryName")], type: .object(Repository.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(repository: Repository? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "repository": repository.flatMap { (value: Repository) -> ResultMap in value.resultMap }])
+    }
+
+    /// Lookup a given repository by the owner and repository name.
+    public var repository: Repository? {
+      get {
+        return (resultMap["repository"] as? ResultMap).flatMap { Repository(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "repository")
+      }
+    }
+
+    public struct Repository: GraphQLSelectionSet {
+      public static let possibleTypes = ["Repository"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("assignableUsers", arguments: ["first": 13], type: .nonNull(.object(AssignableUser.selections))),
+        GraphQLField("pushedAt", type: .scalar(String.self)),
+        GraphQLField("resourcePath", type: .nonNull(.scalar(String.self))),
+        GraphQLField("url", type: .nonNull(.scalar(String.self))),
+        GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+        GraphQLField("forkCount", type: .nonNull(.scalar(Int.self))),
+        GraphQLField("parent", type: .object(Parent.selections)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(assignableUsers: AssignableUser, pushedAt: String? = nil, resourcePath: String, url: String, updatedAt: String, forkCount: Int, parent: Parent? = nil) {
+        self.init(unsafeResultMap: ["__typename": "Repository", "assignableUsers": assignableUsers.resultMap, "pushedAt": pushedAt, "resourcePath": resourcePath, "url": url, "updatedAt": updatedAt, "forkCount": forkCount, "parent": parent.flatMap { (value: Parent) -> ResultMap in value.resultMap }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// A list of users that can be assigned to issues in this repository.
+      public var assignableUsers: AssignableUser {
+        get {
+          return AssignableUser(unsafeResultMap: resultMap["assignableUsers"]! as! ResultMap)
+        }
+        set {
+          resultMap.updateValue(newValue.resultMap, forKey: "assignableUsers")
+        }
+      }
+
+      /// Identifies when the repository was last pushed to.
+      public var pushedAt: String? {
+        get {
+          return resultMap["pushedAt"] as? String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "pushedAt")
+        }
+      }
+
+      /// The HTTP path for this repository
+      public var resourcePath: String {
+        get {
+          return resultMap["resourcePath"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "resourcePath")
+        }
+      }
+
+      /// The HTTP URL for this repository
+      public var url: String {
+        get {
+          return resultMap["url"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "url")
+        }
+      }
+
+      /// Identifies the date and time when the object was last updated.
+      public var updatedAt: String {
+        get {
+          return resultMap["updatedAt"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "updatedAt")
+        }
+      }
+
+      /// Returns how many forks there are of this repository in the whole network.
+      public var forkCount: Int {
+        get {
+          return resultMap["forkCount"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "forkCount")
+        }
+      }
+
+      /// The repository parent, if this is a fork.
+      public var parent: Parent? {
+        get {
+          return (resultMap["parent"] as? ResultMap).flatMap { Parent(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "parent")
+        }
+      }
+
+      public struct AssignableUser: GraphQLSelectionSet {
+        public static let possibleTypes = ["UserConnection"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("nodes", type: .list(.object(Node.selections))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(nodes: [Node?]? = nil) {
+          self.init(unsafeResultMap: ["__typename": "UserConnection", "nodes": nodes.flatMap { (value: [Node?]) -> [ResultMap?] in value.map { (value: Node?) -> ResultMap? in value.flatMap { (value: Node) -> ResultMap in value.resultMap } } }])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// A list of nodes.
+        public var nodes: [Node?]? {
+          get {
+            return (resultMap["nodes"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Node?] in value.map { (value: ResultMap?) -> Node? in value.flatMap { (value: ResultMap) -> Node in Node(unsafeResultMap: value) } } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [Node?]) -> [ResultMap?] in value.map { (value: Node?) -> ResultMap? in value.flatMap { (value: Node) -> ResultMap in value.resultMap } } }, forKey: "nodes")
+          }
+        }
+
+        public struct Node: GraphQLSelectionSet {
+          public static let possibleTypes = ["User"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("name", type: .scalar(String.self)),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(name: String? = nil) {
+            self.init(unsafeResultMap: ["__typename": "User", "name": name])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// The user's public profile name.
+          public var name: String? {
+            get {
+              return resultMap["name"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "name")
+            }
+          }
+        }
+      }
+
+      public struct Parent: GraphQLSelectionSet {
+        public static let possibleTypes = ["Repository"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("name", type: .nonNull(.scalar(String.self))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(name: String) {
+          self.init(unsafeResultMap: ["__typename": "Repository", "name": name])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The name of the repository.
+        public var name: String {
+          get {
+            return resultMap["name"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+      }
+    }
+  }
+}
+
 public struct RepositoriesListFragment: GraphQLFragment {
   /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
@@ -376,6 +660,12 @@ public struct RepositoriesListFragment: GraphQLFragment {
       createdAt
       isPrivate
       isFork
+      description
+      primaryLanguage {
+        __typename
+        name
+        color
+      }
     }
     """
 
@@ -388,6 +678,8 @@ public struct RepositoriesListFragment: GraphQLFragment {
     GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
     GraphQLField("isPrivate", type: .nonNull(.scalar(Bool.self))),
     GraphQLField("isFork", type: .nonNull(.scalar(Bool.self))),
+    GraphQLField("description", type: .scalar(String.self)),
+    GraphQLField("primaryLanguage", type: .object(PrimaryLanguage.selections)),
   ]
 
   public private(set) var resultMap: ResultMap
@@ -396,8 +688,8 @@ public struct RepositoriesListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, name: String, createdAt: String, isPrivate: Bool, isFork: Bool) {
-    self.init(unsafeResultMap: ["__typename": "Repository", "id": id, "name": name, "createdAt": createdAt, "isPrivate": isPrivate, "isFork": isFork])
+  public init(id: GraphQLID, name: String, createdAt: String, isPrivate: Bool, isFork: Bool, description: String? = nil, primaryLanguage: PrimaryLanguage? = nil) {
+    self.init(unsafeResultMap: ["__typename": "Repository", "id": id, "name": name, "createdAt": createdAt, "isPrivate": isPrivate, "isFork": isFork, "description": description, "primaryLanguage": primaryLanguage.flatMap { (value: PrimaryLanguage) -> ResultMap in value.resultMap }])
   }
 
   public var __typename: String {
@@ -455,6 +747,75 @@ public struct RepositoriesListFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "isFork")
+    }
+  }
+
+  /// The description of the repository.
+  public var description: String? {
+    get {
+      return resultMap["description"] as? String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "description")
+    }
+  }
+
+  /// The primary language of the repository's code.
+  public var primaryLanguage: PrimaryLanguage? {
+    get {
+      return (resultMap["primaryLanguage"] as? ResultMap).flatMap { PrimaryLanguage(unsafeResultMap: $0) }
+    }
+    set {
+      resultMap.updateValue(newValue?.resultMap, forKey: "primaryLanguage")
+    }
+  }
+
+  public struct PrimaryLanguage: GraphQLSelectionSet {
+    public static let possibleTypes = ["Language"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("name", type: .nonNull(.scalar(String.self))),
+      GraphQLField("color", type: .scalar(String.self)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(name: String, color: String? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Language", "name": name, "color": color])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// The name of the current language.
+    public var name: String {
+      get {
+        return resultMap["name"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "name")
+      }
+    }
+
+    /// The color defined for the current language.
+    public var color: String? {
+      get {
+        return resultMap["color"] as? String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "color")
+      }
     }
   }
 }

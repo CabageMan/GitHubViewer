@@ -39,8 +39,9 @@ extension RepositoriesCollection: UICollectionViewDataSource {
 
 //MARK: - Collection Delegate Methods
 extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: Theme.cellHeight)
+        return CGSize(width: collectionView.bounds.width - Theme.cellSideOffset, height: Theme.cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -48,7 +49,7 @@ extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollecti
     }
 }
 
-//MARK: - UIScrollView Delefate Methods
+//MARK: - UIScrollView Delegate Methods
 extension RepositoriesCollection {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         log("Scroll Position: \(scrollView.contentOffset.y)")
@@ -59,6 +60,9 @@ extension RepositoriesCollection {
 extension RepositoriesCollection {
     enum Theme {
         // Sizes
-        static let cellHeight: CGFloat = 50.0
+        static let cellHeight: CGFloat = 97.0
+        
+        // Offsets
+        static let cellSideOffset: CGFloat = 36.0
     }
 }

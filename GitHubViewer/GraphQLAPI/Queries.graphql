@@ -1,13 +1,21 @@
-# Fragments
+# FRAGMENTS
+
+# Repository Fragment
 fragment RepositoriesListFragment on Repository {
     id
     name
     createdAt
     isPrivate
     isFork
+    description
+    primaryLanguage {
+      name
+      color
+    }
 }
 
 # QUERIES
+
 # Get Own User
 query OwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
     viewer {
@@ -18,6 +26,25 @@ query OwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
             nodes {
                 ...RepositoriesListFragment
             }
+        }
+    }
+}
+
+# Get Repository Details
+query RepositoryDetails($ownerName: String!, $repositoryName: String!) {
+    repository(owner:$ownerName name:$repositoryName) {
+        assignableUsers(first:13) {
+            nodes {
+                name
+            }
+        }
+        pushedAt
+        resourcePath
+        url
+        updatedAt
+        forkCount
+        parent {
+          name
         }
     }
 }
