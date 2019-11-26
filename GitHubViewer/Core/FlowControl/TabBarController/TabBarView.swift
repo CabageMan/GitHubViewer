@@ -9,9 +9,9 @@ final class TabBarView: UIView {
         
         var normalImage: UIImage? {
             switch self {
-            case .repositories: return #imageLiteral(resourceName: "repository15")
-            case .pullRequests: return #imageLiteral(resourceName: "pullRequest15")
-            case .issues: return #imageLiteral(resourceName: "issue15")
+            case .repositories: return #imageLiteral(resourceName: "repositoryBlack20")
+            case .pullRequests: return #imageLiteral(resourceName: "pullRequest20")
+            case .issues: return #imageLiteral(resourceName: "issue20")
             }
         }
         

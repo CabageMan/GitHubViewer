@@ -8,7 +8,7 @@ final class NavigationViewController: UINavigationController {
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = .mainBackground
+        view.backgroundColor = .barBlack
         navigationBar.do {
             $0.isTranslucent = false
             $0.shadowImage = UIImage()

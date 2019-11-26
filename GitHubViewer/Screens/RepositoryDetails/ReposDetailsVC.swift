@@ -21,10 +21,10 @@ final class ReposDetailsVC: UIViewController {
     private func setupUI() {
         view.backgroundColor = .mainBackground
         
-        let backButton = UIBarButtonItem.back(action: { [weak self] in self?.onBackButtonTap() })
+        let backButton = UIBarButtonItem.back { [weak self] in self?.onBackButtonTap() }
         navigationItem.setLeftBarButton(backButton, animated: false)
         
-        let menuButtonItem = UIBarButtonItem.rightButton(image: #imageLiteral(resourceName: "menu20")) { [weak self] in self?.onMenuButtonTap() }
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
     }
     
@@ -34,6 +34,6 @@ final class ReposDetailsVC: UIViewController {
     }
     
     private func onMenuButtonTap() {
-        
+        Global.showComingSoon()
     }
 }

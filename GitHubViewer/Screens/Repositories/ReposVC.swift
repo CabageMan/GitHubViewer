@@ -23,7 +23,7 @@ final class ReposVC: UIViewController {
     private func setupUI() {
         view.backgroundColor = .mainBackground
         
-        let menuButtonItem = UIBarButtonItem.rightButton(image: #imageLiteral(resourceName: "menu20")) { [weak self] in self?.onMenuButtonTap() }
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
         collection.collectionView.add(to: view).do {

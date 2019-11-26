@@ -3,7 +3,7 @@ import UIKit
 extension UIBarButtonItem {
     
     static func back(action: @escaping () -> Void) -> UIBarButtonItem {
-        let image: UIImage = #imageLiteral(resourceName: "back16").withRenderingMode(.alwaysTemplate)
+        let image: UIImage = #imageLiteral(resourceName: "back20").withRenderingMode(.alwaysTemplate)
         let button = UIButton(type: .system).then {
             $0.size(CGSize.barButton)
             $0.imageEdgeInsets.left = 0
@@ -13,6 +13,10 @@ extension UIBarButtonItem {
             $0.addTarget(for: .touchUpInside) { action() }
         }
         return UIBarButtonItem(customView: button)
+    }
+    
+    static func menu(action: @escaping () -> Void) -> UIBarButtonItem {
+        return rightButton(image: #imageLiteral(resourceName: "menu20"), action: action)
     }
     
     static func rightButton(image: UIImage, action: @escaping () -> Void) -> UIBarButtonItem {
