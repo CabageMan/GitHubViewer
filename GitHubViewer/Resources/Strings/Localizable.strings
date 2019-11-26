@@ -27,3 +27,6 @@
 
 //MARK: - Issues
 "issues.title"  = "Issues";
+
+//MARK: - Profile
+"profile.title" = "Profile";

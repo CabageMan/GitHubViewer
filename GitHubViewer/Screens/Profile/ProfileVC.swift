@@ -1,9 +1,29 @@
-//
-//  ProfileVC.swift
-//  GitHubViewer
-//
-//  Created by ViktorB on 26/11/2019.
-//  Copyright © 2019 Ramotion. All rights reserved.
-//
+import UIKit
 
-import Foundation
+final class ProfileVC: UIViewController {
+    
+    //MARK: - Life Cycle
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        title = String.Profile.title
+    }
+    
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+    }
+    
+    private func setupUI() {
+        view.backgroundColor = .mainBackground
+        
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.menuTapped() }
+        navigationItem.setRightBarButton(menuButtonItem, animated: false)
+    }
+    
+    //MARK: - Actions
+    private func menuTapped() {
+        Global.showComingSoon()
+    }
+}

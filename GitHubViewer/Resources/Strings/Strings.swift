@@ -55,6 +55,11 @@ extension String {
     static let title = String.tr("Localizable", "pr.title")
   }
 
+  enum Profile {
+    // Profile
+    static let title = String.tr("Localizable", "profile.title")
+  }
+
   enum Repos {
     // Repositories
     static let title = String.tr("Localizable", "repos.title")
