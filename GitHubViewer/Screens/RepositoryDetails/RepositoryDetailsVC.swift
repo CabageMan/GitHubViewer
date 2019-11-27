@@ -2,10 +2,13 @@ import UIKit
 
 final class RepositoryDetailsVC: UIViewController {
     
+    var ownerLogin: String
     var repository: Repository
+    private let viewModel = RepositoryDetailsVM()
     
     //MARK: - Life Cycle
-    init(repository: Repository) {
+    init(ownerLogin: String, repository: Repository) {
+        self.ownerLogin = ownerLogin
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
         title = repository.name
@@ -16,6 +19,8 @@ final class RepositoryDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupViewModel()
+        viewModel.getRepositoryInfo()
     }
     
     private func setupUI() {
@@ -26,6 +31,12 @@ final class RepositoryDetailsVC: UIViewController {
         
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
+    }
+    
+    private func setupViewModel() {
+        viewModel.repositoryOwnerLogin = ownerLogin
+        viewModel.repository = repository
+        viewModel.repositoryHasBeenFetched = { details in log("Repository: \(details)") }
     }
     
     //MARK: - Actions

@@ -14,6 +14,23 @@ fragment RepositoriesListFragment on Repository {
     }
 }
 
+# Repository Details Fragment
+fragment RepositoryDetailsFragment on Repository {
+    pushedAt
+    resourcePath
+    url
+    updatedAt
+    forkCount
+    parent {
+      name
+    }
+    assignableUsers(first:13) {
+        nodes {
+            name
+        }
+    }
+}
+
 # QUERIES
 
 # Get Own User
@@ -31,20 +48,8 @@ query OwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
 }
 
 # Get Repository Details
-query RepositoryDetails($ownerName: String!, $repositoryName: String!) {
-    repository(owner:$ownerName name:$repositoryName) {
-        assignableUsers(first:13) {
-            nodes {
-                name
-            }
-        }
-        pushedAt
-        resourcePath
-        url
-        updatedAt
-        forkCount
-        parent {
-          name
-        }
+query RepositoryDetails($ownerLogin: String!, $repositoryName: String!) {
+    repository(owner:$ownerLogin name:$repositoryName) {
+        ...RepositoryDetailsFragment
     }
 }

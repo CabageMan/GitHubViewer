@@ -12,10 +12,12 @@ final class RepositoryDetailsCoordinator: Coordinator {
     private var navigationController: NavigationViewController
     private var reposDetailsVC: RepositoryDetailsVC?
     
+    private var repositoryOwnerLogin: String
     private var repository: Repository
     
-    init(presenter: NavigationViewController = NavigationViewController(), repository: Repository) {
+    init(presenter: NavigationViewController = NavigationViewController(), owner: String, repository: Repository) {
         self.navigationController = presenter
+        self.repositoryOwnerLogin = owner
         self.repository = repository
         super.init()
     }
@@ -26,7 +28,7 @@ final class RepositoryDetailsCoordinator: Coordinator {
     }
     
     private func showRepositoryDetails() {
-        let controller = RepositoryDetailsVC(repository: repository)
+        let controller = RepositoryDetailsVC(ownerLogin: repositoryOwnerLogin, repository: repository)
         navigationController.pushViewController(controller, animated: true)
         reposDetailsVC = controller
     }

@@ -34,7 +34,8 @@ final class RepositoriesCoordinator: Coordinator {
     }
     
     private func runRepositoryDetailsFlow(deepLink: RepositoryDetailsCoordinator.DeepLink? = nil, repository: Repository) {
-        let coordinator = RepositoryDetailsCoordinator(presenter: navigationController, repository: repository)
+        guard let ownUser = Global.apiClient.ownUser else { return }
+        let coordinator = RepositoryDetailsCoordinator(presenter: navigationController, owner: ownUser.login, repository: repository)
         coordinator.start(deepLink: deepLink)
         reposDetailsCoordinator = coordinator
     }

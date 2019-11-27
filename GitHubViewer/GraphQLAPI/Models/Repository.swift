@@ -5,7 +5,7 @@ struct Repository {
     let name: String
     let createdAt: String
     var isPrivate: Bool
-    var isFork: Bool
+    let isFork: Bool
     var description: String?
     var primaryLanguage: RepositoriesListFragment.PrimaryLanguage?
     

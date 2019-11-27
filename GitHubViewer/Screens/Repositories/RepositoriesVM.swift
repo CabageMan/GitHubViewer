@@ -15,7 +15,7 @@ final class RepositoriesVM {
                     self?.ownerHasBeenFetched(repositories)
                 }
             case .failure(let error):
-                log("Error: \(error.localizedDescription)")
+                log("Error fetching own user: \(error.localizedDescription)")
             }
         }
     }
