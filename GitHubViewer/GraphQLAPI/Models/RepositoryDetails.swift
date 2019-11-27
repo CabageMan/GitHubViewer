@@ -2,8 +2,8 @@ import Foundation
 
 struct RepositoryDetails {
     let repository: Repository
-    var pushedAt: String?
-    var updatedAt: String
+    var pushedAt: Date?
+    var updatedAt: Date?
     let resourcePath: String
     let url: String
     let forkCount: Int
@@ -11,8 +11,10 @@ struct RepositoryDetails {
     
     init(repo: Repository, details: RepositoryDetailsFragment) {
         self.repository = repo
-        self.pushedAt = details.pushedAt
-        self.updatedAt = details.updatedAt
+        if let pushedAtString = details.pushedAt {
+            self.pushedAt = ISO8601DateFormatter().date(from: pushedAtString)
+        }
+        self.updatedAt = ISO8601DateFormatter().date(from: details.updatedAt)
         self.resourcePath = details.resourcePath
         self.url = details.url
         self.forkCount = details.forkCount

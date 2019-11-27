@@ -20,8 +20,16 @@
 "auth.contact_github"       = "Contact GitHub";
 
 //MARK: - Repositories
-"repos.title"           = "Repositories";
-"repos.findRepository"  = "Find a repository...";
+"repos.title"               = "Repositories";
+"repos.findRepository"      = "Find a repository...";
+"repos.repositoryDetails"   = "Repository Details";
+"repos.createdAt"           = "Created At";
+"repos.pushedAt"            = "Pushed At";
+"repos.updatedAt"           = "Updated At";
+"repos.descriprion"         = "Description";
+"repos.url"                 = "URL:";
+"repos.forkCount"           = "Forrk Count";
+"repos.parent"              = "Parent";
 
 //MARK: - Pull Requests
 "pr.title"  = "Pull Requests";

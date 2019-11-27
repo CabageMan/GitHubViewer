@@ -38,6 +38,7 @@ query OwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
     viewer {
         name
         login
+        avatarUrl
         repositories(last:$numberOfRepositories orderBy:$order) {
             totalCount
             nodes {

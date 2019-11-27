@@ -61,10 +61,26 @@ extension String {
   }
 
   enum Repos {
+    // Created At
+    static let createdAt = String.tr("Localizable", "repos.createdAt")
+    // Description
+    static let descriprion = String.tr("Localizable", "repos.descriprion")
     // Find a repository...
     static let findRepository = String.tr("Localizable", "repos.findRepository")
+    // Forrk Count
+    static let forkCount = String.tr("Localizable", "repos.forkCount")
+    // Parent
+    static let parent = String.tr("Localizable", "repos.parent")
+    // Pushed At
+    static let pushedAt = String.tr("Localizable", "repos.pushedAt")
+    // Repository Details
+    static let repositoryDetails = String.tr("Localizable", "repos.repositoryDetails")
     // Repositories
     static let title = String.tr("Localizable", "repos.title")
+    // Updated At
+    static let updatedAt = String.tr("Localizable", "repos.updatedAt")
+    // URL:
+    static let url = String.tr("Localizable", "repos.url")
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name

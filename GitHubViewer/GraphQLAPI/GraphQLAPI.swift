@@ -145,6 +145,7 @@ public final class OwnUserQuery: GraphQLQuery {
         __typename
         name
         login
+        avatarUrl
         repositories(last: $numberOfRepositories, orderBy: $order) {
           __typename
           totalCount
@@ -207,6 +208,7 @@ public final class OwnUserQuery: GraphQLQuery {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("name", type: .scalar(String.self)),
         GraphQLField("login", type: .nonNull(.scalar(String.self))),
+        GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
         GraphQLField("repositories", arguments: ["last": GraphQLVariable("numberOfRepositories"), "orderBy": GraphQLVariable("order")], type: .nonNull(.object(Repository.selections))),
       ]
 
@@ -216,8 +218,8 @@ public final class OwnUserQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String? = nil, login: String, repositories: Repository) {
-        self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "repositories": repositories.resultMap])
+      public init(name: String? = nil, login: String, avatarUrl: String, repositories: Repository) {
+        self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl, "repositories": repositories.resultMap])
       }
 
       public var __typename: String {
@@ -246,6 +248,16 @@ public final class OwnUserQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "login")
+        }
+      }
+
+      /// A URL pointing to the user's public avatar.
+      public var avatarUrl: String {
+        get {
+          return resultMap["avatarUrl"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "avatarUrl")
         }
       }
 

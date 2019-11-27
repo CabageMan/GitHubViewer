@@ -6,6 +6,8 @@ final class RepositoryDetailsVC: UIViewController {
     var repository: Repository
     private let viewModel = RepositoryDetailsVM()
     
+    private var container = ScrollableStack()
+    
     //MARK: - Life Cycle
     init(ownerLogin: String, repository: Repository) {
         self.ownerLogin = ownerLogin
@@ -31,15 +33,45 @@ final class RepositoryDetailsVC: UIViewController {
         
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
+        
+        container.add(to: view).do {
+            $0.edgesToSuperview()
+        }
     }
     
     private func setupViewModel() {
         viewModel.repositoryOwnerLogin = ownerLogin
         viewModel.repository = repository
-        viewModel.repositoryHasBeenFetched = { details in log("Repository: \(details)") }
+        viewModel.repositoryHasBeenFetched = { [weak self] details in self?.setupDetails(details) }
     }
     
     //MARK: - Actions
+    private func setupDetails(_ details: RepositoryDetails) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd hh:mm"
+        var createdAt = ""
+        var updatedAt = ""
+        var pushedAt = ""
+        if let date = details.repository.createdAt {
+            createdAt = formatter.string(from: date)
+        }
+        if let date = details.pushedAt {
+            pushedAt = formatter.string(from: date)
+        }
+        if let date = details.updatedAt {
+            updatedAt = formatter.string(from: date)
+        }
+        
+        let infoItems = [
+            DetailsCardView.InfoItem(title: String.Repos.createdAt, details: createdAt),
+            DetailsCardView.InfoItem(title: String.Repos.updatedAt, details: updatedAt),
+            DetailsCardView.InfoItem(title: String.Repos.pushedAt, details: pushedAt),
+            DetailsCardView.InfoItem(title: String.Repos.descriprion, details: details.repository.description ?? "")
+        ]
+        
+        DetailsCardView(title: String.Repos.repositoryDetails, infoItems: infoItems).add(toStackContainer: container)
+    }
+    
     private func onBackButtonTap() {
         dismiss()
     }
