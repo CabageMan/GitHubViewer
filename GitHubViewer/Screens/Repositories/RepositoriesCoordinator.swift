@@ -1,6 +1,6 @@
 import UIKit
 
-final class ReposCoordinator: Coordinator {
+final class RepositoriesCoordinator: Coordinator {
     
     enum DeepLink {
         
@@ -10,9 +10,9 @@ final class ReposCoordinator: Coordinator {
         return navigationController
     }
     private var navigationController: NavigationViewController
-    private var reposVC: ReposVC?
+    private var reposVC: RepositoriesVC?
     
-    private var reposDetailsCoordinator: ReposDetailsCoordinator?
+    private var reposDetailsCoordinator: RepositoryDetailsCoordinator?
     
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
@@ -20,12 +20,12 @@ final class ReposCoordinator: Coordinator {
     }
     
     //MARK: - Actions
-    func start(deepLink: ReposCoordinator.DeepLink? = nil) {
+    func start(deepLink: RepositoriesCoordinator.DeepLink? = nil) {
         showReposVC()
     }
     
     private func showReposVC() {
-        let controller = ReposVC()
+        let controller = RepositoriesVC()
         controller.onReposCellTap = { [weak self] repository in
             self?.runRepositoryDetailsFlow(repository: repository)
         }
@@ -33,8 +33,8 @@ final class ReposCoordinator: Coordinator {
         reposVC = controller
     }
     
-    private func runRepositoryDetailsFlow(deepLink: ReposDetailsCoordinator.DeepLink? = nil, repository: Repository) {
-        let coordinator = ReposDetailsCoordinator(presenter: navigationController, repository: repository)
+    private func runRepositoryDetailsFlow(deepLink: RepositoryDetailsCoordinator.DeepLink? = nil, repository: Repository) {
+        let coordinator = RepositoryDetailsCoordinator(presenter: navigationController, repository: repository)
         coordinator.start(deepLink: deepLink)
         reposDetailsCoordinator = coordinator
     }

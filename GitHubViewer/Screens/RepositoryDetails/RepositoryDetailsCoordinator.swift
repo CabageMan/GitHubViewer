@@ -1,6 +1,6 @@
 import UIKit
 
-final class ReposDetailsCoordinator: Coordinator {
+final class RepositoryDetailsCoordinator: Coordinator {
     
     enum DeepLink {
         
@@ -10,7 +10,7 @@ final class ReposDetailsCoordinator: Coordinator {
         return navigationController
     }
     private var navigationController: NavigationViewController
-    private var reposDetailsVC: ReposDetailsVC?
+    private var reposDetailsVC: RepositoryDetailsVC?
     
     private var repository: Repository
     
@@ -21,12 +21,12 @@ final class ReposDetailsCoordinator: Coordinator {
     }
     
     //MARK: - Actions
-    func start(deepLink: ReposDetailsCoordinator.DeepLink?) {
+    func start(deepLink: RepositoryDetailsCoordinator.DeepLink?) {
         showRepositoryDetails()
     }
     
     private func showRepositoryDetails() {
-        let controller = ReposDetailsVC(repository: repository)
+        let controller = RepositoryDetailsVC(repository: repository)
         navigationController.pushViewController(controller, animated: true)
         reposDetailsVC = controller
     }

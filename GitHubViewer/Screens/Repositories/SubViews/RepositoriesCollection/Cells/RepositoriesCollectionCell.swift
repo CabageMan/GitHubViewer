@@ -1,6 +1,6 @@
 import UIKit
 
-final class RepositoryCollectionCell: UICollectionViewCell {
+final class RepositoriesCollectionCell: UICollectionViewCell {
     
     private let container = UIView()
     private let statusImageView = UIImageView()
@@ -114,7 +114,7 @@ final class RepositoryCollectionCell: UICollectionViewCell {
 }
 
 //MARK: - Theme
-extension RepositoryCollectionCell {
+extension RepositoriesCollectionCell {
     enum Theme {
         // Fonts
         static let nameLabelFont: UIFont = .circular(style: .book, size: 16.0)
@@ -122,7 +122,6 @@ extension RepositoryCollectionCell {
         static let languageLabelFont: UIFont = .circular(style: .medium, size: 10.0)
         
         // Sizes
-//        static let containerHeight: CGFloat = 97.0
         static let statusImageSize: CGSize = CGSize(30.0)
         static let colorViewSize: CGSize = CGSize(15.0)
         static let languageLabelHeight: CGFloat = 15.0

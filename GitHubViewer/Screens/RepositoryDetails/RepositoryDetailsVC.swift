@@ -1,6 +1,6 @@
 import UIKit
 
-final class ReposDetailsVC: UIViewController {
+final class RepositoryDetailsVC: UIViewController {
     
     var repository: Repository
     

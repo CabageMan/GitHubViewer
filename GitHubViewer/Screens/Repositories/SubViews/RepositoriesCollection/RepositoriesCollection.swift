@@ -10,7 +10,7 @@ final class RepositoriesCollection: NSObject {
         }
         return UICollectionView(layout: layout)
     }()
-    var headerView: RepositoryCollectionHeader?
+    var headerView: RepositoriesCollectionHeader?
     
     var items: [Repository] = [] {
         didSet { collectionView.reloadData() }
@@ -25,8 +25,8 @@ final class RepositoriesCollection: NSObject {
         collectionView.do {
             $0.dataSource = self
             $0.delegate = self
-            $0.registerCell(RepositoryCollectionCell.self)
-            $0.registerHeader(RepositoryCollectionHeader.self)
+            $0.registerCell(RepositoriesCollectionCell.self)
+            $0.registerHeader(RepositoriesCollectionHeader.self)
             $0.alwaysBounceVertical = true
             $0.backgroundColor = .clear
             $0.scrollIndicatorInsets.top = Theme.headerHeight
@@ -42,7 +42,7 @@ extension RepositoriesCollection: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: RepositoryCollectionCell = collectionView.dequeueCell(for: indexPath)
+        let cell: RepositoriesCollectionCell = collectionView.dequeueCell(for: indexPath)
         cell.configure(with: items[indexPath.row])
         
         return cell
@@ -51,7 +51,7 @@ extension RepositoriesCollection: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            let header: RepositoryCollectionHeader = collectionView.dequeueHeader(for: indexPath)
+            let header: RepositoriesCollectionHeader = collectionView.dequeueHeader(for: indexPath)
             headerView = header
             return header
         default:

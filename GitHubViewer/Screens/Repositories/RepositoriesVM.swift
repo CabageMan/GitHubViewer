@@ -1,6 +1,6 @@
 import Foundation
 
-final class ReposVM {
+final class RepositoriesVM {
     
     var ownerHasBeenFetched: ([Repository]) -> Void = { _ in }
     

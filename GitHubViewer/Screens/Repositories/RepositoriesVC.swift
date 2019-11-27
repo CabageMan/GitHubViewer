@@ -1,10 +1,10 @@
 import UIKit
 
-final class ReposVC: UIViewController {
+final class RepositoriesVC: UIViewController {
     
     private let collection = RepositoriesCollection()
     
-    private let viewModel = ReposVM()
+    private let viewModel = RepositoriesVM()
     private let keyBoardObserver = KeyboardObserver()
     
     var onReposCellTap: (Repository) -> Void = { _ in }

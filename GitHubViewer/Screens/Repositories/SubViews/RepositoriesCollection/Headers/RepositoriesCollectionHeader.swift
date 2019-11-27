@@ -1,6 +1,6 @@
 import UIKit
 
-final class RepositoryCollectionHeader: UICollectionReusableView {
+final class RepositoriesCollectionHeader: UICollectionReusableView {
     
     let searchField = TitledTextField.createRepoSearchField()
     private let container = UIView()
@@ -15,7 +15,7 @@ final class RepositoryCollectionHeader: UICollectionReusableView {
         super.init(coder: aDecoder)
         setup()
     }
-    #warning("Finish Header. Add new collection layout.")
+    
     private func setup() {
         dropShadow()
         
@@ -38,7 +38,7 @@ final class RepositoryCollectionHeader: UICollectionReusableView {
 }
 
 //MARK: - Theme
-extension RepositoryCollectionHeader {
+extension RepositoriesCollectionHeader {
     enum Theme {
         // Sizes
         static let containerHeight: CGFloat = 97.0
