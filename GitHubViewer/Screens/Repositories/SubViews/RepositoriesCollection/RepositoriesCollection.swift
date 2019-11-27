@@ -2,7 +2,14 @@ import UIKit
 
 final class RepositoriesCollection: NSObject {
     
-    let collectionView = UICollectionView(layout: UICollectionViewFlowLayout())
+    var collectionView: UICollectionView = {
+        let layout = PinToTopFlowLayout(headerHeight: Theme.headerHeight).then {
+            $0.minimumLineSpacing = 15.0
+            $0.minimumInteritemSpacing = 0
+            $0.scrollDirection = .vertical
+        }
+        return UICollectionView(layout: layout)
+    }()
     var headerView: RepositoryCollectionHeader?
     
     var items: [Repository] = [] {
@@ -22,6 +29,7 @@ final class RepositoriesCollection: NSObject {
             $0.registerHeader(RepositoryCollectionHeader.self)
             $0.alwaysBounceVertical = true
             $0.backgroundColor = .clear
+            $0.scrollIndicatorInsets.top = Theme.headerHeight
         }
     }
 }
@@ -88,6 +96,6 @@ extension RepositoriesCollection {
         
         // Offsets
         static let cellSideOffset: CGFloat = 36.0
-        static let collectionViewInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 15.0, right: 0)
+        static let collectionViewInsets: UIEdgeInsets = UIEdgeInsets(top: 15.0, left: 0, bottom: 15.0, right: 0)
     }
 }

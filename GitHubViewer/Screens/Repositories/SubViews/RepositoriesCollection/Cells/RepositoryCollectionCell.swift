@@ -122,7 +122,7 @@ extension RepositoryCollectionCell {
         static let languageLabelFont: UIFont = .circular(style: .medium, size: 10.0)
         
         // Sizes
-        static let containerHeight: CGFloat = 97.0
+//        static let containerHeight: CGFloat = 97.0
         static let statusImageSize: CGSize = CGSize(30.0)
         static let colorViewSize: CGSize = CGSize(15.0)
         static let languageLabelHeight: CGFloat = 15.0
