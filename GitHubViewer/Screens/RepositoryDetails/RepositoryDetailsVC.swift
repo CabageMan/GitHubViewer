@@ -1,4 +1,5 @@
 import UIKit
+import SafariServices
 
 final class RepositoryDetailsVC: UIViewController {
     
@@ -42,34 +43,64 @@ final class RepositoryDetailsVC: UIViewController {
     private func setupViewModel() {
         viewModel.repositoryOwnerLogin = ownerLogin
         viewModel.repository = repository
-        viewModel.repositoryHasBeenFetched = { [weak self] details in self?.setupDetails(details) }
+        viewModel.repositoryHasBeenFetched = { [weak self] in self?.setupDetails() }
     }
     
     //MARK: - Actions
-    private func setupDetails(_ details: RepositoryDetails) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm"
-        var createdAt = ""
-        var updatedAt = ""
-        var pushedAt = ""
-        if let date = details.repository.createdAt {
-            createdAt = formatter.string(from: date)
-        }
-        if let date = details.pushedAt {
-            pushedAt = formatter.string(from: date)
-        }
-        if let date = details.updatedAt {
-            updatedAt = formatter.string(from: date)
+    private func setupDetails() {
+        let infoItems = viewModel.createInfoContent()
+        let linkItems = viewModel.createLinksContent() { [weak self] url in
+            self?.callMenuOnTappedLink(url)
         }
         
-        let infoItems = [
-            DetailsCardView.InfoItem(title: String.Repos.createdAt, details: createdAt),
-            DetailsCardView.InfoItem(title: String.Repos.updatedAt, details: updatedAt),
-            DetailsCardView.InfoItem(title: String.Repos.pushedAt, details: pushedAt),
-            DetailsCardView.InfoItem(title: String.Repos.descriprion, details: details.repository.description ?? "")
-        ]
-        
-        DetailsCardView(title: String.Repos.repositoryDetails, infoItems: infoItems).add(toStackContainer: container)
+        DetailsCardsView(
+            title: String.Repos.repositoryDetails,
+            infoItems: infoItems,
+            linkItems: linkItems
+        ).add(toStackContainer: container).do {
+            $0.backgroundColor = .clear
+            $0.dropShadow()
+        }
+    }
+    
+    private func callMenuOnTappedLink(_ link: String) {
+        let menuController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).then {
+            let openLinkAction = UIAlertAction(
+                title: String.General.openLink,
+                style: .default,
+                handler: { [weak self] _ in self?.openLink(link) }
+            )
+            let copyLinkAction = UIAlertAction(
+                title: String.General.copyLink,
+                style: .default,
+                handler: { [weak self] _ in self?.copyLink(link) }
+            )
+            
+            $0.addAction(.cancel())
+            $0.addAction(openLinkAction)
+            $0.addAction(copyLinkAction)
+            
+            $0.view.tintColor = .textDarkBlue
+        }
+        present(menuController, animated: true)
+        #warning("Temporary solution for bug with action sheet")
+        menuController.pruneNegativeWidthConstraints()
+    }
+    
+    private func openLink(_ link: String) {
+        guard let url = URL(string: link) else {
+            // Error Handling
+            return
+        }
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = true
+        let safariVC = SFSafariViewController(url: url, configuration: config)
+        present(safariVC, animated: true)
+    }
+    
+    private func copyLink(_ link: String) {
+        let url = URL(string: link)
+        UIPasteboard.general.url = url
     }
     
     private func onBackButtonTap() {

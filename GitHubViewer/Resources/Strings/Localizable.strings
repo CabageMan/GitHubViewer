@@ -4,6 +4,8 @@
 "general.cancel"        = "Cancel";
 "general.coming_soon"   = "Coming soon ...";
 "general.next"          = "Next";
+"general.copyLink"      = "Copy link to clipBoard";
+"general.openLink"      = "Open link in Safari";
 
 
 //MARK: - Authentication
@@ -27,7 +29,7 @@
 "repos.pushedAt"            = "Pushed At";
 "repos.updatedAt"           = "Updated At";
 "repos.descriprion"         = "Description";
-"repos.url"                 = "URL:";
+"repos.url"                 = "Repository URL";
 "repos.forkCount"           = "Forrk Count";
 "repos.parent"              = "Parent";
 

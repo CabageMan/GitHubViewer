@@ -1,6 +1,6 @@
 import UIKit
 
-final class DetailsCardView: UIView {
+final class DetailsCardsView: UIView {
     struct InfoItem {
         let title: String
         let details: String
@@ -8,7 +8,8 @@ final class DetailsCardView: UIView {
     
     struct LinkItem {
         let title: String
-        let action: () -> Void
+        let url: String
+        let action: (String) -> Void
     }
     
     struct ListItem {
@@ -35,10 +36,12 @@ final class DetailsCardView: UIView {
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-    
-    
-    //MARK: - Actions
+}
+
+//MARK: - Actions
+extension DetailsCardsView {
     private func setup() {
+        var totalHeight: CGFloat = 0.0
         var infoHeightConstraint: NSLayoutConstraint!
         var previousCell: UIView?
         
@@ -62,22 +65,36 @@ final class DetailsCardView: UIView {
             $0.clipsToBounds = true
         }
         
-        for item in infoItems {
-            createInfoCell(item: item).add(to: infoContainer).do {
-                
+        for infoItem in infoItems {
+            createInfoCell(item: infoItem).add(to: infoContainer).do {
                 if previousCell == nil {
-                    $0.topToSuperview()
-                    infoHeightConstraint.constant += Theme.itemHeight
+                    $0.topToSuperview(offset: Theme.itemsOffset)
                 } else {
                     $0.topToBottom(of: previousCell!, offset: Theme.itemsOffset)
-                    infoHeightConstraint.constant += Theme.itemHeight + Theme.itemsOffset
                 }
-                $0.leftToSuperview()
+                infoHeightConstraint.constant += Theme.itemHeight + Theme.itemsOffset
+                $0.leftToSuperview(offset: Theme.itemsSideOffset)
                 $0.rightToSuperview()
                 $0.height(Theme.itemHeight)
                 previousCell = $0
             }
         }
+        
+        previousCell = infoContainer
+        totalHeight += Theme.titleHeight + Theme.titleTopOffset + Theme.itemsVerticalOffset + infoHeightConstraint.constant
+        
+        for linkItem in linkItems {
+            createLinkCell(item: linkItem).add(to: self).do {
+                $0.leftToSuperview(offset: Theme.itemsSideOffset)
+                $0.rightToSuperview(offset: -Theme.itemsSideOffset)
+                $0.topToBottom(of: previousCell!, offset: Theme.itemsVerticalOffset)
+                $0.height(Theme.linkItemHeight)
+                previousCell = $0
+                totalHeight += Theme.linkItemHeight + Theme.itemsVerticalOffset
+            }
+        }
+        
+        self.height(totalHeight + Theme.itemsVerticalOffset)
     }
     
     private func createInfoCell(item: InfoItem) -> UIView {
@@ -85,7 +102,8 @@ final class DetailsCardView: UIView {
         let titleLabel = UILabel().add(to: container).then {
             $0.edgesToSuperview(excluding: .bottom)
             $0.height(Theme.itemLabelHeight)
-            $0.font = Theme.itemFont
+            $0.textAlignment = .left
+            $0.font = Theme.itemTitleFont
             $0.text = item.title
         }
         
@@ -93,24 +111,58 @@ final class DetailsCardView: UIView {
             $0.edgesToSuperview(excluding: [.top, .bottom])
             $0.topToBottom(of: titleLabel, offset: Theme.itemLabelsOffset)
             $0.height(Theme.itemLabelHeight)
+            $0.textAlignment = .left
             $0.font = Theme.itemFont
             $0.text = item.details
+        }
+        return container
+    }
+    
+    private func createLinkCell(item: LinkItem) -> UIView {
+        let container = UIView().then {
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = .defaultCornerRadius
+            $0.clipsToBounds = true
+            $0.addGesture(type: .tap) { _ in item.action(item.url) }
+        }
+        
+        let titleLabel = UILabel().add(to: container).then {
+            $0.leftToSuperview(offset: Theme.itemsSideOffset)
+            $0.rightToSuperview()
+            $0.topToSuperview(offset: Theme.itemsOffset)
+            $0.height(Theme.itemLabelHeight)
+            $0.textAlignment = .left
+            $0.font = Theme.itemTitleFont
+            $0.text = item.title
+        }
+        
+        UILabel().add(to: container).do {
+            $0.left(to: titleLabel)
+            $0.rightToSuperview()
+            $0.topToBottom(of: titleLabel, offset: Theme.itemLabelsOffset)
+            $0.height(Theme.itemLabelHeight)
+            $0.textAlignment = .left
+            $0.font = Theme.itemFont
+            $0.text = item.url
+            $0.textColor = .textDarkBlue
         }
         return container
     }
 }
 
 //MARK: - Theme
-extension DetailsCardView {
+extension DetailsCardsView {
     enum Theme {
         // Fonts
         static let titleFont: UIFont = .circular(style: .bold, size: 17.0)
+        static let itemTitleFont: UIFont = .circular(style: .bold, size: 14.0)
         static let itemFont: UIFont = .circular(style: .book, size: 13.0)
         
         // Sizes
         static let titleHeight: CGFloat = 20.0
         static let itemLabelHeight: CGFloat = 15.0
         static let itemHeight: CGFloat = 40.0
+        static let linkItemHeight: CGFloat = 50.0
         
         // Offsets
         static let titleLeftOffset: CGFloat = 10.0

@@ -37,10 +37,14 @@ extension String {
     static let cancel = String.tr("Localizable", "general.cancel")
     // Coming soon ...
     static let comingSoon = String.tr("Localizable", "general.coming_soon")
+    // Copy link to clipBoard
+    static let copyLink = String.tr("Localizable", "general.copyLink")
     // Next
     static let next = String.tr("Localizable", "general.next")
     // Ok
     static let ok = String.tr("Localizable", "general.ok")
+    // Open link in Safari
+    static let openLink = String.tr("Localizable", "general.openLink")
     // Welcome
     static let welcome = String.tr("Localizable", "general.welcome")
   }
@@ -79,7 +83,7 @@ extension String {
     static let title = String.tr("Localizable", "repos.title")
     // Updated At
     static let updatedAt = String.tr("Localizable", "repos.updatedAt")
-    // URL:
+    // Repository URL
     static let url = String.tr("Localizable", "repos.url")
   }
 }
