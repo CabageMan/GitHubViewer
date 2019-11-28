@@ -148,8 +148,8 @@
 		377C2232237C36700046D4E8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2231237C36700046D4E8 /* Fonts.swift */; };
 		377C2234237C38AA0046D4E8 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2233237C38AA0046D4E8 /* Global.swift */; };
 		377C2237237C39E50046D4E8 /* UIAlert+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */; };
-		3791194D238FE3E9000FF474 /* CustomModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194C238FE3E9000FF474 /* CustomModalView.swift */; };
-		3791194F238FE401000FF474 /* InfoModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194E238FE401000FF474 /* InfoModalView.swift */; };
+		3791194D238FE3E9000FF474 /* ModalAlertViewCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */; };
+		3791194F238FE401000FF474 /* InfoModalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194E238FE401000FF474 /* InfoModalAlertView.swift */; };
 		37A80ADC238816AB00BA2496 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADB238816AB00BA2496 /* User.swift */; };
 		37A80ADE2388174E00BA2496 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADD2388174E00BA2496 /* Repository.swift */; };
 		37AD89572387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */; };
@@ -331,8 +331,8 @@
 		377C2231237C36700046D4E8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		377C2233237C38AA0046D4E8 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlert+Extensions.swift"; sourceTree = "<group>"; };
-		3791194C238FE3E9000FF474 /* CustomModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModalView.swift; sourceTree = "<group>"; };
-		3791194E238FE401000FF474 /* InfoModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModalView.swift; sourceTree = "<group>"; };
+		3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertViewCompatibility.swift; sourceTree = "<group>"; };
+		3791194E238FE401000FF474 /* InfoModalAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModalAlertView.swift; sourceTree = "<group>"; };
 		37A80ADB238816AB00BA2496 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37A80ADD2388174E00BA2496 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
@@ -891,8 +891,8 @@
 		3791194B238FE3C9000FF474 /* ModalViews */ = {
 			isa = PBXGroup;
 			children = (
-				3791194C238FE3E9000FF474 /* CustomModalView.swift */,
-				3791194E238FE401000FF474 /* InfoModalView.swift */,
+				3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */,
+				3791194E238FE401000FF474 /* InfoModalAlertView.swift */,
 			);
 			path = ModalViews;
 			sourceTree = "<group>";
@@ -1265,7 +1265,7 @@
 				377C220B237C23640046D4E8 /* Bundle.swift in Sources */,
 				377C21F0237C23640046D4E8 /* LayoutGuides.swift in Sources */,
 				377C222A237C302C0046D4E8 /* Strings.swift in Sources */,
-				3791194F238FE401000FF474 /* InfoModalView.swift in Sources */,
+				3791194F238FE401000FF474 /* InfoModalAlertView.swift in Sources */,
 				377C21F5237C23640046D4E8 /* GradientView.swift in Sources */,
 				377C2208237C23640046D4E8 /* Literals.swift in Sources */,
 				377C21E3237C23640046D4E8 /* UINavigationController+ext.swift in Sources */,
@@ -1349,7 +1349,7 @@
 				377C21E7237C23640046D4E8 /* UIImage+Gradient.swift in Sources */,
 				377C21DA237C23640046D4E8 /* SnappingFlowLayout.swift in Sources */,
 				37B8291F2386BED400E991D4 /* PRVC.swift in Sources */,
-				3791194D238FE3E9000FF474 /* CustomModalView.swift in Sources */,
+				3791194D238FE3E9000FF474 /* ModalAlertViewCompatibility.swift in Sources */,
 				377C21E2237C23640046D4E8 /* UITextField+ext.swift in Sources */,
 				3702A15B238298CE006D9598 /* TitledTextField.swift in Sources */,
 			);

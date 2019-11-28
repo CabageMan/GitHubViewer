@@ -35,7 +35,6 @@ final class IntroVC: UIViewController {
         }
         
         Buttons.roundedButton.add(to: view).do {
-            $0.centerXToSuperview()
             $0.topToBottom(of: logo, offset: Theme.titleOffset)
             $0.leftToSuperview(offset: Theme.buttonSideOffset)
             $0.rightToSuperview(offset: -Theme.buttonSideOffset)

@@ -7,6 +7,7 @@ extension UIColor {
     static let barBlack         = #colorLiteral(red: 0.1411764706, green: 0.1607843137, blue: 0.1803921569, alpha: 1) // #24292E
     static let lightCoal        = #colorLiteral(red: 0.2470588235, green: 0.2666666667, blue: 0.2823529412, alpha: 1) // #3F4448
     static let mainBackground   = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1) // #F9F9F9
+    static let modalAlert       = #colorLiteral(red: 0.1215686275, green: 0.1411764706, blue: 0.1843137255, alpha: 0.5) // #1F242F, opacity: 50%
     
     // Fields
     static let fieldBackground      = #colorLiteral(red: 0.9098039216, green: 0.9411764706, blue: 0.9960784314, alpha: 1) // #E8F0FE
@@ -32,6 +33,9 @@ extension CGSize {
 extension CGFloat {
     // Common
     static let defaultCornerRadius: CGFloat = 5.0
+    static let modalAlertCornerRadius: CGFloat = 10.0
+    static let modalAlertWidth: CGFloat = UIScreen.main.bounds.width - 34.0
+    static let modalAlertHeight: CGFloat = .modalAlertWidth / 1.1
     
     // Buttons
     static let defaultButtonHeight: CGFloat = 50.0

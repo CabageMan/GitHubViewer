@@ -39,6 +39,8 @@ extension String {
     static let comingSoon = String.tr("Localizable", "general.coming_soon")
     // Copy link to clipBoard
     static let copyLink = String.tr("Localizable", "general.copyLink")
+    // Link copied to\nclipboard
+    static let linkCopied = String.tr("Localizable", "general.linkCopied")
     // Next
     static let next = String.tr("Localizable", "general.next")
     // Ok

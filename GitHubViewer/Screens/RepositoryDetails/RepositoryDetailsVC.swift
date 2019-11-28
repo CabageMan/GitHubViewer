@@ -99,8 +99,12 @@ final class RepositoryDetailsVC: UIViewController {
     }
     
     private func copyLink(_ link: String) {
+        let infoAlert = InfoModalAlertView(title: String.General.linkCopied, details: "Some details that i needed to test in my custom alert view ")
         let url = URL(string: link)
         UIPasteboard.general.url = url
+        DispatchQueue.main.async {
+            infoAlert.presentAlert()
+        }
     }
     
     private func onBackButtonTap() {

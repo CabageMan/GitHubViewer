@@ -5,6 +5,7 @@
 "general.coming_soon"   = "Coming soon ...";
 "general.next"          = "Next";
 "general.copyLink"      = "Copy link to clipBoard";
+"general.linkCopied"    = "Link copied to\nclipboard";
 "general.openLink"      = "Open link in Safari";
 
 
