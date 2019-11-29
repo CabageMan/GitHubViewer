@@ -8,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
-    
+    #warning("Fix this: UIWindows were created prior to initial application activation. This may result in incorrect visual appearance.")
     var window: UIWindow? = {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.backgroundColor = .white

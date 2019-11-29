@@ -20,6 +20,7 @@
 		3733DCAC239118FA000B2007 /* BarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCAB239118FA000B2007 /* BarTextField.swift */; };
 		3733DCAF23914EAE000B2007 /* SearchContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCAE23914EAE000B2007 /* SearchContorller.swift */; };
 		3733DCB123914EE1000B2007 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCB023914EE1000B2007 /* SearchBar.swift */; };
+		3733DCB423916B33000B2007 /* DetailsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCB323916B33000B2007 /* DetailsTableView.swift */; };
 		373C58BC238515D6003F2BEB /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BB238515D6003F2BEB /* Storage.swift */; };
 		373C58BE23851FA0003F2BEB /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BD23851FA0003F2BEB /* APIClient.swift */; };
 		373C58C023853254003F2BEB /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BF23853254003F2BEB /* Environment.swift */; };
@@ -200,6 +201,7 @@
 		3733DCAB239118FA000B2007 /* BarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTextField.swift; sourceTree = "<group>"; };
 		3733DCAE23914EAE000B2007 /* SearchContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContorller.swift; sourceTree = "<group>"; };
 		3733DCB023914EE1000B2007 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		3733DCB323916B33000B2007 /* DetailsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableView.swift; sourceTree = "<group>"; };
 		373C58BB238515D6003F2BEB /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		373C58BD23851FA0003F2BEB /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		373C58BF23853254003F2BEB /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 		372A9C4B238EA4B3007F1BA9 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				3733DCB223916AFD000B2007 /* DetailsTableView */,
 				372A9C4C238EA4D6007F1BA9 /* DetailsCardView.swift */,
 			);
 			path = SubViews;
@@ -409,6 +412,30 @@
 				3733DCB023914EE1000B2007 /* SearchBar.swift */,
 			);
 			path = SearchConrtoller;
+			sourceTree = "<group>";
+		};
+		3733DCB223916AFD000B2007 /* DetailsTableView */ = {
+			isa = PBXGroup;
+			children = (
+				3733DCB323916B33000B2007 /* DetailsTableView.swift */,
+				3733DCB623916B4F000B2007 /* Headers */,
+				3733DCB523916B46000B2007 /* Cells */,
+			);
+			path = DetailsTableView;
+			sourceTree = "<group>";
+		};
+		3733DCB523916B46000B2007 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		3733DCB623916B4F000B2007 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 		373C58C423856FA1003F2BEB /* Routing */ = {
@@ -1315,6 +1342,7 @@
 				37B8291B2386BEAC00E991D4 /* RepositoriesVC.swift in Sources */,
 				377C2170237C1F5D0046D4E8 /* IntroVC.swift in Sources */,
 				37B829212386BEE600E991D4 /* IssuesCoordinator.swift in Sources */,
+				3733DCB423916B33000B2007 /* DetailsTableView.swift in Sources */,
 				373C58C623857020003F2BEB /* RouterProtocol.swift in Sources */,
 				372A9C4A238E9E6F007F1BA9 /* ScrollableStack.swift in Sources */,
 				3752AE622384393900170C79 /* APIAccessTokenStorage.swift in Sources */,
