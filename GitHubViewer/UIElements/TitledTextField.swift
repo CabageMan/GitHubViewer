@@ -35,6 +35,7 @@ final class TitledTextField: UIView {
     
     //MARK: - Events
     var valueChanged: (String) -> Void = { _ in }
+    var onReturnPressed: (String) -> Void = { _ in }
     
     //MARK: - Elements
     let textField: UITextField
@@ -107,7 +108,7 @@ final class TitledTextField: UIView {
     }
     
     private func endEditingOnExit() {
-        
+        onReturnPressed(textField.text ?? "")
     }
 }
 
@@ -124,8 +125,6 @@ extension TitledTextField {
         }
     }
 }
-
-//MARK: - Actions
 
 //MARK: - Templates
 extension TitledTextField {
@@ -146,22 +145,6 @@ extension TitledTextField {
             $0.textField.autocorrectionType = .no
             $0.textField.spellCheckingType = .no
             $0.textField.isSecureTextEntry = true
-        }
-    }
-    
-    static func createRepoSearchField() -> TitledTextField {
-        return TitledTextField().then {
-            $0.textField.returnKeyType = .search
-            $0.textField.autocorrectionType = .no
-            $0.textField.autocapitalizationType = .none
-            $0.textField.spellCheckingType = .no
-            $0.placeHolder = String.Repos.findRepository
-            let container = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0))
-            UIImageView(image: #imageLiteral(resourceName: "searchLeft20")).add(to: container).do {
-                $0.frame = CGRect(x: 5.0, y: 5.0, width: 20.0, height: 20.0)
-            }
-            $0.textField.leftView = container
-            $0.textField.leftViewMode = .always
         }
     }
 }

@@ -18,6 +18,7 @@ fragment RepositoriesListFragment on Repository {
     id
     name
     createdAt
+    resourcePath
     isPrivate
     isFork
     description
@@ -30,7 +31,6 @@ fragment RepositoriesListFragment on Repository {
 # Repository Details Fragment
 fragment RepositoryDetailsFragment on Repository {
     pushedAt
-    resourcePath
     url
     updatedAt
     forkCount

@@ -48,16 +48,16 @@ extension RepositoriesCollection: UICollectionViewDataSource {
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        switch kind {
-        case UICollectionView.elementKindSectionHeader:
-            let header: RepositoriesCollectionHeader = collectionView.dequeueHeader(for: indexPath)
-            headerView = header
-            return header
-        default:
-            fatalError("Unsupported reusable view kind")
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//        switch kind {
+//        case UICollectionView.elementKindSectionHeader:
+//            let header: RepositoriesCollectionHeader = collectionView.dequeueHeader(for: indexPath)
+//            headerView = header
+//            return header
+//        default:
+//            fatalError("Unsupported reusable view kind")
+//        }
+//    }
 }
 
 //MARK: - Collection Delegate Methods
@@ -67,9 +67,9 @@ extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollecti
         return CGSize(width: collectionView.bounds.width - Theme.cellSideOffset, height: Theme.cellHeight)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: Theme.headerHeight)
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        return CGSize(width: collectionView.bounds.width, height: Theme.headerHeight)
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return Theme.collectionViewInsets
@@ -92,7 +92,7 @@ extension RepositoriesCollection {
     enum Theme {
         // Sizes
         static let cellHeight: CGFloat = 97.0
-        static let headerHeight: CGFloat = 105.0
+        static let headerHeight: CGFloat = 45.0
         
         // Offsets
         static let cellSideOffset: CGFloat = 36.0

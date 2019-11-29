@@ -4,6 +4,7 @@ struct Repository {
     let id: String
     let name: String
     let createdAt: Date?
+    let resourcePath: String
     var isPrivate: Bool
     let isFork: Bool
     var description: String?
@@ -13,6 +14,7 @@ struct Repository {
         self.id = repo.id
         self.name = repo.name
         self.createdAt = ISO8601DateFormatter().date(from: repo.createdAt)
+        self.resourcePath = repo.resourcePath
         self.isPrivate = repo.isPrivate
         self.isFork = repo.isFork
         self.description = repo.description

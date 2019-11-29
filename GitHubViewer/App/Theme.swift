@@ -14,15 +14,18 @@ extension UIColor {
     static let selectedFieldBorder  = #colorLiteral(red: 0.1294117647, green: 0.5333333333, blue: 1, alpha: 1) // #2188FF
     static let selectedFieldShadow  = #colorLiteral(red: 0.7333333333, green: 0.8196078431, blue: 0.9568627451, alpha: 1) // #BBD1F4
     static let fieldBorderColor     = #colorLiteral(red: 0.8470588235, green: 0.8705882353, blue: 0.8862745098, alpha: 1) // #D8DEE2
+    static let barFieldBackGround   = #colorLiteral(red: 0.2470588235, green: 0.2666666667, blue: 0.2823529412, alpha: 1) // #3F4448
+    
     
     // Buttons
     static let buttonGreen  = #colorLiteral(red: 0.1529411765, green: 0.6549019608, blue: 0.2666666667, alpha: 1) // #27A744
     static let buttonBorder = #colorLiteral(red: 0.1647058824, green: 0.4588235294, blue: 0.2352941176, alpha: 1) // #2A753C
     
     // Texts
-    static let textGray     = #colorLiteral(red: 0.6666666667, green: 0.6784313725, blue: 0.6862745098, alpha: 1) // #AAADAF
-    static let selectedText = #colorLiteral(red: 0.7843137255, green: 0.7882352941, blue: 0.7960784314, alpha: 1) // #C8C9CB
-    static let textDarkBlue = #colorLiteral(red: 0.007843137255, green: 0.4, blue: 0.8392156863, alpha: 1) // #0266D6
+    static let textGray             = #colorLiteral(red: 0.6666666667, green: 0.6784313725, blue: 0.6862745098, alpha: 1) // #AAADAF
+    static let selectedText         = #colorLiteral(red: 0.7843137255, green: 0.7882352941, blue: 0.7960784314, alpha: 1) // #C8C9CB
+    static let textDarkBlue         = #colorLiteral(red: 0.007843137255, green: 0.4, blue: 0.8392156863, alpha: 1) // #0266D6
+    static let barFieldPlaceHolder  = #colorLiteral(red: 0.6392156863, green: 0.6588235294, blue: 0.6784313725, alpha: 1) // #A3A8AD
 }
 
 //MARK: - Sizes

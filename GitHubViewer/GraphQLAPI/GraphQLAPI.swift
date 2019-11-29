@@ -552,6 +552,7 @@ public struct RepositoriesListFragment: GraphQLFragment {
       id
       name
       createdAt
+      resourcePath
       isPrivate
       isFork
       description
@@ -570,6 +571,7 @@ public struct RepositoriesListFragment: GraphQLFragment {
     GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
     GraphQLField("name", type: .nonNull(.scalar(String.self))),
     GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+    GraphQLField("resourcePath", type: .nonNull(.scalar(String.self))),
     GraphQLField("isPrivate", type: .nonNull(.scalar(Bool.self))),
     GraphQLField("isFork", type: .nonNull(.scalar(Bool.self))),
     GraphQLField("description", type: .scalar(String.self)),
@@ -582,8 +584,8 @@ public struct RepositoriesListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, name: String, createdAt: String, isPrivate: Bool, isFork: Bool, description: String? = nil, primaryLanguage: PrimaryLanguage? = nil) {
-    self.init(unsafeResultMap: ["__typename": "Repository", "id": id, "name": name, "createdAt": createdAt, "isPrivate": isPrivate, "isFork": isFork, "description": description, "primaryLanguage": primaryLanguage.flatMap { (value: PrimaryLanguage) -> ResultMap in value.resultMap }])
+  public init(id: GraphQLID, name: String, createdAt: String, resourcePath: String, isPrivate: Bool, isFork: Bool, description: String? = nil, primaryLanguage: PrimaryLanguage? = nil) {
+    self.init(unsafeResultMap: ["__typename": "Repository", "id": id, "name": name, "createdAt": createdAt, "resourcePath": resourcePath, "isPrivate": isPrivate, "isFork": isFork, "description": description, "primaryLanguage": primaryLanguage.flatMap { (value: PrimaryLanguage) -> ResultMap in value.resultMap }])
   }
 
   public var __typename: String {
@@ -621,6 +623,16 @@ public struct RepositoriesListFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "createdAt")
+    }
+  }
+
+  /// The HTTP path for this repository
+  public var resourcePath: String {
+    get {
+      return resultMap["resourcePath"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "resourcePath")
     }
   }
 
@@ -721,7 +733,6 @@ public struct RepositoryDetailsFragment: GraphQLFragment {
     fragment RepositoryDetailsFragment on Repository {
       __typename
       pushedAt
-      resourcePath
       url
       updatedAt
       forkCount
@@ -744,7 +755,6 @@ public struct RepositoryDetailsFragment: GraphQLFragment {
   public static let selections: [GraphQLSelection] = [
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("pushedAt", type: .scalar(String.self)),
-    GraphQLField("resourcePath", type: .nonNull(.scalar(String.self))),
     GraphQLField("url", type: .nonNull(.scalar(String.self))),
     GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
     GraphQLField("forkCount", type: .nonNull(.scalar(Int.self))),
@@ -758,8 +768,8 @@ public struct RepositoryDetailsFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(pushedAt: String? = nil, resourcePath: String, url: String, updatedAt: String, forkCount: Int, parent: Parent? = nil, assignableUsers: AssignableUser) {
-    self.init(unsafeResultMap: ["__typename": "Repository", "pushedAt": pushedAt, "resourcePath": resourcePath, "url": url, "updatedAt": updatedAt, "forkCount": forkCount, "parent": parent.flatMap { (value: Parent) -> ResultMap in value.resultMap }, "assignableUsers": assignableUsers.resultMap])
+  public init(pushedAt: String? = nil, url: String, updatedAt: String, forkCount: Int, parent: Parent? = nil, assignableUsers: AssignableUser) {
+    self.init(unsafeResultMap: ["__typename": "Repository", "pushedAt": pushedAt, "url": url, "updatedAt": updatedAt, "forkCount": forkCount, "parent": parent.flatMap { (value: Parent) -> ResultMap in value.resultMap }, "assignableUsers": assignableUsers.resultMap])
   }
 
   public var __typename: String {
@@ -778,16 +788,6 @@ public struct RepositoryDetailsFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "pushedAt")
-    }
-  }
-
-  /// The HTTP path for this repository
-  public var resourcePath: String {
-    get {
-      return resultMap["resourcePath"]! as! String
-    }
-    set {
-      resultMap.updateValue(newValue, forKey: "resourcePath")
     }
   }
 

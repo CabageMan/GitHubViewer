@@ -14,7 +14,7 @@ final class RepositoryDetailsVC: UIViewController {
         self.ownerLogin = ownerLogin
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
-        title = repository.name
+        title = repository.resourcePath
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }

@@ -14,7 +14,9 @@ final class NavigationViewController: UINavigationController {
             $0.shadowImage = UIImage()
             $0.tintColor = .white
             $0.barTintColor = .barBlack
-            $0.titleTextAttributes = [.foregroundColor: UIColor.white]
+            $0.backgroundColor = .barBlack
+            $0.titleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont.circular(style: .medium, size: 16.0)]
+            $0.largeTitleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont.circular(style: .bold, size: 33.0)]
         }
         delegate = self
     }
