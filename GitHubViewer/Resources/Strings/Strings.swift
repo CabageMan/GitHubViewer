@@ -32,6 +32,11 @@ extension String {
     static let welcome = String.tr("Localizable", "auth.welcome")
   }
 
+  enum Fake {
+    // Now you can use this link anywhere you want
+    static let useLinkAnywhere = String.tr("Localizable", "fake.useLinkAnywhere")
+  }
+
   enum General {
     // Cancel
     static let cancel = String.tr("Localizable", "general.cancel")
@@ -67,6 +72,10 @@ extension String {
   }
 
   enum Repos {
+    // Assignable Users
+    static let assignableUsers = String.tr("Localizable", "repos.assignableUsers")
+    // Collaborators
+    static let collaborators = String.tr("Localizable", "repos.collaborators")
     // Created At
     static let createdAt = String.tr("Localizable", "repos.createdAt")
     // Description
@@ -87,6 +96,8 @@ extension String {
     static let updatedAt = String.tr("Localizable", "repos.updatedAt")
     // Repository URL
     static let url = String.tr("Localizable", "repos.url")
+    // Watchers
+    static let watchers = String.tr("Localizable", "repos.watchers")
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name

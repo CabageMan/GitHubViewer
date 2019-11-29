@@ -52,17 +52,30 @@ final class RepositoryDetailsVC: UIViewController {
         let linkItems = viewModel.createLinksContent() { [weak self] url in
             self?.callMenuOnTappedLink(url)
         }
+        let listItems = viewModel.createListContent()
         
         DetailsCardsView(
             title: String.Repos.repositoryDetails,
             infoItems: infoItems,
-            linkItems: linkItems
+            linkItems: linkItems,
+            listItems: listItems
         ).add(toStackContainer: container).do {
             $0.backgroundColor = .clear
             $0.dropShadow()
         }
     }
     
+    private func onBackButtonTap() {
+        dismiss()
+    }
+    
+    private func onMenuButtonTap() {
+        Global.showComingSoon()
+    }
+}
+
+//MARK: - Links Handling
+extension RepositoryDetailsVC {
     private func callMenuOnTappedLink(_ link: String) {
         let menuController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet).then {
             let openLinkAction = UIAlertAction(
@@ -99,19 +112,11 @@ final class RepositoryDetailsVC: UIViewController {
     }
     
     private func copyLink(_ link: String) {
-        let infoAlert = InfoModalAlertView(title: String.General.linkCopied, details: "Some details that i needed to test in my custom alert view ")
+        let infoAlert = InfoModalAlertView(title: String.General.linkCopied, details: String.Fake.useLinkAnywhere)
         let url = URL(string: link)
         UIPasteboard.general.url = url
         DispatchQueue.main.async {
             infoAlert.presentAlert()
         }
-    }
-    
-    private func onBackButtonTap() {
-        dismiss()
-    }
-    
-    private func onMenuButtonTap() {
-        Global.showComingSoon()
     }
 }

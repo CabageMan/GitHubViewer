@@ -1,3 +1,6 @@
+//MARK: - Fake
+"fake.useLinkAnywhere"  = "Now you can use this link anywhere you want";
+
 //MARK: - General
 "general.welcome"       = "Welcome";
 "general.ok"            = "Ok";
@@ -33,6 +36,9 @@
 "repos.url"                 = "Repository URL";
 "repos.forkCount"           = "Forrk Count";
 "repos.parent"              = "Parent";
+"repos.assignableUsers"     = "Assignable Users";
+"repos.collaborators"       = "Collaborators";
+"repos.watchers"            = "Watchers";
 
 //MARK: - Pull Requests
 "pr.title"  = "Pull Requests";

@@ -38,11 +38,10 @@ final class DetailsCardsView: UIView {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 }
 
-//MARK: - Actions
+//MARK: - Setup
 extension DetailsCardsView {
     private func setup() {
         var totalHeight: CGFloat = 0.0
-        var infoHeightConstraint: NSLayoutConstraint!
         var previousCell: UIView?
         
         let titleLabel = UILabel().add(to: self).then {
@@ -54,16 +53,13 @@ extension DetailsCardsView {
             $0.numberOfLines = 0
         }
         
-        let infoContainer = UIView().add(to: self).then {
+        let infoContainer = createTitledContainer().add(to: self).then {
             $0.leftToSuperview(offset: Theme.itemsSideOffset)
             $0.rightToSuperview(offset: -Theme.itemsSideOffset)
             $0.topToBottom(of: titleLabel, offset: Theme.itemsVerticalOffset)
-            infoHeightConstraint = $0.height(0.0)
-            
-            $0.backgroundColor = .white
-            $0.layer.cornerRadius = .defaultCornerRadius
-            $0.clipsToBounds = true
         }
+        
+        var infoContainerHeight: CGFloat = 0.0
         
         for infoItem in infoItems {
             createInfoCell(item: infoItem).add(to: infoContainer).do {
@@ -72,7 +68,7 @@ extension DetailsCardsView {
                 } else {
                     $0.topToBottom(of: previousCell!, offset: Theme.itemsOffset)
                 }
-                infoHeightConstraint.constant += Theme.itemHeight + Theme.itemsOffset
+                infoContainerHeight += Theme.itemHeight + Theme.itemsOffset
                 $0.leftToSuperview(offset: Theme.itemsSideOffset)
                 $0.rightToSuperview()
                 $0.height(Theme.itemHeight)
@@ -80,8 +76,9 @@ extension DetailsCardsView {
             }
         }
         
+        infoContainer.height(infoContainerHeight)
         previousCell = infoContainer
-        totalHeight += Theme.titleHeight + Theme.titleTopOffset + Theme.itemsVerticalOffset + infoHeightConstraint.constant
+        totalHeight += Theme.titleHeight + Theme.titleTopOffset + Theme.itemsVerticalOffset + infoContainerHeight
         
         for linkItem in linkItems {
             createLinkCell(item: linkItem).add(to: self).do {
@@ -94,9 +91,23 @@ extension DetailsCardsView {
             }
         }
         
+        for listItem in listItems {
+            createListCell(item: listItem).add(to: self).do {
+                $0.leftToSuperview(offset: Theme.itemsSideOffset)
+                $0.rightToSuperview(offset: -Theme.itemsSideOffset)
+                $0.topToBottom(of: previousCell!, offset: Theme.itemsVerticalOffset)
+                $0.height(Theme.listItemHeight)
+                previousCell = $0
+                totalHeight += Theme.listItemHeight + Theme.itemsVerticalOffset
+            }
+        }
+        
         self.height(totalHeight + Theme.itemsVerticalOffset)
     }
-    
+}
+
+// MARK: - Creating UI Elements
+extension DetailsCardsView {
     private func createInfoCell(item: InfoItem) -> UIView {
         let container = UIView()
         let titleLabel = UILabel().add(to: container).then {
@@ -111,6 +122,7 @@ extension DetailsCardsView {
             $0.edgesToSuperview(excluding: [.top, .bottom])
             $0.topToBottom(of: titleLabel, offset: Theme.itemLabelsOffset)
             $0.height(Theme.itemLabelHeight)
+            
             $0.textAlignment = .left
             $0.font = Theme.itemFont
             $0.text = item.details
@@ -119,32 +131,53 @@ extension DetailsCardsView {
     }
     
     private func createLinkCell(item: LinkItem) -> UIView {
-        let container = UIView().then {
-            $0.backgroundColor = .white
-            $0.layer.cornerRadius = .defaultCornerRadius
-            $0.clipsToBounds = true
+        let container = createTitledContainer(item.title).then {
             $0.addGesture(type: .tap) { _ in item.action(item.url) }
         }
         
-        let titleLabel = UILabel().add(to: container).then {
+        UILabel().add(to: container).do {
             $0.leftToSuperview(offset: Theme.itemsSideOffset)
             $0.rightToSuperview()
-            $0.topToSuperview(offset: Theme.itemsOffset)
+            $0.bottomToSuperview(offset: -Theme.itemLabelsOffset)
             $0.height(Theme.itemLabelHeight)
-            $0.textAlignment = .left
-            $0.font = Theme.itemTitleFont
-            $0.text = item.title
-        }
-        
-        UILabel().add(to: container).do {
-            $0.left(to: titleLabel)
-            $0.rightToSuperview()
-            $0.topToBottom(of: titleLabel, offset: Theme.itemLabelsOffset)
-            $0.height(Theme.itemLabelHeight)
+            
             $0.textAlignment = .left
             $0.font = Theme.itemFont
             $0.text = item.url
             $0.textColor = .textDarkBlue
+        }
+        return container
+    }
+    
+    private func createListCell(item: ListItem) -> UIView {
+        let container = createTitledContainer(item.title)
+        
+        switch item.type {
+        case .users(let users):
+            users.forEach { user in
+                log("\(item.title): \(user.name)")
+            }
+        }
+        
+        return container
+    }
+    
+    private func createTitledContainer(_ title: String? = nil) -> UIView {
+        let container = UIView().then {
+            $0.backgroundColor = .white
+            $0.layer.cornerRadius = .defaultCornerRadius
+            $0.clipsToBounds = true
+        }
+        if title != nil {
+            UILabel().add(to: container).do {
+                $0.leftToSuperview(offset: Theme.itemsSideOffset)
+                $0.rightToSuperview()
+                $0.topToSuperview(offset: Theme.itemsOffset)
+                $0.height(Theme.itemLabelHeight)
+                $0.textAlignment = .left
+                $0.font = Theme.itemTitleFont
+                $0.text = title!
+            }
         }
         return container
     }
@@ -163,6 +196,7 @@ extension DetailsCardsView {
         static let itemLabelHeight: CGFloat = 15.0
         static let itemHeight: CGFloat = 40.0
         static let linkItemHeight: CGFloat = 50.0
+        static let listItemHeight: CGFloat = 80.0
         
         // Offsets
         static let titleLeftOffset: CGFloat = 10.0

@@ -2,9 +2,7 @@ import Foundation
 
 final class RepositoryDetailsVM {
     
-    typealias InfoItem = DetailsCardsView.InfoItem
-    typealias LinkItem = DetailsCardsView.LinkItem
-    
+    //MARK: - API
     var repositoryOwnerLogin: String?
     var repository: Repository?
     
@@ -14,7 +12,8 @@ final class RepositoryDetailsVM {
     
     func getRepositoryInfo() {
         guard let owner = repositoryOwnerLogin, let repo = repository else { return }
-        GitHubViewerApollo.shared.client.fetch(query: RepositoryDetailsQuery(ownerLogin: owner, repositoryName: repo.name)) { [weak self] response in
+        let order = RepositoryOrder(field: .createdAt, direction: .desc)
+        GitHubViewerApollo.shared.client.fetch(query: RepositoryDetailsQuery(ownerLogin: owner, repositoryName: repo.name, order: order, numberOfRepositories: 30)) { [weak self] response in
             switch response {
             case .success(let result):
                 guard let details = result.data?.repository?.fragments.repositoryDetailsFragment else { return }
@@ -25,6 +24,13 @@ final class RepositoryDetailsVM {
             }
         }
     }
+}
+
+//MARK: - Creating Content
+extension RepositoryDetailsVM {
+    typealias InfoItem = DetailsCardsView.InfoItem
+    typealias LinkItem = DetailsCardsView.LinkItem
+    typealias ListItem = DetailsCardsView.ListItem
     
     func createInfoContent() -> [InfoItem] {
         guard let details = repositoryDetails else { return [] }
@@ -55,5 +61,16 @@ final class RepositoryDetailsVM {
     func createLinksContent(with action: @escaping (String) -> Void) -> [LinkItem] {
         guard let details = repositoryDetails else { return [] }
         return [LinkItem(title: String.Repos.url, url: details.url, action: action)]
+    }
+    
+    func createListContent() -> [ListItem] {
+        guard let details = repositoryDetails else { return [] }
+        var listItems: [ListItem] = []
+        
+        if !details.assignableUsers.isEmpty {
+            listItems.append(ListItem(title: String.Repos.assignableUsers, type: .users(details.assignableUsers)))
+        }
+        
+        return listItems
     }
 }

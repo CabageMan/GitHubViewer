@@ -8,6 +8,7 @@ struct RepositoryDetails {
     let url: String
     let forkCount: Int
     let parent: RepositoryDetailsFragment.Parent?
+    var assignableUsers: [User]
     
     init(repo: Repository, details: RepositoryDetailsFragment) {
         self.repository = repo
@@ -19,5 +20,10 @@ struct RepositoryDetails {
         self.url = details.url
         self.forkCount = details.forkCount
         self.parent = details.parent
+        if let assignableUsers = details.assignableUsers.nodes?.compactMap({ $0?.fragments.userFragment }).map({ User(user: $0) }) {
+            self.assignableUsers = assignableUsers
+        } else {
+            self.assignableUsers = []
+        }
     }
 }

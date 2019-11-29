@@ -1,5 +1,18 @@
 # FRAGMENTS
 
+# User Fragment
+fragment UserFragment on User {
+    name
+    login
+    avatarUrl
+    repositories(last: $numberOfRepositories orderBy: $order) {
+        totalCount
+        nodes {
+            ...RepositoriesListFragment
+        }
+    }
+}
+
 # Repository Fragment
 fragment RepositoriesListFragment on Repository {
     id
@@ -24,9 +37,9 @@ fragment RepositoryDetailsFragment on Repository {
     parent {
       name
     }
-    assignableUsers(first:13) {
+    assignableUsers(first: 13) {
         nodes {
-            name
+            ...UserFragment
         }
     }
 }
@@ -36,21 +49,13 @@ fragment RepositoryDetailsFragment on Repository {
 # Get Own User
 query OwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
     viewer {
-        name
-        login
-        avatarUrl
-        repositories(last:$numberOfRepositories orderBy:$order) {
-            totalCount
-            nodes {
-                ...RepositoriesListFragment
-            }
-        }
+        ...UserFragment
     }
 }
 
 # Get Repository Details
-query RepositoryDetails($ownerLogin: String!, $repositoryName: String!) {
-    repository(owner:$ownerLogin name:$repositoryName) {
+query RepositoryDetails($ownerLogin: String!, $repositoryName: String!, $order: RepositoryOrder!, $numberOfRepositories: Int!) {
+    repository(owner: $ownerLogin name: $repositoryName) {
         ...RepositoryDetailsFragment
     }
 }

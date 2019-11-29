@@ -7,7 +7,7 @@ struct User {
     var repositoriesCount: Int
     var repositories: [Repository]
     
-    init(user: OwnUserQuery.Data.Viewer) {
+    init(user: UserFragment) {
         self.name = user.name ?? ""
         self.login = user.login
         self.avatarURL = user.avatarUrl
