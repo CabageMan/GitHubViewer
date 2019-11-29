@@ -61,7 +61,6 @@ final class RepositoriesVC: UIViewController {
             $0.keyboardDismissMode = .onDrag
         }
         collection.onCellTap = { [weak self] repo in
-            self?.collection.headerView?.searchField.textField.resignFirstResponder()
             self?.onReposCellTap(repo)
         }
     }

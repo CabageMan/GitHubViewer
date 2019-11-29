@@ -3,14 +3,13 @@ import UIKit
 final class RepositoriesCollection: NSObject {
     
     var collectionView: UICollectionView = {
-        let layout = PinToTopFlowLayout(headerHeight: Theme.headerHeight).then {
-            $0.minimumLineSpacing = 15.0
-            $0.minimumInteritemSpacing = 0
+        let layout = UICollectionViewFlowLayout().then {
+            $0.minimumLineSpacing = 0.0
+            $0.minimumInteritemSpacing = 0.0
             $0.scrollDirection = .vertical
         }
         return UICollectionView(layout: layout)
     }()
-    var headerView: RepositoriesCollectionHeader?
     
     var items: [Repository] = [] {
         didSet { collectionView.reloadData() }
@@ -26,10 +25,8 @@ final class RepositoriesCollection: NSObject {
             $0.dataSource = self
             $0.delegate = self
             $0.registerCell(RepositoriesCollectionCell.self)
-            $0.registerHeader(RepositoriesCollectionHeader.self)
             $0.alwaysBounceVertical = true
             $0.backgroundColor = .clear
-            $0.scrollIndicatorInsets.top = Theme.headerHeight
         }
     }
 }
@@ -64,7 +61,7 @@ extension RepositoriesCollection: UICollectionViewDataSource {
 extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width - Theme.cellSideOffset, height: Theme.cellHeight)
+        return CGSize(width: collectionView.bounds.width, height: Theme.cellHeight)
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -91,8 +88,7 @@ extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollecti
 extension RepositoriesCollection {
     enum Theme {
         // Sizes
-        static let cellHeight: CGFloat = 97.0
-        static let headerHeight: CGFloat = 45.0
+        static let cellHeight: CGFloat = 74.0
         
         // Offsets
         static let cellSideOffset: CGFloat = 36.0

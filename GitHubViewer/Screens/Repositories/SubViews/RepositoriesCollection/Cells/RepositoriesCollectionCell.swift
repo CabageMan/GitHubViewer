@@ -24,14 +24,15 @@ final class RepositoriesCollectionCell: UICollectionViewCell {
     private func setup() {
         contentView.backgroundColor = .clear
         
-        dropShadow()
-        
         container.add(to: contentView).do {
             $0.edgesToSuperview()
-            
             $0.backgroundColor = .white
-            $0.layer.cornerRadius = .defaultCornerRadius
-            $0.clipsToBounds = true
+        }
+        
+        UIView().add(to: container).do {
+            $0.edgesToSuperview(excluding: .bottom)
+            $0.height(1.0)
+            $0.backgroundColor = .mainBackground
         }
         
         statusImageView.add(to: container).do {
