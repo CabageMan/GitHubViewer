@@ -37,8 +37,7 @@ extension RepositoryDetailsVM {
         var sections: [Section] = []
         
         sections.append(.info(createInfoItems(from: details)))
-        
-        sections.append(.links([LinkItem(title: String.Repos.url, url: details.url, action: { url in log("Tapped URL: \(url)") })]))
+        sections.append(.links(LinkItem(title: String.Repos.url, url: details.url)))
         sections.append(.assignableUsers(details.assignableUsers))
         
         return sections

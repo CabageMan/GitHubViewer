@@ -8,7 +8,6 @@ final class RepositoryDetailsVC: UIViewController {
     private let viewModel = RepositoryDetailsVM()
     
     private let table = RepositoryDetailsTableView()
-//    private var container = ScrollableStack()
     
     //MARK: - Life Cycle
     init(ownerLogin: String, repository: Repository) {
@@ -49,24 +48,10 @@ final class RepositoryDetailsVC: UIViewController {
     
     //MARK: - Actions
     private func setupDetails() {
-//        let infoItems = viewModel.createInfoContent()
-//        let linkItems = viewModel.createLinksContent() { [weak self] url in
-//            self?.callMenuOnTappedLink(url)
-//        }
-//        let listItems = viewModel.createListContent()
-//
-//        DetailsCardsView(
-//            title: String.Repos.repositoryDetails,
-//            infoItems: infoItems,
-//            linkItems: linkItems,
-//            listItems: listItems
-//        ).add(toStackContainer: container).do {
-//            $0.backgroundColor = .clear
-//            $0.dropShadow()
-//        }
         let sections = viewModel.createSections()
         table.sections = sections
-//        log("Sections: \(sections)")
+        table.linkCellTapped = { [weak self] link in self?.callMenuOnTappedLink(link) }
+        table.userSelected = { [weak self] user in self?.goTouserProfile(user: user) }
     }
     
     private func onBackButtonTap() {
@@ -75,6 +60,12 @@ final class RepositoryDetailsVC: UIViewController {
     
     private func onMenuButtonTap() {
         Global.showComingSoon()
+    }
+    
+    private func deselctTableViewRow() {
+        if let selectedCellIndex = table.tableView.indexPathForSelectedRow {
+            table.tableView.deselectRow(at: selectedCellIndex, animated: true)
+        }
     }
 }
 
@@ -93,7 +84,7 @@ extension RepositoryDetailsVC {
                 handler: { [weak self] _ in self?.copyLink(link) }
             )
             
-            $0.addAction(.cancel())
+            $0.addAction(.cancel() { [weak self] in self?.deselctTableViewRow() })
             $0.addAction(openLinkAction)
             $0.addAction(copyLinkAction)
             
@@ -112,6 +103,7 @@ extension RepositoryDetailsVC {
         let config = SFSafariViewController.Configuration()
         config.entersReaderIfAvailable = true
         let safariVC = SFSafariViewController(url: url, configuration: config)
+        deselctTableViewRow()
         present(safariVC, animated: true)
     }
     
@@ -119,8 +111,18 @@ extension RepositoryDetailsVC {
         let infoAlert = InfoModalAlertView(title: String.General.linkCopied, details: String.Fake.useLinkAnywhere)
         let url = URL(string: link)
         UIPasteboard.general.url = url
-        DispatchQueue.main.async {
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.deselctTableViewRow()
             infoAlert.presentAlert()
         }
+    }
+}
+
+//MARK: - User Profile Handling
+extension RepositoryDetailsVC {
+    private func goTouserProfile(user: User) {
+        deselctTableViewRow()
+        Global.showComingSoon()
     }
 }

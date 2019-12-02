@@ -10,20 +10,19 @@ final class RepositoryDetailsTableView: NSObject {
     struct LinkItem {
         let title: String
         let url: String
-        let action: (String) -> Void
     }
-
+    
     enum Section {
         case info([InfoItem])
         case parent(RepositoryDetailsFragment.Parent)
-        case links([LinkItem])
+        case links(LinkItem)
         case assignableUsers([User])
         
         var title: String {
             switch self {
             case .info: return String.Repos.repositoryInfo
             case .parent: return String.Repos.parent
-            case .links: return String.Repos.url
+            case .links(let linkItem): return linkItem.title
             case .assignableUsers: return String.Repos.assignableUsers
             }
         }
@@ -31,7 +30,6 @@ final class RepositoryDetailsTableView: NSObject {
         var cellsCount: Int {
             switch self {
             case .info(let infoItems): return infoItems.count
-            case .links(let linkItems): return linkItems.count
             case .assignableUsers(let users): return users.count
             default: return 1
             }
@@ -43,6 +41,8 @@ final class RepositoryDetailsTableView: NSObject {
     var sections: [Section] = [] {
         didSet { tableView.reloadData() }
     }
+    var linkCellTapped: (String) -> Void = { _ in }
+    var userSelected: (User) -> Void = { _ in }
     
     //MARK: - Initializers
     override init() {
@@ -58,6 +58,7 @@ final class RepositoryDetailsTableView: NSObject {
             $0.registerCell(RepositoryDetailsTVInfoCell.self)
             $0.registerCell(RepositoryDetailsTVLinkCell.self)
             $0.registerCell(RepositoryDetailsTVUserCell.self)
+            $0.tableFooterView = UIView()
             
             $0.backgroundColor = .white
         }
@@ -71,7 +72,6 @@ extension RepositoryDetailsTableView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        log("Namber Of Rows: \(sections[section].cellsCount)")
         return sections[section].cellsCount
     }
     
@@ -84,17 +84,19 @@ extension RepositoryDetailsTableView: UITableViewDataSource {
             cell.configure(title: infoItem.title, info: infoItem.details)
             return cell
         case .parent(let parent):
+            //TODO: Need make possible to navigate to parent repository.
             let cell: RepositoryDetailsTVInfoCell = tableView.dequeueCell(for: indexPath)
             cell.configure(title: "Title", info: parent.name)
             return cell
-        case .links(let linkItems):
-            let linkItem = linkItems[indexPath.row]
+        case .links(let linkItem):
             let cell: RepositoryDetailsTVLinkCell = tableView.dequeueCell(for: indexPath)
             cell.configure(link: linkItem.url)
+            cell.cellTapped = linkCellTapped
             return cell
         case .assignableUsers(let users):
             let cell: RepositoryDetailsTVUserCell = tableView.dequeueCell(for: indexPath)
             cell.configure(user: users[indexPath.row])
+            cell.cellTapped = userSelected
             return cell
         }
     }

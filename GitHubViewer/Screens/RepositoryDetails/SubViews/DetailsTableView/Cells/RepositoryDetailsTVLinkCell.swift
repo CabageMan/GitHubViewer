@@ -1,7 +1,13 @@
 import UIKit
 
 final class RepositoryDetailsTVLinkCell: UITableViewCell {
+    
+    var cellTapped: (String) -> Void = { _ in }
+    
     private let linkLabel = UILabel()
+    private let arrowView = UIImageView()
+    
+    private var link = String()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -15,16 +21,31 @@ final class RepositoryDetailsTVLinkCell: UITableViewCell {
         linkLabel.add(to: contentView).do {
             $0.leftToSuperview(offset: Theme.linkLeftOffset)
             $0.rightToSuperview()
-            $0.topToSuperview(offset: Theme.linkTopOffset)
+            $0.centerYToSuperview()
             $0.height(Theme.linkHeight)
             
             $0.font = Theme.linkFont
             $0.textColor = .textDarkBlue
         }
+        
+        arrowView.add(to: contentView).do {
+            $0.rightToSuperview(offset: -Theme.arrowRightOffset)
+            $0.centerYToSuperview()
+            $0.size(Theme.arrowSize)
+            
+            $0.contentMode = .scaleAspectFit
+            $0.image = #imageLiteral(resourceName: "chevronRight20")
+        }
     }
     
     func configure(link: String) {
         linkLabel.text = link
+        self.link = link
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        if selected { cellTapped(link) }
     }
 }
 
@@ -36,9 +57,10 @@ extension RepositoryDetailsTVLinkCell {
         
         // Sizes
         static let linkHeight: CGFloat = 15.0
+        static let arrowSize: CGSize = CGSize(20.0)
         
         // Offsets
-        static let linkLeftOffset: CGFloat = 15.0
-        static let linkTopOffset: CGFloat = 10.0
+        static let linkLeftOffset: CGFloat = 25.0
+        static let arrowRightOffset: CGFloat = 5.0
     }
 }

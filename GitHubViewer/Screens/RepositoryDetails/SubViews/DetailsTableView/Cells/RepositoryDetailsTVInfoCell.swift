@@ -14,6 +14,8 @@ final class RepositoryDetailsTVInfoCell: UITableViewCell {
     
     //MARK: - Actions
     private func setup() {
+        isUserInteractionEnabled = false
+        
         titleLabel.add(to: contentView).do {
             $0.leftToSuperview(offset: Theme.titleLeftOffset)
             $0.rightToSuperview()
@@ -53,7 +55,7 @@ extension RepositoryDetailsTVInfoCell {
         static let detailsHeight: CGFloat = 15.0
         
         // Offsets
-        static let titleLeftOffset: CGFloat = 15.0
+        static let titleLeftOffset: CGFloat = 25.0
         static let titleTopOffset: CGFloat = 10.0
         static let detailsTopOffset: CGFloat = 10.0
     }

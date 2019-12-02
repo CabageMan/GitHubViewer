@@ -2,9 +2,13 @@ import UIKit
 
 final class RepositoryDetailsTVUserCell: UITableViewCell {
     
+    var cellTapped: (User) -> Void = { _ in }
+    
     private let avatarView = UIImageView()
     private let nameLabel = UILabel()
     private let loginLabel = UILabel()
+    
+    private var user: User?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,6 +33,13 @@ final class RepositoryDetailsTVUserCell: UITableViewCell {
     
     func configure(user: User) {
         nameLabel.text = user.name
+        self.user = user
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        guard let selectedUser = user, selected else { return }
+        cellTapped(selectedUser)
     }
 }
 
