@@ -7,7 +7,8 @@ final class RepositoryDetailsVC: UIViewController {
     var repository: Repository
     private let viewModel = RepositoryDetailsVM()
     
-    private var container = ScrollableStack()
+    private let table = RepositoryDetailsTableView()
+//    private var container = ScrollableStack()
     
     //MARK: - Life Cycle
     init(ownerLogin: String, repository: Repository) {
@@ -35,7 +36,7 @@ final class RepositoryDetailsVC: UIViewController {
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
-        container.add(to: view).do {
+        table.tableView.add(to: view).do {
             $0.edgesToSuperview()
         }
     }
@@ -48,21 +49,24 @@ final class RepositoryDetailsVC: UIViewController {
     
     //MARK: - Actions
     private func setupDetails() {
-        let infoItems = viewModel.createInfoContent()
-        let linkItems = viewModel.createLinksContent() { [weak self] url in
-            self?.callMenuOnTappedLink(url)
-        }
-        let listItems = viewModel.createListContent()
-        
-        DetailsCardsView(
-            title: String.Repos.repositoryDetails,
-            infoItems: infoItems,
-            linkItems: linkItems,
-            listItems: listItems
-        ).add(toStackContainer: container).do {
-            $0.backgroundColor = .clear
-            $0.dropShadow()
-        }
+//        let infoItems = viewModel.createInfoContent()
+//        let linkItems = viewModel.createLinksContent() { [weak self] url in
+//            self?.callMenuOnTappedLink(url)
+//        }
+//        let listItems = viewModel.createListContent()
+//
+//        DetailsCardsView(
+//            title: String.Repos.repositoryDetails,
+//            infoItems: infoItems,
+//            linkItems: linkItems,
+//            listItems: listItems
+//        ).add(toStackContainer: container).do {
+//            $0.backgroundColor = .clear
+//            $0.dropShadow()
+//        }
+        let sections = viewModel.createSections()
+        table.sections = sections
+//        log("Sections: \(sections)")
     }
     
     private func onBackButtonTap() {

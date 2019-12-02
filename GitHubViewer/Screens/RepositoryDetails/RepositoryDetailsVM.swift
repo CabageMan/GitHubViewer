@@ -28,17 +28,30 @@ final class RepositoryDetailsVM {
 
 //MARK: - Creating Content
 extension RepositoryDetailsVM {
-    typealias InfoItem = DetailsCardsView.InfoItem
-    typealias LinkItem = DetailsCardsView.LinkItem
-    typealias ListItem = DetailsCardsView.ListItem
+    typealias Section = RepositoryDetailsTableView.Section
+    typealias InfoItem = RepositoryDetailsTableView.InfoItem
+    typealias LinkItem = RepositoryDetailsTableView.LinkItem
     
-    func createInfoContent() -> [InfoItem] {
+    func createSections() -> [Section] {
         guard let details = repositoryDetails else { return [] }
-        #warning("Need to localize dates")
+        var sections: [Section] = []
+        
+        sections.append(.info(createInfoItems(from: details)))
+        
+        sections.append(.links([LinkItem(title: String.Repos.url, url: details.url, action: { url in log("Tapped URL: \(url)") })]))
+        sections.append(.assignableUsers(details.assignableUsers))
+        
+        return sections
+    }
+    
+    private func createInfoItems(from details: RepositoryDetails) -> [InfoItem] {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd hh:mm"
         var infoItems: [InfoItem] = []
         
+        if let description = details.repository.description {
+            infoItems.append(InfoItem(title: String.Repos.descriprion, details: description))
+        }
         if let createdAt = details.repository.createdAt {
             infoItems.append(InfoItem(title: String.Repos.createdAt, details: formatter.string(from: createdAt)))
         }
@@ -48,29 +61,9 @@ extension RepositoryDetailsVM {
         if let pushedAt = details.pushedAt {
             infoItems.append(InfoItem(title: String.Repos.pushedAt, details: formatter.string(from: pushedAt)))
         }
-        if let repoDescription = details.repository.description {
-            infoItems.append(InfoItem(title: String.Repos.descriprion, details: repoDescription))
+        if let parent = details.parent {
+            infoItems.append(InfoItem(title: String.Repos.parent, details: parent.name))
         }
-        if let repoParent = details.parent {
-            infoItems.append(InfoItem(title: String.Repos.parent, details: repoParent.name))
-        }
-        
         return infoItems
-    }
-    
-    func createLinksContent(with action: @escaping (String) -> Void) -> [LinkItem] {
-        guard let details = repositoryDetails else { return [] }
-        return [LinkItem(title: String.Repos.url, url: details.url, action: action)]
-    }
-    
-    func createListContent() -> [ListItem] {
-        guard let details = repositoryDetails else { return [] }
-        var listItems: [ListItem] = []
-        
-        if !details.assignableUsers.isEmpty {
-            listItems.append(ListItem(title: String.Repos.assignableUsers, type: .users(details.assignableUsers)))
-        }
-        
-        return listItems
     }
 }

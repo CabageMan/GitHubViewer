@@ -20,7 +20,7 @@
 		3733DCAC239118FA000B2007 /* BarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCAB239118FA000B2007 /* BarTextField.swift */; };
 		3733DCAF23914EAE000B2007 /* SearchContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCAE23914EAE000B2007 /* SearchContorller.swift */; };
 		3733DCB123914EE1000B2007 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCB023914EE1000B2007 /* SearchBar.swift */; };
-		3733DCB423916B33000B2007 /* DetailsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCB323916B33000B2007 /* DetailsTableView.swift */; };
+		3733DCB423916B33000B2007 /* RepositoryDetailsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCB323916B33000B2007 /* RepositoryDetailsTableView.swift */; };
 		373C58BC238515D6003F2BEB /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BB238515D6003F2BEB /* Storage.swift */; };
 		373C58BE23851FA0003F2BEB /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BD23851FA0003F2BEB /* APIClient.swift */; };
 		373C58C023853254003F2BEB /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BF23853254003F2BEB /* Environment.swift */; };
@@ -166,6 +166,10 @@
 		37B829212386BEE600E991D4 /* IssuesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829202386BEE600E991D4 /* IssuesCoordinator.swift */; };
 		37B829232386BEF900E991D4 /* IssuesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829222386BEF900E991D4 /* IssuesVC.swift */; };
 		37B829252386D0B500E991D4 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829242386D0B500E991D4 /* UIView+Extensions.swift */; };
+		37C3D8DE23950B8600037154 /* RepositoryDetailsTVInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C3D8DD23950B8600037154 /* RepositoryDetailsTVInfoCell.swift */; };
+		37C3D8E023950E6300037154 /* RepositoryDetailsTVUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C3D8DF23950E6300037154 /* RepositoryDetailsTVUserCell.swift */; };
+		37C3D8E223950F3A00037154 /* RepositoryDetailsTVLinkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C3D8E123950F3A00037154 /* RepositoryDetailsTVLinkCell.swift */; };
+		37C3D8E423952C6C00037154 /* RepositoryDetailsTVSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C3D8E323952C6C00037154 /* RepositoryDetailsTVSectionHeader.swift */; };
 		37C41C6F238BC58A00AB06D4 /* RepositoriesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C41C6E238BC58A00AB06D4 /* RepositoriesCollection.swift */; };
 		37C41C71238BC9A400AB06D4 /* RepositoriesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C41C70238BC9A400AB06D4 /* RepositoriesCollectionCell.swift */; };
 /* End PBXBuildFile section */
@@ -201,7 +205,7 @@
 		3733DCAB239118FA000B2007 /* BarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarTextField.swift; sourceTree = "<group>"; };
 		3733DCAE23914EAE000B2007 /* SearchContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContorller.swift; sourceTree = "<group>"; };
 		3733DCB023914EE1000B2007 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
-		3733DCB323916B33000B2007 /* DetailsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsTableView.swift; sourceTree = "<group>"; };
+		3733DCB323916B33000B2007 /* RepositoryDetailsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsTableView.swift; sourceTree = "<group>"; };
 		373C58BB238515D6003F2BEB /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		373C58BD23851FA0003F2BEB /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		373C58BF23853254003F2BEB /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -353,6 +357,10 @@
 		37B829202386BEE600E991D4 /* IssuesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesCoordinator.swift; sourceTree = "<group>"; };
 		37B829222386BEF900E991D4 /* IssuesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuesVC.swift; sourceTree = "<group>"; };
 		37B829242386D0B500E991D4 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		37C3D8DD23950B8600037154 /* RepositoryDetailsTVInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsTVInfoCell.swift; sourceTree = "<group>"; };
+		37C3D8DF23950E6300037154 /* RepositoryDetailsTVUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsTVUserCell.swift; sourceTree = "<group>"; };
+		37C3D8E123950F3A00037154 /* RepositoryDetailsTVLinkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsTVLinkCell.swift; sourceTree = "<group>"; };
+		37C3D8E323952C6C00037154 /* RepositoryDetailsTVSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsTVSectionHeader.swift; sourceTree = "<group>"; };
 		37C41C6E238BC58A00AB06D4 /* RepositoriesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesCollection.swift; sourceTree = "<group>"; };
 		37C41C70238BC9A400AB06D4 /* RepositoriesCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesCollectionCell.swift; sourceTree = "<group>"; };
 		B99CB3917DC37CF75D05357E /* Pods_GitHubViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitHubViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -417,7 +425,7 @@
 		3733DCB223916AFD000B2007 /* DetailsTableView */ = {
 			isa = PBXGroup;
 			children = (
-				3733DCB323916B33000B2007 /* DetailsTableView.swift */,
+				3733DCB323916B33000B2007 /* RepositoryDetailsTableView.swift */,
 				3733DCB623916B4F000B2007 /* Headers */,
 				3733DCB523916B46000B2007 /* Cells */,
 			);
@@ -427,6 +435,9 @@
 		3733DCB523916B46000B2007 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				37C3D8DD23950B8600037154 /* RepositoryDetailsTVInfoCell.swift */,
+				37C3D8E123950F3A00037154 /* RepositoryDetailsTVLinkCell.swift */,
+				37C3D8DF23950E6300037154 /* RepositoryDetailsTVUserCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -434,6 +445,7 @@
 		3733DCB623916B4F000B2007 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
+				37C3D8E323952C6C00037154 /* RepositoryDetailsTVSectionHeader.swift */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -1289,6 +1301,7 @@
 				377C220E237C23640046D4E8 /* None.swift in Sources */,
 				377C21DD237C23640046D4E8 /* Snapshot.swift in Sources */,
 				377C21FB237C23640046D4E8 /* Require.swift in Sources */,
+				37C3D8DE23950B8600037154 /* RepositoryDetailsTVInfoCell.swift in Sources */,
 				373C58CF23857EAD003F2BEB /* AuthCoordinator.swift in Sources */,
 				377C213B237C06800046D4E8 /* AppDelegate.swift in Sources */,
 				377C21D3237C23640046D4E8 /* CodableUtilities.swift in Sources */,
@@ -1301,6 +1314,7 @@
 				377C2211237C23640046D4E8 /* ImageSettable.swift in Sources */,
 				372A9C4D238EA4D6007F1BA9 /* DetailsCardView.swift in Sources */,
 				377C2210237C23640046D4E8 /* SwiftyImage.swift in Sources */,
+				37C3D8E423952C6C00037154 /* RepositoryDetailsTVSectionHeader.swift in Sources */,
 				377C21F1237C23640046D4E8 /* GestureRecognizerDelegate.swift in Sources */,
 				377C21D4237C23640046D4E8 /* Validation.swift in Sources */,
 				377C21EB237C23640046D4E8 /* CoreAnimation+ext.swift in Sources */,
@@ -1332,6 +1346,7 @@
 				375EB188237EA1BD005B6252 /* GitHubViewerApollo.swift in Sources */,
 				377C2207237C23640046D4E8 /* NSAttributedStrings+ext.swift in Sources */,
 				373C58D323858080003F2BEB /* TransitionController.swift in Sources */,
+				37C3D8E223950F3A00037154 /* RepositoryDetailsTVLinkCell.swift in Sources */,
 				377C21FF237C23640046D4E8 /* Time.swift in Sources */,
 				375EB18A237EBFCE005B6252 /* Theme.swift in Sources */,
 				377C2219237C23640046D4E8 /* ScaleModalTransitioning.swift in Sources */,
@@ -1342,7 +1357,7 @@
 				37B8291B2386BEAC00E991D4 /* RepositoriesVC.swift in Sources */,
 				377C2170237C1F5D0046D4E8 /* IntroVC.swift in Sources */,
 				37B829212386BEE600E991D4 /* IssuesCoordinator.swift in Sources */,
-				3733DCB423916B33000B2007 /* DetailsTableView.swift in Sources */,
+				3733DCB423916B33000B2007 /* RepositoryDetailsTableView.swift in Sources */,
 				373C58C623857020003F2BEB /* RouterProtocol.swift in Sources */,
 				372A9C4A238E9E6F007F1BA9 /* ScrollableStack.swift in Sources */,
 				3752AE622384393900170C79 /* APIAccessTokenStorage.swift in Sources */,
@@ -1369,6 +1384,7 @@
 				373C58D62385857E003F2BEB /* NavigationPresentationAC.swift in Sources */,
 				377C2232237C36700046D4E8 /* Fonts.swift in Sources */,
 				37B82912238683A100E991D4 /* AuthNavigationViewController.swift in Sources */,
+				37C3D8E023950E6300037154 /* RepositoryDetailsTVUserCell.swift in Sources */,
 				375EB1A0237EF4AB005B6252 /* UIControl+Actionable.swift in Sources */,
 				377C21F3237C23640046D4E8 /* BarButtons.swift in Sources */,
 				377C21EC237C23640046D4E8 /* UITableView+Reusable.swift in Sources */,

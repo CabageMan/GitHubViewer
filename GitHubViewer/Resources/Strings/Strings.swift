@@ -90,6 +90,8 @@ extension String {
     static let pushedAt = String.tr("Localizable", "repos.pushedAt")
     // Repository Details
     static let repositoryDetails = String.tr("Localizable", "repos.repositoryDetails")
+    // Repository Info
+    static let repositoryInfo = String.tr("Localizable", "repos.repositoryInfo")
     // Repositories
     static let title = String.tr("Localizable", "repos.title")
     // Updated At

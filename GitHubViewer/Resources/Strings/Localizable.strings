@@ -28,6 +28,7 @@
 //MARK: - Repositories
 "repos.title"               = "Repositories";
 "repos.findRepository"      = "Find a repository...";
+"repos.repositoryInfo"      = "Repository Info";
 "repos.repositoryDetails"   = "Repository Details";
 "repos.createdAt"           = "Created At";
 "repos.pushedAt"            = "Pushed At";
