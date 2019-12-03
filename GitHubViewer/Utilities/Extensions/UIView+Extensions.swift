@@ -26,4 +26,34 @@ extension UIView {
             $0.shadowOffset = CGSize(width: 0, height: 6)
         }
     }
+    
+    func animaateFadeIn(completion: (() -> Void)? = nil) {
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0.0,
+            options: .curveEaseIn,
+            animations: { [weak self] in
+                self?.alpha = 1.0
+                self?.transform = CGAffineTransform(scale: 1.0)
+            },
+            completion: { _ in
+                completion?()
+            }
+        )
+    }
+    
+    func animateFadeOut(completion: (() -> Void)? = nil) {
+        UIView.animate(
+            withDuration: 0.3,
+            delay: 0.0,
+            options: .curveEaseOut,
+            animations: { [weak self] in
+                self?.alpha = 0.0
+                self?.transform = CGAffineTransform(scale: 0.4)
+            },
+            completion: { _ in
+                completion?()
+            }
+        )
+    }
 }

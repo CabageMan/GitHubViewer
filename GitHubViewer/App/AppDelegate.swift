@@ -1,4 +1,5 @@
 import UIKit
+import Nuke
 import OAuthSwift
 @_exported import TinyConstraints
 
@@ -27,7 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.makeKeyAndVisible()
         appCoordinator.start()
         
+        imageCashingSetup()
+        
         return true
+    }
+    
+    func imageCashingSetup() {
+        ImageCache.shared.costLimit = 1024 * 1024 * 256 // 256 Mb
+        ImageCache.shared.countLimit = 250
+        ImageCache.shared.ttl = 0 // Invalidate after 'never'
+        
+        DataLoader.sharedUrlCache.diskCapacity = 1024 * 1024 * 256
+        DataLoader.sharedUrlCache.memoryCapacity = 1024 * 1024 * 256
     }
 }
 
