@@ -18,16 +18,6 @@ final class RepositoryDetailsTVLinkCell: UITableViewCell {
     
     //MARK: - Actions
     private func setup() {
-        linkLabel.add(to: contentView).do {
-            $0.leftToSuperview(offset: Theme.linkLeftOffset)
-            $0.rightToSuperview()
-            $0.centerYToSuperview()
-            $0.height(Theme.linkHeight)
-            
-            $0.font = Theme.linkFont
-            $0.textColor = .textDarkBlue
-        }
-        
         arrowView.add(to: contentView).do {
             $0.rightToSuperview(offset: -Theme.arrowRightOffset)
             $0.centerYToSuperview()
@@ -35,6 +25,15 @@ final class RepositoryDetailsTVLinkCell: UITableViewCell {
             
             $0.contentMode = .scaleAspectFit
             $0.image = #imageLiteral(resourceName: "chevronRight20")
+        }
+        linkLabel.add(to: contentView).do {
+            $0.leftToSuperview(offset: Theme.linkLeftOffset)
+            $0.rightToLeft(of: arrowView, offset: -Theme.linkRightOffset)
+            $0.centerYToSuperview()
+            $0.height(Theme.linkHeight)
+            
+            $0.font = Theme.linkFont
+            $0.textColor = .textDarkBlue
         }
     }
     
@@ -61,6 +60,7 @@ extension RepositoryDetailsTVLinkCell {
         
         // Offsets
         static let linkLeftOffset: CGFloat = 25.0
+        static let linkRightOffset: CGFloat = 5.0
         static let arrowRightOffset: CGFloat = 5.0
     }
 }
