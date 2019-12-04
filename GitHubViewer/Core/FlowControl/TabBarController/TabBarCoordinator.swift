@@ -3,32 +3,36 @@ import UIKit
 final class TabBarCoordinator: Coordinator {
     
     enum DeepLink {
-        // Here we can set up deep links like in AppCoordinator
+        
     }
     
     let tabBarViewController = TabBarViewController()
     private let window: UIWindow
     
     // Coordinators
-    let reposCoordinator: ReposCoordinator
+    let reposCoordinator: RepositoriesCoordinator
     let prCoordinator: PRCoordinator
     let issuesCoordinator: IssuesCoordinator
+    let profileCoordinator: ProfileCoordinator
     
     init(window: UIWindow) {
         self.window = window
-        reposCoordinator = ReposCoordinator()
+        reposCoordinator = RepositoriesCoordinator()
         prCoordinator = PRCoordinator()
         issuesCoordinator = IssuesCoordinator()
+        profileCoordinator = ProfileCoordinator()
         super.init()
     
         addChild(reposCoordinator)
         addChild(prCoordinator)
         addChild(issuesCoordinator)
+        addChild(profileCoordinator)
         
         tabBarViewController.viewControllers = [
             reposCoordinator.rootVC,
             prCoordinator.rootVC,
-            issuesCoordinator.rootVC
+            issuesCoordinator.rootVC,
+            profileCoordinator.rootVC
         ]
         
         tabBarViewController.onTabSelect = { [weak self] tab in
@@ -36,6 +40,7 @@ final class TabBarCoordinator: Coordinator {
             case .repositories: self?.runReposFlow()
             case .pullRequests: self?.runPRFlow()
             case .issues: self?.runIssueFlow()
+            case .profile: self?.runProfileFlow()
             }
         }
     }
@@ -49,9 +54,10 @@ final class TabBarCoordinator: Coordinator {
         reposCoordinator.start()
         prCoordinator.start()
         issuesCoordinator.start()
+        profileCoordinator.start()
     }
     
-    private func runReposFlow(_ deepLink: ReposCoordinator.DeepLink? = nil) {
+    private func runReposFlow(_ deepLink: RepositoriesCoordinator.DeepLink? = nil) {
         if tabBarViewController.selectedIndex != TabBarView.Tab.repositories.rawValue {
             tabBarViewController.selectedIndex = TabBarView.Tab.repositories.rawValue
         } else {
@@ -70,6 +76,14 @@ final class TabBarCoordinator: Coordinator {
     private func runIssueFlow(_ deepLink: IssuesCoordinator.DeepLink? = nil) {
         if tabBarViewController.selectedIndex != TabBarView.Tab.issues.rawValue {
             tabBarViewController.selectedIndex = TabBarView.Tab.issues.rawValue
+        } else {
+            issuesCoordinator.handleSecondTabTap()
+        }
+    }
+    
+    private func runProfileFlow(_ deepLink: ProfileCoordinator.DeepLink? = nil) {
+        if tabBarViewController.selectedIndex != TabBarView.Tab.profile.rawValue {
+            tabBarViewController.selectedIndex = TabBarView.Tab.profile.rawValue
         } else {
             issuesCoordinator.handleSecondTabTap()
         }

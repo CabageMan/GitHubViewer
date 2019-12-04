@@ -6,12 +6,14 @@ final class TabBarView: UIView {
         case repositories
         case pullRequests
         case issues
+        case profile
         
         var normalImage: UIImage? {
             switch self {
-            case .repositories: return #imageLiteral(resourceName: "repository15")
-            case .pullRequests: return #imageLiteral(resourceName: "pullRequest15")
-            case .issues: return #imageLiteral(resourceName: "issue15")
+            case .repositories: return #imageLiteral(resourceName: "repositoryBlack20")
+            case .pullRequests: return #imageLiteral(resourceName: "pullRequest20")
+            case .issues: return #imageLiteral(resourceName: "issue20")
+            case .profile: return #imageLiteral(resourceName: "profile20")
             }
         }
         
@@ -20,10 +22,11 @@ final class TabBarView: UIView {
             case .repositories: return String.Repos.title
             case .pullRequests: return String.Pr.title
             case .issues: return String.Issues.title
+            case .profile: return String.Profile.title
             }
         }
         
-        static let all: [Tab] = [.repositories, .pullRequests, .issues]
+        static let all: [Tab] = [.repositories, .pullRequests, .issues, .profile]
     }
     
     //MARK: - Tab Bar Item

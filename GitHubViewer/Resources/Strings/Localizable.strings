@@ -1,9 +1,15 @@
+//MARK: - Fake
+"fake.useLinkAnywhere"  = "Now you can use this link anywhere you want";
+
 //MARK: - General
 "general.welcome"       = "Welcome";
 "general.ok"            = "Ok";
 "general.cancel"        = "Cancel";
 "general.coming_soon"   = "Coming soon ...";
 "general.next"          = "Next";
+"general.copyLink"      = "Copy link to clipBoard";
+"general.linkCopied"    = "Link copied to\nclipboard";
+"general.openLink"      = "Open link in Safari";
 
 
 //MARK: - Authentication
@@ -20,10 +26,26 @@
 "auth.contact_github"       = "Contact GitHub";
 
 //MARK: - Repositories
-"repos.title"   = "Repositories";
+"repos.title"               = "Repositories";
+"repos.findRepository"      = "Find a repository...";
+"repos.repositoryInfo"      = "Repository Info";
+"repos.repositoryDetails"   = "Repository Details";
+"repos.createdAt"           = "Created At";
+"repos.pushedAt"            = "Pushed At";
+"repos.updatedAt"           = "Updated At";
+"repos.descriprion"         = "Description";
+"repos.url"                 = "Repository URL";
+"repos.forkCount"           = "Forrk Count";
+"repos.parent"              = "Parent";
+"repos.assignableUsers"     = "Assignable Users";
+"repos.collaborators"       = "Collaborators";
+"repos.watchers"            = "Watchers";
 
 //MARK: - Pull Requests
 "pr.title"  = "Pull Requests";
 
 //MARK: - Issues
 "issues.title"  = "Issues";
+
+//MARK: - Profile
+"profile.title" = "Profile";

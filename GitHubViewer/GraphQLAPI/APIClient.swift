@@ -14,11 +14,16 @@ final class APIClient {
         didSet { accessTokenDidChange?(accessToken) }
     }
     
+    var ownUser: User? {
+        didSet { ownUserDidChange?() }
+    }
+    
     var isLoggedIn: Bool {
         return accessToken != nil
     }
     
     var accessTokenDidChange: ((AccessToken?) -> Void)? = nil
+    var ownUserDidChange: (() -> Void)? = nil
     
     //MARK: - Initializers
     init(environment: Environment, accessTokenStorage: AccessTokenStorage) {

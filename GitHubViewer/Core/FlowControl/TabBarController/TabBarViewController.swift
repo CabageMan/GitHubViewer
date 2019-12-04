@@ -26,11 +26,6 @@ final class TabBarViewController: UITabBarController {
     override func  viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        var tabBarViewFrame = tabBarView.frame
-        tabBarViewFrame.size.height = TabBarView.Theme.tabItemHeight + .safeBottom
-        tabBarViewFrame.origin.y = view.frame.size.height - tabBarViewFrame.size.height
-        #warning("Check why we set frame and then set bounds")
-        tabBarView.frame = tabBarViewFrame
         tabBarView.frame = tabBar.bounds
         tabBar.addSubview(tabBarView)
     }

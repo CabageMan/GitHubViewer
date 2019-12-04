@@ -1,18 +1,68 @@
-query FindIssueID {
-  repository(owner:"octocat", name:"Hello-World") {
-    issue(number:349) {
-      id
+# FRAGMENTS
+
+# User Fragment
+fragment UserFragment on User {
+    name
+    login
+    avatarUrl
+    repositories(last: $numberOfRepositories orderBy: $order) {
+        totalCount
+        nodes {
+            ...RepositoriesListFragment
+        }
     }
-  }
 }
 
-mutation AddReactionToIssue {
-  addReaction(input:{subjectId:"MDU6SXNzdWUyMzEzOTE1NTE=",content:HOORAY}) {
-    reaction {
-      content
+# Repository Fragment
+fragment RepositoriesListFragment on Repository {
+    id
+    name
+    createdAt
+    resourcePath
+    isPrivate
+    isFork
+    description
+    primaryLanguage {
+      name
+      color
     }
-    subject {
-      id
+}
+
+# Repository Details Fragment
+fragment RepositoryDetailsFragment on Repository {
+    pushedAt
+    url
+    updatedAt
+    forkCount
+    parent {
+      name
     }
-  }
+    assignableUsers(first: 13) {
+        nodes {
+            ...UserFragment
+        }
+    }
+}
+
+# QUERIES
+
+# Get Own User
+query OwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
+    viewer {
+        ...UserFragment
+    }
+}
+
+# Get Repository Details
+query RepositoryDetails($ownerLogin: String!, $repositoryName: String!, $order: RepositoryOrder!, $numberOfRepositories: Int!) {
+    repository(owner: $ownerLogin name: $repositoryName) {
+        ...RepositoryDetailsFragment
+    }
+}
+
+# Find RepositoryOrder
+query FindRepository($ownerLogin: String!, $repositoryName: String!) {
+    repository(owner: $ownerLogin name: $repositoryName) {
+        ...RepositoriesListFragment
+    }
 }

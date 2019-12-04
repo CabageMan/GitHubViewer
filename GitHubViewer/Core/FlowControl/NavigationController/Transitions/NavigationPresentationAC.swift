@@ -18,8 +18,6 @@ final class NavigationPresentationAC: NSObject, UIViewControllerAnimatedTransiti
     
     let containerView = transitionContext.containerView
     
-    
-    
     // Configure transition subviews
     let toFrame = transitionContext.finalFrame(for: toVC)
     toVC.view.frame = toFrame.offsetBy(dx: toFrame.width, dy: 0)

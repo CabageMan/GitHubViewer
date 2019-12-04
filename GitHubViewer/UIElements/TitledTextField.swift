@@ -35,9 +35,10 @@ final class TitledTextField: UIView {
     
     //MARK: - Events
     var valueChanged: (String) -> Void = { _ in }
+    var onReturnPressed: (String) -> Void = { _ in }
     
     //MARK: - Elements
-    private let textField: UITextField
+    let textField: UITextField
     private let titleLabel = UILabel()
     private let shadowView = UIView()
     
@@ -107,7 +108,7 @@ final class TitledTextField: UIView {
     }
     
     private func endEditingOnExit() {
-        
+        onReturnPressed(textField.text ?? "")
     }
 }
 
@@ -124,8 +125,6 @@ extension TitledTextField {
         }
     }
 }
-
-//MARK: - Actions
 
 //MARK: - Templates
 extension TitledTextField {

@@ -12,8 +12,6 @@ final class PRCoordinator: Coordinator {
     private var navigationController: NavigationViewController
     private var prVC: PRVC?
     
-    // Here we can set routers
-    
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
         super.init()

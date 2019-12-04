@@ -18,7 +18,7 @@ final class PRVC: UIViewController {
     private func setupUI() {
         view.backgroundColor = .mainBackground
         
-        let menuButtonItem = UIBarButtonItem.rightButton(image: #imageLiteral(resourceName: "menu20")) { [weak self] in self?.menuTapped() }
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.menuTapped() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
     }
     

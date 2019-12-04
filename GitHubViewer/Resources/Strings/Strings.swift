@@ -32,15 +32,26 @@ extension String {
     static let welcome = String.tr("Localizable", "auth.welcome")
   }
 
+  enum Fake {
+    // Now you can use this link anywhere you want
+    static let useLinkAnywhere = String.tr("Localizable", "fake.useLinkAnywhere")
+  }
+
   enum General {
     // Cancel
     static let cancel = String.tr("Localizable", "general.cancel")
     // Coming soon ...
     static let comingSoon = String.tr("Localizable", "general.coming_soon")
+    // Copy link to clipBoard
+    static let copyLink = String.tr("Localizable", "general.copyLink")
+    // Link copied to\nclipboard
+    static let linkCopied = String.tr("Localizable", "general.linkCopied")
     // Next
     static let next = String.tr("Localizable", "general.next")
     // Ok
     static let ok = String.tr("Localizable", "general.ok")
+    // Open link in Safari
+    static let openLink = String.tr("Localizable", "general.openLink")
     // Welcome
     static let welcome = String.tr("Localizable", "general.welcome")
   }
@@ -55,9 +66,40 @@ extension String {
     static let title = String.tr("Localizable", "pr.title")
   }
 
+  enum Profile {
+    // Profile
+    static let title = String.tr("Localizable", "profile.title")
+  }
+
   enum Repos {
+    // Assignable Users
+    static let assignableUsers = String.tr("Localizable", "repos.assignableUsers")
+    // Collaborators
+    static let collaborators = String.tr("Localizable", "repos.collaborators")
+    // Created At
+    static let createdAt = String.tr("Localizable", "repos.createdAt")
+    // Description
+    static let descriprion = String.tr("Localizable", "repos.descriprion")
+    // Find a repository...
+    static let findRepository = String.tr("Localizable", "repos.findRepository")
+    // Forrk Count
+    static let forkCount = String.tr("Localizable", "repos.forkCount")
+    // Parent
+    static let parent = String.tr("Localizable", "repos.parent")
+    // Pushed At
+    static let pushedAt = String.tr("Localizable", "repos.pushedAt")
+    // Repository Details
+    static let repositoryDetails = String.tr("Localizable", "repos.repositoryDetails")
+    // Repository Info
+    static let repositoryInfo = String.tr("Localizable", "repos.repositoryInfo")
     // Repositories
     static let title = String.tr("Localizable", "repos.title")
+    // Updated At
+    static let updatedAt = String.tr("Localizable", "repos.updatedAt")
+    // Repository URL
+    static let url = String.tr("Localizable", "repos.url")
+    // Watchers
+    static let watchers = String.tr("Localizable", "repos.watchers")
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name

@@ -14,10 +14,12 @@ final class IntroVC: UIViewController {
         view.backgroundColor = .mainBackground
         
         let logo = UIImageView().add(to: view).then {
-            $0.centerInSuperview()
-            $0.size(CGSize(Theme.imageSide))
+            $0.leftToSuperview(offset: Theme.logoSideOffset)
+            $0.rightToSuperview(offset: -Theme.logoSideOffset)
+            $0.centerYToSuperview()
+            $0.height(Theme.logoSide)
             
-            $0.image = #imageLiteral(resourceName: "OctoCat")
+            $0.image = #imageLiteral(resourceName: "OctoCatColored")
             $0.contentMode = .scaleAspectFit
         }
         
@@ -35,7 +37,6 @@ final class IntroVC: UIViewController {
         }
         
         Buttons.roundedButton.add(to: view).do {
-            $0.centerXToSuperview()
             $0.topToBottom(of: logo, offset: Theme.titleOffset)
             $0.leftToSuperview(offset: Theme.buttonSideOffset)
             $0.rightToSuperview(offset: -Theme.buttonSideOffset)
@@ -57,10 +58,11 @@ extension IntroVC {
         static let titleFont: UIFont = .cf(style: .compactDisplayThin, size: 30.0)
         
         // Sizes
-        static let imageSide: CGFloat = UIScreen.main.bounds.width
+        static let logoSide: CGFloat = UIScreen.main.bounds.width - 2 * logoSideOffset
         static let titleHeight: CGFloat = 75.0
         
         // Offsets
+        static let logoSideOffset: CGFloat = 5.0
         static let buttonSideOffset: CGFloat = 90.0
         static var titleOffset: CGFloat {
             switch Device.realDiagonal {

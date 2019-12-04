@@ -1,9 +1,15 @@
-//
-//  Routers.swift
-//  GitHubViewer
-//
-//  Created by ViktorB on 20/11/2019.
-//  Copyright © 2019 Ramotion. All rights reserved.
-//
+import UIKit
 
-import Foundation
+class BaseRouter: RouterProtocol {
+    var currentCoordinator: BaseCoordinator?
+    var navigationController: UINavigationController?
+    
+    required init(currentCoordinator: BaseCoordinator, navigationController: UINavigationController) {
+        self.currentCoordinator = currentCoordinator
+        self.navigationController = navigationController
+    }
+}
+
+final class RepositoriesRouter: BaseRouter {
+    //TODO: Imlement RepositoriesFlow navigation
+}
