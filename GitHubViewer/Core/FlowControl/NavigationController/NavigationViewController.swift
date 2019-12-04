@@ -20,10 +20,6 @@ final class NavigationViewController: UINavigationController {
         }
         delegate = self
     }
-    #warning("Check if we need to deinit, and check popped to root. It was in Hangs code review.")
-    deinit {
-        delegate = nil
-    }
     
     func popToRootViewController(animated: Bool = true, completion: (() -> Void)? = nil) {
         isPopedToRoot = true

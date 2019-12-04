@@ -1,6 +1,6 @@
 import UIKit
 
-final class BarTextField: NSObject {
+final class BarTextFieldW: NSObject {
     
     struct ReturnKeyAction {
         let button: UIReturnKeyType
@@ -76,9 +76,9 @@ final class BarTextField: NSObject {
 }
 
 //MARK: - Templates
-extension BarTextField {
-    static func createRepoSearchField() -> BarTextField {
-        return BarTextField().then {
+extension BarTextFieldW {
+    static func createRepoSearchField() -> BarTextFieldW {
+        return BarTextFieldW().then {
             $0.textField.returnKeyType = .search
             $0.textField.autocorrectionType = .no
             $0.textField.autocapitalizationType = .none
@@ -98,7 +98,7 @@ extension BarTextField {
 }
 
 //MARK: - Theme
-extension BarTextField {
+extension BarTextFieldW {
     enum Theme {
         // Fonts
         static let textFieldFont: UIFont = .circular(style: .book, size: 13)

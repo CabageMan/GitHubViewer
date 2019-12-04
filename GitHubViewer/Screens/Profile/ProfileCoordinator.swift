@@ -12,9 +12,6 @@ final class ProfileCoordinator: Coordinator {
     private var navigationController: NavigationViewController
     private var profileVC: ProfileVC?
     
-    
-    // Here we can set routers
-    
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
         super.init()

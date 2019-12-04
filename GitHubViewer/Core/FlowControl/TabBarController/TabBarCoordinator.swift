@@ -3,7 +3,7 @@ import UIKit
 final class TabBarCoordinator: Coordinator {
     
     enum DeepLink {
-        // Here we can set up deep links like in AppCoordinator
+        
     }
     
     let tabBarViewController = TabBarViewController()

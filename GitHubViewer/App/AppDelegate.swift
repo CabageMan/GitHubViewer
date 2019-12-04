@@ -9,10 +9,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
-    #warning("Fix this: UIWindows were created prior to initial application activation. This may result in incorrect visual appearance.")
+    #warning("Fix in iOS 13: UIWindows were created prior to initial application activation. This may result in incorrect visual appearance.")
     var window: UIWindow? = {
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.backgroundColor = .white
+        window.backgroundColor = .mainBackground
         return window
     }()
     
@@ -22,10 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        let nc = UINavigationController(rootViewController: AuthVC())
-//        nc.isNavigationBarHidden = true
-//        window?.rootViewController = nc
-//        window?.makeKeyAndVisible()
         appCoordinator.start()
         
         imageCashingSetup()

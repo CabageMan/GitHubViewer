@@ -41,7 +41,7 @@ final class RepositoriesVC: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .mainBackground
-        #warning("Solve problem with navigation bar appearance")
+        #warning("Solve problem with navigation bar appearance and `extendedLayoutIncludesOpaqueBars = true`")
 //        extendedLayoutIncludesOpaqueBars = true
         
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }

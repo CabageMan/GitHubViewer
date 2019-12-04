@@ -44,17 +44,6 @@ extension RepositoriesCollection: UICollectionViewDataSource {
         
         return cell
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        switch kind {
-//        case UICollectionView.elementKindSectionHeader:
-//            let header: RepositoriesCollectionHeader = collectionView.dequeueHeader(for: indexPath)
-//            headerView = header
-//            return header
-//        default:
-//            fatalError("Unsupported reusable view kind")
-//        }
-//    }
 }
 
 //MARK: - Collection Delegate Methods
@@ -64,10 +53,6 @@ extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollecti
         return CGSize(width: collectionView.bounds.width, height: Theme.cellHeight)
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-//        return CGSize(width: collectionView.bounds.width, height: Theme.headerHeight)
-//    }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return Theme.collectionViewInsets
     }
@@ -76,13 +61,6 @@ extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollecti
         onCellTap(items[indexPath.row])
     }
 }
-
-//MARK: - UIScrollView Delegate Methods
-//extension RepositoriesCollection {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        log("Scroll Position: \(scrollView.contentOffset.y)")
-//    }
-//}
 
 //MARK: - Theme
 extension RepositoriesCollection {

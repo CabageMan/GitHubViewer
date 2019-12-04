@@ -11,7 +11,7 @@ final class AppCoordinator: Coordinator {
     init(window: UIWindow) {
         self.window = window
         super.init()
-        #warning("Learn about logoutSignal")
+        #warning("Need to implement logut functionality. Need to learn about better implementation")
     }
     
     //MARK: - Actions

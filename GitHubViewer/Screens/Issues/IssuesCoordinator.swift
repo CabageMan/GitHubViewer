@@ -12,8 +12,6 @@ final class IssuesCoordinator: Coordinator {
     private var navigationController: NavigationViewController
     private var issuesVC: IssuesVC?
     
-    // Here we can set routers
-    
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
         super.init()

@@ -4,7 +4,7 @@ import Nuke
 class ImageContentView: UIView {
     
     let imageView = UIImageView()
-    let loadingIndicator = UIActivityIndicatorView(style: .white)
+    let loadingIndicator = UIActivityIndicatorView(style: .gray)
     var placeholderImage: UIImage = #imageLiteral(resourceName: "AvatarPlaceholder")
     
     override var contentMode: UIView.ContentMode {
@@ -34,8 +34,6 @@ class ImageContentView: UIView {
         }
         loadingIndicator.add(to: self).do {
             $0.centerInSuperview()
-            #warning("Check if we needed the $0.color = .white")
-            $0.color = .white
             $0.isHidden = true
         }
     }
