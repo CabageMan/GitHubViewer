@@ -30,6 +30,7 @@ final class RepositoriesVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
+        searchController.isActive = false
     }
     
     override func viewWillDisappear(_ animated: Bool) {
