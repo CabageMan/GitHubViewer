@@ -16,7 +16,10 @@ final class RepositoryDetailsVM {
         GitHubViewerApollo.shared.client.fetch(query: RepositoryDetailsQuery(ownerLogin: owner, repositoryName: repo.name, order: order, numberOfRepositories: 30)) { [weak self] response in
             switch response {
             case .success(let result):
-                guard let details = result.data?.repository?.fragments.repositoryDetailsFragment else { return }
+                guard let details = result.data?.repository?.fragments.repositoryDetailsFragment else {
+                    log("Failed to load repository details")
+                    return
+                }
                 self?.repositoryDetails = RepositoryDetails(repo: repo, details: details)
                 self?.repositoryHasBeenFetched()
             case .failure(let error):

@@ -43,11 +43,11 @@ final class RepositoryDetailsVC: UIViewController {
     private func setupViewModel() {
         viewModel.repositoryOwnerLogin = ownerLogin
         viewModel.repository = repository
-        viewModel.repositoryHasBeenFetched = { [weak self] in self?.setupDetails() }
+        viewModel.repositoryHasBeenFetched = { [weak self] in self?.configureDetailsTableView() }
     }
     
     //MARK: - Actions
-    private func setupDetails() {
+    private func configureDetailsTableView() {
         let sections = viewModel.createSections()
         table.sections = sections
         table.linkCellTapped = { [weak self] link in self?.callMenuOnTappedLink(link) }

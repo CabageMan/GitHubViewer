@@ -103,5 +103,16 @@ extension RepositoriesVC: UISearchResultsUpdating {
 }
 
 extension RepositoriesVC: UISearchBarDelegate {
-    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        guard let owner = Global.apiClient.ownUser, let repositoryName = searchBar.text else { return }
+        viewModel.findRepository(
+            ownerLogin: owner.login,
+            repositoryName: repositoryName,
+            completion: { [weak self] repository in
+                log("Fetched Repository: \(repository)")
+                self?.filteredRepositories = [repository]
+                self?.collection.items = [repository]
+            }
+        )
+    }
 }
