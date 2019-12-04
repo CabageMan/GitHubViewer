@@ -15,8 +15,6 @@
 		372A9C4A238E9E6F007F1BA9 /* ScrollableStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372A9C49238E9E6F007F1BA9 /* ScrollableStack.swift */; };
 		372D9662238C1206006BE68B /* RepositoryDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D9661238C1206006BE68B /* RepositoryDetailsVC.swift */; };
 		372D9665238C161E006BE68B /* RepositoryDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D9664238C161E006BE68B /* RepositoryDetailsCoordinator.swift */; };
-		3733DCAF23914EAE000B2007 /* SearchContorller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCAE23914EAE000B2007 /* SearchContorller.swift */; };
-		3733DCB123914EE1000B2007 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCB023914EE1000B2007 /* SearchBar.swift */; };
 		3733DCB423916B33000B2007 /* RepositoryDetailsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3733DCB323916B33000B2007 /* RepositoryDetailsTableView.swift */; };
 		373C58BC238515D6003F2BEB /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BB238515D6003F2BEB /* Storage.swift */; };
 		373C58BE23851FA0003F2BEB /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58BD23851FA0003F2BEB /* APIClient.swift */; };
@@ -197,8 +195,6 @@
 		372A9C49238E9E6F007F1BA9 /* ScrollableStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStack.swift; sourceTree = "<group>"; };
 		372D9661238C1206006BE68B /* RepositoryDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsVC.swift; sourceTree = "<group>"; };
 		372D9664238C161E006BE68B /* RepositoryDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsCoordinator.swift; sourceTree = "<group>"; };
-		3733DCAE23914EAE000B2007 /* SearchContorller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContorller.swift; sourceTree = "<group>"; };
-		3733DCB023914EE1000B2007 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		3733DCB323916B33000B2007 /* RepositoryDetailsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsTableView.swift; sourceTree = "<group>"; };
 		373C58BB238515D6003F2BEB /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		373C58BD23851FA0003F2BEB /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -404,15 +400,6 @@
 				372A9C4B238EA4B3007F1BA9 /* SubViews */,
 			);
 			path = RepositoryDetails;
-			sourceTree = "<group>";
-		};
-		3733DCAD23914E69000B2007 /* SearchConrtoller */ = {
-			isa = PBXGroup;
-			children = (
-				3733DCAE23914EAE000B2007 /* SearchContorller.swift */,
-				3733DCB023914EE1000B2007 /* SearchBar.swift */,
-			);
-			path = SearchConrtoller;
 			sourceTree = "<group>";
 		};
 		3733DCB223916AFD000B2007 /* DetailsTableView */ = {
@@ -995,7 +982,6 @@
 		37C41C6C238BC54F00AB06D4 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				3733DCAD23914E69000B2007 /* SearchConrtoller */,
 				37C41C6D238BC56700AB06D4 /* RepositoriesCollection */,
 			);
 			path = SubViews;
@@ -1260,7 +1246,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3733DCAF23914EAE000B2007 /* SearchContorller.swift in Sources */,
 				377C21E9237C23640046D4E8 /* CoreGraphics+ext.swift in Sources */,
 				377C2216237C23640046D4E8 /* Signal.swift in Sources */,
 				377C221E237C23640046D4E8 /* Random.swift in Sources */,
@@ -1328,7 +1313,6 @@
 				377C21F6237C23640046D4E8 /* TouchInteraction.swift in Sources */,
 				377C21D6237C23640046D4E8 /* ValidatableView.swift in Sources */,
 				3707CC8E2382D542008D2D3E /* UIStackView+Extensions.swift in Sources */,
-				3733DCB123914EE1000B2007 /* SearchBar.swift in Sources */,
 				373C58CA23857680003F2BEB /* Routers.swift in Sources */,
 				377C2203237C23640046D4E8 /* DateUtilities.swift in Sources */,
 				375EB188237EA1BD005B6252 /* GitHubViewerApollo.swift in Sources */,

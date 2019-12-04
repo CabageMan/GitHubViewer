@@ -30,13 +30,11 @@ final class RepositoriesVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.searchController = searchController
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.searchController = nil
     }
     
     private func setupUI() {
@@ -45,19 +43,26 @@ final class RepositoriesVC: UIViewController {
 //        extendedLayoutIncludesOpaqueBars = true
         
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }
-        navigationItem.setRightBarButton(menuButtonItem, animated: false)
+        navigationItem.do {
+            $0.setRightBarButton(menuButtonItem, animated: false)
+            $0.searchController = searchController
+        }
         
         searchController.do {
             $0.searchResultsUpdater = self
             $0.searchBar.delegate = self
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = String.Repos.findRepository
-            $0.searchBar.searchTextField.textColor = .red
-            $0.searchBar.barStyle = .black
-            let image = #imageLiteral(resourceName: "searchLeft20")
-            $0.searchBar.setImage(image.withRenderingMode(.alwaysTemplate), for: .search, state: .normal)
-            $0.searchBar.tintColor = .white
-            $0.searchBar.barTintColor = .white
+            $0.searchBar.searchTextField.textColor = .white
+            $0.searchBar.searchTextField.tintColor = .white
+            
+            let container = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0))
+            let searchIcon = #imageLiteral(resourceName: "searchLeft20")
+            UIImageView(image: searchIcon.withRenderingMode(.alwaysTemplate)).add(to: container).do {
+                $0.frame = CGRect(x: 5.0, y: 5.0, width: 20.0, height: 20.0)
+            }
+            $0.searchBar.searchTextField.leftView = container
+            $0.searchBar.searchTextField.leftViewMode = .always
         }
         definesPresentationContext = true
         
@@ -103,7 +108,7 @@ extension RepositoriesVC: UISearchResultsUpdating {
 }
 
 extension RepositoriesVC: UISearchBarDelegate {
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let owner = Global.apiClient.ownUser, let repositoryName = searchBar.text else { return }
         viewModel.findRepository(
             ownerLogin: owner.login,
