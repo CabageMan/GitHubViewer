@@ -59,3 +59,10 @@ query RepositoryDetails($ownerLogin: String!, $repositoryName: String!, $order: 
         ...RepositoryDetailsFragment
     }
 }
+
+# Find RepositoryOrder
+query FindRepository($ownerLogin: String!, $repositoryName: String!) {
+    repository(owner: $ownerLogin name: $repositoryName) {
+        ...RepositoriesListFragment
+    }
+}

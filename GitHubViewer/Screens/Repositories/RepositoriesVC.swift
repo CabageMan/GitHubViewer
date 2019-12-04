@@ -7,6 +7,9 @@ final class RepositoriesVC: UIViewController {
     private let viewModel = RepositoriesVM()
     private let keyBoardObserver = KeyboardObserver()
     
+    private var allRepositories: [Repository] = []
+    private var filteredRepositories: [Repository] = []
+    
     var onReposCellTap: (Repository) -> Void = { _ in }
     
     //MARK: - Life Cycle
@@ -46,6 +49,7 @@ final class RepositoriesVC: UIViewController {
         
         searchController.do {
             $0.searchResultsUpdater = self
+            $0.searchBar.delegate = self
             $0.obscuresBackgroundDuringPresentation = false
             $0.searchBar.placeholder = String.Repos.findRepository
             $0.searchBar.searchTextField.textColor = .red
@@ -55,6 +59,7 @@ final class RepositoriesVC: UIViewController {
             $0.searchBar.tintColor = .white
             $0.searchBar.barTintColor = .white
         }
+        definesPresentationContext = true
         
         collection.collectionView.add(to: view).do {
             $0.edgesToSuperview()
@@ -68,6 +73,7 @@ final class RepositoriesVC: UIViewController {
     private func setupViewModel() {
         viewModel.ownerHasBeenFetched = { [weak self] repositories in
             self?.collection.items = repositories
+            self?.allRepositories = repositories
         }
     }
     
@@ -77,12 +83,23 @@ final class RepositoriesVC: UIViewController {
     }
 }
 
+//MARK: - Search Controller Functionality
 extension RepositoriesVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        log("Text for search: \(searchController.searchBar.text ?? "")")
+        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
+            filteredRepositories = []
+            collection.items = allRepositories
+            return
+        }
+        filterRepositoriesForSearchText(searchText)
     }
     
-    
+    private func filterRepositoriesForSearchText(_ searchText: String) {
+        filteredRepositories = allRepositories.filter { (repository: Repository) -> Bool in
+            return repository.name.lowercased().contains(searchText.lowercased())
+        }
+        collection.items = filteredRepositories
+    }
 }
 
 extension RepositoriesVC: UISearchBarDelegate {
