@@ -21,6 +21,7 @@ final class RepositoriesCollectionCell: UICollectionViewCell {
         setup()
     }
     
+    //MARK: - Actions
     private func setup() {
         contentView.backgroundColor = .clear
         
@@ -93,7 +94,6 @@ final class RepositoriesCollectionCell: UICollectionViewCell {
         }
     }
     
-    //MARK: - Actions
     func configure(with repository: Repository) {
         if repository.isFork {
             statusImageView.image = #imageLiteral(resourceName: "fork")
@@ -111,6 +111,14 @@ final class RepositoriesCollectionCell: UICollectionViewCell {
             colorView.backgroundColor = .clear
         }
         languageLabel.text = repository.primaryLanguage?.name
+    }
+    
+    override func prepareForReuse() {
+        statusImageView.image = nil
+        nameLabel.text = nil
+        descriptionLabel.text = nil
+        colorView.backgroundColor = .clear
+        languageLabel.text = nil
     }
 }
 

@@ -46,7 +46,7 @@ final class InfoModalAlertView: UIView, ModalAlertViewCompatibility {
             $0.bottomToSuperview(offset: -Theme.okButtonBottomOffset)
             
             $0.setTitle(String.General.ok, for: .normal)
-            $0.addTarget(for: .touchUpInside) { [weak self] in self?.closeAction() }
+            $0.addTarget(for: .touchUpInside) { [unowned self] in self.closeAction() }
         }
     }
 }
