@@ -41,13 +41,8 @@ final class IntroVC: UIViewController {
             $0.leftToSuperview(offset: Theme.buttonSideOffset)
             $0.rightToSuperview(offset: -Theme.buttonSideOffset)
             $0.setTitle(String.General.next, for: .normal)
-            $0.addTarget(for: .touchUpInside) { [weak self] in self?.nextButtonTap() }
+            $0.addTarget(for: .touchUpInside) { [unowned self] in self.completion() }
         }
-    }
-    
-    //MARK: - Actions
-    private func nextButtonTap() {
-        completion()
     }
 }
 

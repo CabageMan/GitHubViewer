@@ -8,6 +8,7 @@ final class RepositoryDetailsTVUserCell: UITableViewCell {
     private let nameLabel = UILabel()
     private let loginLabel = UILabel()
     private let arrowView = UIImageView()
+    private let avatarPlaceHolder = #imageLiteral(resourceName: "AvatarPlaceholder")
     
     private var user: User?
     
@@ -61,9 +62,15 @@ final class RepositoryDetailsTVUserCell: UITableViewCell {
         if let avatarUrl = URL(string: user.avatarURL) {
             avatarView.configure(url: avatarUrl, diameter: Theme.avatarSize.width, animated: true)
         } else {
-            let avatarPlaceHolder = #imageLiteral(resourceName: "AvatarPlaceholder")
             avatarView.configure(image: avatarPlaceHolder, animated: true)
         }
+    }
+    
+    override func prepareForReuse() {
+        user = nil
+        nameLabel.text = nil
+        loginLabel.text = nil
+        avatarView.configure(image: avatarPlaceHolder, animated: false)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

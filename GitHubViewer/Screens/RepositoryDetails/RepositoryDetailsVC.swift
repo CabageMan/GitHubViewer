@@ -3,8 +3,8 @@ import SafariServices
 
 final class RepositoryDetailsVC: UIViewController {
     
-    var ownerLogin: String
-    var repository: Repository
+    private let ownerLogin: String
+    private let repository: Repository
     private let viewModel = RepositoryDetailsVM()
     
     private let table = RepositoryDetailsTableView()

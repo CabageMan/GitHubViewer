@@ -36,6 +36,11 @@ final class RepositoryDetailsTVInfoCell: UITableViewCell {
             $0.textColor = .lightCoal
         }
     }
+
+    override func prepareForReuse() {
+        titleLabel.text = nil
+        detailsLabel.text = nil
+    }
     
     func configure(title: String, info: String) {
         titleLabel.text = title

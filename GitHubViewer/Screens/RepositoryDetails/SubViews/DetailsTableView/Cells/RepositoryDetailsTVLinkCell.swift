@@ -46,6 +46,11 @@ final class RepositoryDetailsTVLinkCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         if selected { cellTapped(link) }
     }
+    
+    override func prepareForReuse() {
+        link = ""
+        linkLabel.text = nil
+    }
 }
 
 //MARK: - Theme
