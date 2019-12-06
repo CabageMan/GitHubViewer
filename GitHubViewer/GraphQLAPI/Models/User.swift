@@ -1,21 +1,19 @@
 import Foundation
-
+#warning("Need to think about user model.")
+// Set repositories and other properties by functions or directly. By functions we can control what we set.
 struct User {
-    var name: String
-    var login: String
-    var avatarURL: String
-    var repositoriesCount: Int
-    var repositories: [Repository]
+    let name: String
+    let login: String
+    let avatarURL: String
+    private(set) var repositories: [Repository]?
     
     init(user: UserFragment) {
         self.name = user.name ?? ""
         self.login = user.login
         self.avatarURL = user.avatarUrl
-        self.repositoriesCount = user.repositories.totalCount
-        if let repos = user.repositories.nodes?.compactMap({ $0?.fragments.repositoriesListFragment }).map({ Repository(repo: $0) }) {
-            self.repositories = repos
-        } else {
-            self.repositories = []
-        }
+    }
+    
+    mutating func setRepositories(_ repositories: [Repository]) {
+        self.repositories = repositories
     }
 }

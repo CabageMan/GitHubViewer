@@ -12,8 +12,7 @@ final class RepositoryDetailsVM {
     
     func getRepositoryInfo() {
         guard let owner = repositoryOwnerLogin, let repo = repository else { return }
-        let order = RepositoryOrder(field: .createdAt, direction: .desc)
-        GitHubViewerApollo.shared.client.fetch(query: RepositoryDetailsQuery(ownerLogin: owner, repositoryName: repo.name, order: order, numberOfRepositories: 30)) { [weak self] response in
+        GitHubViewerApollo.shared.client.fetch(query: RepositoryDetailsQuery(ownerLogin: owner, repositoryName: repo.name)) { [weak self] response in
             switch response {
             case .success(let result):
                 guard let details = result.data?.repository?.fragments.repositoryDetailsFragment else {

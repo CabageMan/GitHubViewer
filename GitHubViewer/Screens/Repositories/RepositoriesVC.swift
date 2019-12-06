@@ -64,8 +64,9 @@ final class RepositoriesVC: UIViewController {
             }
             $0.searchBar.searchTextField.leftView = container
             $0.searchBar.searchTextField.leftViewMode = .always
+            
+            definesPresentationContext = true
         }
-        definesPresentationContext = true
         
         collection.collectionView.add(to: view).do {
             $0.edgesToSuperview()
@@ -74,12 +75,20 @@ final class RepositoriesVC: UIViewController {
         collection.onCellTap = { [weak self] repo in
             self?.onReposCellTap(repo)
         }
+        collection.getNextData = { [weak self] in
+            self?.collection.nextDataIsLoading = true
+            self?.viewModel.getOwnRepositories()
+        }
     }
     
     private func setupViewModel() {
-        viewModel.ownerHasBeenFetched = { [weak self] repositories in
-            self?.collection.items = repositories
-            self?.allRepositories = repositories
+        viewModel.repositoriesHaveBeenFetched = { [weak self] repositories in
+            self?.collection.items += repositories
+            self?.allRepositories += repositories
+            self?.collection.nextDataIsLoading = false
+        }
+        viewModel.ownerHasBeenFetched = { [weak self] in
+            self?.viewModel.getOwnRepositories()
         }
     }
     

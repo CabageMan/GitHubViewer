@@ -148,6 +148,7 @@
 		378B818223963C89005E4875 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B818123963C89005E4875 /* ImageContentView.swift */; };
 		3791194D238FE3E9000FF474 /* ModalAlertViewCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */; };
 		3791194F238FE401000FF474 /* InfoModalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194E238FE401000FF474 /* InfoModalAlertView.swift */; };
+		379473A5239A6ED60022CC3E /* CollectionActivityFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */; };
 		37A80ADC238816AB00BA2496 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADB238816AB00BA2496 /* User.swift */; };
 		37A80ADE2388174E00BA2496 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADD2388174E00BA2496 /* Repository.swift */; };
 		37AD89572387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */; };
@@ -167,6 +168,7 @@
 		37C3D8E723955E9000037154 /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C3D8E623955E9000037154 /* ImageContent.swift */; };
 		37C41C6F238BC58A00AB06D4 /* RepositoriesCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C41C6E238BC58A00AB06D4 /* RepositoriesCollection.swift */; };
 		37C41C71238BC9A400AB06D4 /* RepositoriesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C41C70238BC9A400AB06D4 /* RepositoriesCollectionCell.swift */; };
+		37EF5ED423993F490036F3CB /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF5ED323993F490036F3CB /* Pagination.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -334,6 +336,7 @@
 		378B818123963C89005E4875 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
 		3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertViewCompatibility.swift; sourceTree = "<group>"; };
 		3791194E238FE401000FF474 /* InfoModalAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModalAlertView.swift; sourceTree = "<group>"; };
+		379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionActivityFooterView.swift; sourceTree = "<group>"; };
 		37A80ADB238816AB00BA2496 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37A80ADD2388174E00BA2496 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
@@ -353,6 +356,7 @@
 		37C3D8E623955E9000037154 /* ImageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContent.swift; sourceTree = "<group>"; };
 		37C41C6E238BC58A00AB06D4 /* RepositoriesCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesCollection.swift; sourceTree = "<group>"; };
 		37C41C70238BC9A400AB06D4 /* RepositoriesCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesCollectionCell.swift; sourceTree = "<group>"; };
+		37EF5ED323993F490036F3CB /* Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		B99CB3917DC37CF75D05357E /* Pods_GitHubViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitHubViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E44CD98BF8971AEBE0BB60 /* Pods-GitHubViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubViewer.release.xcconfig"; path = "Target Support Files/Pods-GitHubViewer/Pods-GitHubViewer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -499,6 +503,7 @@
 				37446772237D728B00762EB8 /* Queries.graphql */,
 				375AB8A0237D863C007E390A /* schema.json */,
 				375EB185237EA072005B6252 /* GraphQLAPI.swift */,
+				37EF5ED323993F490036F3CB /* Pagination.swift */,
 			);
 			path = GraphQLAPI;
 			sourceTree = "<group>";
@@ -660,6 +665,7 @@
 		377C2172237C23300046D4E8 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				379473A3239A6EC40022CC3E /* Collection */,
 				3791194B238FE3C9000FF474 /* ModalViews */,
 				375EB19B237EEC2E005B6252 /* Buttons.swift */,
 				375EB19D237EEC92005B6252 /* Primitives.swift */,
@@ -929,6 +935,14 @@
 				3791194E238FE401000FF474 /* InfoModalAlertView.swift */,
 			);
 			path = ModalViews;
+			sourceTree = "<group>";
+		};
+		379473A3239A6EC40022CC3E /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */,
+			);
+			path = Collection;
 			sourceTree = "<group>";
 		};
 		37A80ADA2388167700BA2496 /* Models */ = {
@@ -1297,6 +1311,7 @@
 				377C21FA237C23640046D4E8 /* Math.swift in Sources */,
 				377C220B237C23640046D4E8 /* Bundle.swift in Sources */,
 				377C21F0237C23640046D4E8 /* LayoutGuides.swift in Sources */,
+				37EF5ED423993F490036F3CB /* Pagination.swift in Sources */,
 				377C222A237C302C0046D4E8 /* Strings.swift in Sources */,
 				3791194F238FE401000FF474 /* InfoModalAlertView.swift in Sources */,
 				377C21F5237C23640046D4E8 /* GradientView.swift in Sources */,
@@ -1383,6 +1398,7 @@
 				377C221C237C23640046D4E8 /* Haptic.swift in Sources */,
 				3743F459238D1A8C00C54A0A /* ProfileVC.swift in Sources */,
 				377C21E7237C23640046D4E8 /* UIImage+Gradient.swift in Sources */,
+				379473A5239A6ED60022CC3E /* CollectionActivityFooterView.swift in Sources */,
 				377C21DA237C23640046D4E8 /* SnappingFlowLayout.swift in Sources */,
 				37B8291F2386BED400E991D4 /* PRVC.swift in Sources */,
 				3791194D238FE3E9000FF474 /* ModalAlertViewCompatibility.swift in Sources */,
