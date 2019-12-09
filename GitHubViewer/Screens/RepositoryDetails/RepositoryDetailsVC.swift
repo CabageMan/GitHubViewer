@@ -8,7 +8,6 @@ final class RepositoryDetailsVC: UIViewController {
     private let viewModel = RepositoryDetailsVM()
     
     private let table = RepositoryDetailsTableView()
-    private let activityIndicator = UIActivityIndicatorView()
     
     //MARK: - Life Cycle
     init(ownerLogin: String, repository: Repository) {
@@ -25,7 +24,7 @@ final class RepositoryDetailsVC: UIViewController {
         setupUI()
         setupViewModel()
         viewModel.getRepositoryInfo()
-        activityIndicator.startAnimating()
+        Spinner.start()
     }
     
     private func setupUI() {
@@ -46,13 +45,6 @@ final class RepositoryDetailsVC: UIViewController {
             $0.userSelected = { [weak self] user in self?.goToUserProfile(user: user) }
             $0.pulledToRefresh = { [weak self] in self?.viewModel.getRepositoryInfo() }
         }
-        
-        activityIndicator.add(to: view).do {
-            $0.centerInSuperview()
-            $0.style = .gray
-            $0.hidesWhenStopped = true
-            $0.startAnimating()
-        }
     }
     
     private func setupViewModel() {
@@ -60,7 +52,7 @@ final class RepositoryDetailsVC: UIViewController {
         viewModel.repository = repository
         viewModel.repositoryHasBeenFetched = { [weak self] in
             self?.configureDetailsTableView()
-            self?.activityIndicator.stopAnimating()
+            Spinner.stop()
             self?.table.refreshControl.endRefreshing()
         }
     }

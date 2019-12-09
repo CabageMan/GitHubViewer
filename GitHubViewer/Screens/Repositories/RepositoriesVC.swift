@@ -1,8 +1,7 @@
 import UIKit
 
 final class RepositoriesVC: UIViewController {
-    #warning("Make activity indicator global")
-    private let activityIndicator = UIActivityIndicatorView()
+    
     private let collection = RepositoriesCollection()
     private let searchController = UISearchController(searchResultsController: nil)
     private let viewModel = RepositoriesVM()
@@ -37,7 +36,7 @@ final class RepositoriesVC: UIViewController {
         viewModel.resetPaginationOptions()
         
         viewModel.getOwnUser()
-        activityIndicator.startAnimating()
+        Spinner.start()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,13 +85,6 @@ final class RepositoriesVC: UIViewController {
             self?.collection.nextDataIsLoading = true
             self?.viewModel.getOwnRepositories()
         }
-        
-        activityIndicator.add(to: view).do {
-            $0.centerInSuperview()
-            $0.style = .gray
-            $0.hidesWhenStopped = true
-            $0.startAnimating()
-        }
     }
     
     private func setupViewModel() {
@@ -102,7 +94,7 @@ final class RepositoriesVC: UIViewController {
                 self?.allRepositories += repositories
             }
             self?.collection.nextDataIsLoading = false
-            self?.activityIndicator.stopAnimating()
+            Spinner.stop()
         }
         viewModel.ownerHasBeenFetched = { [weak self] in
             self?.viewModel.getOwnRepositories()
