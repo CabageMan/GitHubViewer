@@ -92,7 +92,9 @@ extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollecti
 //MARK: - Scroll View Delegate
 extension RepositoriesCollection {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        getNextData()
+        if !nextDataIsLoading && collectionView.isEndOfScroll {
+            getNextData()
+        }
     }
 }
 
