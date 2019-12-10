@@ -13,7 +13,12 @@ final class RepositoriesCollection: NSObject {
     private var activityFooter: CollectionActivityFooterView?
     
     var items: [Repository] = [] {
-        didSet { collectionView.reloadData() }
+        didSet {
+            collectionView.do {
+                $0.backgroundView = items.isEmpty ? EmptyView.createEmptyRepositories(offset: -Theme.emptyViewOffset) : nil
+                $0.reloadData()
+            }
+        }
     }
     
     var nextDataIsLoading: Bool = false {
@@ -107,5 +112,6 @@ extension RepositoriesCollection {
         // Offsets
         static let cellSideOffset: CGFloat = 36.0
         static let collectionViewInsets: UIEdgeInsets = UIEdgeInsets(top: 15.0, left: 0, bottom: 15.0, right: 0)
+        static let emptyViewOffset: CGFloat = 50.0
     }
 }

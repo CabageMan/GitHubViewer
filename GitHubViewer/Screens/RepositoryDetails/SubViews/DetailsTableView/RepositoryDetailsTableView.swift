@@ -40,7 +40,12 @@ final class RepositoryDetailsTableView: NSObject {
     let tableView = UITableView()
     let refreshControl = UIRefreshControl()
     var sections: [Section] = [] {
-        didSet { tableView.reloadData() }
+        didSet {
+            tableView.do {
+                $0.backgroundView = sections.isEmpty ? EmptyView.createEmptyRepositoryDetails() : nil
+                $0.reloadData()
+            }
+        }
     }
     var linkCellTapped: (String) -> Void = { _ in }
     var userSelected: (User) -> Void = { _ in }
