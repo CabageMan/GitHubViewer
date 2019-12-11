@@ -24,6 +24,7 @@ final class RepositoryDetailsVC: UIViewController {
         setupUI()
         setupViewModel()
         viewModel.getRepositoryInfo()
+        Spinner.start()
     }
     
     private func setupUI() {
@@ -38,20 +39,27 @@ final class RepositoryDetailsVC: UIViewController {
         table.tableView.add(to: view).do {
             $0.edgesToSuperview()
         }
+        
+        table.do {
+            $0.linkCellTapped = { [weak self] link in self?.callMenuOnTappedLink(link) }
+            $0.userSelected = { [weak self] user in self?.goToUserProfile(user: user) }
+            $0.pulledToRefresh = { [weak self] in self?.viewModel.getRepositoryInfo() }
+        }
     }
     
     private func setupViewModel() {
         viewModel.repositoryOwnerLogin = ownerLogin
         viewModel.repository = repository
-        viewModel.repositoryHasBeenFetched = { [weak self] in self?.configureDetailsTableView() }
+        viewModel.repositoryHasBeenFetched = { [weak self] in
+            self?.configureDetailsTableView()
+            Spinner.stop()
+            self?.table.refreshControl.endRefreshing()
+        }
     }
     
     //MARK: - Actions
     private func configureDetailsTableView() {
-        let sections = viewModel.createSections()
-        table.sections = sections
-        table.linkCellTapped = { [weak self] link in self?.callMenuOnTappedLink(link) }
-        table.userSelected = { [weak self] user in self?.goTouserProfile(user: user) }
+        table.sections = viewModel.createSections()
     }
     
     private func onBackButtonTap() {
@@ -121,7 +129,7 @@ extension RepositoryDetailsVC {
 
 //MARK: - User Profile Handling
 extension RepositoryDetailsVC {
-    private func goTouserProfile(user: User) {
+    private func goToUserProfile(user: User) {
         deselctTableViewRow()
         Global.showComingSoon()
     }

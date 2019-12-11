@@ -140,7 +140,7 @@ public final class OwnUserQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
-    query OwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
+    query OwnUser {
       viewer {
         __typename
         ...UserFragment
@@ -150,18 +150,9 @@ public final class OwnUserQuery: GraphQLQuery {
 
   public let operationName = "OwnUser"
 
-  public var queryDocument: String { return operationDefinition.appending(UserFragment.fragmentDefinition).appending(RepositoriesListFragment.fragmentDefinition) }
+  public var queryDocument: String { return operationDefinition.appending(UserFragment.fragmentDefinition) }
 
-  public var order: RepositoryOrder
-  public var numberOfRepositories: Int
-
-  public init(order: RepositoryOrder, numberOfRepositories: Int) {
-    self.order = order
-    self.numberOfRepositories = numberOfRepositories
-  }
-
-  public var variables: GraphQLMap? {
-    return ["order": order, "numberOfRepositories": numberOfRepositories]
+  public init() {
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -205,6 +196,10 @@ public final class OwnUserQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
+      public init(name: String? = nil, login: String, avatarUrl: String) {
+        self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl])
+      }
+
       public var __typename: String {
         get {
           return resultMap["__typename"]! as! String
@@ -243,11 +238,334 @@ public final class OwnUserQuery: GraphQLQuery {
   }
 }
 
+public final class UserRepositoriesQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition =
+    """
+    query UserRepositories($userLogin: String!, $numberOfRepositories: Int!, $cursor: String, $order: RepositoryOrder) {
+      user(login: $userLogin) {
+        __typename
+        repositories(first: $numberOfRepositories, after: $cursor, orderBy: $order) {
+          __typename
+          edges {
+            __typename
+            node {
+              __typename
+              ...RepositoriesListFragment
+            }
+            cursor
+          }
+          totalCount
+          pageInfo {
+            __typename
+            endCursor
+            hasNextPage
+          }
+        }
+      }
+    }
+    """
+
+  public let operationName = "UserRepositories"
+
+  public var queryDocument: String { return operationDefinition.appending(RepositoriesListFragment.fragmentDefinition) }
+
+  public var userLogin: String
+  public var numberOfRepositories: Int
+  public var cursor: String?
+  public var order: RepositoryOrder?
+
+  public init(userLogin: String, numberOfRepositories: Int, cursor: String? = nil, order: RepositoryOrder? = nil) {
+    self.userLogin = userLogin
+    self.numberOfRepositories = numberOfRepositories
+    self.cursor = cursor
+    self.order = order
+  }
+
+  public var variables: GraphQLMap? {
+    return ["userLogin": userLogin, "numberOfRepositories": numberOfRepositories, "cursor": cursor, "order": order]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("user", arguments: ["login": GraphQLVariable("userLogin")], type: .object(User.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(user: User? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "user": user.flatMap { (value: User) -> ResultMap in value.resultMap }])
+    }
+
+    /// Lookup a user by login.
+    public var user: User? {
+      get {
+        return (resultMap["user"] as? ResultMap).flatMap { User(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "user")
+      }
+    }
+
+    public struct User: GraphQLSelectionSet {
+      public static let possibleTypes = ["User"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("repositories", arguments: ["first": GraphQLVariable("numberOfRepositories"), "after": GraphQLVariable("cursor"), "orderBy": GraphQLVariable("order")], type: .nonNull(.object(Repository.selections))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(repositories: Repository) {
+        self.init(unsafeResultMap: ["__typename": "User", "repositories": repositories.resultMap])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// A list of repositories that the user owns.
+      public var repositories: Repository {
+        get {
+          return Repository(unsafeResultMap: resultMap["repositories"]! as! ResultMap)
+        }
+        set {
+          resultMap.updateValue(newValue.resultMap, forKey: "repositories")
+        }
+      }
+
+      public struct Repository: GraphQLSelectionSet {
+        public static let possibleTypes = ["RepositoryConnection"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("edges", type: .list(.object(Edge.selections))),
+          GraphQLField("totalCount", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("pageInfo", type: .nonNull(.object(PageInfo.selections))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(edges: [Edge?]? = nil, totalCount: Int, pageInfo: PageInfo) {
+          self.init(unsafeResultMap: ["__typename": "RepositoryConnection", "edges": edges.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }, "totalCount": totalCount, "pageInfo": pageInfo.resultMap])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// A list of edges.
+        public var edges: [Edge?]? {
+          get {
+            return (resultMap["edges"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Edge?] in value.map { (value: ResultMap?) -> Edge? in value.flatMap { (value: ResultMap) -> Edge in Edge(unsafeResultMap: value) } } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }, forKey: "edges")
+          }
+        }
+
+        /// Identifies the total count of items in the connection.
+        public var totalCount: Int {
+          get {
+            return resultMap["totalCount"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "totalCount")
+          }
+        }
+
+        /// Information to aid in pagination.
+        public var pageInfo: PageInfo {
+          get {
+            return PageInfo(unsafeResultMap: resultMap["pageInfo"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "pageInfo")
+          }
+        }
+
+        public struct Edge: GraphQLSelectionSet {
+          public static let possibleTypes = ["RepositoryEdge"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("node", type: .object(Node.selections)),
+            GraphQLField("cursor", type: .nonNull(.scalar(String.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(node: Node? = nil, cursor: String) {
+            self.init(unsafeResultMap: ["__typename": "RepositoryEdge", "node": node.flatMap { (value: Node) -> ResultMap in value.resultMap }, "cursor": cursor])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// The item at the end of the edge.
+          public var node: Node? {
+            get {
+              return (resultMap["node"] as? ResultMap).flatMap { Node(unsafeResultMap: $0) }
+            }
+            set {
+              resultMap.updateValue(newValue?.resultMap, forKey: "node")
+            }
+          }
+
+          /// A cursor for use in pagination.
+          public var cursor: String {
+            get {
+              return resultMap["cursor"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "cursor")
+            }
+          }
+
+          public struct Node: GraphQLSelectionSet {
+            public static let possibleTypes = ["Repository"]
+
+            public static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLFragmentSpread(RepositoriesListFragment.self),
+            ]
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var fragments: Fragments {
+              get {
+                return Fragments(unsafeResultMap: resultMap)
+              }
+              set {
+                resultMap += newValue.resultMap
+              }
+            }
+
+            public struct Fragments {
+              public private(set) var resultMap: ResultMap
+
+              public init(unsafeResultMap: ResultMap) {
+                self.resultMap = unsafeResultMap
+              }
+
+              public var repositoriesListFragment: RepositoriesListFragment {
+                get {
+                  return RepositoriesListFragment(unsafeResultMap: resultMap)
+                }
+                set {
+                  resultMap += newValue.resultMap
+                }
+              }
+            }
+          }
+        }
+
+        public struct PageInfo: GraphQLSelectionSet {
+          public static let possibleTypes = ["PageInfo"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("endCursor", type: .scalar(String.self)),
+            GraphQLField("hasNextPage", type: .nonNull(.scalar(Bool.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(endCursor: String? = nil, hasNextPage: Bool) {
+            self.init(unsafeResultMap: ["__typename": "PageInfo", "endCursor": endCursor, "hasNextPage": hasNextPage])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// When paginating forwards, the cursor to continue.
+          public var endCursor: String? {
+            get {
+              return resultMap["endCursor"] as? String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "endCursor")
+            }
+          }
+
+          /// When paginating forwards, are there more items?
+          public var hasNextPage: Bool {
+            get {
+              return resultMap["hasNextPage"]! as! Bool
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "hasNextPage")
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 public final class RepositoryDetailsQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
-    query RepositoryDetails($ownerLogin: String!, $repositoryName: String!, $order: RepositoryOrder!, $numberOfRepositories: Int!) {
+    query RepositoryDetails($ownerLogin: String!, $repositoryName: String!) {
       repository(owner: $ownerLogin, name: $repositoryName) {
         __typename
         ...RepositoryDetailsFragment
@@ -257,22 +575,18 @@ public final class RepositoryDetailsQuery: GraphQLQuery {
 
   public let operationName = "RepositoryDetails"
 
-  public var queryDocument: String { return operationDefinition.appending(RepositoryDetailsFragment.fragmentDefinition).appending(UserFragment.fragmentDefinition).appending(RepositoriesListFragment.fragmentDefinition) }
+  public var queryDocument: String { return operationDefinition.appending(RepositoryDetailsFragment.fragmentDefinition).appending(UserFragment.fragmentDefinition) }
 
   public var ownerLogin: String
   public var repositoryName: String
-  public var order: RepositoryOrder
-  public var numberOfRepositories: Int
 
-  public init(ownerLogin: String, repositoryName: String, order: RepositoryOrder, numberOfRepositories: Int) {
+  public init(ownerLogin: String, repositoryName: String) {
     self.ownerLogin = ownerLogin
     self.repositoryName = repositoryName
-    self.order = order
-    self.numberOfRepositories = numberOfRepositories
   }
 
   public var variables: GraphQLMap? {
-    return ["ownerLogin": ownerLogin, "repositoryName": repositoryName, "order": order, "numberOfRepositories": numberOfRepositories]
+    return ["ownerLogin": ownerLogin, "repositoryName": repositoryName]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -470,14 +784,6 @@ public struct UserFragment: GraphQLFragment {
       name
       login
       avatarUrl
-      repositories(last: $numberOfRepositories, orderBy: $order) {
-        __typename
-        totalCount
-        nodes {
-          __typename
-          ...RepositoriesListFragment
-        }
-      }
     }
     """
 
@@ -488,7 +794,6 @@ public struct UserFragment: GraphQLFragment {
     GraphQLField("name", type: .scalar(String.self)),
     GraphQLField("login", type: .nonNull(.scalar(String.self))),
     GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
-    GraphQLField("repositories", arguments: ["last": GraphQLVariable("numberOfRepositories"), "orderBy": GraphQLVariable("order")], type: .nonNull(.object(Repository.selections))),
   ]
 
   public private(set) var resultMap: ResultMap
@@ -497,8 +802,8 @@ public struct UserFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(name: String? = nil, login: String, avatarUrl: String, repositories: Repository) {
-    self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl, "repositories": repositories.resultMap])
+  public init(name: String? = nil, login: String, avatarUrl: String) {
+    self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl])
   }
 
   public var __typename: String {
@@ -537,115 +842,6 @@ public struct UserFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "avatarUrl")
-    }
-  }
-
-  /// A list of repositories that the user owns.
-  public var repositories: Repository {
-    get {
-      return Repository(unsafeResultMap: resultMap["repositories"]! as! ResultMap)
-    }
-    set {
-      resultMap.updateValue(newValue.resultMap, forKey: "repositories")
-    }
-  }
-
-  public struct Repository: GraphQLSelectionSet {
-    public static let possibleTypes = ["RepositoryConnection"]
-
-    public static let selections: [GraphQLSelection] = [
-      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-      GraphQLField("totalCount", type: .nonNull(.scalar(Int.self))),
-      GraphQLField("nodes", type: .list(.object(Node.selections))),
-    ]
-
-    public private(set) var resultMap: ResultMap
-
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
-
-    public init(totalCount: Int, nodes: [Node?]? = nil) {
-      self.init(unsafeResultMap: ["__typename": "RepositoryConnection", "totalCount": totalCount, "nodes": nodes.flatMap { (value: [Node?]) -> [ResultMap?] in value.map { (value: Node?) -> ResultMap? in value.flatMap { (value: Node) -> ResultMap in value.resultMap } } }])
-    }
-
-    public var __typename: String {
-      get {
-        return resultMap["__typename"]! as! String
-      }
-      set {
-        resultMap.updateValue(newValue, forKey: "__typename")
-      }
-    }
-
-    /// Identifies the total count of items in the connection.
-    public var totalCount: Int {
-      get {
-        return resultMap["totalCount"]! as! Int
-      }
-      set {
-        resultMap.updateValue(newValue, forKey: "totalCount")
-      }
-    }
-
-    /// A list of nodes.
-    public var nodes: [Node?]? {
-      get {
-        return (resultMap["nodes"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Node?] in value.map { (value: ResultMap?) -> Node? in value.flatMap { (value: ResultMap) -> Node in Node(unsafeResultMap: value) } } }
-      }
-      set {
-        resultMap.updateValue(newValue.flatMap { (value: [Node?]) -> [ResultMap?] in value.map { (value: Node?) -> ResultMap? in value.flatMap { (value: Node) -> ResultMap in value.resultMap } } }, forKey: "nodes")
-      }
-    }
-
-    public struct Node: GraphQLSelectionSet {
-      public static let possibleTypes = ["Repository"]
-
-      public static let selections: [GraphQLSelection] = [
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLFragmentSpread(RepositoriesListFragment.self),
-      ]
-
-      public private(set) var resultMap: ResultMap
-
-      public init(unsafeResultMap: ResultMap) {
-        self.resultMap = unsafeResultMap
-      }
-
-      public var __typename: String {
-        get {
-          return resultMap["__typename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      public var fragments: Fragments {
-        get {
-          return Fragments(unsafeResultMap: resultMap)
-        }
-        set {
-          resultMap += newValue.resultMap
-        }
-      }
-
-      public struct Fragments {
-        public private(set) var resultMap: ResultMap
-
-        public init(unsafeResultMap: ResultMap) {
-          self.resultMap = unsafeResultMap
-        }
-
-        public var repositoriesListFragment: RepositoriesListFragment {
-          get {
-            return RepositoriesListFragment(unsafeResultMap: resultMap)
-          }
-          set {
-            resultMap += newValue.resultMap
-          }
-        }
-      }
     }
   }
 }
@@ -1035,6 +1231,10 @@ public struct RepositoryDetailsFragment: GraphQLFragment {
 
       public init(unsafeResultMap: ResultMap) {
         self.resultMap = unsafeResultMap
+      }
+
+      public init(name: String? = nil, login: String, avatarUrl: String) {
+        self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl])
       }
 
       public var __typename: String {

@@ -5,12 +5,6 @@ fragment UserFragment on User {
     name
     login
     avatarUrl
-    repositories(last: $numberOfRepositories orderBy: $order) {
-        totalCount
-        nodes {
-            ...RepositoriesListFragment
-        }
-    }
 }
 
 # Repository Fragment
@@ -47,14 +41,34 @@ fragment RepositoryDetailsFragment on Repository {
 # QUERIES
 
 # Get Own User
-query OwnUser($order: RepositoryOrder!, $numberOfRepositories: Int!) {
+query OwnUser {
     viewer {
         ...UserFragment
     }
 }
 
+# Get User Repositories
+query UserRepositories($userLogin: String!, $numberOfRepositories: Int!, $cursor: String, $order: RepositoryOrder) {
+  user(login: $userLogin) {
+    repositories(first: $numberOfRepositories after: $cursor orderBy: $order) {
+        edges {
+            node {
+                ...RepositoriesListFragment
+            }
+            cursor
+        }
+        totalCount
+        pageInfo {
+            endCursor
+            hasNextPage
+        }
+    }
+  }
+}
+
+
 # Get Repository Details
-query RepositoryDetails($ownerLogin: String!, $repositoryName: String!, $order: RepositoryOrder!, $numberOfRepositories: Int!) {
+query RepositoryDetails($ownerLogin: String!, $repositoryName: String!) {
     repository(owner: $ownerLogin name: $repositoryName) {
         ...RepositoryDetailsFragment
     }

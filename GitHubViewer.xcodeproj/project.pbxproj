@@ -53,6 +53,8 @@
 		375EB19C237EEC2E005B6252 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB19B237EEC2E005B6252 /* Buttons.swift */; };
 		375EB19E237EEC92005B6252 /* Primitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB19D237EEC92005B6252 /* Primitives.swift */; };
 		375EB1A0237EF4AB005B6252 /* UIControl+Actionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB19F237EF4AB005B6252 /* UIControl+Actionable.swift */; };
+		37638FA3239E3C7000100783 /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37638FA2239E3C7000100783 /* UIScrollView+Extensions.swift */; };
+		37638FA6239E775900100783 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37638FA5239E775900100783 /* Spinner.swift */; };
 		377C213B237C06800046D4E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C213A237C06800046D4E8 /* AppDelegate.swift */; };
 		377C2141237C06810046D4E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377C2140237C06810046D4E8 /* Assets.xcassets */; };
 		377C2144237C06810046D4E8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377C2143237C06810046D4E8 /* Preview Assets.xcassets */; };
@@ -145,9 +147,11 @@
 		377C2232237C36700046D4E8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2231237C36700046D4E8 /* Fonts.swift */; };
 		377C2234237C38AA0046D4E8 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2233237C38AA0046D4E8 /* Global.swift */; };
 		377C2237237C39E50046D4E8 /* UIAlert+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */; };
+		3787FD8B239F833D00D472E6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787FD8A239F833D00D472E6 /* EmptyView.swift */; };
 		378B818223963C89005E4875 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B818123963C89005E4875 /* ImageContentView.swift */; };
 		3791194D238FE3E9000FF474 /* ModalAlertViewCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */; };
 		3791194F238FE401000FF474 /* InfoModalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194E238FE401000FF474 /* InfoModalAlertView.swift */; };
+		379473A5239A6ED60022CC3E /* CollectionActivityFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */; };
 		37A80ADC238816AB00BA2496 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADB238816AB00BA2496 /* User.swift */; };
 		37A80ADE2388174E00BA2496 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADD2388174E00BA2496 /* Repository.swift */; };
 		37AD89572387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */; };
@@ -229,6 +233,8 @@
 		375EB19B237EEC2E005B6252 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		375EB19D237EEC92005B6252 /* Primitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitives.swift; sourceTree = "<group>"; };
 		375EB19F237EF4AB005B6252 /* UIControl+Actionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Actionable.swift"; sourceTree = "<group>"; };
+		37638FA2239E3C7000100783 /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
+		37638FA5239E775900100783 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		377C2137237C06800046D4E8 /* GitHubViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		377C213A237C06800046D4E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		377C2140237C06810046D4E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -331,9 +337,11 @@
 		377C2231237C36700046D4E8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		377C2233237C38AA0046D4E8 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlert+Extensions.swift"; sourceTree = "<group>"; };
+		3787FD8A239F833D00D472E6 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		378B818123963C89005E4875 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
 		3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertViewCompatibility.swift; sourceTree = "<group>"; };
 		3791194E238FE401000FF474 /* InfoModalAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModalAlertView.swift; sourceTree = "<group>"; };
+		379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionActivityFooterView.swift; sourceTree = "<group>"; };
 		37A80ADB238816AB00BA2496 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37A80ADD2388174E00BA2496 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
@@ -660,11 +668,14 @@
 		377C2172237C23300046D4E8 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				379473A3239A6EC40022CC3E /* Collection */,
 				3791194B238FE3C9000FF474 /* ModalViews */,
 				375EB19B237EEC2E005B6252 /* Buttons.swift */,
 				375EB19D237EEC92005B6252 /* Primitives.swift */,
 				3702A15A238298CE006D9598 /* TitledTextField.swift */,
 				372A9C49238E9E6F007F1BA9 /* ScrollableStack.swift */,
+				37638FA5239E775900100783 /* Spinner.swift */,
+				3787FD8A239F833D00D472E6 /* EmptyView.swift */,
 			);
 			path = UIElements;
 			sourceTree = "<group>";
@@ -918,6 +929,7 @@
 				37B829242386D0B500E991D4 /* UIView+Extensions.swift */,
 				37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */,
 				3743F45D238D213400C54A0A /* UIColor+Extension.swift */,
+				37638FA2239E3C7000100783 /* UIScrollView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -929,6 +941,14 @@
 				3791194E238FE401000FF474 /* InfoModalAlertView.swift */,
 			);
 			path = ModalViews;
+			sourceTree = "<group>";
+		};
+		379473A3239A6EC40022CC3E /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */,
+			);
+			path = Collection;
 			sourceTree = "<group>";
 		};
 		37A80ADA2388167700BA2496 /* Models */ = {
@@ -1250,6 +1270,7 @@
 				377C2216237C23640046D4E8 /* Signal.swift in Sources */,
 				377C221E237C23640046D4E8 /* Random.swift in Sources */,
 				377C2218237C23640046D4E8 /* TransitioningDelegate.swift in Sources */,
+				37638FA6239E775900100783 /* Spinner.swift in Sources */,
 				37B829232386BEF900E991D4 /* IssuesVC.swift in Sources */,
 				37B8291D2386BECA00E991D4 /* PRCoordinator.swift in Sources */,
 				377C21F7237C23640046D4E8 /* KeyboardObserver.swift in Sources */,
@@ -1331,6 +1352,7 @@
 				37B829212386BEE600E991D4 /* IssuesCoordinator.swift in Sources */,
 				3733DCB423916B33000B2007 /* RepositoryDetailsTableView.swift in Sources */,
 				373C58C623857020003F2BEB /* RouterProtocol.swift in Sources */,
+				3787FD8B239F833D00D472E6 /* EmptyView.swift in Sources */,
 				372A9C4A238E9E6F007F1BA9 /* ScrollableStack.swift in Sources */,
 				3752AE622384393900170C79 /* APIAccessTokenStorage.swift in Sources */,
 				37C41C71238BC9A400AB06D4 /* RepositoriesCollectionCell.swift in Sources */,
@@ -1369,6 +1391,7 @@
 				37B829172386BE6500E991D4 /* TabBarView.swift in Sources */,
 				377C21EA237C23640046D4E8 /* UIStackView+ext.swift in Sources */,
 				377C2213237C23640046D4E8 /* AssociatedObject.swift in Sources */,
+				37638FA3239E3C7000100783 /* UIScrollView+Extensions.swift in Sources */,
 				377C21F2237C23640046D4E8 /* Display.swift in Sources */,
 				377C221D237C23640046D4E8 /* Hapticable.swift in Sources */,
 				373C58BC238515D6003F2BEB /* Storage.swift in Sources */,
@@ -1383,6 +1406,7 @@
 				377C221C237C23640046D4E8 /* Haptic.swift in Sources */,
 				3743F459238D1A8C00C54A0A /* ProfileVC.swift in Sources */,
 				377C21E7237C23640046D4E8 /* UIImage+Gradient.swift in Sources */,
+				379473A5239A6ED60022CC3E /* CollectionActivityFooterView.swift in Sources */,
 				377C21DA237C23640046D4E8 /* SnappingFlowLayout.swift in Sources */,
 				37B8291F2386BED400E991D4 /* PRVC.swift in Sources */,
 				3791194D238FE3E9000FF474 /* ModalAlertViewCompatibility.swift in Sources */,

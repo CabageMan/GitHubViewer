@@ -20,10 +20,22 @@ final class PRVC: UIViewController {
         
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.menuTapped() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
+        
+        EmptyView.createEmptyPullRequests(offset: -Theme.emptyViewOffset).add(to: view).do {
+            $0.edgesToSuperview()
+        }
     }
     
     //MARK: - Actions
     private func menuTapped() {
         Global.showComingSoon()
+    }
+}
+
+//MARK: - Theme
+extension PRVC {
+    enum Theme {
+        // Offsets
+        static let emptyViewOffset: CGFloat = 70.0
     }
 }

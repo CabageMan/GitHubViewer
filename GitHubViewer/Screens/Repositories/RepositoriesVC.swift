@@ -24,13 +24,19 @@ final class RepositoriesVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupViewModel()
-        viewModel.getOwnUser()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
         searchController.isActive = false
+        #warning("Change updating logic to update all fetched repositores")
+        collection.items = []
+        allRepositories = []
+        viewModel.resetPaginationOptions()
+        
+        viewModel.getOwnUser()
+        Spinner.start()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -64,8 +70,9 @@ final class RepositoriesVC: UIViewController {
             }
             $0.searchBar.searchTextField.leftView = container
             $0.searchBar.searchTextField.leftViewMode = .always
+            
+            definesPresentationContext = true
         }
-        definesPresentationContext = true
         
         collection.collectionView.add(to: view).do {
             $0.edgesToSuperview()
@@ -74,12 +81,23 @@ final class RepositoriesVC: UIViewController {
         collection.onCellTap = { [weak self] repo in
             self?.onReposCellTap(repo)
         }
+        collection.getNextData = { [weak self] in
+            self?.collection.nextDataIsLoading = true
+            self?.viewModel.getOwnRepositories()
+        }
     }
     
     private func setupViewModel() {
-        viewModel.ownerHasBeenFetched = { [weak self] repositories in
-            self?.collection.items = repositories
-            self?.allRepositories = repositories
+        viewModel.repositoriesHaveBeenFetched = { [weak self] repositories in
+            if !repositories.isEmpty {
+                self?.collection.items += repositories
+                self?.allRepositories += repositories
+            }
+            self?.collection.nextDataIsLoading = false
+            Spinner.stop()
+        }
+        viewModel.ownerHasBeenFetched = { [weak self] in
+            self?.viewModel.getOwnRepositories()
         }
     }
     

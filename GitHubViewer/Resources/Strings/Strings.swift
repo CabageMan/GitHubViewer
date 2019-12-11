@@ -32,6 +32,19 @@ extension String {
     static let welcome = String.tr("Localizable", "auth.welcome")
   }
 
+  enum EmptyView {
+    // Your issues will be displayed here
+    static let emptyIssues = String.tr("Localizable", "emptyView.emptyIssues")
+    // Your profile will be displayed here
+    static let emptyProfile = String.tr("Localizable", "emptyView.emptyProfile")
+    // Your pull requests will be displayed here
+    static let emptyPullRequests = String.tr("Localizable", "emptyView.emptyPullRequests")
+    // Your repositories will be\ndisplayed here
+    static let emptyRepositories = String.tr("Localizable", "emptyView.emptyRepositories")
+    // There is no details
+    static let emptyRepositoryDetails = String.tr("Localizable", "emptyView.emptyRepositoryDetails")
+  }
+
   enum Fake {
     // Now you can use this link anywhere you want
     static let useLinkAnywhere = String.tr("Localizable", "fake.useLinkAnywhere")

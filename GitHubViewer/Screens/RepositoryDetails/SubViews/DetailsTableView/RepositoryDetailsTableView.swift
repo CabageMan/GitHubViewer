@@ -38,11 +38,18 @@ final class RepositoryDetailsTableView: NSObject {
     
     //MARK: - Public Properties
     let tableView = UITableView()
+    let refreshControl = UIRefreshControl()
     var sections: [Section] = [] {
-        didSet { tableView.reloadData() }
+        didSet {
+            tableView.do {
+                $0.backgroundView = sections.isEmpty ? EmptyView.createEmptyRepositoryDetails() : nil
+                $0.reloadData()
+            }
+        }
     }
     var linkCellTapped: (String) -> Void = { _ in }
     var userSelected: (User) -> Void = { _ in }
+    var pulledToRefresh: () -> Void = { }
     
     //MARK: - Initializers
     override init() {
@@ -61,6 +68,12 @@ final class RepositoryDetailsTableView: NSObject {
             $0.tableFooterView = UIView()
             
             $0.backgroundColor = .white
+        }
+        
+        refreshControl.add(to: tableView).do {
+            $0.addTarget(for: .valueChanged) { [weak self] in
+                self?.pulledToRefresh()
+            }
         }
     }
 }
