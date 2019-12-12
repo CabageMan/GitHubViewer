@@ -17,3 +17,4 @@ final class SettingsController: UIViewController {
 // Hide Tab bar on calling
 // Check on leaks
 // Create setting config
+// Push settings from bottom
