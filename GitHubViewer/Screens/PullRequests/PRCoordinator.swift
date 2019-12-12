@@ -12,6 +12,8 @@ final class PRCoordinator: Coordinator {
     private var navigationController: NavigationViewController
     private var prVC: PRVC?
     
+    private lazy var repositoriesRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
+    
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
         super.init()
@@ -23,7 +25,7 @@ final class PRCoordinator: Coordinator {
     }
     
     private func showPRVC() {
-        let controller = PRVC()
+        let controller = PRVC(router: repositoriesRouter)
         navigationController.pushViewController(controller, animated: true)
         prVC = controller
     }

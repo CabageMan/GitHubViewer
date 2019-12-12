@@ -2,8 +2,11 @@ import UIKit
 
 final class IssuesVC: UIViewController {
     
+    private let router: RepositoriesRouter
+    
     //MARK: - Life Cycle
-    init() {
+    init(router: RepositoriesRouter) {
+        self.router = router
         super.init(nibName: nil, bundle: nil)
         title = String.Issues.title
     }
@@ -28,7 +31,8 @@ final class IssuesVC: UIViewController {
     
     //MARK: - Actions
     private func menuTapped() {
-        Global.showComingSoon()
+        // Configure and then call settings
+        router.showSetiings()
     }
 }
 

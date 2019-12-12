@@ -12,6 +12,8 @@ final class ProfileCoordinator: Coordinator {
     private var navigationController: NavigationViewController
     private var profileVC: ProfileVC?
     
+    private lazy var repositoriesRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
+    
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
         super.init()
@@ -23,7 +25,7 @@ final class ProfileCoordinator: Coordinator {
     }
     
     private func showProfileVC() {
-        let controller = ProfileVC()
+        let controller = ProfileVC(router: repositoriesRouter)
         navigationController.pushViewController(controller, animated: true)
         profileVC = controller
     }

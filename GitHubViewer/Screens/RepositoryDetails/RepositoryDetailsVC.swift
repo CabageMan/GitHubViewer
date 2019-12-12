@@ -3,6 +3,8 @@ import SafariServices
 
 final class RepositoryDetailsVC: UIViewController {
     
+    private let router: RepositoriesRouter
+    
     private let ownerLogin: String
     private let repository: Repository
     private let viewModel = RepositoryDetailsVM()
@@ -10,7 +12,8 @@ final class RepositoryDetailsVC: UIViewController {
     private let table = RepositoryDetailsTableView()
     
     //MARK: - Life Cycle
-    init(ownerLogin: String, repository: Repository) {
+    init(ownerLogin: String, repository: Repository, router: RepositoriesRouter) {
+        self.router = router
         self.ownerLogin = ownerLogin
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
@@ -67,7 +70,8 @@ final class RepositoryDetailsVC: UIViewController {
     }
     
     private func onMenuButtonTap() {
-        Global.showComingSoon()
+        // Configure and then call settings
+        router.showSetiings()
     }
     
     private func deselctTableViewRow() {

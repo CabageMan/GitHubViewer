@@ -2,6 +2,8 @@ import UIKit
 
 final class RepositoriesVC: UIViewController {
     
+    private let router: RepositoriesRouter
+    
     private let collection = RepositoriesCollection()
     private let searchController = UISearchController(searchResultsController: nil)
     private let viewModel = RepositoriesVM()
@@ -13,7 +15,8 @@ final class RepositoriesVC: UIViewController {
     var onReposCellTap: (Repository) -> Void = { _ in }
     
     //MARK: - Life Cycle
-    init() {
+    init(router: RepositoriesRouter) {
+        self.router = router
         super.init(nibName: nil, bundle: nil)
         title = String.Repos.title
     }
@@ -103,7 +106,8 @@ final class RepositoriesVC: UIViewController {
     
     //MARK: - Actions
     private func onMenuButtonTap() {
-        Global.showComingSoon()
+        // Configure and then call settings
+        router.showSetiings()
     }
 }
 

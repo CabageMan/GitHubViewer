@@ -14,6 +14,8 @@ final class RepositoriesCoordinator: Coordinator {
     
     private var reposDetailsCoordinator: RepositoryDetailsCoordinator?
     
+    private lazy var repositoriesRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
+    
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
         super.init()
@@ -25,7 +27,7 @@ final class RepositoriesCoordinator: Coordinator {
     }
     
     private func showReposVC() {
-        let controller = RepositoriesVC()
+        let controller = RepositoriesVC(router: repositoriesRouter)
         controller.onReposCellTap = { [weak self] repository in
             self?.runRepositoryDetailsFlow(repository: repository)
         }

@@ -151,6 +151,7 @@
 		378B818223963C89005E4875 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B818123963C89005E4875 /* ImageContentView.swift */; };
 		3791194D238FE3E9000FF474 /* ModalAlertViewCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */; };
 		3791194F238FE401000FF474 /* InfoModalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194E238FE401000FF474 /* InfoModalAlertView.swift */; };
+		3791F62923A0DB4600DFA1AA /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791F62823A0DB4600DFA1AA /* SettingsController.swift */; };
 		379473A5239A6ED60022CC3E /* CollectionActivityFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */; };
 		37A80ADC238816AB00BA2496 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADB238816AB00BA2496 /* User.swift */; };
 		37A80ADE2388174E00BA2496 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADD2388174E00BA2496 /* Repository.swift */; };
@@ -341,6 +342,7 @@
 		378B818123963C89005E4875 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
 		3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertViewCompatibility.swift; sourceTree = "<group>"; };
 		3791194E238FE401000FF474 /* InfoModalAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModalAlertView.swift; sourceTree = "<group>"; };
+		3791F62823A0DB4600DFA1AA /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
 		379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionActivityFooterView.swift; sourceTree = "<group>"; };
 		37A80ADB238816AB00BA2496 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37A80ADD2388174E00BA2496 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 		377C2172237C23300046D4E8 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				3791F62723A0DACC00DFA1AA /* SideMenu */,
 				379473A3239A6EC40022CC3E /* Collection */,
 				3791194B238FE3C9000FF474 /* ModalViews */,
 				375EB19B237EEC2E005B6252 /* Buttons.swift */,
@@ -941,6 +944,14 @@
 				3791194E238FE401000FF474 /* InfoModalAlertView.swift */,
 			);
 			path = ModalViews;
+			sourceTree = "<group>";
+		};
+		3791F62723A0DACC00DFA1AA /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				3791F62823A0DB4600DFA1AA /* SettingsController.swift */,
+			);
+			path = SideMenu;
 			sourceTree = "<group>";
 		};
 		379473A3239A6EC40022CC3E /* Collection */ = {
@@ -1360,6 +1371,7 @@
 				377C21DE237C23640046D4E8 /* UISearchUtilities.swift in Sources */,
 				377C21EE237C23640046D4E8 /* UIViewController+ext.swift in Sources */,
 				377C21E1237C23640046D4E8 /* UIImage+ext.swift in Sources */,
+				3791F62923A0DB4600DFA1AA /* SettingsController.swift in Sources */,
 				3743F45E238D213400C54A0A /* UIColor+Extension.swift in Sources */,
 				375EB186237EA072005B6252 /* GraphQLAPI.swift in Sources */,
 				377C21E8237C23640046D4E8 /* UIGestureRecognizer+ext.swift in Sources */,
