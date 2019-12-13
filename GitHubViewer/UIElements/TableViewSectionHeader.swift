@@ -1,6 +1,6 @@
 import UIKit
 
-final class RepositoryDetailsTVSectionHeader: UITableViewHeaderFooterView {
+final class TableViewSectionHeader: UITableViewHeaderFooterView {
     
     private let titleLabel = UILabel()
     
@@ -27,7 +27,7 @@ final class RepositoryDetailsTVSectionHeader: UITableViewHeaderFooterView {
 }
 
 //MARK: - Theme
-extension RepositoryDetailsTVSectionHeader {
+extension TableViewSectionHeader {
     enum Theme {
         // Fonts
         static let titleFont: UIFont = .circular(style: .bold, size: 17.0)

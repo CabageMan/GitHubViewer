@@ -1,6 +1,5 @@
 import Foundation
-#warning("Need to think about user model.")
-// Set repositories and other properties by functions or directly. By functions we can control what we set.
+
 struct User {
     let name: String
     let login: String

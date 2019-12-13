@@ -61,7 +61,7 @@ final class RepositoryDetailsTableView: NSObject {
         tableView.do {
             $0.dataSource = self
             $0.delegate = self
-            $0.registerHeader(RepositoryDetailsTVSectionHeader.self)
+            $0.registerHeader(TableViewSectionHeader.self)
             $0.registerCell(RepositoryDetailsTVInfoCell.self)
             $0.registerCell(RepositoryDetailsTVLinkCell.self)
             $0.registerCell(RepositoryDetailsTVUserCell.self)
@@ -118,7 +118,7 @@ extension RepositoryDetailsTableView: UITableViewDataSource {
 //MARK: - Table View Delegate Methods
 extension RepositoryDetailsTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header: RepositoryDetailsTVSectionHeader =  tableView.dequeueReusableHeader()
+        let header: TableViewSectionHeader =  tableView.dequeueReusableHeader()
         header.configure(title: sections[section].title)
         return header
     }

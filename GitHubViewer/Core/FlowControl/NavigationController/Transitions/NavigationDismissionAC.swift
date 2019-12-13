@@ -2,7 +2,6 @@ import UIKit
 
 final class NavigationDismissionAC: NSObject, UIViewControllerAnimatedTransitioning {
     
-  
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return TimeInterval(UINavigationController.hideShowBarDuration)
     }

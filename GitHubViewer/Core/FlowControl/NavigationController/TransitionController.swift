@@ -11,7 +11,7 @@ final class TransitionController: NSObject, UINavigationControllerDelegate {
         
         switch operation {
         case .push:
-            if toVC is SettingsController {
+            if toVC is SideMenuController {
 //                return SettingsPresentationAC()
                 return NavigationPresentationAC()
             } else {
@@ -22,7 +22,7 @@ final class TransitionController: NSObject, UINavigationControllerDelegate {
             if nc.isPopedToRoot {
                 nc.isPopedToRoot = false
                 return nil
-            } else if fromVC is SettingsController {
+            } else if fromVC is SideMenuController {
 //                return SettingsDismissionAC()
                 return NavigationDismissionAC()
             } else {
