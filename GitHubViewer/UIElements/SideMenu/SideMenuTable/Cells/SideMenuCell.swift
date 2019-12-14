@@ -49,13 +49,13 @@ final class SideMenuCell: UITableViewCell {
 extension SideMenuCell {
     enum Theme {
         // Fonts
-        static let titleFont: UIFont = .circular(style: .bold, size: 17.0)
+        static let titleFont: UIFont = .circular(style: .medium, size: 17.0)
         
         // Sizes
         static let arrowSize: CGSize = CGSize(20.0)
         
         // Offsets
-        static let titleOffset: CGFloat = 10.0
+        static let titleOffset: CGFloat = 15.0
         static let arrowRightOffset: CGFloat = 5.0
     }
 }

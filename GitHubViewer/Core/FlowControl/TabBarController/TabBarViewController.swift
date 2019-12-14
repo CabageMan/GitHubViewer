@@ -31,35 +31,53 @@ final class TabBarViewController: UITabBarController {
     }
 }
 
-//func showTabBar(animated: Bool = true, completion: (() -> Void)? = nil) {
-//  tabBarState = .normal
-//  tabBar.layer.removeAllAnimations()
-//  
-//  if animated {
-//    tabBar.isHidden = false
-//    UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState], animations: {
-//      self.tabBar.transform = .identity
-//    }, completion: { _ in completion?() })
-//  } else {
-//    tabBar.isHidden = false
-//    tabBar.transform = .identity
-//  }
-//}
-//
-//func hideTabBar(animated: Bool = true, completion: (() -> Void)? = nil) {
-//  tabBarState = .hidden
-//  tabBar.layer.removeAllAnimations()
-//
-//  if animated {
-//    UIView.animate(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState], animations: {
-//      self.tabBar.transform = CGAffineTransform(translationX: 0, y: self.tabBar.bounds.size.height)
-//    }, completion: { isFinished in
-//      guard isFinished else { return }
-//      self.tabBar.isHidden = true //hide tab bar to support view controller transform scale animations
-//      completion?()
-//    })
-//  } else {
-//    tabBar.transform = CGAffineTransform(translationX: 0, y: self.tabBar.bounds.size.height)
-//    tabBar.isHidden = true
-//  }
-//}
+//MARK: - Actions
+extension TabBarViewController {
+    func showTabBar(animated: Bool = true, completion: (() -> Void)? = nil) {
+      tabBar.layer.removeAllAnimations()
+      
+      if animated {
+        tabBar.isHidden = false
+        UIView.animate(
+            withDuration: 0.25,
+            delay: 0,
+            options: [.beginFromCurrentState],
+            animations: { [weak self] in
+                self?.tabBar.transform = .identity
+            },
+            completion: { _ in completion?() }
+        )
+      } else {
+        tabBar.do {
+            $0.isHidden = false
+            $0.transform = .identity
+        }
+      }
+    }
+
+    func hideTabBar(animated: Bool = true, completion: (() -> Void)? = nil) {
+      tabBar.layer.removeAllAnimations()
+
+      if animated {
+        UIView.animate(
+            withDuration: 0.25,
+            delay: 0,
+            options: [.beginFromCurrentState],
+            animations: { [weak self] in
+                guard let self = self else { return }
+                self.tabBar.transform = CGAffineTransform(translationX: 0, y: self.tabBar.bounds.size.height)
+            },
+            completion: { [weak self] isFinished in
+                guard let self = self, isFinished else { return }
+                self.tabBar.isHidden = true
+                completion?()
+            }
+        )
+      } else {
+        tabBar.do {
+            $0.transform = CGAffineTransform(translationX: 0, y: tabBar.bounds.size.height)
+            $0.isHidden = true
+        }
+      }
+    }
+}

@@ -5,9 +5,11 @@ final class SideMenuVM {
     typealias Section = SideMenuTableView.Section
     typealias MenuItem = SideMenuTableView.MenuItem
     
-    var menuTable: SideMenuTableView
+    let router: RepositoriesRouter
+    let menuTable: SideMenuTableView
     
-    init() {
+    init(router: RepositoriesRouter) {
+        self.router = router
         menuTable = SideMenuTableView()
         createMenuItems()
     }

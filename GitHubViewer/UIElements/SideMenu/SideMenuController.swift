@@ -2,12 +2,15 @@ import UIKit
 
 final class SideMenuController: UIViewController {
     
-    let viewModel: SideMenuVM
+    private let viewModel: SideMenuVM
+    private var tabBarViewController: TabBarViewController? {
+        guard let coordinator: TabBarCoordinator = viewModel.router.currentCoordinator?.findParent() else { return nil }
+        return coordinator.tabBarViewController
+    }
     
     //MARK: - Life Cycle
-    init() {
-        //TODO: Add router and menu type to init, throw it to view model
-        viewModel = SideMenuVM()
+    init(router: RepositoriesRouter) {
+        viewModel = SideMenuVM(router: router)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -16,6 +19,16 @@ final class SideMenuController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarViewController?.hideTabBar()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        tabBarViewController?.showTabBar()
     }
     
     private func setupUI() {
@@ -27,7 +40,8 @@ final class SideMenuController: UIViewController {
 }
 
 //TODO:
-// Hide Tab bar on calling
+// Fix Hiding Tab bar on calling from repositories detailss. Maybe need to remove repository details
+// coordinator and call this screen from repositories coordinator, or from the router.
 // Check on leaks
 // Create setting config
 // Push settings from bottom
