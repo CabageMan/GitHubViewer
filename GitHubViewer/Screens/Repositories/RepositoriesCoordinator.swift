@@ -36,10 +36,12 @@ final class RepositoriesCoordinator: Coordinator {
     }
     
     private func runRepositoryDetailsFlow(deepLink: RepositoryDetailsCoordinator.DeepLink? = nil, repository: Repository) {
+        removeAllChildren()
         guard let ownUser = Global.apiClient.ownUser else { return }
         let coordinator = RepositoryDetailsCoordinator(presenter: navigationController, owner: ownUser.login, repository: repository)
         coordinator.start(deepLink: deepLink)
         reposDetailsCoordinator = coordinator
+        addChild(coordinator)
     }
     
     func handleSecondTabTap() {

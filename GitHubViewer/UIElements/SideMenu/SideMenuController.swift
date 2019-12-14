@@ -33,6 +33,10 @@ final class SideMenuController: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = .cyan
+        
+        let backButton = UIBarButtonItem.back { [weak self] in self?.dismiss() }
+        navigationItem.setLeftBarButton(backButton, animated: false)
+        
         viewModel.menuTable.tableView.add(to: view).do {
             $0.edgesToSuperview()
         }
@@ -40,8 +44,6 @@ final class SideMenuController: UIViewController {
 }
 
 //TODO:
-// Fix Hiding Tab bar on calling from repositories detailss. Maybe need to remove repository details
-// coordinator and call this screen from repositories coordinator, or from the router.
 // Check on leaks
 // Create setting config
-// Push settings from bottom
+// Push settings from bottom?

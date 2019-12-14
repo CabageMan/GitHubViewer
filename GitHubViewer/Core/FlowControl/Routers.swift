@@ -11,7 +11,7 @@ class BaseRouter: RouterProtocol {
 }
 
 final class RepositoriesRouter: BaseRouter {
-    func showSetiings() {
+    func showMenu() {
         let settingsController = SideMenuController(router: self)
         navigationController?.pushViewController(settingsController)
     }

@@ -3,6 +3,8 @@ import SafariServices
 
 final class RepositoryDetailsVC: UIViewController {
     
+    var onBackButtonTap: () -> Void = { }
+    
     private let router: RepositoriesRouter
     
     private let ownerLogin: String
@@ -36,7 +38,7 @@ final class RepositoryDetailsVC: UIViewController {
         let backButton = UIBarButtonItem.back { [weak self] in self?.onBackButtonTap() }
         navigationItem.setLeftBarButton(backButton, animated: false)
         
-        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
         table.tableView.add(to: view).do {
@@ -63,15 +65,6 @@ final class RepositoryDetailsVC: UIViewController {
     //MARK: - Actions
     private func configureDetailsTableView() {
         table.sections = viewModel.createSections()
-    }
-    
-    private func onBackButtonTap() {
-        dismiss()
-    }
-    
-    private func onMenuButtonTap() {
-        // Configure and then call settings
-        router.showSetiings()
     }
     
     private func deselctTableViewRow() {

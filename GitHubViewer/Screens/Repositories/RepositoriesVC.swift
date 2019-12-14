@@ -52,7 +52,7 @@ final class RepositoriesVC: UIViewController {
         #warning("Solve problem with navigation bar appearance and `extendedLayoutIncludesOpaqueBars = true`")
 //        extendedLayoutIncludesOpaqueBars = true
         
-        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.do {
             $0.setRightBarButton(menuButtonItem, animated: false)
             $0.searchController = searchController
@@ -102,12 +102,6 @@ final class RepositoriesVC: UIViewController {
         viewModel.ownerHasBeenFetched = { [weak self] in
             self?.viewModel.getOwnRepositories()
         }
-    }
-    
-    //MARK: - Actions
-    private func onMenuButtonTap() {
-        // Configure and then call settings
-        router.showSetiings()
     }
 }
 

@@ -21,18 +21,12 @@ final class IssuesVC: UIViewController {
     private func setupUI() {
         view.backgroundColor = .mainBackground
         
-        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.menuTapped() }
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
         EmptyView.createEmptyIssues(offset: -Theme.emptyViewOffset).add(to: view).do {
             $0.edgesToSuperview()
         }
-    }
-    
-    //MARK: - Actions
-    private func menuTapped() {
-        // Configure and then call settings
-        router.showSetiings()
     }
 }
 

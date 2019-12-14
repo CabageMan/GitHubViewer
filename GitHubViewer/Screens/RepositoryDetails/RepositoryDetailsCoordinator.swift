@@ -31,6 +31,10 @@ final class RepositoryDetailsCoordinator: Coordinator {
     
     private func showRepositoryDetails() {
         let controller = RepositoryDetailsVC(ownerLogin: repositoryOwnerLogin, repository: repository, router: repositoryRouter)
+        controller.onBackButtonTap = { [weak self] in
+            controller.dismiss()
+            self?.removeFromParent()
+        }
         navigationController.pushViewController(controller, animated: true)
         reposDetailsVC = controller
     }
