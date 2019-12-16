@@ -22,6 +22,10 @@ final class APIClient {
         return accessToken != nil
     }
     
+    let loggedOutSignal = Signal<Void>()
+    
+    let syncDispatchQueue = DispatchQueue(label: "Sync Queue", qos: .userInitiated)
+    
     var accessTokenDidChange: ((AccessToken?) -> Void)? = nil
     var ownUserDidChange: (() -> Void)? = nil
     
@@ -69,6 +73,16 @@ final class APIClient {
     }
     
     func logout() {
-        Global.showComingSoon()
+        Spinner.start()
+        syncDispatchQueue.async { [weak self] in self?.handleLogout() }
+    }
+    
+    private func handleLogout() {
+        dispatchPrecondition(condition: .onQueue(syncDispatchQueue))
+        guard accessToken != nil else { return }
+        accessTokenStorage.clear()
+        accessToken = nil
+        ownUser = nil
+        loggedOutSignal.fire(())
     }
 }

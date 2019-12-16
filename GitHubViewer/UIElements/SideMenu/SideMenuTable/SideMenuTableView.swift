@@ -56,7 +56,7 @@ final class SideMenuTableView: NSObject {
     var sections: [Section] = [] {
         didSet { tableView.reloadData() }
     }
-    var menuItemTapped: () -> Void = { }
+    var menuItemSelected: (MenuItem) -> Void = { _ in }
     
     //MARK: - Initializers
     override init() {
@@ -125,7 +125,7 @@ extension SideMenuTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = sections[indexPath.section]
         if !section.items.isEmpty {
-            log("Selected: \(section.items[indexPath.row])")
+            menuItemSelected(section.items[indexPath.row])
         }
     }
 }

@@ -24,9 +24,6 @@ final class RepositoriesCollection: NSObject {
     var nextDataIsLoading: Bool = false {
         didSet {
             nextDataIsLoading ? activityFooter?.startAnimating() : activityFooter?.stopAnimating()
-            if nextDataIsLoading {
-                
-            }
         }
     }
     

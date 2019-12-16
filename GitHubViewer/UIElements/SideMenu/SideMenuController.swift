@@ -40,6 +40,21 @@ final class SideMenuController: UIViewController {
         viewModel.menuTable.tableView.add(to: view).do {
             $0.edgesToSuperview()
         }
+        viewModel.menuTable.menuItemSelected = { [weak self] selectedItem in
+            self?.handleSelectedItem(item: selectedItem)
+        }
+    }
+}
+
+//MARK: - Actions
+extension SideMenuController {
+    private func handleSelectedItem(item: SideMenuTableView.MenuItem) {
+        switch item {
+        case .logout:
+            Global.apiClient.logout()
+        default:
+            Global.showComingSoon()
+        }
     }
 }
 
