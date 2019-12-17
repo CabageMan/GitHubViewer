@@ -42,10 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //MARK: - OAuth Implementation
 extension AppDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey  : Any] = [:]) -> Bool {
-      if (url.host == "oauth-callback") {
-        OAuthSwift.handle(url: url)
-      }
-      return true
+        applicationHandle(url: url)
+        return true
+    }
+    
+    func applicationHandle(url: URL) {
+        if (url.host == "oauth-callback") {
+            OAuthSwift.handle(url: url)
+        }
     }
 }
 
