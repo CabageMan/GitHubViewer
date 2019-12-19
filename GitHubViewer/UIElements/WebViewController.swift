@@ -10,6 +10,7 @@ final class WebViewController: OAuthWebViewController {
     //MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        log("Web View Did Load")
         setupUI()
         loaadAddressURL()
     }
@@ -35,12 +36,23 @@ final class WebViewController: OAuthWebViewController {
             self?.webView.load(request)
         }
     }
+    
+    static func clean(completion: @escaping () -> Void) {
+        let dataStore = WKWebsiteDataStore.default()
+        dataStore.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+          dataStore.removeData(
+            ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(),
+            for: records.filter { $0.displayName.contains("github") },
+            completionHandler: completion
+          )
+        }
+    }
 }
 
 //MARK: - Web View Navigation Delegate Methods
 extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if let url = navigationAction.request.url, url.scheme == "oauth-swift" {
+        if let url = navigationAction.request.url, url.scheme == Environment.scheme {
             AppDelegate.shared.applicationHandle(url: url)
             decisionHandler(.cancel)
             dismissWebViewController()

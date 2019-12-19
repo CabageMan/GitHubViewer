@@ -9,18 +9,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
-    #warning("Fix in iOS 13: UIWindows were created prior to initial application activation. This may result in incorrect visual appearance.")
-    var window: UIWindow? = {
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.backgroundColor = .mainBackground
-        return window
-    }()
+    #warning("Read about this solution: Fix in iOS 13: UIWindows were created prior to initial application activation. This may result in incorrect visual appearance.")
+    var window: UIWindow?
+//    var window: UIWindow? = {
+//        let window = UIWindow(frame: UIScreen.main.bounds)
+//        window.backgroundColor = .mainBackground
+//        return window
+//    }()
     
     private lazy var appCoordinator: AppCoordinator = {
         return AppCoordinator(window: window!)
     }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds).then {
+            $0.backgroundColor = .mainBackground
+        }
         
         appCoordinator.start()
         
@@ -47,7 +51,7 @@ extension AppDelegate {
     }
     
     func applicationHandle(url: URL) {
-        if (url.host == "oauth-callback") {
+        if (url.host == Environment.oauthCallback) {
             OAuthSwift.handle(url: url)
         }
     }
