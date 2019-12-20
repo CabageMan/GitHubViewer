@@ -4,6 +4,9 @@ enum Environment: String {
     case staging
     case production
     
+    static let oauthCallback: String = "oauth-callback"
+    static let scheme: String = "githubviewer"
+    
     var toggled: Environment {
         switch self {
         case .staging: return .production
@@ -24,7 +27,11 @@ enum Environment: String {
     }
     
     var oauthCallBackURL: URL {
-        return URL(string: "githubviewer://oauth-callback")!
+        return URL(string: "\(Environment.scheme)://\(Environment.oauthCallback)/github")!
+    }
+    
+    var authScope: String {
+        return "user,repo"
     }
     
     private var baseURLString: String {

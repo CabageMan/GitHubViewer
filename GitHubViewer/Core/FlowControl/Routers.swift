@@ -1,8 +1,8 @@
 import UIKit
 
 class BaseRouter: RouterProtocol {
-    var currentCoordinator: BaseCoordinator?
-    var navigationController: UINavigationController?
+    weak var currentCoordinator: BaseCoordinator?
+    weak var navigationController: UINavigationController?
     
     required init(currentCoordinator: BaseCoordinator, navigationController: UINavigationController) {
         self.currentCoordinator = currentCoordinator
@@ -11,5 +11,8 @@ class BaseRouter: RouterProtocol {
 }
 
 final class RepositoriesRouter: BaseRouter {
-    //TODO: Imlement RepositoriesFlow navigation
+    func showMenu() {
+        let settingsController = SideMenuController(router: self)
+        navigationController?.pushViewController(settingsController)
+    }
 }

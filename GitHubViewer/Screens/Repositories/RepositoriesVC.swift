@@ -2,6 +2,8 @@ import UIKit
 
 final class RepositoriesVC: UIViewController {
     
+    private let router: RepositoriesRouter
+    
     private let collection = RepositoriesCollection()
     private let searchController = UISearchController(searchResultsController: nil)
     private let viewModel = RepositoriesVM()
@@ -13,7 +15,8 @@ final class RepositoriesVC: UIViewController {
     var onReposCellTap: (Repository) -> Void = { _ in }
     
     //MARK: - Life Cycle
-    init() {
+    init(router: RepositoriesRouter) {
+        self.router = router
         super.init(nibName: nil, bundle: nil)
         title = String.Repos.title
     }
@@ -49,7 +52,7 @@ final class RepositoriesVC: UIViewController {
         #warning("Solve problem with navigation bar appearance and `extendedLayoutIncludesOpaqueBars = true`")
 //        extendedLayoutIncludesOpaqueBars = true
         
-        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.do {
             $0.setRightBarButton(menuButtonItem, animated: false)
             $0.searchController = searchController
@@ -99,11 +102,6 @@ final class RepositoriesVC: UIViewController {
         viewModel.ownerHasBeenFetched = { [weak self] in
             self?.viewModel.getOwnRepositories()
         }
-    }
-    
-    //MARK: - Actions
-    private func onMenuButtonTap() {
-        Global.showComingSoon()
     }
 }
 

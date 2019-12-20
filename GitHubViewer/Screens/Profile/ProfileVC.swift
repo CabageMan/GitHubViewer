@@ -2,8 +2,11 @@ import UIKit
 
 final class ProfileVC: UIViewController {
     
+    private let router: RepositoriesRouter
+    
     //MARK: - Life Cycle
-    init() {
+    init(router: RepositoriesRouter) {
+        self.router = router
         super.init(nibName: nil, bundle: nil)
         title = String.Profile.title
     }
@@ -18,17 +21,12 @@ final class ProfileVC: UIViewController {
     private func setupUI() {
         view.backgroundColor = .mainBackground
         
-        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.menuTapped() }
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
         EmptyView.createEmptyProfile(offset: -Theme.emptyViewOffset).add(to: view).do {
             $0.edgesToSuperview()
         }
-    }
-    
-    //MARK: - Actions
-    private func menuTapped() {
-        Global.showComingSoon()
     }
 }
 

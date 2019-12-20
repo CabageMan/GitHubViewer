@@ -55,17 +55,15 @@ extension UIViewController {
 }
 
 extension UIViewController {
-  public func add(_ child: UIViewController) {
+  public func add(_ child: UIViewController, frame: CGRect? = nil) {
     addChild(child)
+    if let frame = frame { child.view.frame = frame }
     view.addSubview(child.view)
     child.didMove(toParent: self)
   }
   
   public func remove() {
-    guard parent != nil else {
-      return
-    }
-    
+    guard parent != nil else { return }
     willMove(toParent: nil)
     removeFromParent()
     view.removeFromSuperview()

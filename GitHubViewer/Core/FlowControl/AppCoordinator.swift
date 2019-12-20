@@ -11,7 +11,12 @@ final class AppCoordinator: Coordinator {
     init(window: UIWindow) {
         self.window = window
         super.init()
-        #warning("Need to implement logut functionality. Need to learn about better implementation")
+        
+        Global.apiClient.loggedOutSignal.subscribe(with: self) { [weak self] in
+            Spinner.stop()
+            self?.removeAllChildren()
+            self?.runAuthFlow()
+        }.onQueue(DispatchQueue.main)
     }
     
     //MARK: - Actions

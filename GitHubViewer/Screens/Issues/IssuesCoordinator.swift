@@ -12,6 +12,8 @@ final class IssuesCoordinator: Coordinator {
     private var navigationController: NavigationViewController
     private var issuesVC: IssuesVC?
     
+    private lazy var repositoriesRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
+    
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
         super.init()
@@ -23,7 +25,7 @@ final class IssuesCoordinator: Coordinator {
     }
     
     private func showIssuesVC() {
-        let controller = IssuesVC()
+        let controller = IssuesVC(router: repositoriesRouter)
         navigationController.pushViewController(controller, animated: true)
         issuesVC = controller
     }

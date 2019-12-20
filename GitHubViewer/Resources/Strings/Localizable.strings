@@ -1,5 +1,8 @@
 //MARK: - Fake
 "fake.useLinkAnywhere"  = "Now you can use this link anywhere you want";
+"fake.firstMenuItem"    = "First menu item";
+"fake.secondMenuItem"   = "Second menu item";
+"fake.thirdMenuItem"    = "Third menu item";
 
 //MARK: - General
 "general.welcome"       = "Welcome";
@@ -57,3 +60,7 @@
 "emptyView.emptyIssues"             = "Your issues will be displayed here";
 "emptyView.emptyProfile"            = "Your profile will be displayed here";
 
+//MARK: - Side Menu
+"sideMenu.signedInAs"   = "Signed in as";
+"sideMenu.settings"     = "Settings";
+"sideMenu.logout"       = "Sign out";

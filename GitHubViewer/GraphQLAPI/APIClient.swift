@@ -8,6 +8,7 @@ final class APIClient {
     
     private let callBackURL: URL
     private let oauthSwift: OAuth2Swift
+    private let scope: String
     
     private let accessTokenStorage: AccessTokenStorage
     private(set) var accessToken: AccessToken? {
@@ -19,8 +20,13 @@ final class APIClient {
     }
     
     var isLoggedIn: Bool {
+        #warning("Add checking for actual token")
         return accessToken != nil
     }
+    
+    let loggedOutSignal = Signal<Void>()
+    
+    let syncDispatchQueue = DispatchQueue(label: "Sync Queue", qos: .userInitiated)
     
     var accessTokenDidChange: ((AccessToken?) -> Void)? = nil
     var ownUserDidChange: (() -> Void)? = nil
@@ -38,6 +44,7 @@ final class APIClient {
           responseType:   "code"
         )
         self.callBackURL = environment.oauthCallBackURL
+        self.scope = environment.authScope
     }
     
     //MARK: - Actions
@@ -55,10 +62,10 @@ final class APIClient {
     func showLogin(in vc: UIViewController) {
         oauthSwift.allowMissingStateCheck = true
         oauthSwift.authorizeURLHandler = SafariURLHandler(viewController: vc, oauthSwift: oauthSwift)
-        oauthSwift.authorize(withCallbackURL: callBackURL, scope: "", state: "") { [weak self, weak vc] result in
+        oauthSwift.authorize(withCallbackURL: callBackURL, scope: scope, state: generateState(withLength: 20)) { [weak self, weak vc] result in
             guard let authVC = vc as? AuthVC else { return }
             switch result {
-            case .success(let (credential, response, parameters)):
+            case .success(let (credential, _, _)):
                 self?.setAccessToken(credential.oauthToken)
                 authVC.userDidLogin(.success)
             case .failure(let error):
@@ -68,7 +75,52 @@ final class APIClient {
         }
     }
     
+    func showLogin(with handler: OAuthSwiftURLHandlerType, completion: @escaping (Bool) -> Void) {
+        oauthSwift.allowMissingStateCheck = true
+        oauthSwift.authorizeURLHandler = handler
+        oauthSwift.authorize(withCallbackURL: callBackURL, scope: scope, state: generateState(withLength: 20)) { [weak self] result in
+            switch result {
+            case .success(let (credential, _, _)):
+                self?.setAccessToken(credential.oauthToken)
+                completion(true)
+            case .failure(let error):
+                completion(false)
+                log("Error: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func cancelAuthRequest() {
+        oauthSwift.cancel()
+    }
+    
     func logout() {
-        Global.showComingSoon()
+        Spinner.start()
+        WebViewController.clean { [weak self] in
+            self?.syncDispatchQueue.async { [weak self] in self?.handleLogout() }
+        }
+    }
+    
+    private func handleLogout() {
+        dispatchPrecondition(condition: .onQueue(syncDispatchQueue))
+        guard accessToken != nil else { return }
+        accessTokenStorage.clear()
+        accessToken = nil
+        ownUser = nil
+        loggedOutSignal.fire(())
+    }
+    
+    private func generateState(withLength len: Int) -> String {
+        let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let length = UInt32(letters.count)
+
+        var randomString = ""
+        for _ in 0..<len {
+            let rand = arc4random_uniform(length)
+            let idx = letters.index(letters.startIndex, offsetBy: Int(rand))
+            let letter = letters[idx]
+            randomString += String(letter)
+        }
+        return randomString
     }
 }

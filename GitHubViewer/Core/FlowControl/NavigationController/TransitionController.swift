@@ -11,18 +11,20 @@ final class TransitionController: NSObject, UINavigationControllerDelegate {
         
         switch operation {
         case .push:
-            // Sample of usage different animation controllers
-            //      if toVC is OfferDetailsVC {
-            //        return OfferDetailsPresentationAC()
-            //      } else {
-            //        return NavigationPresentationAC()
-            //      }
-            return NavigationPresentationAC()
+            if toVC is SideMenuController {
+//                return SettingsPresentationAC()
+                return NavigationPresentationAC()
+            } else {
+                return NavigationPresentationAC()
+            }
         case .pop:
             guard let nc = navigationController as? NavigationViewController else { return nil }
             if nc.isPopedToRoot {
                 nc.isPopedToRoot = false
                 return nil
+            } else if fromVC is SideMenuController {
+//                return SettingsDismissionAC()
+                return NavigationDismissionAC()
             } else {
                 return NavigationDismissionAC()
             }

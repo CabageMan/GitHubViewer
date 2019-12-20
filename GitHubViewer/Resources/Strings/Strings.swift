@@ -46,6 +46,12 @@ extension String {
   }
 
   enum Fake {
+    // First menu item
+    static let firstMenuItem = String.tr("Localizable", "fake.firstMenuItem")
+    // Second menu item
+    static let secondMenuItem = String.tr("Localizable", "fake.secondMenuItem")
+    // Third menu item
+    static let thirdMenuItem = String.tr("Localizable", "fake.thirdMenuItem")
     // Now you can use this link anywhere you want
     static let useLinkAnywhere = String.tr("Localizable", "fake.useLinkAnywhere")
   }
@@ -113,6 +119,15 @@ extension String {
     static let url = String.tr("Localizable", "repos.url")
     // Watchers
     static let watchers = String.tr("Localizable", "repos.watchers")
+  }
+
+  enum SideMenu {
+    // Sign out
+    static let logout = String.tr("Localizable", "sideMenu.logout")
+    // Settings
+    static let settings = String.tr("Localizable", "sideMenu.settings")
+    // Signed in as
+    static let signedInAs = String.tr("Localizable", "sideMenu.signedInAs")
   }
 }
 // swiftlint:enable explicit_type_interface identifier_name line_length nesting type_body_length type_name

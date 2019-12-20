@@ -3,6 +3,10 @@ import SafariServices
 
 final class RepositoryDetailsVC: UIViewController {
     
+    var onBackButtonTap: () -> Void = { }
+    
+    private let router: RepositoriesRouter
+    
     private let ownerLogin: String
     private let repository: Repository
     private let viewModel = RepositoryDetailsVM()
@@ -10,7 +14,8 @@ final class RepositoryDetailsVC: UIViewController {
     private let table = RepositoryDetailsTableView()
     
     //MARK: - Life Cycle
-    init(ownerLogin: String, repository: Repository) {
+    init(ownerLogin: String, repository: Repository, router: RepositoriesRouter) {
+        self.router = router
         self.ownerLogin = ownerLogin
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
@@ -33,7 +38,7 @@ final class RepositoryDetailsVC: UIViewController {
         let backButton = UIBarButtonItem.back { [weak self] in self?.onBackButtonTap() }
         navigationItem.setLeftBarButton(backButton, animated: false)
         
-        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.onMenuButtonTap() }
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
         table.tableView.add(to: view).do {
@@ -60,14 +65,6 @@ final class RepositoryDetailsVC: UIViewController {
     //MARK: - Actions
     private func configureDetailsTableView() {
         table.sections = viewModel.createSections()
-    }
-    
-    private func onBackButtonTap() {
-        dismiss()
-    }
-    
-    private func onMenuButtonTap() {
-        Global.showComingSoon()
     }
     
     private func deselctTableViewRow() {
