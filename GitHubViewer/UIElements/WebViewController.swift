@@ -5,19 +5,21 @@ import OAuthSwift
 final class WebViewController: OAuthWebViewController {
     
     let webView = WKWebView()
+    var webViewBottomConstraint: NSLayoutConstraint!
+    
     var targetUrl: URL?
     
     //MARK: - Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        log("Web View Did Load")
         setupUI()
         loaadAddressURL()
     }
     
     private func setupUI() {
         webView.add(to: view).do {
-            $0.edgesToSuperview()
+            $0.edgesToSuperview(excluding: .bottom)
+            webViewBottomConstraint = $0.bottomToSuperview()
             $0.navigationDelegate = self
         }
     }
@@ -61,8 +63,16 @@ extension WebViewController: WKNavigationDelegate {
         decisionHandler(.allow)
     }
     
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        Spinner.stop()
+    }
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        Spinner.start()
+    }
+    
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        Spinner.stop()
         dismissWebViewController()
-        // may be cancel auth request
+        Global.apiClient.cancelAuthRequest()
     }
 }

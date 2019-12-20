@@ -30,6 +30,10 @@ enum Environment: String {
         return URL(string: "\(Environment.scheme)://\(Environment.oauthCallback)/github")!
     }
     
+    var authScope: String {
+        return "user,repo"
+    }
+    
     private var baseURLString: String {
         switch self {
         case .staging: return "https://api.github.com"

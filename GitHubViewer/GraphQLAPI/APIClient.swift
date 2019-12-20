@@ -8,6 +8,7 @@ final class APIClient {
     
     private let callBackURL: URL
     private let oauthSwift: OAuth2Swift
+    private let scope: String
     
     private let accessTokenStorage: AccessTokenStorage
     private(set) var accessToken: AccessToken? {
@@ -43,6 +44,7 @@ final class APIClient {
           responseType:   "code"
         )
         self.callBackURL = environment.oauthCallBackURL
+        self.scope = environment.authScope
     }
     
     //MARK: - Actions
@@ -60,7 +62,7 @@ final class APIClient {
     func showLogin(in vc: UIViewController) {
         oauthSwift.allowMissingStateCheck = true
         oauthSwift.authorizeURLHandler = SafariURLHandler(viewController: vc, oauthSwift: oauthSwift)
-        oauthSwift.authorize(withCallbackURL: callBackURL, scope: "user,repo", state: generateState(withLength: 20)) { [weak self, weak vc] result in
+        oauthSwift.authorize(withCallbackURL: callBackURL, scope: scope, state: generateState(withLength: 20)) { [weak self, weak vc] result in
             guard let authVC = vc as? AuthVC else { return }
             switch result {
             case .success(let (credential, _, _)):
@@ -73,20 +75,24 @@ final class APIClient {
         }
     }
     
-    func showLogin(in vc: OAuthSwiftURLHandlerType, completion: @escaping (Bool) -> Void) {
-            oauthSwift.allowMissingStateCheck = true
-            oauthSwift.authorizeURLHandler = vc
-            oauthSwift.authorize(withCallbackURL: callBackURL, scope: "user,repo", state: generateState(withLength: 20)) { [weak self] result in
-                switch result {
-                case .success(let (credential, _, _)):
-                    self?.setAccessToken(credential.oauthToken)
-                    completion(true)
-                case .failure(let error):
-                    completion(false)
-                    log("Error: \(error.localizedDescription)")
-                }
+    func showLogin(with handler: OAuthSwiftURLHandlerType, completion: @escaping (Bool) -> Void) {
+        oauthSwift.allowMissingStateCheck = true
+        oauthSwift.authorizeURLHandler = handler
+        oauthSwift.authorize(withCallbackURL: callBackURL, scope: scope, state: generateState(withLength: 20)) { [weak self] result in
+            switch result {
+            case .success(let (credential, _, _)):
+                self?.setAccessToken(credential.oauthToken)
+                completion(true)
+            case .failure(let error):
+                completion(false)
+                log("Error: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func cancelAuthRequest() {
+        oauthSwift.cancel()
+    }
     
     func logout() {
         Spinner.start()
