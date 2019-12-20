@@ -1,8 +1,10 @@
 import UIKit
 
-final class PRVC: UIViewController {
+final class PullRequestsVC: UIViewController {
     
     private let router: RepositoriesRouter
+    
+    private let viewModel = PullRequestsVM()
     
     //MARK: - Life Cycle
     init(router: RepositoriesRouter) {
@@ -16,6 +18,9 @@ final class PRVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupViewModel()
+        viewModel.getOwnPullRequests()
+        Spinner.start()
     }
     
     private func setupUI() {
@@ -28,10 +33,20 @@ final class PRVC: UIViewController {
             $0.edgesToSuperview()
         }
     }
+    
+    private func setupViewModel() {
+        viewModel.pullRequestsHaveBeenFetched = { pullrequests in
+            Spinner.stop()
+            pullrequests.forEach {
+                log("\n")
+                log("Pull Requests:\nName: \($0.id)\nHeadRefName: \($0.headRefName)\nBaseRefName: \($0.baseRefName)\nBaseRepository \($0.baseRepository)")
+            }
+        }
+    }
 }
 
 //MARK: - Theme
-extension PRVC {
+extension PullRequestsVC {
     enum Theme {
         // Offsets
         static let emptyViewOffset: CGFloat = 70.0

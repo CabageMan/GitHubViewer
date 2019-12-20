@@ -34,13 +34,16 @@ final class RepositoriesVM {
             switch response {
             case .success(let result):
                 guard
-                    let repositories = result.data?.user?.repositories.edges?.compactMap({ $0?.node?.fragments.repositoriesListFragment }).map({ Repository(repo: $0) }),
-                    let pageInfo = result.data?.user?.repositories.pageInfo
+                    let data = result.data?.user?.repositories,
+                    let repositories = data.edges?
+                        .compactMap({ $0?.node?.fragments.repositoriesListFragment })
+                        .map({ Repository(repo: $0) })
                 else {
-                    log("Failed to load owner info")
+                    log("Failed to load repositories info")
                     return
                 }
-                
+                let pageInfo = data.pageInfo
+                #warning("Need improove pagination!")
                 if self.hasNextPage == nil {
                     self.hasNextPage = pageInfo.hasNextPage
                 }
@@ -55,7 +58,7 @@ final class RepositoriesVM {
                 
                 self.hasNextPage = pageInfo.hasNextPage
             case .failure(let error):
-                log("Error fetching own user: \(error.localizedDescription)")
+                log("Error fetching own repositories: \(error.localizedDescription)")
             }
             
         }

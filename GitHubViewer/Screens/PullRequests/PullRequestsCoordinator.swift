@@ -1,6 +1,6 @@
 import UIKit
 
-final class PRCoordinator: Coordinator {
+final class PullRequestsCoordinator: Coordinator {
     
     enum DeepLink {
         
@@ -10,7 +10,7 @@ final class PRCoordinator: Coordinator {
         return navigationController
     }
     private var navigationController: NavigationViewController
-    private var prVC: PRVC?
+    private var prVC: PullRequestsVC?
     
     private lazy var repositoriesRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
     
@@ -20,12 +20,12 @@ final class PRCoordinator: Coordinator {
     }
     
     //MARK: - Actions
-    func start(deepLink: PRCoordinator.DeepLink? = nil) {
+    func start(deepLink: PullRequestsCoordinator.DeepLink? = nil) {
         showPRVC()
     }
     
     private func showPRVC() {
-        let controller = PRVC(router: repositoriesRouter)
+        let controller = PullRequestsVC(router: repositoriesRouter)
         navigationController.pushViewController(controller, animated: true)
         prVC = controller
     }
