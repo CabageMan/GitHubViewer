@@ -4,7 +4,7 @@ final class RepositoriesVC: UIViewController {
     
     private let router: RepositoriesRouter
     
-    private let collection = RepositoriesCollection()
+    private let collection = GitHubViewerCollection()
     private let searchController = UISearchController(searchResultsController: nil)
     private let viewModel = RepositoriesVM()
     private let keyBoardObserver = KeyboardObserver()

@@ -45,7 +45,11 @@
 "repos.watchers"            = "Watchers";
 
 //MARK: - Pull Requests
-"pr.title"  = "Pull Requests";
+"pr.title"          = "Pull Requests";
+"pr.created"        = "Created";
+"pr.assigned"       = "Assigned";
+"pr.mentioned"      = "Mentioned";
+"pr.reviewRequests" = "Review Requests";
 
 //MARK: - Issues
 "issues.title"  = "Issues";

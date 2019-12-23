@@ -1,6 +1,11 @@
 import UIKit
 
-final class RepositoriesCollection: NSObject {
+final class GitHubViewerCollection: NSObject {
+    
+    enum Mode {
+        case repositories
+        case pullRequests
+    }
     
     var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout().then {
@@ -46,7 +51,7 @@ final class RepositoriesCollection: NSObject {
 }
 
 //MARK: - Collection Data Source Methods
-extension RepositoriesCollection: UICollectionViewDataSource {
+extension GitHubViewerCollection: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
@@ -72,7 +77,7 @@ extension RepositoriesCollection: UICollectionViewDataSource {
 }
 
 //MARK: - Collection Delegate Methods
-extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+extension GitHubViewerCollection: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: Theme.cellHeight)
@@ -92,7 +97,7 @@ extension RepositoriesCollection: UICollectionViewDelegateFlowLayout, UICollecti
 }
 
 //MARK: - Scroll View Delegate
-extension RepositoriesCollection {
+extension GitHubViewerCollection {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if !nextDataIsLoading && collectionView.isEndOfScroll {
             getNextData()
@@ -101,7 +106,7 @@ extension RepositoriesCollection {
 }
 
 //MARK: - Theme
-extension RepositoriesCollection {
+extension GitHubViewerCollection {
     enum Theme {
         // Sizes
         static let cellHeight: CGFloat = 74.0

@@ -81,6 +81,14 @@ extension String {
   }
 
   enum Pr {
+    // Assigned
+    static let assigned = String.tr("Localizable", "pr.assigned")
+    // Created
+    static let created = String.tr("Localizable", "pr.created")
+    // Mentioned
+    static let mentioned = String.tr("Localizable", "pr.mentioned")
+    // Review Requests
+    static let reviewRequests = String.tr("Localizable", "pr.reviewRequests")
     // Pull Requests
     static let title = String.tr("Localizable", "pr.title")
   }

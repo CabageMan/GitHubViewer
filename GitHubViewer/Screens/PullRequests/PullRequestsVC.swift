@@ -1,14 +1,16 @@
 import UIKit
+import Parchment
 
 final class PullRequestsVC: UIViewController {
     
     private let router: RepositoriesRouter
-    
+    private let fixedPageController: FixedPagingViewController
     private let viewModel = PullRequestsVM()
     
     //MARK: - Life Cycle
-    init(router: RepositoriesRouter) {
+    init(router: RepositoriesRouter, pagingController: FixedPagingViewController) {
         self.router = router
+        self.fixedPageController = pagingController
         super.init(nibName: nil, bundle: nil)
         title = String.Pr.title
     }
@@ -30,6 +32,11 @@ final class PullRequestsVC: UIViewController {
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
         EmptyView.createEmptyPullRequests(offset: -Theme.emptyViewOffset).add(to: view).do {
+            $0.edgesToSuperview()
+        }
+        
+        add(fixedPageController)
+        fixedPageController.view.do {
             $0.edgesToSuperview()
         }
     }

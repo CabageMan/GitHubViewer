@@ -1,4 +1,5 @@
 import UIKit
+import Parchment
 
 final class PullRequestsCoordinator: Coordinator {
     
@@ -25,7 +26,20 @@ final class PullRequestsCoordinator: Coordinator {
     }
     
     private func showPRVC() {
-        let controller = PullRequestsVC(router: repositoriesRouter)
+        let createdRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .created)
+        let assignedRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .assigned)
+        let mentionedRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .mentioned)
+        let reviewRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .reviewRequests)
+        let pageController = FixedPagingViewController(
+            viewControllers: [
+                createdRequestsVC,
+                assignedRequestsVC,
+                mentionedRequestsVC,
+                reviewRequestsVC
+            ]
+        )
+        
+        let controller = PullRequestsVC(router: repositoriesRouter, pagingController: pageController)
         navigationController.pushViewController(controller, animated: true)
         prVC = controller
     }
