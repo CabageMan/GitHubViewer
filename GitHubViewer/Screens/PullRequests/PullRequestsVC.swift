@@ -31,10 +31,6 @@ final class PullRequestsVC: UIViewController {
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
-        EmptyView.createEmptyPullRequests(offset: -Theme.emptyViewOffset).add(to: view).do {
-            $0.edgesToSuperview()
-        }
-        
         add(fixedPageController)
         fixedPageController.view.do {
             $0.edgesToSuperview()
@@ -42,11 +38,11 @@ final class PullRequestsVC: UIViewController {
     }
     
     private func setupViewModel() {
-        viewModel.pullRequestsHaveBeenFetched = { pullrequests in
+        viewModel.pullRequestsHaveBeenFetched = { [weak self] pullrequests in
             Spinner.stop()
-            pullrequests.forEach {
-                log("\n")
-                log("Pull Requests:\nName: \($0.id)\nState: \($0.state)\nAuthor: \($0.author)\nAssignees \($0.assignees)")
+            self?.fixedPageController.viewControllers.forEach { controller in
+                let vc = controller as! PullRequestsCollectionVC
+                vc.items = pullrequests
             }
         }
     }

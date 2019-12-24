@@ -139,12 +139,12 @@ extension RepositoriesCollectionCell {
         static let languageLabelFont: UIFont = .circular(style: .medium, size: 10.0)
         
         // Sizes
-        static let statusImageSize: CGSize = CGSize(30.0)
-        static let colorViewSize: CGSize = CGSize(15.0)
+        static let statusImageSize = CGSize(30.0)
+        static let colorViewSize = CGSize(15.0)
+        static let arrowSize = CGSize(20.0)
         static let languageLabelHeight: CGFloat = 15.0
         static let nameLabelHeight: CGFloat = 20.0
         static let descriptionLabelHeight: CGFloat = 20.0
-        static let arrowSize: CGSize = CGSize(20.0)
         
         // Offsets
         static let statusLeftOffset: CGFloat = 10.0

@@ -2,13 +2,13 @@ import UIKit
 
 final class PullRequestsCollectionVC: UIViewController {
     
-//    var items: [PullRequest] = [] {
-//        didSet { collection.items = items }
-//    }
+    var items: [PullRequest] = [] {
+        didSet { collection.items = items }
+    }
     
     private let router: RepositoriesRouter
     private let mode: Mode
-//    private let collection = GitHubViewerCollection()
+    private let collection = GitHubViewerCollection<PullRequestsCollectionCell>(mode: .pullRequests)
     
     //MARK: - Life Cycle
     init(router: RepositoriesRouter, mode: Mode) {
@@ -26,15 +26,15 @@ final class PullRequestsCollectionVC: UIViewController {
     }
     
     private func setupUI() {
-        switch mode {
-        case .created:
-            view.backgroundColor = .green
-        case .assigned:
-            view.backgroundColor = .yellow
-        case .mentioned:
-            view.backgroundColor = .cyan
-        case .reviewRequests:
-            view.backgroundColor = .blue
+        collection.collectionView.add(to: view).do {
+            $0.edgesToSuperview()
+            $0.keyboardDismissMode = .onDrag
+        }
+        collection.onCellTap = { request in
+            log("Tapped pull request: \(request.headRefName)")
+        }
+        collection.getNextData = { [weak self] in
+            log("We need to load more data")
         }
     }
 }
