@@ -41,11 +41,31 @@ fragment RepositoryDetailsFragment on Repository {
 # Pull Request Fragment
 fragment PullRequestsListFragment on PullRequest {
     id
-    baseRepository {
-      ...RepositoriesListFragment
-    }
+    state
     headRefName
     baseRefName
+    author {
+        login
+    }
+    reviewRequests {
+        edges {
+            node {
+                pullRequest {
+                    headRefName
+                }
+            }
+        }
+    }
+    assignees(first: 15) {
+        edges {
+            node {
+                login
+            }
+        }
+    }
+    baseRepository {
+        ...RepositoriesListFragment
+    }
 }
 
 

@@ -2,9 +2,13 @@ import UIKit
 
 final class PullRequestsCollectionVC: UIViewController {
     
+//    var items: [PullRequest] = [] {
+//        didSet { collection.items = items }
+//    }
+    
     private let router: RepositoriesRouter
     private let mode: Mode
-    private let collection = GitHubViewerCollection()
+//    private let collection = GitHubViewerCollection()
     
     //MARK: - Life Cycle
     init(router: RepositoriesRouter, mode: Mode) {

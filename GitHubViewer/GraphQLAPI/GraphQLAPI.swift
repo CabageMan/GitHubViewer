@@ -214,6 +214,55 @@ public enum IssueOrderField: RawRepresentable, Equatable, Hashable, CaseIterable
   }
 }
 
+/// The possible states of a pull request.
+public enum PullRequestState: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  /// A pull request that is still open.
+  case `open`
+  /// A pull request that has been closed without being merged.
+  case closed
+  /// A pull request that has been closed by being merged.
+  case merged
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "OPEN": self = .open
+      case "CLOSED": self = .closed
+      case "MERGED": self = .merged
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .open: return "OPEN"
+      case .closed: return "CLOSED"
+      case .merged: return "MERGED"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: PullRequestState, rhs: PullRequestState) -> Bool {
+    switch (lhs, rhs) {
+      case (.open, .open): return true
+      case (.closed, .closed): return true
+      case (.merged, .merged): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [PullRequestState] {
+    return [
+      .open,
+      .closed,
+      .merged,
+    ]
+  }
+}
+
 public final class OwnUserQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition =
@@ -1683,12 +1732,40 @@ public struct PullRequestsListFragment: GraphQLFragment {
     fragment PullRequestsListFragment on PullRequest {
       __typename
       id
+      state
+      headRefName
+      baseRefName
+      author {
+        __typename
+        login
+      }
+      reviewRequests {
+        __typename
+        edges {
+          __typename
+          node {
+            __typename
+            pullRequest {
+              __typename
+              headRefName
+            }
+          }
+        }
+      }
+      assignees(first: 15) {
+        __typename
+        edges {
+          __typename
+          node {
+            __typename
+            login
+          }
+        }
+      }
       baseRepository {
         __typename
         ...RepositoriesListFragment
       }
-      headRefName
-      baseRefName
     }
     """
 
@@ -1697,9 +1774,13 @@ public struct PullRequestsListFragment: GraphQLFragment {
   public static let selections: [GraphQLSelection] = [
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-    GraphQLField("baseRepository", type: .object(BaseRepository.selections)),
+    GraphQLField("state", type: .nonNull(.scalar(PullRequestState.self))),
     GraphQLField("headRefName", type: .nonNull(.scalar(String.self))),
     GraphQLField("baseRefName", type: .nonNull(.scalar(String.self))),
+    GraphQLField("author", type: .object(Author.selections)),
+    GraphQLField("reviewRequests", type: .object(ReviewRequest.selections)),
+    GraphQLField("assignees", arguments: ["first": 15], type: .nonNull(.object(Assignee.selections))),
+    GraphQLField("baseRepository", type: .object(BaseRepository.selections)),
   ]
 
   public private(set) var resultMap: ResultMap
@@ -1708,8 +1789,8 @@ public struct PullRequestsListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, baseRepository: BaseRepository? = nil, headRefName: String, baseRefName: String) {
-    self.init(unsafeResultMap: ["__typename": "PullRequest", "id": id, "baseRepository": baseRepository.flatMap { (value: BaseRepository) -> ResultMap in value.resultMap }, "headRefName": headRefName, "baseRefName": baseRefName])
+  public init(id: GraphQLID, state: PullRequestState, headRefName: String, baseRefName: String, author: Author? = nil, reviewRequests: ReviewRequest? = nil, assignees: Assignee, baseRepository: BaseRepository? = nil) {
+    self.init(unsafeResultMap: ["__typename": "PullRequest", "id": id, "state": state, "headRefName": headRefName, "baseRefName": baseRefName, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "reviewRequests": reviewRequests.flatMap { (value: ReviewRequest) -> ResultMap in value.resultMap }, "assignees": assignees.resultMap, "baseRepository": baseRepository.flatMap { (value: BaseRepository) -> ResultMap in value.resultMap }])
   }
 
   public var __typename: String {
@@ -1730,13 +1811,13 @@ public struct PullRequestsListFragment: GraphQLFragment {
     }
   }
 
-  /// The repository associated with this pull request's base Ref.
-  public var baseRepository: BaseRepository? {
+  /// Identifies the state of the pull request.
+  public var state: PullRequestState {
     get {
-      return (resultMap["baseRepository"] as? ResultMap).flatMap { BaseRepository(unsafeResultMap: $0) }
+      return resultMap["state"]! as! PullRequestState
     }
     set {
-      resultMap.updateValue(newValue?.resultMap, forKey: "baseRepository")
+      resultMap.updateValue(newValue, forKey: "state")
     }
   }
 
@@ -1757,6 +1838,366 @@ public struct PullRequestsListFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "baseRefName")
+    }
+  }
+
+  /// The actor who authored the comment.
+  public var author: Author? {
+    get {
+      return (resultMap["author"] as? ResultMap).flatMap { Author(unsafeResultMap: $0) }
+    }
+    set {
+      resultMap.updateValue(newValue?.resultMap, forKey: "author")
+    }
+  }
+
+  /// A list of review requests associated with the pull request.
+  public var reviewRequests: ReviewRequest? {
+    get {
+      return (resultMap["reviewRequests"] as? ResultMap).flatMap { ReviewRequest(unsafeResultMap: $0) }
+    }
+    set {
+      resultMap.updateValue(newValue?.resultMap, forKey: "reviewRequests")
+    }
+  }
+
+  /// A list of Users assigned to this object.
+  public var assignees: Assignee {
+    get {
+      return Assignee(unsafeResultMap: resultMap["assignees"]! as! ResultMap)
+    }
+    set {
+      resultMap.updateValue(newValue.resultMap, forKey: "assignees")
+    }
+  }
+
+  /// The repository associated with this pull request's base Ref.
+  public var baseRepository: BaseRepository? {
+    get {
+      return (resultMap["baseRepository"] as? ResultMap).flatMap { BaseRepository(unsafeResultMap: $0) }
+    }
+    set {
+      resultMap.updateValue(newValue?.resultMap, forKey: "baseRepository")
+    }
+  }
+
+  public struct Author: GraphQLSelectionSet {
+    public static let possibleTypes = ["User", "Organization", "Bot", "Mannequin", "EnterpriseUserAccount"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("login", type: .nonNull(.scalar(String.self))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public static func makeUser(login: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "User", "login": login])
+    }
+
+    public static func makeOrganization(login: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "Organization", "login": login])
+    }
+
+    public static func makeBot(login: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "Bot", "login": login])
+    }
+
+    public static func makeMannequin(login: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "Mannequin", "login": login])
+    }
+
+    public static func makeEnterpriseUserAccount(login: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// The username of the actor.
+    public var login: String {
+      get {
+        return resultMap["login"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "login")
+      }
+    }
+  }
+
+  public struct ReviewRequest: GraphQLSelectionSet {
+    public static let possibleTypes = ["ReviewRequestConnection"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("edges", type: .list(.object(Edge.selections))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(edges: [Edge?]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "ReviewRequestConnection", "edges": edges.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// A list of edges.
+    public var edges: [Edge?]? {
+      get {
+        return (resultMap["edges"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Edge?] in value.map { (value: ResultMap?) -> Edge? in value.flatMap { (value: ResultMap) -> Edge in Edge(unsafeResultMap: value) } } }
+      }
+      set {
+        resultMap.updateValue(newValue.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }, forKey: "edges")
+      }
+    }
+
+    public struct Edge: GraphQLSelectionSet {
+      public static let possibleTypes = ["ReviewRequestEdge"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("node", type: .object(Node.selections)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(node: Node? = nil) {
+        self.init(unsafeResultMap: ["__typename": "ReviewRequestEdge", "node": node.flatMap { (value: Node) -> ResultMap in value.resultMap }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The item at the end of the edge.
+      public var node: Node? {
+        get {
+          return (resultMap["node"] as? ResultMap).flatMap { Node(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "node")
+        }
+      }
+
+      public struct Node: GraphQLSelectionSet {
+        public static let possibleTypes = ["ReviewRequest"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("pullRequest", type: .nonNull(.object(PullRequest.selections))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(pullRequest: PullRequest) {
+          self.init(unsafeResultMap: ["__typename": "ReviewRequest", "pullRequest": pullRequest.resultMap])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// Identifies the pull request associated with this review request.
+        public var pullRequest: PullRequest {
+          get {
+            return PullRequest(unsafeResultMap: resultMap["pullRequest"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "pullRequest")
+          }
+        }
+
+        public struct PullRequest: GraphQLSelectionSet {
+          public static let possibleTypes = ["PullRequest"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("headRefName", type: .nonNull(.scalar(String.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(headRefName: String) {
+            self.init(unsafeResultMap: ["__typename": "PullRequest", "headRefName": headRefName])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// Identifies the name of the head Ref associated with the pull request, even if the ref has been deleted.
+          public var headRefName: String {
+            get {
+              return resultMap["headRefName"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "headRefName")
+            }
+          }
+        }
+      }
+    }
+  }
+
+  public struct Assignee: GraphQLSelectionSet {
+    public static let possibleTypes = ["UserConnection"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("edges", type: .list(.object(Edge.selections))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(edges: [Edge?]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "UserConnection", "edges": edges.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// A list of edges.
+    public var edges: [Edge?]? {
+      get {
+        return (resultMap["edges"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Edge?] in value.map { (value: ResultMap?) -> Edge? in value.flatMap { (value: ResultMap) -> Edge in Edge(unsafeResultMap: value) } } }
+      }
+      set {
+        resultMap.updateValue(newValue.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }, forKey: "edges")
+      }
+    }
+
+    public struct Edge: GraphQLSelectionSet {
+      public static let possibleTypes = ["UserEdge"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("node", type: .object(Node.selections)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(node: Node? = nil) {
+        self.init(unsafeResultMap: ["__typename": "UserEdge", "node": node.flatMap { (value: Node) -> ResultMap in value.resultMap }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The item at the end of the edge.
+      public var node: Node? {
+        get {
+          return (resultMap["node"] as? ResultMap).flatMap { Node(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "node")
+        }
+      }
+
+      public struct Node: GraphQLSelectionSet {
+        public static let possibleTypes = ["User"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("login", type: .nonNull(.scalar(String.self))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(login: String) {
+          self.init(unsafeResultMap: ["__typename": "User", "login": login])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// The username used to login.
+        public var login: String {
+          get {
+            return resultMap["login"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "login")
+          }
+        }
+      }
     }
   }
 

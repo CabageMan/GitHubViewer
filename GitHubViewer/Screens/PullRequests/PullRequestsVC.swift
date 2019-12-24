@@ -46,7 +46,7 @@ final class PullRequestsVC: UIViewController {
             Spinner.stop()
             pullrequests.forEach {
                 log("\n")
-                log("Pull Requests:\nName: \($0.id)\nHeadRefName: \($0.headRefName)\nBaseRefName: \($0.baseRefName)\nBaseRepository \($0.baseRepository)")
+                log("Pull Requests:\nName: \($0.id)\nState: \($0.state)\nAuthor: \($0.author)\nAssignees \($0.assignees)")
             }
         }
     }

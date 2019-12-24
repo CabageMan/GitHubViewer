@@ -94,7 +94,23 @@ final class RepositoriesCollectionCell: UICollectionViewCell {
         }
     }
     
-    func configure(with repository: Repository) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        statusImageView.image = nil
+        nameLabel.text = nil
+        descriptionLabel.text = nil
+        colorView.backgroundColor = .clear
+        languageLabel.text = nil
+    }
+}
+
+//MARK: - Configure Cell
+extension RepositoriesCollectionCell: ConfigurableCell {
+    typealias CellData = Repository
+    
+    func configure(with data: Repository) {
+        let repository = data
+        
         if repository.isFork {
             statusImageView.image = #imageLiteral(resourceName: "fork")
         } else if repository.isPrivate {
@@ -111,14 +127,6 @@ final class RepositoriesCollectionCell: UICollectionViewCell {
             colorView.backgroundColor = .clear
         }
         languageLabel.text = repository.primaryLanguage?.name
-    }
-    
-    override func prepareForReuse() {
-        statusImageView.image = nil
-        nameLabel.text = nil
-        descriptionLabel.text = nil
-        colorView.backgroundColor = .clear
-        languageLabel.text = nil
     }
 }
 

@@ -38,6 +38,7 @@ final class RepositoryDetailsTVInfoCell: UITableViewCell {
     }
 
     override func prepareForReuse() {
+        super.prepareForReuse()
         titleLabel.text = nil
         detailsLabel.text = nil
     }

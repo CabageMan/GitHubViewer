@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		261AA21CA3B03502701C2B0F /* Pods_GitHubViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B99CB3917DC37CF75D05357E /* Pods_GitHubViewer.framework */; };
 		370117AB23B0EA17002C42AE /* PullRequestsCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370117AA23B0EA17002C42AE /* PullRequestsCollectionVC.swift */; };
+		370117AF23B10E50002C42AE /* ConfigurableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370117AE23B10E50002C42AE /* ConfigurableProtocol.swift */; };
 		3702A15B238298CE006D9598 /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702A15A238298CE006D9598 /* TitledTextField.swift */; };
 		3707CC8E2382D542008D2D3E /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3707CC8D2382D542008D2D3E /* UIStackView+Extensions.swift */; };
 		3710D39623AD06DC00FAF5C7 /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3710D39523AD06DC00FAF5C7 /* PullRequest.swift */; };
@@ -155,6 +156,7 @@
 		377C2232237C36700046D4E8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2231237C36700046D4E8 /* Fonts.swift */; };
 		377C2234237C38AA0046D4E8 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2233237C38AA0046D4E8 /* Global.swift */; };
 		377C2237237C39E50046D4E8 /* UIAlert+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */; };
+		3781DC5F23B1FEBE00C08486 /* PullRequestsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3781DC5E23B1FEBE00C08486 /* PullRequestsCollectionCell.swift */; };
 		378408C623A91CDC00A74D88 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378408C523A91CDC00A74D88 /* WebViewController.swift */; };
 		3787FD8B239F833D00D472E6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787FD8A239F833D00D472E6 /* EmptyView.swift */; };
 		378B818223963C89005E4875 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B818123963C89005E4875 /* ImageContentView.swift */; };
@@ -203,6 +205,7 @@
 /* Begin PBXFileReference section */
 		33FD2CB0A93D3482F510EAA6 /* Pods-GitHubViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubViewer.debug.xcconfig"; path = "Target Support Files/Pods-GitHubViewer/Pods-GitHubViewer.debug.xcconfig"; sourceTree = "<group>"; };
 		370117AA23B0EA17002C42AE /* PullRequestsCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsCollectionVC.swift; sourceTree = "<group>"; };
+		370117AE23B10E50002C42AE /* ConfigurableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableProtocol.swift; sourceTree = "<group>"; };
 		3702A15A238298CE006D9598 /* TitledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
 		3707CC8D2382D542008D2D3E /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		3710D39523AD06DC00FAF5C7 /* PullRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
@@ -355,6 +358,7 @@
 		377C2231237C36700046D4E8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		377C2233237C38AA0046D4E8 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlert+Extensions.swift"; sourceTree = "<group>"; };
+		3781DC5E23B1FEBE00C08486 /* PullRequestsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsCollectionCell.swift; sourceTree = "<group>"; };
 		378408C523A91CDC00A74D88 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		3787FD8A239F833D00D472E6 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		378B818123963C89005E4875 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
@@ -423,6 +427,7 @@
 		370117AC23B0EA28002C42AE /* CollectionCells */ = {
 			isa = PBXGroup;
 			children = (
+				3781DC5E23B1FEBE00C08486 /* PullRequestsCollectionCell.swift */,
 			);
 			path = CollectionCells;
 			sourceTree = "<group>";
@@ -1014,6 +1019,7 @@
 			children = (
 				37C41C6E238BC58A00AB06D4 /* GitHubViewerCollection.swift */,
 				379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */,
+				370117AE23B10E50002C42AE /* ConfigurableProtocol.swift */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -1340,6 +1346,7 @@
 				377C21F7237C23640046D4E8 /* KeyboardObserver.swift in Sources */,
 				377C21D5237C23640046D4E8 /* StringValidators.swift in Sources */,
 				377C21DC237C23640046D4E8 /* HorizontalAlignmentLayout.swift in Sources */,
+				370117AF23B10E50002C42AE /* ConfigurableProtocol.swift in Sources */,
 				377C21DB237C23640046D4E8 /* PaginationFlowLayout.swift in Sources */,
 				377C2215237C23640046D4E8 /* UIBarButtonItem+Signals.swift in Sources */,
 				377C2234237C38AA0046D4E8 /* Global.swift in Sources */,
@@ -1391,6 +1398,7 @@
 				372D9662238C1206006BE68B /* RepositoryDetailsVC.swift in Sources */,
 				373C58D8238585FF003F2BEB /* NavigationDismissionAC.swift in Sources */,
 				377C220C237C23640046D4E8 /* Comparable+ext.swift in Sources */,
+				3781DC5F23B1FEBE00C08486 /* PullRequestsCollectionCell.swift in Sources */,
 				3752AE602383EC5C00170C79 /* AuthVC.swift in Sources */,
 				375EB19C237EEC2E005B6252 /* Buttons.swift in Sources */,
 				377C21D8237C23640046D4E8 /* PinnedHeaderFlowLayout.swift in Sources */,
