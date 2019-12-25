@@ -132,14 +132,15 @@ extension PullRequestsCollectionCell: ConfigurableCell {
     }
     
     private func makeDetailsDescription(for request: PullRequest) -> String {
-        var details = "#\(request.number) by \(request.author)"
+        var details = String.Pr.requestByAuthor("\(request.number)", "\(request.author)")
         
         if case .open = request.state {
-            details = "#\(request.number) opened \(request.createdAt.timeAgo) by \(request.author)"
+            details = String.Pr.openedRequest("\(request.number)", "\(request.createdAt.timeAgo)", "\(request.author)")
         } else if case .merged = request.state {
-            details += request.mergedAt != nil ? " was merged \(request.mergedAt!.timeAgo)" : ""
+            details += request.mergedAt != nil ? String.Pr.wasMerged("\(request.mergedAt!.timeAgo)") : ""
+            
         } else if case .closed = request.state {
-            details += request.closedAt != nil ? " was closed \(request.closedAt!.timeAgo)" : ""
+            details += request.closedAt != nil ? String.Pr.wasClosed("\(request.closedAt!.timeAgo)") : ""
         }
         
         return details
@@ -172,20 +173,5 @@ extension PullRequestsCollectionCell {
         static let stateTopOffset: CGFloat = 8.0
         static let labelsTopOffset: CGFloat = 5.0
         static let nameLeftOffset: CGFloat = 5.0
-    }
-}
-
-private extension Date {
-    var isNow: Bool {
-        guard let expirationDate = Calendar.current.date(byAdding: .minute, value: 10, to: self) else { return false }
-        return expirationDate > Date()
-    }
-    
-    var timeAgo: String {
-        return DateUtilities.postedDateFormat(fromDate: self, toDate: Date())
-    }
-    
-    var timeTo: String {
-        return DateUtilities.postedDateFormat(fromDate: Date(), toDate: self)
     }
 }

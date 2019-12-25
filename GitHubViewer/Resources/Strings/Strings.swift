@@ -87,10 +87,26 @@ extension String {
     static let created = String.tr("Localizable", "pr.created")
     // Mentioned
     static let mentioned = String.tr("Localizable", "pr.mentioned")
+    // #%@ opened %@ ago by %@
+    static func openedRequest(_ p1: String, _ p2: String, _ p3: String) -> String {
+      return String.tr("Localizable", "pr.openedRequest", p1, p2, p3)
+    }
+    // #%@ by %@
+    static func requestByAuthor(_ p1: String, _ p2: String) -> String {
+      return String.tr("Localizable", "pr.requestByAuthor", p1, p2)
+    }
     // Review Requests
     static let reviewRequests = String.tr("Localizable", "pr.reviewRequests")
     // Pull Requests
     static let title = String.tr("Localizable", "pr.title")
+    //  was closed %@ ago
+    static func wasClosed(_ p1: String) -> String {
+      return String.tr("Localizable", "pr.wasClosed", p1)
+    }
+    //  was merged %@ ago
+    static func wasMerged(_ p1: String) -> String {
+      return String.tr("Localizable", "pr.wasMerged", p1)
+    }
   }
 
   enum Profile {

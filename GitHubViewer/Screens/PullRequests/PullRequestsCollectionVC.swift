@@ -31,10 +31,10 @@ final class PullRequestsCollectionVC: UIViewController {
             $0.keyboardDismissMode = .onDrag
         }
         collection.onCellTap = { request in
-            log("Tapped pull request: \(request.headRefName)")
+            Global.showCustomMessage(message: "Soon we can go to \(request.headRefName)")
         }
-        collection.getNextData = { [weak self] in
-            log("We need to load more data")
+        collection.getNextData = {
+            Global.showCustomMessage(message: "We need to load more data")
         }
     }
 }
