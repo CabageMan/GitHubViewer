@@ -72,7 +72,7 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
     
     //MARK: - Collection Delegate Methods
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: Theme.cellHeight)
+        return CGSize(width: collectionView.bounds.width, height: mode.cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -109,13 +109,23 @@ extension GitHubViewerCollection {
                 return EmptyView.createEmptyPullRequests(offset: -Theme.emptyViewOffset)
             }
         }
+        
+        var cellHeight: CGFloat {
+            switch self {
+            case .repositories:
+                return Theme.repositoryCellHeight
+            case .pullRequests:
+                return Theme.pullRequestCellHeight
+            }
+        }
     }
 }
 
 //MARK: - Theme
 fileprivate enum Theme {
     // Sizes
-    static let cellHeight: CGFloat = 74.0
+    static let repositoryCellHeight: CGFloat = 74.0
+    static let pullRequestCellHeight: CGFloat = 80.0
     
     // Offsets
     static let cellSideOffset: CGFloat = 36.0

@@ -44,6 +44,18 @@ fragment PullRequestsListFragment on PullRequest {
     state
     headRefName
     baseRefName
+    number
+    createdAt
+    mergedAt
+    closedAt
+    labels(first: 10){
+        edges{
+            node{
+                color
+                name
+            }
+        }
+    }
     author {
         login
     }

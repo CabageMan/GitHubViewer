@@ -3,7 +3,7 @@ import Foundation
 final class PullRequestsVM {
     
     //MARK: - API
-    private let prCount = 5
+    private let prCount = 10
     private var lastPRCursor: String?
     private var hasNextPage: Bool?
     

@@ -21,13 +21,13 @@ public struct DateUtilities {
       return String(dateComponent) + suffix
     }
     
-    if let ago = checkCalendarComponent(components.year, "y") { return ago }
-    if let ago = checkCalendarComponent(components.month, "mo") { return ago }
-    if let ago = checkCalendarComponent(components.day, "d") { return ago }
-    if let ago = checkCalendarComponent(components.hour, "h") { return ago }
-    if let ago = checkCalendarComponent(components.minute, "m") { return ago }
-    if let ago = checkCalendarComponent(components.second, "s") { return ago }
-    return "1s"
+    if let ago = checkCalendarComponent(components.year, "y ago") { return ago }
+    if let ago = checkCalendarComponent(components.month, "mo ago") { return ago }
+    if let ago = checkCalendarComponent(components.day, "d ago") { return ago }
+    if let ago = checkCalendarComponent(components.hour, "h ago") { return ago }
+    if let ago = checkCalendarComponent(components.minute, "m ago") { return ago }
+    if let ago = checkCalendarComponent(components.second, "s ago") { return ago }
+    return "1s ago"
   }
   
   fileprivate static let durationDateFormatter: DateFormatter = DateUtilities.mkDurationDateFormatter()
