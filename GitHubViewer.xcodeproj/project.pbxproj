@@ -160,6 +160,7 @@
 		378408C623A91CDC00A74D88 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378408C523A91CDC00A74D88 /* WebViewController.swift */; };
 		3787FD8B239F833D00D472E6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787FD8A239F833D00D472E6 /* EmptyView.swift */; };
 		378B818223963C89005E4875 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B818123963C89005E4875 /* ImageContentView.swift */; };
+		378CD99323B4A10D004F29FF /* GitHabViewerPagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378CD99223B4A10D004F29FF /* GitHabViewerPagingController.swift */; };
 		3791194D238FE3E9000FF474 /* ModalAlertViewCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */; };
 		3791194F238FE401000FF474 /* InfoModalAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194E238FE401000FF474 /* InfoModalAlertView.swift */; };
 		3791F62923A0DB4600DFA1AA /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791F62823A0DB4600DFA1AA /* SideMenuController.swift */; };
@@ -362,6 +363,7 @@
 		378408C523A91CDC00A74D88 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		3787FD8A239F833D00D472E6 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		378B818123963C89005E4875 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
+		378CD99223B4A10D004F29FF /* GitHabViewerPagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHabViewerPagingController.swift; sourceTree = "<group>"; };
 		3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertViewCompatibility.swift; sourceTree = "<group>"; };
 		3791194E238FE401000FF474 /* InfoModalAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoModalAlertView.swift; sourceTree = "<group>"; };
 		3791F62823A0DB4600DFA1AA /* SideMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
@@ -726,8 +728,9 @@
 		377C2172237C23300046D4E8 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				378CD99123B4A0B3004F29FF /* PagingViewController */,
 				3791F62723A0DACC00DFA1AA /* SideMenu */,
-				379473A3239A6EC40022CC3E /* Collection */,
+				379473A3239A6EC40022CC3E /* GitHubViewerCollection */,
 				3791194B238FE3C9000FF474 /* ModalViews */,
 				37C3D8E323952C6C00037154 /* TableViewSectionHeader.swift */,
 				375EB19B237EEC2E005B6252 /* Buttons.swift */,
@@ -995,6 +998,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		378CD99123B4A0B3004F29FF /* PagingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				378CD99223B4A10D004F29FF /* GitHabViewerPagingController.swift */,
+			);
+			path = PagingViewController;
+			sourceTree = "<group>";
+		};
 		3791194B238FE3C9000FF474 /* ModalViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -1014,14 +1025,14 @@
 			path = SideMenu;
 			sourceTree = "<group>";
 		};
-		379473A3239A6EC40022CC3E /* Collection */ = {
+		379473A3239A6EC40022CC3E /* GitHubViewerCollection */ = {
 			isa = PBXGroup;
 			children = (
 				37C41C6E238BC58A00AB06D4 /* GitHubViewerCollection.swift */,
 				379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */,
 				370117AE23B10E50002C42AE /* ConfigurableProtocol.swift */,
 			);
-			path = Collection;
+			path = GitHubViewerCollection;
 			sourceTree = "<group>";
 		};
 		37A80ADA2388167700BA2496 /* Models */ = {
@@ -1423,6 +1434,7 @@
 				373C58C823857072003F2BEB /* BaseCoordinator.swift in Sources */,
 				375EB19E237EEC92005B6252 /* Primitives.swift in Sources */,
 				3743F457238D1A8100C54A0A /* ProfileCoordinator.swift in Sources */,
+				378CD99323B4A10D004F29FF /* GitHabViewerPagingController.swift in Sources */,
 				37B8291B2386BEAC00E991D4 /* RepositoriesVC.swift in Sources */,
 				377C2170237C1F5D0046D4E8 /* IntroVC.swift in Sources */,
 				37B829212386BEE600E991D4 /* IssuesCoordinator.swift in Sources */,

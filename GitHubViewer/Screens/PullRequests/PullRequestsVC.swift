@@ -1,14 +1,13 @@
 import UIKit
-import Parchment
 
 final class PullRequestsVC: UIViewController {
     
     private let router: RepositoriesRouter
-    private let fixedPageController: FixedPagingViewController
+    private let fixedPageController: GitHabViewerPagingController
     private let viewModel = PullRequestsVM()
     
     //MARK: - Life Cycle
-    init(router: RepositoriesRouter, pagingController: FixedPagingViewController) {
+    init(router: RepositoriesRouter, pagingController: GitHabViewerPagingController) {
         self.router = router
         self.fixedPageController = pagingController
         super.init(nibName: nil, bundle: nil)
@@ -31,9 +30,10 @@ final class PullRequestsVC: UIViewController {
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
-        add(fixedPageController)
-        fixedPageController.view.do {
-            $0.edgesToSuperview()
+        add(fixedPageController.pagingController)
+        fixedPageController.pagingController.view.edgesToSuperview()
+        fixedPageController.didScroll = { index in
+            
         }
     }
     

@@ -1,5 +1,4 @@
 import UIKit
-import Parchment
 
 final class PullRequestsCoordinator: Coordinator {
     
@@ -30,7 +29,7 @@ final class PullRequestsCoordinator: Coordinator {
         let assignedRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .assigned)
         let mentionedRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .mentioned)
         let reviewRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .reviewRequests)
-        let pageController = FixedPagingViewController(
+        let pageController = GitHabViewerPagingController(
             viewControllers: [
                 createdRequestsVC,
                 assignedRequestsVC,
