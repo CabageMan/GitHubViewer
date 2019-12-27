@@ -38,6 +38,17 @@ fragment RepositoryDetailsFragment on Repository {
     }
 }
 
+# Review Request Fragment
+fragment ReviewRequestListFragment on ReviewRequest {
+    id
+    pullRequest {
+        headRefName
+    }
+    requestedReviewer {
+        __typename
+    }
+}
+
 # Pull Request Fragment
 fragment PullRequestsListFragment on PullRequest {
     id
@@ -62,9 +73,7 @@ fragment PullRequestsListFragment on PullRequest {
     reviewRequests {
         edges {
             node {
-                pullRequest {
-                    headRefName
-                }
+                ...ReviewRequestListFragment
             }
         }
     }

@@ -5,9 +5,9 @@ final class PullRequestsCollectionVC: UIViewController {
     var items: [PullRequest] = [] {
         didSet { collection.items = items }
     }
+    let mode: Mode
     
     private let router: RepositoriesRouter
-    private let mode: Mode
     private let collection = GitHubViewerCollection<PullRequestsCollectionCell>(mode: .pullRequests)
     
     //MARK: - Life Cycle
@@ -41,11 +41,15 @@ final class PullRequestsCollectionVC: UIViewController {
 
 //MARK: - Mode
 extension PullRequestsCollectionVC {
-    enum Mode {
-        case created
+    enum Mode: Int {
+        case created = 0
         case assigned
         case mentioned
         case reviewRequests
+        
+        static var all: [Mode] {
+            return [.created, .assigned, .mentioned, .reviewRequests]
+        }
         
         var title: String {
             switch self {

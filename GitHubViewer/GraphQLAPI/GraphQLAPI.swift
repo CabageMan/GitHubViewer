@@ -932,7 +932,7 @@ public final class UserPullRequestsQuery: GraphQLQuery {
 
   public let operationName = "UserPullRequests"
 
-  public var queryDocument: String { return operationDefinition.appending(PullRequestsListFragment.fragmentDefinition).appending(RepositoriesListFragment.fragmentDefinition) }
+  public var queryDocument: String { return operationDefinition.appending(PullRequestsListFragment.fragmentDefinition).appending(ReviewRequestListFragment.fragmentDefinition).appending(RepositoriesListFragment.fragmentDefinition) }
 
   public var userLogin: String
   public var numberOfRequests: Int
@@ -1725,6 +1725,154 @@ public struct RepositoryDetailsFragment: GraphQLFragment {
   }
 }
 
+public struct ReviewRequestListFragment: GraphQLFragment {
+  /// The raw GraphQL definition of this fragment.
+  public static let fragmentDefinition =
+    """
+    fragment ReviewRequestListFragment on ReviewRequest {
+      __typename
+      id
+      pullRequest {
+        __typename
+        headRefName
+      }
+      requestedReviewer {
+        __typename
+      }
+    }
+    """
+
+  public static let possibleTypes = ["ReviewRequest"]
+
+  public static let selections: [GraphQLSelection] = [
+    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+    GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("pullRequest", type: .nonNull(.object(PullRequest.selections))),
+    GraphQLField("requestedReviewer", type: .object(RequestedReviewer.selections)),
+  ]
+
+  public private(set) var resultMap: ResultMap
+
+  public init(unsafeResultMap: ResultMap) {
+    self.resultMap = unsafeResultMap
+  }
+
+  public init(id: GraphQLID, pullRequest: PullRequest, requestedReviewer: RequestedReviewer? = nil) {
+    self.init(unsafeResultMap: ["__typename": "ReviewRequest", "id": id, "pullRequest": pullRequest.resultMap, "requestedReviewer": requestedReviewer.flatMap { (value: RequestedReviewer) -> ResultMap in value.resultMap }])
+  }
+
+  public var __typename: String {
+    get {
+      return resultMap["__typename"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  public var id: GraphQLID {
+    get {
+      return resultMap["id"]! as! GraphQLID
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  /// Identifies the pull request associated with this review request.
+  public var pullRequest: PullRequest {
+    get {
+      return PullRequest(unsafeResultMap: resultMap["pullRequest"]! as! ResultMap)
+    }
+    set {
+      resultMap.updateValue(newValue.resultMap, forKey: "pullRequest")
+    }
+  }
+
+  /// The reviewer that is requested.
+  public var requestedReviewer: RequestedReviewer? {
+    get {
+      return (resultMap["requestedReviewer"] as? ResultMap).flatMap { RequestedReviewer(unsafeResultMap: $0) }
+    }
+    set {
+      resultMap.updateValue(newValue?.resultMap, forKey: "requestedReviewer")
+    }
+  }
+
+  public struct PullRequest: GraphQLSelectionSet {
+    public static let possibleTypes = ["PullRequest"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("headRefName", type: .nonNull(.scalar(String.self))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(headRefName: String) {
+      self.init(unsafeResultMap: ["__typename": "PullRequest", "headRefName": headRefName])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// Identifies the name of the head Ref associated with the pull request, even if the ref has been deleted.
+    public var headRefName: String {
+      get {
+        return resultMap["headRefName"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "headRefName")
+      }
+    }
+  }
+
+  public struct RequestedReviewer: GraphQLSelectionSet {
+    public static let possibleTypes = ["User", "Team", "Mannequin"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public static func makeUser() -> RequestedReviewer {
+      return RequestedReviewer(unsafeResultMap: ["__typename": "User"])
+    }
+
+    public static func makeTeam() -> RequestedReviewer {
+      return RequestedReviewer(unsafeResultMap: ["__typename": "Team"])
+    }
+
+    public static func makeMannequin() -> RequestedReviewer {
+      return RequestedReviewer(unsafeResultMap: ["__typename": "Mannequin"])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+  }
+}
+
 public struct PullRequestsListFragment: GraphQLFragment {
   /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
@@ -1760,10 +1908,7 @@ public struct PullRequestsListFragment: GraphQLFragment {
           __typename
           node {
             __typename
-            pullRequest {
-              __typename
-              headRefName
-            }
+            ...ReviewRequestListFragment
           }
         }
       }
@@ -2209,17 +2354,13 @@ public struct PullRequestsListFragment: GraphQLFragment {
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("pullRequest", type: .nonNull(.object(PullRequest.selections))),
+          GraphQLFragmentSpread(ReviewRequestListFragment.self),
         ]
 
         public private(set) var resultMap: ResultMap
 
         public init(unsafeResultMap: ResultMap) {
           self.resultMap = unsafeResultMap
-        }
-
-        public init(pullRequest: PullRequest) {
-          self.init(unsafeResultMap: ["__typename": "ReviewRequest", "pullRequest": pullRequest.resultMap])
         }
 
         public var __typename: String {
@@ -2231,50 +2372,28 @@ public struct PullRequestsListFragment: GraphQLFragment {
           }
         }
 
-        /// Identifies the pull request associated with this review request.
-        public var pullRequest: PullRequest {
+        public var fragments: Fragments {
           get {
-            return PullRequest(unsafeResultMap: resultMap["pullRequest"]! as! ResultMap)
+            return Fragments(unsafeResultMap: resultMap)
           }
           set {
-            resultMap.updateValue(newValue.resultMap, forKey: "pullRequest")
+            resultMap += newValue.resultMap
           }
         }
 
-        public struct PullRequest: GraphQLSelectionSet {
-          public static let possibleTypes = ["PullRequest"]
-
-          public static let selections: [GraphQLSelection] = [
-            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("headRefName", type: .nonNull(.scalar(String.self))),
-          ]
-
+        public struct Fragments {
           public private(set) var resultMap: ResultMap
 
           public init(unsafeResultMap: ResultMap) {
             self.resultMap = unsafeResultMap
           }
 
-          public init(headRefName: String) {
-            self.init(unsafeResultMap: ["__typename": "PullRequest", "headRefName": headRefName])
-          }
-
-          public var __typename: String {
+          public var reviewRequestListFragment: ReviewRequestListFragment {
             get {
-              return resultMap["__typename"]! as! String
+              return ReviewRequestListFragment(unsafeResultMap: resultMap)
             }
             set {
-              resultMap.updateValue(newValue, forKey: "__typename")
-            }
-          }
-
-          /// Identifies the name of the head Ref associated with the pull request, even if the ref has been deleted.
-          public var headRefName: String {
-            get {
-              return resultMap["headRefName"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "headRefName")
+              resultMap += newValue.resultMap
             }
           }
         }

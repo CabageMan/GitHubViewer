@@ -5,6 +5,7 @@ final class GitHabViewerPagingController: NSObject {
     
     let pagingController = PagingViewController<PagingIndexItem>()
     let viewControllers: [UIViewController]
+    var currentPageIndex: Int
     
     private var defaultItemWidth: CGFloat {
         return UIScreen.main.bounds.width / CGFloat(viewControllers.count) - Theme.itemsSpacing * 2
@@ -13,8 +14,9 @@ final class GitHabViewerPagingController: NSObject {
     var didScroll: (Int) -> Void = { _ in }
 
     //MARK: - Initializers
-    init(viewControllers: [UIViewController]) {
+    init(viewControllers: [UIViewController], currentPage: Int) {
         self.viewControllers = viewControllers
+        self.currentPageIndex = currentPage
         super.init()
         setupUI()
     }
@@ -29,7 +31,6 @@ final class GitHabViewerPagingController: NSObject {
             $0.selectedFont = Theme.selectedFont
             $0.textColor = .textGray
             $0.selectedTextColor = .darkCoal
-//            $0.indicatorColor = .darkCoal
             $0.borderOptions = .hidden
             $0.indicatorOptions = .hidden
             $0.menuBackgroundColor = .mainBackground
@@ -37,6 +38,7 @@ final class GitHabViewerPagingController: NSObject {
             $0.delegate = self
             
             $0.loadViewIfNeeded()
+            $0.select(index: currentPageIndex, animated: true)
         }
     }
 }
@@ -62,6 +64,7 @@ extension GitHabViewerPagingController: PagingViewControllerDelegate {
         guard transitionSuccessful,
               let index = viewControllers.firstIndex(of: destinationViewController)
         else { return }
+        currentPageIndex = index
         didScroll(index)
     }
     

@@ -25,20 +25,7 @@ final class PullRequestsCoordinator: Coordinator {
     }
     
     private func showPRVC() {
-        let createdRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .created)
-        let assignedRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .assigned)
-        let mentionedRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .mentioned)
-        let reviewRequestsVC = PullRequestsCollectionVC(router: repositoriesRouter, mode: .reviewRequests)
-        let pageController = GitHabViewerPagingController(
-            viewControllers: [
-                createdRequestsVC,
-                assignedRequestsVC,
-                mentionedRequestsVC,
-                reviewRequestsVC
-            ]
-        )
-        
-        let controller = PullRequestsVC(router: repositoriesRouter, pagingController: pageController)
+        let controller = PullRequestsVC(router: repositoriesRouter, currentPage: .created)
         navigationController.pushViewController(controller, animated: true)
         prVC = controller
     }

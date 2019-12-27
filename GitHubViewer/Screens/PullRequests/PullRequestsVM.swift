@@ -7,7 +7,8 @@ final class PullRequestsVM {
     private var lastPRCursor: String?
     private var hasNextPage: Bool?
     
-    var pullRequestsHaveBeenFetched: ([PullRequest]) -> Void = { _ in }
+    private var allPullRequests: [PullRequest] = []
+    var pullRequestsHaveBeenFetched: () -> Void = { }
     
     func getOwnPullRequests() {
         guard let owner = Global.apiClient.ownUser else { return }
@@ -32,17 +33,34 @@ final class PullRequestsVM {
                 }
                 
                 if self.hasNextPage! {
-                    // May be save owner pull requests
-                    self.pullRequestsHaveBeenFetched(pullRequests)
+                    self.allPullRequests = pullRequests
+                    self.pullRequestsHaveBeenFetched()
                     self.lastPRCursor = pageInfo.endCursor
                 } else {
-                    self.pullRequestsHaveBeenFetched([])
+                    self.allPullRequests = []
+                    self.pullRequestsHaveBeenFetched()
                 }
                 
                 self.hasNextPage = pageInfo.hasNextPage
             case .failure(let error):
                 log("Error fetching own pull requests \(error.localizedDescription)")
             }
+        }
+    }
+    
+    func getPullRequests(for page: PullRequestsVC.Page) -> [PullRequest] {
+        switch page {
+        case .created:
+            guard let owner = Global.apiClient.ownUser?.login else { return [] }
+            return allPullRequests.filter { $0.author == owner }
+        case .assigned:
+            return allPullRequests.filter { $0.assignees.contains(Global.apiClient.ownUser?.login) }
+        case .mentioned:
+            Global.showComingSoon()
+            return []
+        case .reviewRequests:
+            Global.showComingSoon()
+            return []
         }
     }
 }
