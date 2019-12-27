@@ -13,6 +13,8 @@
 "general.copyLink"      = "Copy link to clipBoard";
 "general.linkCopied"    = "Link copied to\nclipboard";
 "general.openLink"      = "Open link in Safari";
+"general.open"          = "Open";
+"general.closed"        = "Closed";
 
 
 //MARK: - Authentication

@@ -10,6 +10,7 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
         }
         return UICollectionView(layout: layout)
     }()
+    var pullRequestHeader: CollectionSelectorHeader?
     private var activityFooter: CollectionActivityFooterView?
     
     private let mode: Mode
@@ -31,6 +32,7 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
     
     var onCellTap: (T.CellData) -> Void = { _ in }
     var getNextData: () -> Void = { }
+    var onHeaderSelectorChanged: () -> Void = { }
     
     //MARK: - Initializers
     init(mode: Mode) {
@@ -41,6 +43,9 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
             $0.dataSource = self
             $0.delegate = self
             $0.registerCell(T.self)
+            if case .pullRequests = mode {
+                $0.registerHeader(CollectionSelectorHeader.self)
+            }
             $0.registerFooter(CollectionActivityFooterView.self)
             $0.alwaysBounceVertical = true
             $0.backgroundColor = .clear
@@ -61,6 +66,16 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            switch mode {
+            case .pullRequests:
+                let header: CollectionSelectorHeader = collectionView.dequeueHeader(for: indexPath)
+                pullRequestHeader = header
+                header.onSelectorChanged = onHeaderSelectorChanged
+                return header
+            case .repositories:
+                return UICollectionReusableView()
+            }
         case UICollectionView.elementKindSectionFooter:
             let footer: CollectionActivityFooterView = collectionView.dequeueFooter(for: indexPath)
             activityFooter = footer
@@ -73,6 +88,16 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
     //MARK: - Collection Delegate Methods
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: mode.cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        switch mode {
+        case .pullRequests:
+            return CGSize(width: UIScreen.main.bounds.width, height: CollectionSelectorHeader.Theme.headerHeight)
+        case .repositories:
+            return CGSize.zero
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {

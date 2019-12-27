@@ -41,6 +41,12 @@ final class PullRequestsVC: UIViewController {
         fixedPageController.didScroll = { [weak self] index in
             self?.setPullRequestsCollection(at: index)
         }
+        fixedPageController.viewControllers.enumerated().forEach { index, controller in
+            let vc = controller as! PullRequestsCollectionVC
+            vc.onCollectionHeaderSelectChanged = { [weak self] in
+                self?.setPullRequestsCollection(at: index)
+            }
+        }
     }
     
     private func setupViewModel() {
@@ -52,9 +58,12 @@ final class PullRequestsVC: UIViewController {
     }
     
     private func setPullRequestsCollection(at index: Int) {
-        guard let page = Page(rawValue: index) else { return }
-        let vc = self.fixedPageController.viewControllers[index] as! PullRequestsCollectionVC
-        vc.items = viewModel.getPullRequests(for: page)
+        guard let vc = self.fixedPageController.viewControllers[index] as? PullRequestsCollectionVC,
+              let page = Page(rawValue: index),
+              let selector = vc.collection.pullRequestHeader?.selector
+        else { return }
+        
+        vc.items = viewModel.getPullRequests(for: page, selector: selector)
     }
 }
 

@@ -59,6 +59,8 @@ extension String {
   enum General {
     // Cancel
     static let cancel = String.tr("Localizable", "general.cancel")
+    // Closed
+    static let closed = String.tr("Localizable", "general.closed")
     // Coming soon ...
     static let comingSoon = String.tr("Localizable", "general.coming_soon")
     // Copy link to clipBoard
@@ -69,6 +71,8 @@ extension String {
     static let next = String.tr("Localizable", "general.next")
     // Ok
     static let ok = String.tr("Localizable", "general.ok")
+    // Open
+    static let `open` = String.tr("Localizable", "general.open")
     // Open link in Safari
     static let openLink = String.tr("Localizable", "general.openLink")
     // Welcome

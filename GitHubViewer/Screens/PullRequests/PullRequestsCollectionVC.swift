@@ -8,7 +8,9 @@ final class PullRequestsCollectionVC: UIViewController {
     let mode: Mode
     
     private let router: RepositoriesRouter
-    private let collection = GitHubViewerCollection<PullRequestsCollectionCell>(mode: .pullRequests)
+    let collection = GitHubViewerCollection<PullRequestsCollectionCell>(mode: .pullRequests)
+    
+    var onCollectionHeaderSelectChanged: () -> Void = { }
     
     //MARK: - Life Cycle
     init(router: RepositoriesRouter, mode: Mode) {
@@ -36,6 +38,7 @@ final class PullRequestsCollectionVC: UIViewController {
         collection.getNextData = {
             Global.showCustomMessage(message: "We need to load more data")
         }
+        collection.onHeaderSelectorChanged = onCollectionHeaderSelectChanged
     }
 }
 

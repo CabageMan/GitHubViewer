@@ -48,19 +48,29 @@ final class PullRequestsVM {
         }
     }
     
-    func getPullRequests(for page: PullRequestsVC.Page) -> [PullRequest] {
+    func getPullRequests(for page: PullRequestsVC.Page, selector: PullRequestState) -> [PullRequest] {
         switch page {
         case .created:
             guard let owner = Global.apiClient.ownUser?.login else { return [] }
-            return allPullRequests.filter { $0.author == owner }
+            return allPullRequests.filter { $0.author == owner && stateMatch(selector: selector, state: $0.state) }
         case .assigned:
-            return allPullRequests.filter { $0.assignees.contains(Global.apiClient.ownUser?.login) }
+            return allPullRequests.filter { $0.assignees.contains(Global.apiClient.ownUser?.login) && stateMatch(selector: selector, state: $0.state) }
         case .mentioned:
             Global.showComingSoon()
             return []
         case .reviewRequests:
             Global.showComingSoon()
             return []
+        }
+    }
+    
+    private func stateMatch(selector: PullRequestState, state: PullRequestState) -> Bool {
+        switch selector {
+        case .open:
+            return state == selector
+        case .closed:
+            return state == .closed || state == .merged
+        default: return false
         }
     }
 }
