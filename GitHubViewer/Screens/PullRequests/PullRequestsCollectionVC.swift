@@ -32,8 +32,8 @@ final class PullRequestsCollectionVC: UIViewController {
             $0.edgesToSuperview()
             $0.keyboardDismissMode = .onDrag
         }
-        collection.onCellTap = { request in
-            Global.showCustomMessage(message: "Soon we can go to \(request.headRefName)")
+        collection.onCellTap = { [weak self] request in
+            self?.router.showPullRequestDetails(pullRequest: request)
         }
         collection.getNextData = {
             Global.showCustomMessage(message: "We need to load more data")

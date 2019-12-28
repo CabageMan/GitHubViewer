@@ -56,6 +56,8 @@
 "pr.openedRequest"      = "#%@ opened %@ ago by %@";
 "pr.wasMerged"          = " was merged %@ ago";
 "pr.wasClosed"          = " was closed %@ ago";
+"pr.pullRequestNumber"  = "#%@";
+"pr.merged"             = "Merged";
 
 //MARK: - Issues
 "issues.title"  = "Issues";

@@ -91,9 +91,15 @@ extension String {
     static let created = String.tr("Localizable", "pr.created")
     // Mentioned
     static let mentioned = String.tr("Localizable", "pr.mentioned")
+    // Merged
+    static let merged = String.tr("Localizable", "pr.merged")
     // #%@ opened %@ ago by %@
     static func openedRequest(_ p1: String, _ p2: String, _ p3: String) -> String {
       return String.tr("Localizable", "pr.openedRequest", p1, p2, p3)
+    }
+    // #%@
+    static func pullRequestNumber(_ p1: String) -> String {
+      return String.tr("Localizable", "pr.pullRequestNumber", p1)
     }
     // #%@ by %@
     static func requestByAuthor(_ p1: String, _ p2: String) -> String {

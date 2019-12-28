@@ -55,6 +55,7 @@ fragment PullRequestsListFragment on PullRequest {
     state
     headRefName
     baseRefName
+    title
     number
     createdAt
     mergedAt

@@ -11,6 +11,7 @@ struct PullRequest {
     let author: String
     let headRefName: String
     let baseRefName: String
+    let title: String
     let number: Int
     var baseRepository: Repository?
     var assignees: [String?]
@@ -24,6 +25,7 @@ struct PullRequest {
         self.author = request.author?.login ?? ""
         self.headRefName = request.headRefName
         self.baseRefName = request.baseRefName
+        self.title = request.title
         self.number = request.number
         self.createdAt = ISO8601DateFormatter().date(from: request.createdAt) ?? Date()
         self.mergedAt = request.mergedAt != nil ? ISO8601DateFormatter().date(from: request.mergedAt!) : nil

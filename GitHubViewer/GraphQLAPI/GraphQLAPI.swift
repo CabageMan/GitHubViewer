@@ -1883,6 +1883,7 @@ public struct PullRequestsListFragment: GraphQLFragment {
       state
       headRefName
       baseRefName
+      title
       number
       createdAt
       mergedAt
@@ -1937,6 +1938,7 @@ public struct PullRequestsListFragment: GraphQLFragment {
     GraphQLField("state", type: .nonNull(.scalar(PullRequestState.self))),
     GraphQLField("headRefName", type: .nonNull(.scalar(String.self))),
     GraphQLField("baseRefName", type: .nonNull(.scalar(String.self))),
+    GraphQLField("title", type: .nonNull(.scalar(String.self))),
     GraphQLField("number", type: .nonNull(.scalar(Int.self))),
     GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
     GraphQLField("mergedAt", type: .scalar(String.self)),
@@ -1954,8 +1956,8 @@ public struct PullRequestsListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, state: PullRequestState, headRefName: String, baseRefName: String, number: Int, createdAt: String, mergedAt: String? = nil, closedAt: String? = nil, labels: Label? = nil, author: Author? = nil, reviewRequests: ReviewRequest? = nil, assignees: Assignee, baseRepository: BaseRepository? = nil) {
-    self.init(unsafeResultMap: ["__typename": "PullRequest", "id": id, "state": state, "headRefName": headRefName, "baseRefName": baseRefName, "number": number, "createdAt": createdAt, "mergedAt": mergedAt, "closedAt": closedAt, "labels": labels.flatMap { (value: Label) -> ResultMap in value.resultMap }, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "reviewRequests": reviewRequests.flatMap { (value: ReviewRequest) -> ResultMap in value.resultMap }, "assignees": assignees.resultMap, "baseRepository": baseRepository.flatMap { (value: BaseRepository) -> ResultMap in value.resultMap }])
+  public init(id: GraphQLID, state: PullRequestState, headRefName: String, baseRefName: String, title: String, number: Int, createdAt: String, mergedAt: String? = nil, closedAt: String? = nil, labels: Label? = nil, author: Author? = nil, reviewRequests: ReviewRequest? = nil, assignees: Assignee, baseRepository: BaseRepository? = nil) {
+    self.init(unsafeResultMap: ["__typename": "PullRequest", "id": id, "state": state, "headRefName": headRefName, "baseRefName": baseRefName, "title": title, "number": number, "createdAt": createdAt, "mergedAt": mergedAt, "closedAt": closedAt, "labels": labels.flatMap { (value: Label) -> ResultMap in value.resultMap }, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "reviewRequests": reviewRequests.flatMap { (value: ReviewRequest) -> ResultMap in value.resultMap }, "assignees": assignees.resultMap, "baseRepository": baseRepository.flatMap { (value: BaseRepository) -> ResultMap in value.resultMap }])
   }
 
   public var __typename: String {
@@ -2003,6 +2005,16 @@ public struct PullRequestsListFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "baseRefName")
+    }
+  }
+
+  /// Identifies the pull request title.
+  public var title: String {
+    get {
+      return resultMap["title"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "title")
     }
   }
 
