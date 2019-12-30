@@ -49,6 +49,18 @@ fragment ReviewRequestListFragment on ReviewRequest {
     }
 }
 
+# Commit List Fragment
+fragment CommitListFragment on Commit {
+    id
+    history(first:23) {
+        edges {
+            node {
+                message
+            }
+        }
+    }
+}
+
 # Pull Request Fragment
 fragment PullRequestsListFragment on PullRequest {
     id
@@ -68,6 +80,16 @@ fragment PullRequestsListFragment on PullRequest {
             }
         }
     }
+    commits(first: 23) {
+        edges {
+            node {
+                commit {
+                    ...CommitListFragment
+                }
+            }
+        }
+    }
+
     author {
         login
     }

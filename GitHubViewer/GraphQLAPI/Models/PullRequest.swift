@@ -15,6 +15,7 @@ struct PullRequest {
     let number: Int
     var baseRepository: Repository?
     var assignees: [String?]
+//    var commits: [Commit]
     let createdAt: Date
     var mergedAt: Date?
     var closedAt: Date?
@@ -37,6 +38,11 @@ struct PullRequest {
         
         
         let labels = request.labels?.edges?.compactMap({ $0?.node }).map({ PRLabel(name: $0.name, color: $0.color) }) ?? []
-        log("Labels: \(labels)")
+//        log("Labels: \(labels)")
+        let commits = request.commits.edges?
+            .compactMap({ $0?.node })
+            .map({ $0.commit.fragments.commitListFragment })
+        commits?.forEach { log("Commits: \($0)") }
+        
     }
 }
