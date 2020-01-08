@@ -33,6 +33,8 @@ extension String {
   }
 
   enum EmptyView {
+    // Pull request's commits will be displayed here
+    static let emptyCommits = String.tr("Localizable", "emptyView.emptyCommits")
     // Your issues will be displayed here
     static let emptyIssues = String.tr("Localizable", "emptyView.emptyIssues")
     // Your profile will be displayed here

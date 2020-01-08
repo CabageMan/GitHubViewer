@@ -17,7 +17,7 @@ final class RepositoriesRouter: BaseRouter {
     }
     
     func showPullRequestDetails(pullRequest: PullRequest) {
-        let detailsController = PullRequestDetails(router: self, pullRequest: pullRequest)
+        let detailsController = PullRequestDetailsVC(router: self, pullRequest: pullRequest)
         navigationController?.pushViewController(detailsController)
     }
 }

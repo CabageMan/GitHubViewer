@@ -69,6 +69,7 @@
 "emptyView.emptyRepositories"       = "Your repositories will be\ndisplayed here";
 "emptyView.emptyRepositoryDetails"  = "There is no details";
 "emptyView.emptyPullRequests"       = "Your pull requests will be displayed here";
+"emptyView.emptyCommits"            = "Pull request's commits will be displayed here";
 "emptyView.emptyIssues"             = "Your issues will be displayed here";
 "emptyView.emptyProfile"            = "Your profile will be displayed here";
 

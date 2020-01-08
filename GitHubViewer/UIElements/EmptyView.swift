@@ -43,6 +43,10 @@ extension EmptyView {
         return EmptyView(image: #imageLiteral(resourceName: "OctoCatInClouds"), text: String.EmptyView.emptyPullRequests, offset: offset)
     }
     
+    static func createEmptyCommits(offset: CGFloat = 0.0) -> EmptyView {
+        return EmptyView(image: #imageLiteral(resourceName: "OctoCatInClouds"), text: String.EmptyView.emptyCommits, offset: offset)
+    }
+    
     static func createEmptyIssues(offset: CGFloat = 0.0) -> EmptyView {
         return EmptyView(image: #imageLiteral(resourceName: "OctoCatInClouds"), text: String.EmptyView.emptyIssues, offset: offset)
     }

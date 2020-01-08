@@ -52,13 +52,7 @@ fragment ReviewRequestListFragment on ReviewRequest {
 # Commit List Fragment
 fragment CommitListFragment on Commit {
     id
-    history(first:23) {
-        edges {
-            node {
-                message
-            }
-        }
-    }
+    message
 }
 
 # Pull Request Fragment

@@ -1,6 +1,6 @@
 import UIKit
 
-final class PullRequestDetails: UIViewController {
+final class PullRequestDetailsVC: UIViewController {
     
     private let router: RepositoriesRouter
     
@@ -8,6 +8,7 @@ final class PullRequestDetails: UIViewController {
     private let requestNameLabel = UILabel()
     private let requestStateView: PullRequestStateView
     
+    private let commitsCollection = GitHubViewerCollection<PullRequestDetailsCollectionCell>(mode: .commits)
     
     //MARK: - Life Cycle
     init(router: RepositoriesRouter, pullRequest: PullRequest) {
@@ -58,11 +59,23 @@ final class PullRequestDetails: UIViewController {
             $0.left(to: requestNameLabel)
             $0.height(Theme.stateViewHeight)
         }
+        
+        commitsCollection.collectionView.add(to: view).do {
+            $0.edgesToSuperview(excluding: .top)
+            $0.topToBottom(of: requestStateView)
+        }
+        commitsCollection.onCellTap = { commit in
+            Global.showCustomMessage(message: "\(commit.message)")
+        }
+        commitsCollection.getNextData = {
+            Global.showCustomMessage(message: "We need to load more data")
+        }
+        commitsCollection.items = pullRequest.commits
     }
 }
 
 //MARK: - Theme
-extension PullRequestDetails {
+extension PullRequestDetailsVC {
     enum Theme {
         // Fonts
         static var requestNameFont: UIFont {

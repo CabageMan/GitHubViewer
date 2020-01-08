@@ -1880,16 +1880,7 @@ public struct CommitListFragment: GraphQLFragment {
     fragment CommitListFragment on Commit {
       __typename
       id
-      history(first: 23) {
-        __typename
-        edges {
-          __typename
-          node {
-            __typename
-            message
-          }
-        }
-      }
+      message
     }
     """
 
@@ -1898,7 +1889,7 @@ public struct CommitListFragment: GraphQLFragment {
   public static let selections: [GraphQLSelection] = [
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-    GraphQLField("history", arguments: ["first": 23], type: .nonNull(.object(History.selections))),
+    GraphQLField("message", type: .nonNull(.scalar(String.self))),
   ]
 
   public private(set) var resultMap: ResultMap
@@ -1907,8 +1898,8 @@ public struct CommitListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, history: History) {
-    self.init(unsafeResultMap: ["__typename": "Commit", "id": id, "history": history.resultMap])
+  public init(id: GraphQLID, message: String) {
+    self.init(unsafeResultMap: ["__typename": "Commit", "id": id, "message": message])
   }
 
   public var __typename: String {
@@ -1929,127 +1920,13 @@ public struct CommitListFragment: GraphQLFragment {
     }
   }
 
-  /// The linear commit history starting from (and including) this commit, in the same order as `git log`.
-  public var history: History {
+  /// The Git commit message
+  public var message: String {
     get {
-      return History(unsafeResultMap: resultMap["history"]! as! ResultMap)
+      return resultMap["message"]! as! String
     }
     set {
-      resultMap.updateValue(newValue.resultMap, forKey: "history")
-    }
-  }
-
-  public struct History: GraphQLSelectionSet {
-    public static let possibleTypes = ["CommitHistoryConnection"]
-
-    public static let selections: [GraphQLSelection] = [
-      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-      GraphQLField("edges", type: .list(.object(Edge.selections))),
-    ]
-
-    public private(set) var resultMap: ResultMap
-
-    public init(unsafeResultMap: ResultMap) {
-      self.resultMap = unsafeResultMap
-    }
-
-    public init(edges: [Edge?]? = nil) {
-      self.init(unsafeResultMap: ["__typename": "CommitHistoryConnection", "edges": edges.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }])
-    }
-
-    public var __typename: String {
-      get {
-        return resultMap["__typename"]! as! String
-      }
-      set {
-        resultMap.updateValue(newValue, forKey: "__typename")
-      }
-    }
-
-    /// A list of edges.
-    public var edges: [Edge?]? {
-      get {
-        return (resultMap["edges"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Edge?] in value.map { (value: ResultMap?) -> Edge? in value.flatMap { (value: ResultMap) -> Edge in Edge(unsafeResultMap: value) } } }
-      }
-      set {
-        resultMap.updateValue(newValue.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }, forKey: "edges")
-      }
-    }
-
-    public struct Edge: GraphQLSelectionSet {
-      public static let possibleTypes = ["CommitEdge"]
-
-      public static let selections: [GraphQLSelection] = [
-        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("node", type: .object(Node.selections)),
-      ]
-
-      public private(set) var resultMap: ResultMap
-
-      public init(unsafeResultMap: ResultMap) {
-        self.resultMap = unsafeResultMap
-      }
-
-      public init(node: Node? = nil) {
-        self.init(unsafeResultMap: ["__typename": "CommitEdge", "node": node.flatMap { (value: Node) -> ResultMap in value.resultMap }])
-      }
-
-      public var __typename: String {
-        get {
-          return resultMap["__typename"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "__typename")
-        }
-      }
-
-      /// The item at the end of the edge.
-      public var node: Node? {
-        get {
-          return (resultMap["node"] as? ResultMap).flatMap { Node(unsafeResultMap: $0) }
-        }
-        set {
-          resultMap.updateValue(newValue?.resultMap, forKey: "node")
-        }
-      }
-
-      public struct Node: GraphQLSelectionSet {
-        public static let possibleTypes = ["Commit"]
-
-        public static let selections: [GraphQLSelection] = [
-          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLField("message", type: .nonNull(.scalar(String.self))),
-        ]
-
-        public private(set) var resultMap: ResultMap
-
-        public init(unsafeResultMap: ResultMap) {
-          self.resultMap = unsafeResultMap
-        }
-
-        public init(message: String) {
-          self.init(unsafeResultMap: ["__typename": "Commit", "message": message])
-        }
-
-        public var __typename: String {
-          get {
-            return resultMap["__typename"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        /// The Git commit message
-        public var message: String {
-          get {
-            return resultMap["message"]! as! String
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "message")
-          }
-        }
-      }
+      resultMap.updateValue(newValue, forKey: "message")
     }
   }
 }
@@ -2561,6 +2438,10 @@ public struct PullRequestsListFragment: GraphQLFragment {
 
           public init(unsafeResultMap: ResultMap) {
             self.resultMap = unsafeResultMap
+          }
+
+          public init(id: GraphQLID, message: String) {
+            self.init(unsafeResultMap: ["__typename": "Commit", "id": id, "message": message])
           }
 
           public var __typename: String {

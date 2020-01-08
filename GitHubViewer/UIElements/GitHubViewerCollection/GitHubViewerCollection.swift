@@ -68,12 +68,14 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             switch mode {
+            case .repositories:
+                return UICollectionReusableView()
             case .pullRequests:
                 let header: CollectionSelectorHeader = collectionView.dequeueHeader(for: indexPath)
                 pullRequestHeader = header
                 header.onSelectorChanged = onHeaderSelectorChanged
                 return header
-            case .repositories:
+            case .commits:
                 return UICollectionReusableView()
             }
         case UICollectionView.elementKindSectionFooter:
@@ -92,9 +94,11 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         switch mode {
+        case .repositories:
+            return CGSize.zero
         case .pullRequests:
             return CGSize(width: UIScreen.main.bounds.width, height: CollectionSelectorHeader.Theme.headerHeight)
-        case .repositories:
+        case .commits:
             return CGSize.zero
         }
         
@@ -125,6 +129,7 @@ extension GitHubViewerCollection {
     enum Mode {
         case repositories
         case pullRequests
+        case commits
         
         var backGround: UIView {
             switch self {
@@ -132,6 +137,8 @@ extension GitHubViewerCollection {
                 return EmptyView.createEmptyRepositories(offset: -Theme.emptyViewOffset)
             case .pullRequests:
                 return EmptyView.createEmptyPullRequests(offset: -Theme.emptyViewOffset)
+            case .commits:
+                return EmptyView.createEmptyCommits(offset: -Theme.emptyViewOffset)
             }
         }
         
@@ -141,6 +148,8 @@ extension GitHubViewerCollection {
                 return Theme.repositoryCellHeight
             case .pullRequests:
                 return Theme.pullRequestCellHeight
+            case .commits:
+                return Theme.commitCellHeight
             }
         }
     }
@@ -151,6 +160,7 @@ fileprivate enum Theme {
     // Sizes
     static let repositoryCellHeight: CGFloat = 74.0
     static let pullRequestCellHeight: CGFloat = 80.0
+    static let commitCellHeight: CGFloat = 50.0
     
     // Offsets
     static let cellSideOffset: CGFloat = 36.0

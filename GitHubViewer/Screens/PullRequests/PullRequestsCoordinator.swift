@@ -10,7 +10,7 @@ final class PullRequestsCoordinator: Coordinator {
         return navigationController
     }
     private var navigationController: NavigationViewController
-    private var prVC: PullRequestsVC?
+    private var pullRequestVC: PullRequestsVC?
     
     private lazy var repositoriesRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
     
@@ -21,13 +21,13 @@ final class PullRequestsCoordinator: Coordinator {
     
     //MARK: - Actions
     func start(deepLink: PullRequestsCoordinator.DeepLink? = nil) {
-        showPRVC()
+        showPullRequestVC()
     }
     
-    private func showPRVC() {
+    private func showPullRequestVC() {
         let controller = PullRequestsVC(router: repositoriesRouter, currentPage: .created)
         navigationController.pushViewController(controller, animated: true)
-        prVC = controller
+        pullRequestVC = controller
     }
     
     func handleSecondTabTap() {
