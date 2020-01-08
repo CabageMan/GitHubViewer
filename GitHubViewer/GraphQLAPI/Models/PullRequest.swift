@@ -19,6 +19,7 @@ struct PullRequest {
     let createdAt: Date
     var mergedAt: Date?
     var closedAt: Date?
+    let mergedBy: String?
     
     init(request: PullRequestsListFragment) {
         self.id = request.id
@@ -28,6 +29,7 @@ struct PullRequest {
         self.baseRefName = request.baseRefName
         self.title = request.title
         self.number = request.number
+        self.mergedBy = request.mergedBy?.login
         self.createdAt = ISO8601DateFormatter().date(from: request.createdAt) ?? Date()
         self.mergedAt = request.mergedAt != nil ? ISO8601DateFormatter().date(from: request.mergedAt!) : nil
         self.closedAt = request.closedAt != nil ? ISO8601DateFormatter().date(from: request.closedAt!) : nil

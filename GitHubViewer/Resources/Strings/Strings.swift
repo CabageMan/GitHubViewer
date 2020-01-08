@@ -95,6 +95,10 @@ extension String {
     static let mentioned = String.tr("Localizable", "pr.mentioned")
     // Merged
     static let merged = String.tr("Localizable", "pr.merged")
+    // %@ merged %@ commits\ninto %@ on %@
+    static func mergedCommitsBy(_ p1: String, _ p2: String, _ p3: String, _ p4: String) -> String {
+      return String.tr("Localizable", "pr.mergedCommitsBy", p1, p2, p3, p4)
+    }
     // #%@ opened %@ ago by %@
     static func openedRequest(_ p1: String, _ p2: String, _ p3: String) -> String {
       return String.tr("Localizable", "pr.openedRequest", p1, p2, p3)
@@ -111,6 +115,10 @@ extension String {
     static let reviewRequests = String.tr("Localizable", "pr.reviewRequests")
     // Pull Requests
     static let title = String.tr("Localizable", "pr.title")
+    // %@ wants to merge %@ commits\ninto %@ from %@
+    static func wantsToMerge(_ p1: String, _ p2: String, _ p3: String, _ p4: String) -> String {
+      return String.tr("Localizable", "pr.wantsToMerge", p1, p2, p3, p4)
+    }
     //  was closed %@ ago
     static func wasClosed(_ p1: String) -> String {
       return String.tr("Localizable", "pr.wasClosed", p1)

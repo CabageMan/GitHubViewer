@@ -23,7 +23,6 @@ final class PullRequestDetailsCollectionCell: UICollectionViewCell {
         
         iconView.add(to: contentView).do {
             $0.leftToSuperview(offset: Theme.iconLeftOffset)
-//            $0.topToSuperview(offset: Theme.iconTopOffset)
             $0.centerYToSuperview()
             $0.size(Theme.iconSize)
             

@@ -52,6 +52,7 @@ fragment ReviewRequestListFragment on ReviewRequest {
 # Commit List Fragment
 fragment CommitListFragment on Commit {
     id
+    abbreviatedOid
     message
 }
 
@@ -66,6 +67,9 @@ fragment PullRequestsListFragment on PullRequest {
     createdAt
     mergedAt
     closedAt
+    mergedBy {
+        login
+    }
     labels(first: 10){
         edges{
             node{

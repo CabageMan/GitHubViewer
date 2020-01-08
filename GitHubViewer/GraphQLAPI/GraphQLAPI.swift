@@ -1880,6 +1880,7 @@ public struct CommitListFragment: GraphQLFragment {
     fragment CommitListFragment on Commit {
       __typename
       id
+      abbreviatedOid
       message
     }
     """
@@ -1889,6 +1890,7 @@ public struct CommitListFragment: GraphQLFragment {
   public static let selections: [GraphQLSelection] = [
     GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
     GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("abbreviatedOid", type: .nonNull(.scalar(String.self))),
     GraphQLField("message", type: .nonNull(.scalar(String.self))),
   ]
 
@@ -1898,8 +1900,8 @@ public struct CommitListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, message: String) {
-    self.init(unsafeResultMap: ["__typename": "Commit", "id": id, "message": message])
+  public init(id: GraphQLID, abbreviatedOid: String, message: String) {
+    self.init(unsafeResultMap: ["__typename": "Commit", "id": id, "abbreviatedOid": abbreviatedOid, "message": message])
   }
 
   public var __typename: String {
@@ -1917,6 +1919,16 @@ public struct CommitListFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  /// An abbreviated version of the Git object ID
+  public var abbreviatedOid: String {
+    get {
+      return resultMap["abbreviatedOid"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "abbreviatedOid")
     }
   }
 
@@ -1946,6 +1958,10 @@ public struct PullRequestsListFragment: GraphQLFragment {
       createdAt
       mergedAt
       closedAt
+      mergedBy {
+        __typename
+        login
+      }
       labels(first: 10) {
         __typename
         edges {
@@ -2014,6 +2030,7 @@ public struct PullRequestsListFragment: GraphQLFragment {
     GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
     GraphQLField("mergedAt", type: .scalar(String.self)),
     GraphQLField("closedAt", type: .scalar(String.self)),
+    GraphQLField("mergedBy", type: .object(MergedBy.selections)),
     GraphQLField("labels", arguments: ["first": 10], type: .object(Label.selections)),
     GraphQLField("commits", arguments: ["first": 23], type: .nonNull(.object(Commit.selections))),
     GraphQLField("author", type: .object(Author.selections)),
@@ -2028,8 +2045,8 @@ public struct PullRequestsListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, state: PullRequestState, headRefName: String, baseRefName: String, title: String, number: Int, createdAt: String, mergedAt: String? = nil, closedAt: String? = nil, labels: Label? = nil, commits: Commit, author: Author? = nil, reviewRequests: ReviewRequest? = nil, assignees: Assignee, baseRepository: BaseRepository? = nil) {
-    self.init(unsafeResultMap: ["__typename": "PullRequest", "id": id, "state": state, "headRefName": headRefName, "baseRefName": baseRefName, "title": title, "number": number, "createdAt": createdAt, "mergedAt": mergedAt, "closedAt": closedAt, "labels": labels.flatMap { (value: Label) -> ResultMap in value.resultMap }, "commits": commits.resultMap, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "reviewRequests": reviewRequests.flatMap { (value: ReviewRequest) -> ResultMap in value.resultMap }, "assignees": assignees.resultMap, "baseRepository": baseRepository.flatMap { (value: BaseRepository) -> ResultMap in value.resultMap }])
+  public init(id: GraphQLID, state: PullRequestState, headRefName: String, baseRefName: String, title: String, number: Int, createdAt: String, mergedAt: String? = nil, closedAt: String? = nil, mergedBy: MergedBy? = nil, labels: Label? = nil, commits: Commit, author: Author? = nil, reviewRequests: ReviewRequest? = nil, assignees: Assignee, baseRepository: BaseRepository? = nil) {
+    self.init(unsafeResultMap: ["__typename": "PullRequest", "id": id, "state": state, "headRefName": headRefName, "baseRefName": baseRefName, "title": title, "number": number, "createdAt": createdAt, "mergedAt": mergedAt, "closedAt": closedAt, "mergedBy": mergedBy.flatMap { (value: MergedBy) -> ResultMap in value.resultMap }, "labels": labels.flatMap { (value: Label) -> ResultMap in value.resultMap }, "commits": commits.resultMap, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "reviewRequests": reviewRequests.flatMap { (value: ReviewRequest) -> ResultMap in value.resultMap }, "assignees": assignees.resultMap, "baseRepository": baseRepository.flatMap { (value: BaseRepository) -> ResultMap in value.resultMap }])
   }
 
   public var __typename: String {
@@ -2130,6 +2147,16 @@ public struct PullRequestsListFragment: GraphQLFragment {
     }
   }
 
+  /// The actor who merged the pull request.
+  public var mergedBy: MergedBy? {
+    get {
+      return (resultMap["mergedBy"] as? ResultMap).flatMap { MergedBy(unsafeResultMap: $0) }
+    }
+    set {
+      resultMap.updateValue(newValue?.resultMap, forKey: "mergedBy")
+    }
+  }
+
   /// A list of labels associated with the object.
   public var labels: Label? {
     get {
@@ -2187,6 +2214,60 @@ public struct PullRequestsListFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue?.resultMap, forKey: "baseRepository")
+    }
+  }
+
+  public struct MergedBy: GraphQLSelectionSet {
+    public static let possibleTypes = ["User", "Organization", "Bot", "Mannequin", "EnterpriseUserAccount"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("login", type: .nonNull(.scalar(String.self))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public static func makeUser(login: String) -> MergedBy {
+      return MergedBy(unsafeResultMap: ["__typename": "User", "login": login])
+    }
+
+    public static func makeOrganization(login: String) -> MergedBy {
+      return MergedBy(unsafeResultMap: ["__typename": "Organization", "login": login])
+    }
+
+    public static func makeBot(login: String) -> MergedBy {
+      return MergedBy(unsafeResultMap: ["__typename": "Bot", "login": login])
+    }
+
+    public static func makeMannequin(login: String) -> MergedBy {
+      return MergedBy(unsafeResultMap: ["__typename": "Mannequin", "login": login])
+    }
+
+    public static func makeEnterpriseUserAccount(login: String) -> MergedBy {
+      return MergedBy(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// The username of the actor.
+    public var login: String {
+      get {
+        return resultMap["login"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "login")
+      }
     }
   }
 
@@ -2440,8 +2521,8 @@ public struct PullRequestsListFragment: GraphQLFragment {
             self.resultMap = unsafeResultMap
           }
 
-          public init(id: GraphQLID, message: String) {
-            self.init(unsafeResultMap: ["__typename": "Commit", "id": id, "message": message])
+          public init(id: GraphQLID, abbreviatedOid: String, message: String) {
+            self.init(unsafeResultMap: ["__typename": "Commit", "id": id, "abbreviatedOid": abbreviatedOid, "message": message])
           }
 
           public var __typename: String {

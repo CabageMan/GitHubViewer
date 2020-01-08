@@ -58,6 +58,8 @@
 "pr.wasClosed"          = " was closed %@ ago";
 "pr.pullRequestNumber"  = "#%@";
 "pr.merged"             = "Merged";
+"pr.wantsToMerge"       = "%@ wants to merge %@ commits\ninto %@ from %@";
+"pr.mergedCommitsBy"    = "%@ merged %@ commits\ninto %@ on %@";
 
 //MARK: - Issues
 "issues.title"  = "Issues";

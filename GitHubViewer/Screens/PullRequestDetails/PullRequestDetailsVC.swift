@@ -7,7 +7,7 @@ final class PullRequestDetailsVC: UIViewController {
     private let pullRequest: PullRequest
     private let requestNameLabel = UILabel()
     private let requestStateView: PullRequestStateView
-    
+    private let descriptionLabel = UILabel()
     private let commitsCollection = GitHubViewerCollection<PullRequestDetailsCollectionCell>(mode: .commits)
     
     //MARK: - Life Cycle
@@ -60,6 +60,24 @@ final class PullRequestDetailsVC: UIViewController {
             $0.height(Theme.stateViewHeight)
         }
         
+        descriptionLabel.add(to: view).do {
+            $0.topToBottom(of: requestNameLabel)
+            $0.leftToRight(of: requestStateView, offset: Theme.descriptionLabelLeftOffset)
+            $0.height(Theme.descriptionHeight)
+            
+            $0.textAlignment = .left
+            $0.numberOfLines = 0
+            $0.font = Theme.descriptionFont
+            $0.textColor = .textGray
+            if let login = pullRequest.mergedBy, let date = pullRequest.mergedAt {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd MMM yyyy"
+                $0.text = String.Pr.mergedCommitsBy(login, "\(pullRequest.commits.count)", pullRequest.baseRefName, "\(formatter.string(from: date))")
+            } else {
+                $0.text = String.Pr.wantsToMerge(pullRequest.author, "\(pullRequest.commits.count)", pullRequest.baseRefName, pullRequest.headRefName)
+            }
+        }
+        
         commitsCollection.collectionView.add(to: view).do {
             $0.edgesToSuperview(excluding: .top)
             $0.topToBottom(of: requestStateView)
@@ -89,13 +107,16 @@ extension PullRequestDetailsVC {
             default: return .circular(style: .bold, size: 14.0)
             }
         }
+        static let descriptionFont: UIFont = .circular(style: .black, size: 13.0)
         
         // Sizes
         static let requestNameLabelheight: CGFloat = 25.0
         static let stateViewHeight: CGFloat = 30.0
+        static let descriptionHeight: CGFloat = 33.0
         
         // Offsets
         static let nameLabelSideOffset: CGFloat = 8.0
         static let nameLabelTopOffset: CGFloat = 13.0
+        static let descriptionLabelLeftOffset: CGFloat = 5.0
     }
 }
