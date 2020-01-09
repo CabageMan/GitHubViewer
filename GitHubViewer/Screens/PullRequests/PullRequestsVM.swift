@@ -27,17 +27,17 @@ final class PullRequestsVM {
                     return
                 }
                 let pageInfo = data.pageInfo
-                #warning("Need improove pagination!")
+                
                 if self.hasNextPage == nil {
                     self.hasNextPage = pageInfo.hasNextPage
                 }
                 
                 if self.hasNextPage! {
-                    self.allPullRequests = pullRequests
+                    self.allPullRequests += pullRequests
                     self.pullRequestsHaveBeenFetched()
                     self.lastPRCursor = pageInfo.endCursor
                 } else {
-                    self.allPullRequests = []
+                    self.allPullRequests += []
                     self.pullRequestsHaveBeenFetched()
                 }
                 

@@ -11,6 +11,7 @@ final class PullRequestsCollectionVC: UIViewController {
     let collection = GitHubViewerCollection<PullRequestsCollectionCell>(mode: .pullRequests)
     
     var onCollectionHeaderSelectChanged: () -> Void = { }
+    var getNextPullRequests: () -> Void = { }
     
     //MARK: - Life Cycle
     init(router: RepositoriesRouter, mode: Mode) {
@@ -35,8 +36,8 @@ final class PullRequestsCollectionVC: UIViewController {
         collection.onCellTap = { [weak self] request in
             self?.router.showPullRequestDetails(pullRequest: request)
         }
-        collection.getNextData = {
-            Global.showCustomMessage(message: "We need to load more data")
+        collection.getNextData = { [weak self] in
+            self?.getNextPullRequests()
         }
         collection.onHeaderSelectorChanged = onCollectionHeaderSelectChanged
     }

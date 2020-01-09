@@ -43,7 +43,7 @@ final class RepositoriesVM {
                     return
                 }
                 let pageInfo = data.pageInfo
-                #warning("Need improove pagination!")
+                
                 if self.hasNextPage == nil {
                     self.hasNextPage = pageInfo.hasNextPage
                 }

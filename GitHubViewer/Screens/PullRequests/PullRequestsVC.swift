@@ -46,6 +46,10 @@ final class PullRequestsVC: UIViewController {
             vc.onCollectionHeaderSelectChanged = { [weak self] in
                 self?.setPullRequestsCollection(at: index)
             }
+            vc.getNextPullRequests = { [weak self, weak vc] in
+                self?.viewModel.getOwnPullRequests()
+                vc?.collection.nextDataIsLoading = true
+            }
         }
     }
     
@@ -62,7 +66,7 @@ final class PullRequestsVC: UIViewController {
               let page = Page(rawValue: index),
               let selector = vc.collection.pullRequestHeader?.selector
         else { return }
-        
+        vc.collection.nextDataIsLoading = false
         vc.items = viewModel.getPullRequests(for: page, selector: selector)
     }
 }
