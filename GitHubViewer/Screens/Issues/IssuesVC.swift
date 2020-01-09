@@ -4,6 +4,8 @@ final class IssuesVC: UIViewController {
     
     private let router: RepositoriesRouter
     
+    private let viewModel = IssuesVM()
+    
     //MARK: - Life Cycle
     init(router: RepositoriesRouter) {
         self.router = router
@@ -16,8 +18,11 @@ final class IssuesVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupViewModel()
+        viewModel.getOwnIssues()
     }
     
+    //MARK: - Actions
     private func setupUI() {
         view.backgroundColor = .mainBackground
         
@@ -28,10 +33,15 @@ final class IssuesVC: UIViewController {
             $0.edgesToSuperview()
         }
     }
+    
+    private func setupViewModel() {
+        viewModel.issuesHaveBeenFetched = {
+            Global.showCustomMessage(message: "Issues have been fetched!")
+        }
+    }
 }
 
 //MARK: -Theme
-
 extension IssuesVC {
     enum Theme {
         // Offsets

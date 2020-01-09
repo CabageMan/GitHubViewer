@@ -87,7 +87,6 @@ fragment PullRequestsListFragment on PullRequest {
             }
         }
     }
-
     author {
         login
     }
@@ -107,6 +106,21 @@ fragment PullRequestsListFragment on PullRequest {
     }
     baseRepository {
         ...RepositoriesListFragment
+    }
+}
+
+# Issue Fragment
+fragment IssuesListFragment on Issue {
+    id
+    number
+    title
+    labels(first: 10){
+        edges{
+            node{
+                color
+                name
+            }
+        }
     }
 }
 
@@ -166,6 +180,26 @@ query UserPullRequests($userLogin: String!, $numberOfRequests: Int!, $cursor: St
                     ...PullRequestsListFragment
                 }
                 cursor
+            }
+            totalCount
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+        }
+    }
+}
+
+
+
+# Get User Issues
+query UserIssues($userLogin: String!, $numberOfIssues: Int!, $order: IssueOrder) {
+    user(login: $userLogin) {
+        issues(first: $numberOfIssues orderBy: $order) {
+            edges {
+                node {
+                    ...IssuesListFragment
+                }
             }
             totalCount
             pageInfo {

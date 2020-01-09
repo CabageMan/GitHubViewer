@@ -156,6 +156,9 @@
 		377C2232237C36700046D4E8 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2231237C36700046D4E8 /* Fonts.swift */; };
 		377C2234237C38AA0046D4E8 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2233237C38AA0046D4E8 /* Global.swift */; };
 		377C2237237C39E50046D4E8 /* UIAlert+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */; };
+		377F1CF623C76DFD005724E9 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377F1CF523C76DFD005724E9 /* Issue.swift */; };
+		377F1CF823C76EA4005724E9 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377F1CF723C76EA4005724E9 /* Label.swift */; };
+		377F1CFA23C77121005724E9 /* IssueVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377F1CF923C77121005724E9 /* IssueVM.swift */; };
 		3781DC5F23B1FEBE00C08486 /* PullRequestsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3781DC5E23B1FEBE00C08486 /* PullRequestsCollectionCell.swift */; };
 		378408C623A91CDC00A74D88 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378408C523A91CDC00A74D88 /* WebViewController.swift */; };
 		3787FD8B239F833D00D472E6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787FD8A239F833D00D472E6 /* EmptyView.swift */; };
@@ -363,6 +366,9 @@
 		377C2231237C36700046D4E8 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		377C2233237C38AA0046D4E8 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		377C2236237C39E50046D4E8 /* UIAlert+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlert+Extensions.swift"; sourceTree = "<group>"; };
+		377F1CF523C76DFD005724E9 /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
+		377F1CF723C76EA4005724E9 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		377F1CF923C77121005724E9 /* IssueVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueVM.swift; sourceTree = "<group>"; };
 		3781DC5E23B1FEBE00C08486 /* PullRequestsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsCollectionCell.swift; sourceTree = "<group>"; };
 		378408C523A91CDC00A74D88 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		3787FD8A239F833D00D472E6 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
@@ -1070,6 +1076,8 @@
 				372A9C47238E74A6007F1BA9 /* RepositoryDetails.swift */,
 				3710D39523AD06DC00FAF5C7 /* PullRequest.swift */,
 				37E80E8923BA0B1A00D47ACF /* Commit.swift */,
+				377F1CF523C76DFD005724E9 /* Issue.swift */,
+				377F1CF723C76EA4005724E9 /* Label.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1102,6 +1110,7 @@
 			children = (
 				37B829202386BEE600E991D4 /* IssuesCoordinator.swift */,
 				37B829222386BEF900E991D4 /* IssuesVC.swift */,
+				377F1CF923C77121005724E9 /* IssueVM.swift */,
 			);
 			path = Issues;
 			sourceTree = "<group>";
@@ -1376,6 +1385,7 @@
 				3739CF0423A2766800D00E4F /* SettingsPresentationAC.swift in Sources */,
 				377C21E9237C23640046D4E8 /* CoreGraphics+ext.swift in Sources */,
 				377C2216237C23640046D4E8 /* Signal.swift in Sources */,
+				377F1CF623C76DFD005724E9 /* Issue.swift in Sources */,
 				3739CF0623A2768500D00E4F /* SettingsDismissionAC.swift in Sources */,
 				377C221E237C23640046D4E8 /* Random.swift in Sources */,
 				377C2218237C23640046D4E8 /* TransitioningDelegate.swift in Sources */,
@@ -1500,6 +1510,7 @@
 				373C58D62385857E003F2BEB /* NavigationPresentationAC.swift in Sources */,
 				377C2232237C36700046D4E8 /* Fonts.swift in Sources */,
 				37B82912238683A100E991D4 /* AuthNavigationViewController.swift in Sources */,
+				377F1CFA23C77121005724E9 /* IssueVM.swift in Sources */,
 				37C3D8E023950E6300037154 /* RepositoryDetailsTVUserCell.swift in Sources */,
 				375EB1A0237EF4AB005B6252 /* UIControl+Actionable.swift in Sources */,
 				376A157E23A3B087003E6D23 /* SideMenuTableView.swift in Sources */,
@@ -1530,6 +1541,7 @@
 				377C221C237C23640046D4E8 /* Haptic.swift in Sources */,
 				3743F459238D1A8C00C54A0A /* ProfileVC.swift in Sources */,
 				377C21E7237C23640046D4E8 /* UIImage+Gradient.swift in Sources */,
+				377F1CF823C76EA4005724E9 /* Label.swift in Sources */,
 				379473A5239A6ED60022CC3E /* CollectionActivityFooterView.swift in Sources */,
 				377C21DA237C23640046D4E8 /* SnappingFlowLayout.swift in Sources */,
 				37B8291F2386BED400E991D4 /* PullRequestsVC.swift in Sources */,

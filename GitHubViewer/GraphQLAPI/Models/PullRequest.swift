@@ -1,11 +1,6 @@
 import Foundation
 
 struct PullRequest {
-    struct PRLabel {
-        var name: String
-        var color: String
-    }
-    
     let id: String
     let state: PullRequestState
     let author: String
@@ -39,7 +34,7 @@ struct PullRequest {
         }
         
         
-        let labels = request.labels?.edges?.compactMap({ $0?.node }).map({ PRLabel(name: $0.name, color: $0.color) }) ?? []
+//        let labels = request.labels?.edges?.compactMap({ $0?.node }).map({ Label(name: $0.name, color: $0.color) }) ?? []
 //        log("Labels: \(labels)")
         if let requestCommits = request.commits.edges {
             commits = requestCommits

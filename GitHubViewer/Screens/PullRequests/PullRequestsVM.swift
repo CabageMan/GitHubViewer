@@ -3,7 +3,7 @@ import Foundation
 final class PullRequestsVM {
     
     //MARK: - API
-    private let prCount = 10
+    private let pullRequestsNumber = 10
     private var lastPRCursor: String?
     private var hasNextPage: Bool?
     
@@ -13,7 +13,7 @@ final class PullRequestsVM {
     func getOwnPullRequests() {
         guard let owner = Global.apiClient.ownUser else { return }
         let order = IssueOrder(field: .createdAt, direction: .desc)
-        GitHubViewerApollo.shared.client.fetch(query: UserPullRequestsQuery(userLogin: owner.login, numberOfRequests: prCount, cursor: lastPRCursor, order: order)) { [weak self] response in
+        GitHubViewerApollo.shared.client.fetch(query: UserPullRequestsQuery(userLogin: owner.login, numberOfRequests: pullRequestsNumber, cursor: lastPRCursor, order: order)) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
