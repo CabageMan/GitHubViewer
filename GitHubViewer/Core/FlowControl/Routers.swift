@@ -15,4 +15,9 @@ final class RepositoriesRouter: BaseRouter {
         let settingsController = SideMenuController(router: self)
         navigationController?.pushViewController(settingsController)
     }
+    
+    func showPullRequestDetails(pullRequest: PullRequest) {
+        let detailsController = PullRequestDetailsVC(router: self, pullRequest: pullRequest)
+        navigationController?.pushViewController(detailsController)
+    }
 }

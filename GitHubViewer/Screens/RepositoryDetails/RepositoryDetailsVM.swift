@@ -53,9 +53,7 @@ extension RepositoryDetailsVM {
         if let description = details.repository.description {
             infoItems.append(InfoItem(title: String.Repos.descriprion, details: description))
         }
-        if let createdAt = details.repository.createdAt {
-            infoItems.append(InfoItem(title: String.Repos.createdAt, details: formatter.string(from: createdAt)))
-        }
+        infoItems.append(InfoItem(title: String.Repos.createdAt, details: formatter.string(from: details.repository.createdAt)))
         if let updatedAt = details.updatedAt {
             infoItems.append(InfoItem(title: String.Repos.updatedAt, details: formatter.string(from: updatedAt)))
         }

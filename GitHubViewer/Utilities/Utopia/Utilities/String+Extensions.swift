@@ -321,6 +321,21 @@ extension String {
 
 }
 
+extension String {
+    public func getSize(with font: UIFont) -> CGSize {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        return self.size(withAttributes: fontAttributes)
+    }
+
+    public func getWidth(with font: UIFont) -> CGFloat {
+        return self.getSize(with: font).width
+    }
+    
+    public func getHeight(with font: UIFont) -> CGFloat {
+        return self.getSize(with: font).height
+    }
+}
+
 private extension String {
     
     func safeIndex(offset: Int) -> String.Index? {

@@ -14,6 +14,7 @@ def shared_pods
   #UIKit
   pod 'TinyConstraints'
   pod 'Nuke'
+  pod 'Parchment'
 end
 
 # Pods for GitHubViewer

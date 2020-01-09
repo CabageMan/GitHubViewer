@@ -1,10 +1,11 @@
 PODS:
-  - Apollo (0.20.0):
-    - Apollo/Core (= 0.20.0)
-  - Apollo/Core (0.20.0)
+  - Apollo (0.21.0):
+    - Apollo/Core (= 0.21.0)
+  - Apollo/Core (0.21.0)
   - KeychainAccess (4.1.0)
-  - Nuke (8.3.1)
+  - Nuke (8.4.0)
   - OAuthSwift (2.1.0)
+  - Parchment (1.7.0)
   - TinyConstraints (4.0.1)
   - Wormholy (1.5.1)
 
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - KeychainAccess
   - Nuke
   - OAuthSwift
+  - Parchment
   - TinyConstraints
   - Wormholy
 
@@ -22,17 +24,19 @@ SPEC REPOS:
     - KeychainAccess
     - Nuke
     - OAuthSwift
+    - Parchment
     - TinyConstraints
     - Wormholy
 
 SPEC CHECKSUMS:
-  Apollo: 46b40c7023c1d49f2220a0364cdff8829674d9d3
+  Apollo: 56a0aa81b744bf2810a8277e705f155c91ac9055
   KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
-  Nuke: 85fb80f8df0cb26c28d2f4e0cb7fb93bcd6548d3
+  Nuke: fa6f784c4f7e1c0f9313668510186c68b7af2509
   OAuthSwift: ab1675598273e04355e0282459c328e65c9ddacd
+  Parchment: cae686f73685d16742cec9c19239b7578a15f0f5
   TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
   Wormholy: f01b096b449a9fcab864a10f7e5b5693b1225c88
 
-PODFILE CHECKSUM: ef91c4ac929dfb930b85c6a965163e2d61e9653e
+PODFILE CHECKSUM: abd6a8cf141d02dbc54f25deaa9f40d57eae3cb4
 
 COCOAPODS: 1.8.4

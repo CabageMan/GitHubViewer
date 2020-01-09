@@ -58,3 +58,13 @@ public struct DateUtilities {
     }
   }
 }
+
+extension Date {
+    var timeAgo: String {
+        return DateUtilities.postedDateFormat(fromDate: self, toDate: Date())
+    }
+    
+    var timeTo: String {
+        return DateUtilities.postedDateFormat(fromDate: Date(), toDate: self)
+    }
+}

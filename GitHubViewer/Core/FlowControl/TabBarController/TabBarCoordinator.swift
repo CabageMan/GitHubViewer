@@ -11,14 +11,14 @@ final class TabBarCoordinator: Coordinator {
     
     // Coordinators
     let reposCoordinator: RepositoriesCoordinator
-    let prCoordinator: PRCoordinator
+    let prCoordinator: PullRequestsCoordinator
     let issuesCoordinator: IssuesCoordinator
     let profileCoordinator: ProfileCoordinator
     
     init(window: UIWindow) {
         self.window = window
         reposCoordinator = RepositoriesCoordinator()
-        prCoordinator = PRCoordinator()
+        prCoordinator = PullRequestsCoordinator()
         issuesCoordinator = IssuesCoordinator()
         profileCoordinator = ProfileCoordinator()
         super.init()
@@ -65,7 +65,7 @@ final class TabBarCoordinator: Coordinator {
         }
     }
     
-    private func runPRFlow(_ deepLink: PRCoordinator.DeepLink? = nil) {
+    private func runPRFlow(_ deepLink: PullRequestsCoordinator.DeepLink? = nil) {
         if tabBarViewController.selectedIndex != TabBarView.Tab.pullRequests.rawValue {
             tabBarViewController.selectedIndex = TabBarView.Tab.pullRequests.rawValue
         } else {

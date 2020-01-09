@@ -83,25 +83,3 @@ extension AuthVC: OAuthWebViewControllerDelegate {
         webViewController.remove()
     }
 }
-
-//MARK: - Theme
-extension AuthVC {
-    enum Theme {
-//        // Sizes
-//        static let imageSide: CGFloat = UIScreen.main.bounds.width
-//
-//        // Offsets
-//        static let buttonSideOffset: CGFloat = 90.0
-//        static var buttonTopOffset: CGFloat {
-//            switch Device.realDiagonal {
-//            case Device.iPhone5.diagonal: return 15.0
-//            case Device.iPhone6.diagonal: return 27.5
-//            case Device.iPhone6Plus.diagonal: return 35.0
-//            case Device.iPhoneX.diagonal: return 57.0
-//            case Device.iPhoneXr.diagonal: return 66.0
-//            case Device.iPhoneXsMax.diagonal: return 68.0
-//            default: return 15.0
-//            }
-//        }
-    }
-}

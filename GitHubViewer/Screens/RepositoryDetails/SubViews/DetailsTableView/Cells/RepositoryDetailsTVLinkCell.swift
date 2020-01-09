@@ -48,6 +48,7 @@ final class RepositoryDetailsTVLinkCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         link = ""
         linkLabel.text = nil
     }

@@ -94,7 +94,23 @@ final class RepositoriesCollectionCell: UICollectionViewCell {
         }
     }
     
-    func configure(with repository: Repository) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        statusImageView.image = nil
+        nameLabel.text = nil
+        descriptionLabel.text = nil
+        colorView.backgroundColor = .clear
+        languageLabel.text = nil
+    }
+}
+
+//MARK: - Configure Cell
+extension RepositoriesCollectionCell: ConfigurableCell {
+    typealias CellData = Repository
+    
+    func configure(with data: Repository) {
+        let repository = data
+        
         if repository.isFork {
             statusImageView.image = #imageLiteral(resourceName: "fork")
         } else if repository.isPrivate {
@@ -112,14 +128,6 @@ final class RepositoriesCollectionCell: UICollectionViewCell {
         }
         languageLabel.text = repository.primaryLanguage?.name
     }
-    
-    override func prepareForReuse() {
-        statusImageView.image = nil
-        nameLabel.text = nil
-        descriptionLabel.text = nil
-        colorView.backgroundColor = .clear
-        languageLabel.text = nil
-    }
 }
 
 //MARK: - Theme
@@ -131,12 +139,12 @@ extension RepositoriesCollectionCell {
         static let languageLabelFont: UIFont = .circular(style: .medium, size: 10.0)
         
         // Sizes
-        static let statusImageSize: CGSize = CGSize(30.0)
-        static let colorViewSize: CGSize = CGSize(15.0)
+        static let statusImageSize = CGSize(30.0)
+        static let colorViewSize = CGSize(15.0)
+        static let arrowSize = CGSize(20.0)
         static let languageLabelHeight: CGFloat = 15.0
         static let nameLabelHeight: CGFloat = 20.0
         static let descriptionLabelHeight: CGFloat = 20.0
-        static let arrowSize: CGSize = CGSize(20.0)
         
         // Offsets
         static let statusLeftOffset: CGFloat = 10.0

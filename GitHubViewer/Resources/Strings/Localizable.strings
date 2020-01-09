@@ -13,6 +13,8 @@
 "general.copyLink"      = "Copy link to clipBoard";
 "general.linkCopied"    = "Link copied to\nclipboard";
 "general.openLink"      = "Open link in Safari";
+"general.open"          = "Open";
+"general.closed"        = "Closed";
 
 
 //MARK: - Authentication
@@ -45,7 +47,19 @@
 "repos.watchers"            = "Watchers";
 
 //MARK: - Pull Requests
-"pr.title"  = "Pull Requests";
+"pr.title"              = "Pull Requests";
+"pr.created"            = "Created";
+"pr.assigned"           = "Assigned";
+"pr.mentioned"          = "Mentioned";
+"pr.reviewRequests"     = "Review Requests";
+"pr.requestByAuthor"    = "#%@ by %@";
+"pr.openedRequest"      = "#%@ opened %@ ago by %@";
+"pr.wasMerged"          = " was merged %@ ago";
+"pr.wasClosed"          = " was closed %@ ago";
+"pr.pullRequestNumber"  = "#%@";
+"pr.merged"             = "Merged";
+"pr.wantsToMerge"       = "%@ wants to merge %@ commits\ninto %@ from %@";
+"pr.mergedCommitsBy"    = "%@ merged %@ commits\ninto %@ on %@";
 
 //MARK: - Issues
 "issues.title"  = "Issues";
@@ -57,6 +71,7 @@
 "emptyView.emptyRepositories"       = "Your repositories will be\ndisplayed here";
 "emptyView.emptyRepositoryDetails"  = "There is no details";
 "emptyView.emptyPullRequests"       = "Your pull requests will be displayed here";
+"emptyView.emptyCommits"            = "Pull request's commits will be displayed here";
 "emptyView.emptyIssues"             = "Your issues will be displayed here";
 "emptyView.emptyProfile"            = "Your profile will be displayed here";
 

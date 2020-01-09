@@ -67,6 +67,7 @@ final class RepositoryDetailsTVUserCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         user = nil
         nameLabel.text = nil
         loginLabel.text = nil
