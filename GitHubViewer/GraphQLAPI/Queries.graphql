@@ -115,11 +115,21 @@ fragment IssuesListFragment on Issue {
     number
     title
     state
+    author {
+        login
+    }
     labels(first: 10){
         edges{
             node{
                 color
                 name
+            }
+        }
+    }
+    assignees(first: 15) {
+        edges {
+            node {
+                login
             }
         }
     }

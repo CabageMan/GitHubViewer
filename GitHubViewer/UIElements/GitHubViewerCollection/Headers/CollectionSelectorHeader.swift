@@ -1,8 +1,8 @@
 import UIKit
 
 final class CollectionSelectorHeader: UICollectionReusableView {
-    #warning("May be make it generic for issue collection")
-    var selector: PullRequestState = .open {
+    
+    var selector: SelectorState = .open {
         didSet {
             switch selector {
             case .open:
@@ -11,7 +11,6 @@ final class CollectionSelectorHeader: UICollectionReusableView {
             case .closed:
                 openView.setSelected(isSelected: false)
                 closedView.setSelected(isSelected: true)
-            default: break
             }
             onSelectorChanged()
         }

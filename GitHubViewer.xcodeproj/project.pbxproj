@@ -438,7 +438,6 @@
 		370117A723B0E970002C42AE /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
-				370117AD23B0EA32002C42AE /* CollectionHeaders */,
 				370117AC23B0EA28002C42AE /* CollectionCells */,
 			);
 			path = SubViews;
@@ -450,14 +449,6 @@
 				3781DC5E23B1FEBE00C08486 /* PullRequestsCollectionCell.swift */,
 			);
 			path = CollectionCells;
-			sourceTree = "<group>";
-		};
-		370117AD23B0EA32002C42AE /* CollectionHeaders */ = {
-			isa = PBXGroup;
-			children = (
-				379A7ACE23B608C5007CA335 /* CollectionSelectorHeader.swift */,
-			);
-			path = CollectionHeaders;
 			sourceTree = "<group>";
 		};
 		372A9C4B238EA4B3007F1BA9 /* SubViews */ = {
@@ -1062,12 +1053,29 @@
 			path = SideMenu;
 			sourceTree = "<group>";
 		};
+		37925DE123C8A9B00070BC24 /* Footers */ = {
+			isa = PBXGroup;
+			children = (
+				379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */,
+			);
+			path = Footers;
+			sourceTree = "<group>";
+		};
+		37925DE223C8A9C30070BC24 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				379A7ACE23B608C5007CA335 /* CollectionSelectorHeader.swift */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
 		379473A3239A6EC40022CC3E /* GitHubViewerCollection */ = {
 			isa = PBXGroup;
 			children = (
 				37C41C6E238BC58A00AB06D4 /* GitHubViewerCollection.swift */,
-				379473A4239A6ED60022CC3E /* CollectionActivityFooterView.swift */,
 				370117AE23B10E50002C42AE /* ConfigurableProtocol.swift */,
+				37925DE223C8A9C30070BC24 /* Headers */,
+				37925DE123C8A9B00070BC24 /* Footers */,
 			);
 			path = GitHubViewerCollection;
 			sourceTree = "<group>";

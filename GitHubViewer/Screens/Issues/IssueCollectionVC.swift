@@ -4,7 +4,7 @@ final class IssueCollectionVC: UIViewController {
     
     let collection = GitHubViewerCollection<IssueCollectionCell>(mode: .issues)
     var items: [Issue] = [] {
-        didSet {  }
+        didSet { collection.items = items }
     }
     let mode: PageMode
     

@@ -3,6 +3,8 @@ import Foundation
 final class PullRequestsVM {
     
     //MARK: - API
+    typealias SelectorState = CollectionSelectorHeader.SelectorState
+    
     private let pullRequestsNumber = 10
     private var lastPRCursor: String?
     private var hasNextPage: Bool?
@@ -48,13 +50,13 @@ final class PullRequestsVM {
         }
     }
     
-    func getPullRequests(for page: PageMode, selector: PullRequestState) -> [PullRequest] {
+    func getPullRequests(for page: PageMode, selector: SelectorState) -> [PullRequest] {
         switch page {
         case .created:
             guard let owner = Global.apiClient.ownUser?.login else { return [] }
-            return allPullRequests.filter { $0.author == owner && stateMatch(selector: selector, state: $0.state) }
+            return allPullRequests.filter { $0.author == owner && stateMatch(selectorState: selector, prState: $0.state) }
         case .assigned:
-            return allPullRequests.filter { $0.assignees.contains(Global.apiClient.ownUser?.login) && stateMatch(selector: selector, state: $0.state) }
+            return allPullRequests.filter { $0.assignees.contains(Global.apiClient.ownUser?.login) && stateMatch(selectorState: selector, prState: $0.state) }
         case .mentioned:
             Global.showComingSoon()
             return []
@@ -64,13 +66,12 @@ final class PullRequestsVM {
         }
     }
     
-    private func stateMatch(selector: PullRequestState, state: PullRequestState) -> Bool {
-        switch selector {
+    private func stateMatch(selectorState: SelectorState, prState: PullRequestState) -> Bool {
+        switch selectorState {
         case .open:
-            return state == selector
+            return prState == .open
         case .closed:
-            return state == .closed || state == .merged
-        default: return false
+            return prState == .closed || prState == .merged
         }
     }
 }

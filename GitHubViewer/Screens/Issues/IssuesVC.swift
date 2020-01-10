@@ -65,7 +65,7 @@ final class IssuesVC: UIViewController {
               let selector = vc.collection.selectorHeader?.selector
         else { return }
         vc.collection.nextDataIsLoading = false
-        vc.items = viewModel.getIssues(for: page, selector: .open)
+        vc.items = viewModel.getIssues(for: page, selector: selector)
     }
 }
 

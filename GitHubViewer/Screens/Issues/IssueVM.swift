@@ -3,6 +3,8 @@ import Foundation
 final class IssuesVM {
     
     //MARK: - API
+    typealias SelectorState = CollectionSelectorHeader.SelectorState
+    
     private let issuesNumber = 23
     
     private var allIssues: [Issue] = []
@@ -28,7 +30,6 @@ final class IssuesVM {
                 log("Issues has next page: \(data.pageInfo.hasNextPage)")
                 self.allIssues = issues
                 self.issuesHaveBeenFetched()
-                log("Issues: \(issues)")
                 
             case .failure(let error):
                 log("Error fetching own issues \(error.localizedDescription)")
@@ -36,8 +37,26 @@ final class IssuesVM {
         }
     }
     
-    #warning("Need to make methods of state match and getSeparated date generic")
-    func getIssues(for page: PageMode, selector: IssueState) -> [Issue] {
-        return []
+    func getIssues(for page: PageMode, selector: SelectorState) -> [Issue] {
+        switch page {
+        case .created:
+            guard let owner = Global.apiClient.ownUser?.login else { return [] }
+            return allIssues.filter { $0.author == owner && stateMatch(selectorState: selector, issueState: $0.state) }
+        case .assigned:
+            return allIssues.filter { $0.assignees.contains(Global.apiClient.ownUser?.login) && stateMatch(selectorState: selector, issueState: $0.state) }
+        case .mentioned:
+            Global.showComingSoon()
+            return []
+        default: return[]
+        }
+    }
+    
+    private func stateMatch(selectorState: SelectorState, issueState: IssueState ) -> Bool {
+        switch selectorState {
+        case .open:
+            return issueState == .open
+        case .closed:
+            return issueState == .closed
+        }
     }
 }
