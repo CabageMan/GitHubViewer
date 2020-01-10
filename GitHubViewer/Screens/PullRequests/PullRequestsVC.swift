@@ -7,10 +7,10 @@ final class PullRequestsVC: UIViewController {
     private let viewModel = PullRequestsVM()
     
     //MARK: - Life Cycle
-    init(router: GithubViewerRouter, currentPage: PagesMode) {
+    init(router: GithubViewerRouter, currentPage: PageMode) {
         self.router = router
         self.fixedPageController = GitHabViewerPagingController(
-            viewControllers: PagesMode.all.map { PullRequestsCollectionVC(router: router, mode: $0) },
+            viewControllers: PageMode.all.map { PullRequestsCollectionVC(router: router, mode: $0) },
             currentPage: currentPage.rawValue
         )
         super.init(nibName: nil, bundle: nil)
@@ -61,7 +61,7 @@ final class PullRequestsVC: UIViewController {
     
     private func setPullRequestsCollection(at index: Int) {
         guard let vc = self.fixedPageController.viewControllers[index] as? PullRequestsCollectionVC,
-              let page = PagesMode(rawValue: index),
+              let page = PageMode(rawValue: index),
               let selector = vc.collection.selectorHeader?.selector
         else { return }
         vc.collection.nextDataIsLoading = false

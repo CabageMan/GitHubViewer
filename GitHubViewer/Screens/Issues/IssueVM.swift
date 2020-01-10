@@ -37,7 +37,7 @@ final class IssuesVM {
     }
     
     #warning("Need to make methods of state match and getSeparated date generic")
-    func getIssues(for page: PagesMode, selector: IssueState) -> [Issue] {
+    func getIssues(for page: PageMode, selector: IssueState) -> [Issue] {
         return []
     }
 }

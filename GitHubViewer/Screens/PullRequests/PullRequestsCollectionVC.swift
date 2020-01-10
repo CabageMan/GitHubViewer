@@ -6,7 +6,7 @@ final class PullRequestsCollectionVC: UIViewController {
     var items: [PullRequest] = [] {
         didSet { collection.items = items }
     }
-    let mode: PagesMode
+    let mode: PageMode
     
     private let router: GithubViewerRouter
     
@@ -14,7 +14,7 @@ final class PullRequestsCollectionVC: UIViewController {
     var getNextPullRequests: () -> Void = { }
     
     //MARK: - Life Cycle
-    init(router: GithubViewerRouter, mode: PagesMode) {
+    init(router: GithubViewerRouter, mode: PageMode) {
         self.router = router
         self.mode = mode
         super.init(nibName: nil, bundle: nil)

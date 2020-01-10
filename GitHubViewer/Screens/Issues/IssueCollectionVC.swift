@@ -6,7 +6,7 @@ final class IssueCollectionVC: UIViewController {
     var items: [Issue] = [] {
         didSet {  }
     }
-    let mode: PagesMode
+    let mode: PageMode
     
     private let router: GithubViewerRouter
     
@@ -14,7 +14,7 @@ final class IssueCollectionVC: UIViewController {
     var getNextIssues: () -> Void = { }
     
     //MARK: - Life Cycle
-    init(router: GithubViewerRouter, mode: PagesMode) {
+    init(router: GithubViewerRouter, mode: PageMode) {
         self.router = router
         self.mode = mode
         super.init(nibName: nil, bundle: nil)
