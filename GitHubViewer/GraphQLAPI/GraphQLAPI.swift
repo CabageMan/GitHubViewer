@@ -263,6 +263,49 @@ public enum PullRequestState: RawRepresentable, Equatable, Hashable, CaseIterabl
   }
 }
 
+/// The possible states of an issue.
+public enum IssueState: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  /// An issue that is still open
+  case `open`
+  /// An issue that has been closed
+  case closed
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "OPEN": self = .open
+      case "CLOSED": self = .closed
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .open: return "OPEN"
+      case .closed: return "CLOSED"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: IssueState, rhs: IssueState) -> Bool {
+    switch (lhs, rhs) {
+      case (.open, .open): return true
+      case (.closed, .closed): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [IssueState] {
+    return [
+      .open,
+      .closed,
+    ]
+  }
+}
+
 public final class OwnUserQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition =
@@ -3227,6 +3270,7 @@ public struct IssuesListFragment: GraphQLFragment {
       id
       number
       title
+      state
       labels(first: 10) {
         __typename
         edges {
@@ -3248,6 +3292,7 @@ public struct IssuesListFragment: GraphQLFragment {
     GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
     GraphQLField("number", type: .nonNull(.scalar(Int.self))),
     GraphQLField("title", type: .nonNull(.scalar(String.self))),
+    GraphQLField("state", type: .nonNull(.scalar(IssueState.self))),
     GraphQLField("labels", arguments: ["first": 10], type: .object(Label.selections)),
   ]
 
@@ -3257,8 +3302,8 @@ public struct IssuesListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, number: Int, title: String, labels: Label? = nil) {
-    self.init(unsafeResultMap: ["__typename": "Issue", "id": id, "number": number, "title": title, "labels": labels.flatMap { (value: Label) -> ResultMap in value.resultMap }])
+  public init(id: GraphQLID, number: Int, title: String, state: IssueState, labels: Label? = nil) {
+    self.init(unsafeResultMap: ["__typename": "Issue", "id": id, "number": number, "title": title, "state": state, "labels": labels.flatMap { (value: Label) -> ResultMap in value.resultMap }])
   }
 
   public var __typename: String {
@@ -3296,6 +3341,16 @@ public struct IssuesListFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "title")
+    }
+  }
+
+  /// Identifies the state of the issue.
+  public var state: IssueState {
+    get {
+      return resultMap["state"]! as! IssueState
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "state")
     }
   }
 

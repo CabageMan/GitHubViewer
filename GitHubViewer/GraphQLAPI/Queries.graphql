@@ -114,6 +114,7 @@ fragment IssuesListFragment on Issue {
     id
     number
     title
+    state
     labels(first: 10){
         edges{
             node{

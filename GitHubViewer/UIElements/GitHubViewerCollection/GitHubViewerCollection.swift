@@ -10,7 +10,7 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
         }
         return UICollectionView(layout: layout)
     }()
-    var pullRequestHeader: CollectionSelectorHeader?
+    var selectorHeader: CollectionSelectorHeader?
     private var activityFooter: CollectionActivityFooterView?
     
     private let mode: Mode
@@ -43,8 +43,9 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
             $0.dataSource = self
             $0.delegate = self
             $0.registerCell(T.self)
-            if case .pullRequests = mode {
-                $0.registerHeader(CollectionSelectorHeader.self)
+            switch mode {
+            case .pullRequests, .issues: $0.registerHeader(CollectionSelectorHeader.self)
+            default: break
             }
             $0.registerFooter(CollectionActivityFooterView.self)
             $0.alwaysBounceVertical = true
@@ -68,14 +69,12 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             switch mode {
-            case .repositories:
-                return UICollectionReusableView()
-            case .pullRequests:
+            case .pullRequests, .issues:
                 let header: CollectionSelectorHeader = collectionView.dequeueHeader(for: indexPath)
-                pullRequestHeader = header
+                selectorHeader = header
                 header.onSelectorChanged = onHeaderSelectorChanged
                 return header
-            case .commits:
+            case .repositories, .commits:
                 return UICollectionReusableView()
             }
         case UICollectionView.elementKindSectionFooter:
@@ -94,11 +93,9 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         switch mode {
-        case .repositories:
-            return CGSize.zero
-        case .pullRequests:
+        case .pullRequests, .issues:
             return CGSize(width: UIScreen.main.bounds.width, height: CollectionSelectorHeader.Theme.headerHeight)
-        case .commits:
+        case .repositories, .commits:
             return CGSize.zero
         }
         
@@ -130,6 +127,7 @@ extension GitHubViewerCollection {
         case repositories
         case pullRequests
         case commits
+        case issues
         
         var backGround: UIView {
             switch self {
@@ -139,6 +137,8 @@ extension GitHubViewerCollection {
                 return EmptyView.createEmptyPullRequests(offset: -Theme.emptyViewOffset)
             case .commits:
                 return EmptyView.createEmptyCommits(offset: -Theme.emptyViewOffset)
+            case .issues:
+                return EmptyView.createEmptyIssues(offset: -Theme.emptyViewOffset)
             }
         }
         
@@ -150,6 +150,8 @@ extension GitHubViewerCollection {
                 return Theme.pullRequestCellHeight
             case .commits:
                 return Theme.commitCellHeight
+            case .issues:
+                return Theme.issueCellHeight
             }
         }
     }
@@ -161,6 +163,7 @@ fileprivate enum Theme {
     static let repositoryCellHeight: CGFloat = 74.0
     static let pullRequestCellHeight: CGFloat = 80.0
     static let commitCellHeight: CGFloat = 50.0
+    static let issueCellHeight: CGFloat = 80.0
     
     // Offsets
     static let cellSideOffset: CGFloat = 36.0

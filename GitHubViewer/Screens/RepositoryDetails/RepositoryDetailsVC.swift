@@ -5,7 +5,7 @@ final class RepositoryDetailsVC: UIViewController {
     
     var onBackButtonTap: () -> Void = { }
     
-    private let router: RepositoriesRouter
+    private let router: GithubViewerRouter
     
     private let ownerLogin: String
     private let repository: Repository
@@ -14,7 +14,7 @@ final class RepositoryDetailsVC: UIViewController {
     private let table = RepositoryDetailsTableView()
     
     //MARK: - Life Cycle
-    init(ownerLogin: String, repository: Repository, router: RepositoriesRouter) {
+    init(ownerLogin: String, repository: Repository, router: GithubViewerRouter) {
         self.router = router
         self.ownerLogin = ownerLogin
         self.repository = repository

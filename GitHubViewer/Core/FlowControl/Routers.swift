@@ -10,7 +10,7 @@ class BaseRouter: RouterProtocol {
     }
 }
 
-final class RepositoriesRouter: BaseRouter {
+final class GithubViewerRouter: BaseRouter {
     func showMenu() {
         let settingsController = SideMenuController(router: self)
         navigationController?.pushViewController(settingsController)
@@ -19,5 +19,9 @@ final class RepositoriesRouter: BaseRouter {
     func showPullRequestDetails(pullRequest: PullRequest) {
         let detailsController = PullRequestDetailsVC(router: self, pullRequest: pullRequest)
         navigationController?.pushViewController(detailsController)
+    }
+    
+    func showIssuesDetails(issue: Issue) {
+        Global.showCustomMessage(message: "Show \(issue.title) details")
     }
 }

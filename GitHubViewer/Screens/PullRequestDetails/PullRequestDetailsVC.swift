@@ -2,7 +2,7 @@ import UIKit
 
 final class PullRequestDetailsVC: UIViewController {
     
-    private let router: RepositoriesRouter
+    private let router: GithubViewerRouter
     
     private let pullRequest: PullRequest
     private let requestNameLabel = UILabel()
@@ -11,7 +11,7 @@ final class PullRequestDetailsVC: UIViewController {
     private let commitsCollection = GitHubViewerCollection<PullRequestDetailsCollectionCell>(mode: .commits)
     
     //MARK: - Life Cycle
-    init(router: RepositoriesRouter, pullRequest: PullRequest) {
+    init(router: GithubViewerRouter, pullRequest: PullRequest) {
         self.router = router
         self.pullRequest = pullRequest
         self.requestStateView = {

@@ -51,6 +51,14 @@ final class CollectionSelectorHeader: UICollectionReusableView {
     }
 }
 
+//MARK: - State
+extension CollectionSelectorHeader {
+    enum SelectorState {
+        case open
+        case closed
+    }
+}
+
 //MARK: - Theme
 extension CollectionSelectorHeader {
     enum Theme {

@@ -48,7 +48,7 @@ final class PullRequestsVM {
         }
     }
     
-    func getPullRequests(for page: PullRequestsVC.Page, selector: PullRequestState) -> [PullRequest] {
+    func getPullRequests(for page: PagesMode, selector: PullRequestState) -> [PullRequest] {
         switch page {
         case .created:
             guard let owner = Global.apiClient.ownUser?.login else { return [] }

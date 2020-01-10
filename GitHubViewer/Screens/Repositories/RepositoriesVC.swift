@@ -2,7 +2,7 @@ import UIKit
 
 final class RepositoriesVC: UIViewController {
     
-    private let router: RepositoriesRouter
+    private let router: GithubViewerRouter
     
     private let collection = GitHubViewerCollection<RepositoriesCollectionCell>(mode: .repositories)
     private let searchController = UISearchController(searchResultsController: nil)
@@ -15,7 +15,7 @@ final class RepositoriesVC: UIViewController {
     var onReposCellTap: (Repository) -> Void = { _ in }
     
     //MARK: - Life Cycle
-    init(router: RepositoriesRouter) {
+    init(router: GithubViewerRouter) {
         self.router = router
         super.init(nibName: nil, bundle: nil)
         title = String.Repos.title

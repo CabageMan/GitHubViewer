@@ -1,17 +1,17 @@
 import UIKit
 
-final class PullRequestsCollectionVC: UIViewController {
+final class IssueCollectionVC: UIViewController {
     
-    let collection = GitHubViewerCollection<PullRequestsCollectionCell>(mode: .pullRequests)
-    var items: [PullRequest] = [] {
-        didSet { collection.items = items }
+    let collection = GitHubViewerCollection<IssueCollectionCell>(mode: .issues)
+    var items: [Issue] = [] {
+        didSet {  }
     }
     let mode: PagesMode
     
     private let router: GithubViewerRouter
     
-    var onCollectionHeaderSelectChanged: () -> Void = { }
-    var getNextPullRequests: () -> Void = { }
+    var onCollectionheaderSelectChanged: () -> Void = { }
+    var getNextIssues: () -> Void = { }
     
     //MARK: - Life Cycle
     init(router: GithubViewerRouter, mode: PagesMode) {
@@ -33,12 +33,12 @@ final class PullRequestsCollectionVC: UIViewController {
             $0.edgesToSuperview()
             $0.keyboardDismissMode = .onDrag
         }
-        collection.onCellTap = { [weak self] request in
-            self?.router.showPullRequestDetails(pullRequest: request)
+        collection.onCellTap = { [weak self] issue in
+            self?.router.showIssuesDetails(issue: issue)
         }
         collection.getNextData = { [weak self] in
-            self?.getNextPullRequests()
+            self?.getNextIssues()
         }
-        collection.onHeaderSelectorChanged = onCollectionHeaderSelectChanged
+        collection.onHeaderSelectorChanged = onCollectionheaderSelectChanged
     }
 }

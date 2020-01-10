@@ -86,13 +86,18 @@ extension String {
     static let title = String.tr("Localizable", "issues.title")
   }
 
-  enum Pr {
+  enum PagesMode {
     // Assigned
-    static let assigned = String.tr("Localizable", "pr.assigned")
+    static let assigned = String.tr("Localizable", "pagesMode.assigned")
     // Created
-    static let created = String.tr("Localizable", "pr.created")
+    static let created = String.tr("Localizable", "pagesMode.created")
     // Mentioned
-    static let mentioned = String.tr("Localizable", "pr.mentioned")
+    static let mentioned = String.tr("Localizable", "pagesMode.mentioned")
+    // Review Requests
+    static let reviewRequests = String.tr("Localizable", "pagesMode.reviewRequests")
+  }
+
+  enum Pr {
     // Merged
     static let merged = String.tr("Localizable", "pr.merged")
     // %@ merged %@ commits\ninto %@ on %@
@@ -111,8 +116,6 @@ extension String {
     static func requestByAuthor(_ p1: String, _ p2: String) -> String {
       return String.tr("Localizable", "pr.requestByAuthor", p1, p2)
     }
-    // Review Requests
-    static let reviewRequests = String.tr("Localizable", "pr.reviewRequests")
     // Pull Requests
     static let title = String.tr("Localizable", "pr.title")
     // %@ wants to merge %@ commits\ninto %@ from %@

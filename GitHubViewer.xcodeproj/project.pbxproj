@@ -174,6 +174,9 @@
 		37A80ADC238816AB00BA2496 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADB238816AB00BA2496 /* User.swift */; };
 		37A80ADE2388174E00BA2496 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADD2388174E00BA2496 /* Repository.swift */; };
 		37AD89572387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */; };
+		37B3789B23C84F250028AF55 /* IssueCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B3789A23C84F250028AF55 /* IssueCollectionVC.swift */; };
+		37B3789E23C850660028AF55 /* PagesProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B3789D23C850660028AF55 /* PagesProperties.swift */; };
+		37B378A223C851E50028AF55 /* IssueCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B378A123C851E50028AF55 /* IssueCollectionCell.swift */; };
 		37B82912238683A100E991D4 /* AuthNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B82911238683A100E991D4 /* AuthNavigationViewController.swift */; };
 		37B829172386BE6500E991D4 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829162386BE6500E991D4 /* TabBarView.swift */; };
 		37B829192386BEA000E991D4 /* RepositoriesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B829182386BEA000E991D4 /* RepositoriesCoordinator.swift */; };
@@ -384,6 +387,9 @@
 		37A80ADB238816AB00BA2496 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37A80ADD2388174E00BA2496 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
+		37B3789A23C84F250028AF55 /* IssueCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueCollectionVC.swift; sourceTree = "<group>"; };
+		37B3789D23C850660028AF55 /* PagesProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesProperties.swift; sourceTree = "<group>"; };
+		37B378A123C851E50028AF55 /* IssueCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueCollectionCell.swift; sourceTree = "<group>"; };
 		37B82911238683A100E991D4 /* AuthNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigationViewController.swift; sourceTree = "<group>"; };
 		37B829162386BE6500E991D4 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		37B829182386BEA000E991D4 /* RepositoriesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesCoordinator.swift; sourceTree = "<group>"; };
@@ -748,6 +754,7 @@
 		377C2171237C23030046D4E8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				37B3789C23C8503B0028AF55 /* PagesProperties */,
 				37C3D8E523955E6D00037154 /* ImageContent */,
 				373C58C423856FA1003F2BEB /* Routing */,
 				377C2173237C23460046D4E8 /* Utopia */,
@@ -1082,6 +1089,30 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		37B3789C23C8503B0028AF55 /* PagesProperties */ = {
+			isa = PBXGroup;
+			children = (
+				37B3789D23C850660028AF55 /* PagesProperties.swift */,
+			);
+			path = PagesProperties;
+			sourceTree = "<group>";
+		};
+		37B3789F23C851BD0028AF55 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				37B378A023C851CB0028AF55 /* CollecctionCells */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		37B378A023C851CB0028AF55 /* CollecctionCells */ = {
+			isa = PBXGroup;
+			children = (
+				37B378A123C851E50028AF55 /* IssueCollectionCell.swift */,
+			);
+			path = CollecctionCells;
+			sourceTree = "<group>";
+		};
 		37B829132386BE0000E991D4 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -1111,6 +1142,8 @@
 				37B829202386BEE600E991D4 /* IssuesCoordinator.swift */,
 				37B829222386BEF900E991D4 /* IssuesVC.swift */,
 				377F1CF923C77121005724E9 /* IssueVM.swift */,
+				37B3789A23C84F250028AF55 /* IssueCollectionVC.swift */,
+				37B3789F23C851BD0028AF55 /* SubViews */,
 			);
 			path = Issues;
 			sourceTree = "<group>";
@@ -1388,6 +1421,7 @@
 				377F1CF623C76DFD005724E9 /* Issue.swift in Sources */,
 				3739CF0623A2768500D00E4F /* SettingsDismissionAC.swift in Sources */,
 				377C221E237C23640046D4E8 /* Random.swift in Sources */,
+				37B3789B23C84F250028AF55 /* IssueCollectionVC.swift in Sources */,
 				377C2218237C23640046D4E8 /* TransitioningDelegate.swift in Sources */,
 				37638FA6239E775900100783 /* Spinner.swift in Sources */,
 				37B829232386BEF900E991D4 /* IssuesVC.swift in Sources */,
@@ -1434,6 +1468,7 @@
 				377C21F1237C23640046D4E8 /* GestureRecognizerDelegate.swift in Sources */,
 				378408C623A91CDC00A74D88 /* WebViewController.swift in Sources */,
 				377C21D4237C23640046D4E8 /* Validation.swift in Sources */,
+				37B3789E23C850660028AF55 /* PagesProperties.swift in Sources */,
 				377C21EB237C23640046D4E8 /* CoreAnimation+ext.swift in Sources */,
 				3743F460238D4F4F00C54A0A /* RepositoriesVM.swift in Sources */,
 				377C2209237C23640046D4E8 /* AsyncOperation.swift in Sources */,
@@ -1487,6 +1522,7 @@
 				37C41C71238BC9A400AB06D4 /* RepositoriesCollectionCell.swift in Sources */,
 				377C21E6237C23640046D4E8 /* UIAlertController+ext.swift in Sources */,
 				377C21DE237C23640046D4E8 /* UISearchUtilities.swift in Sources */,
+				37B378A223C851E50028AF55 /* IssueCollectionCell.swift in Sources */,
 				377C21EE237C23640046D4E8 /* UIViewController+ext.swift in Sources */,
 				377C21E1237C23640046D4E8 /* UIImage+ext.swift in Sources */,
 				3791F62923A0DB4600DFA1AA /* SideMenuController.swift in Sources */,

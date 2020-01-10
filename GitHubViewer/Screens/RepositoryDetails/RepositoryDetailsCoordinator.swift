@@ -15,7 +15,7 @@ final class RepositoryDetailsCoordinator: Coordinator {
     private var repositoryOwnerLogin: String
     private var repository: Repository
     
-    private lazy var repositoryRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
+    private lazy var router = GithubViewerRouter(currentCoordinator: self, navigationController: navigationController)
     
     init(presenter: NavigationViewController = NavigationViewController(), owner: String, repository: Repository) {
         self.navigationController = presenter
@@ -30,7 +30,7 @@ final class RepositoryDetailsCoordinator: Coordinator {
     }
     
     private func showRepositoryDetails() {
-        let controller = RepositoryDetailsVC(ownerLogin: repositoryOwnerLogin, repository: repository, router: repositoryRouter)
+        let controller = RepositoryDetailsVC(ownerLogin: repositoryOwnerLogin, repository: repository, router: router)
         controller.onBackButtonTap = { [weak self] in
             controller.dismiss()
             self?.removeFromParent()

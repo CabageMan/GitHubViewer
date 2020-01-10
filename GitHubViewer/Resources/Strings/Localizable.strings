@@ -48,10 +48,6 @@
 
 //MARK: - Pull Requests
 "pr.title"              = "Pull Requests";
-"pr.created"            = "Created";
-"pr.assigned"           = "Assigned";
-"pr.mentioned"          = "Mentioned";
-"pr.reviewRequests"     = "Review Requests";
 "pr.requestByAuthor"    = "#%@ by %@";
 "pr.openedRequest"      = "#%@ opened %@ ago by %@";
 "pr.wasMerged"          = " was merged %@ ago";
@@ -66,6 +62,12 @@
 
 //MARK: - Profile
 "profile.title" = "Profile";
+
+//MARK: - Pages Mode
+"pagesMode.created"            = "Created";
+"pagesMode.assigned"           = "Assigned";
+"pagesMode.mentioned"          = "Mentioned";
+"pagesMode.reviewRequests"     = "Review Requests";
 
 //MARK: - Empty View Messages
 "emptyView.emptyRepositories"       = "Your repositories will be\ndisplayed here";
