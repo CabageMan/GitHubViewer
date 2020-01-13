@@ -40,7 +40,7 @@ final class IssueCollectionVC: UIViewController {
             $0.keyboardDismissMode = .onDrag
         }
         collection.onCellTap = { [weak self] issue in
-            self?.router.showIssuesDetails(issue: issue)
+            self?.router.showIssueDetails(issue: issue)
         }
         collection.getNextData = { [weak self] in
             self?.getNextIssues()

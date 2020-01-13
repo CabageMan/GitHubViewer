@@ -17,11 +17,12 @@ final class GithubViewerRouter: BaseRouter {
     }
     
     func showPullRequestDetails(pullRequest: PullRequest) {
-        let detailsController = PullRequestDetailsVC(router: self, pullRequest: pullRequest)
-        navigationController?.pushViewController(detailsController)
+        let pullRequestDetailsController = PullRequestDetailsVC(router: self, pullRequest: pullRequest)
+        navigationController?.pushViewController(pullRequestDetailsController)
     }
     
-    func showIssuesDetails(issue: Issue) {
-        Global.showCustomMessage(message: "Show \(issue.title) details")
+    func showIssueDetails(issue: Issue) {
+        let issueDetailsController = IssueDetailsVC(router: self, issue: issue)
+        navigationController?.pushViewController(issueDetailsController)
     }
 }

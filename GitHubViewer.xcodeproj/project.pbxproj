@@ -37,6 +37,7 @@
 		373C58D8238585FF003F2BEB /* NavigationDismissionAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58D7238585FF003F2BEB /* NavigationDismissionAC.swift */; };
 		373C58DA238588AC003F2BEB /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58D9238588AC003F2BEB /* TabBarCoordinator.swift */; };
 		373C58DC23858994003F2BEB /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373C58DB23858994003F2BEB /* TabBarViewController.swift */; };
+		37419C4423CCBB2F00B73B66 /* IssueDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37419C4323CCBB2F00B73B66 /* IssueDetailsVC.swift */; };
 		3743F457238D1A8100C54A0A /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743F456238D1A8100C54A0A /* ProfileCoordinator.swift */; };
 		3743F459238D1A8C00C54A0A /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743F458238D1A8C00C54A0A /* ProfileVC.swift */; };
 		3743F45E238D213400C54A0A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3743F45D238D213400C54A0A /* UIColor+Extension.swift */; };
@@ -244,6 +245,7 @@
 		373C58D7238585FF003F2BEB /* NavigationDismissionAC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationDismissionAC.swift; sourceTree = "<group>"; };
 		373C58D9238588AC003F2BEB /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		373C58DB23858994003F2BEB /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		37419C4323CCBB2F00B73B66 /* IssueDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDetailsVC.swift; sourceTree = "<group>"; };
 		3743F456238D1A8100C54A0A /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		3743F458238D1A8C00C54A0A /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		3743F45D238D213400C54A0A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -560,6 +562,14 @@
 			path = Transitions;
 			sourceTree = "<group>";
 		};
+		37419C4223CCBAE200B73B66 /* IssueDetails */ = {
+			isa = PBXGroup;
+			children = (
+				37419C4323CCBB2F00B73B66 /* IssueDetailsVC.swift */,
+			);
+			path = IssueDetails;
+			sourceTree = "<group>";
+		};
 		3743F455238D1A2600C54A0A /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -579,6 +589,7 @@
 				37446772237D728B00762EB8 /* Queries.graphql */,
 				375AB8A0237D863C007E390A /* schema.json */,
 				375EB185237EA072005B6252 /* GraphQLAPI.swift */,
+				379B15F723CC46BA00681E04 /* PaginationManager.swift */,
 			);
 			path = GraphQLAPI;
 			sourceTree = "<group>";
@@ -715,6 +726,7 @@
 				37B829142386BE1000E991D4 /* PullRequests */,
 				3730E30723C5BE00005F0980 /* PullRequestDetails */,
 				37B829152386BE2400E991D4 /* Issues */,
+				37419C4223CCBAE200B73B66 /* IssueDetails */,
 				3743F455238D1A2600C54A0A /* Profile */,
 			);
 			path = Screens;
@@ -1092,7 +1104,6 @@
 				37E80E8923BA0B1A00D47ACF /* Commit.swift */,
 				377F1CF523C76DFD005724E9 /* Issue.swift */,
 				377F1CF723C76EA4005724E9 /* Label.swift */,
-				379B15F723CC46BA00681E04 /* PaginationManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1430,6 +1441,7 @@
 				377C21D5237C23640046D4E8 /* StringValidators.swift in Sources */,
 				377C21DC237C23640046D4E8 /* HorizontalAlignmentLayout.swift in Sources */,
 				370117AF23B10E50002C42AE /* ConfigurableProtocol.swift in Sources */,
+				37419C4423CCBB2F00B73B66 /* IssueDetailsVC.swift in Sources */,
 				377C21DB237C23640046D4E8 /* PaginationFlowLayout.swift in Sources */,
 				377C2215237C23640046D4E8 /* UIBarButtonItem+Signals.swift in Sources */,
 				377C2234237C38AA0046D4E8 /* Global.swift in Sources */,
