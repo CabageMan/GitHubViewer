@@ -171,6 +171,7 @@
 		379A7ACF23B608C5007CA335 /* CollectionSelectorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379A7ACE23B608C5007CA335 /* CollectionSelectorHeader.swift */; };
 		379A7AD123B629E9007CA335 /* PullRequestStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379A7AD023B629E9007CA335 /* PullRequestStateView.swift */; };
 		379A7AD323B65051007CA335 /* PullRequestDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379A7AD223B65051007CA335 /* PullRequestDetailsVC.swift */; };
+		379B15F823CC46BA00681E04 /* PaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379B15F723CC46BA00681E04 /* PaginationManager.swift */; };
 		37A80ADC238816AB00BA2496 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADB238816AB00BA2496 /* User.swift */; };
 		37A80ADE2388174E00BA2496 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADD2388174E00BA2496 /* Repository.swift */; };
 		37AD89572387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */; };
@@ -383,6 +384,7 @@
 		379A7ACE23B608C5007CA335 /* CollectionSelectorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSelectorHeader.swift; sourceTree = "<group>"; };
 		379A7AD023B629E9007CA335 /* PullRequestStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestStateView.swift; sourceTree = "<group>"; };
 		379A7AD223B65051007CA335 /* PullRequestDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestDetailsVC.swift; sourceTree = "<group>"; };
+		379B15F723CC46BA00681E04 /* PaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PaginationManager.swift; path = GitHubViewer/GraphQLAPI/PaginationManager.swift; sourceTree = SOURCE_ROOT; };
 		37A80ADB238816AB00BA2496 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37A80ADD2388174E00BA2496 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
@@ -1090,6 +1092,7 @@
 				37E80E8923BA0B1A00D47ACF /* Commit.swift */,
 				377F1CF523C76DFD005724E9 /* Issue.swift */,
 				377F1CF723C76EA4005724E9 /* Label.swift */,
+				379B15F723CC46BA00681E04 /* PaginationManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1500,6 +1503,7 @@
 				373C58D323858080003F2BEB /* TransitionController.swift in Sources */,
 				37C3D8E223950F3A00037154 /* RepositoryDetailsTVLinkCell.swift in Sources */,
 				377C21FF237C23640046D4E8 /* Time.swift in Sources */,
+				379B15F823CC46BA00681E04 /* PaginationManager.swift in Sources */,
 				375EB18A237EBFCE005B6252 /* Theme.swift in Sources */,
 				377C2219237C23640046D4E8 /* ScaleModalTransitioning.swift in Sources */,
 				373C58D123858064003F2BEB /* NavigationViewController.swift in Sources */,

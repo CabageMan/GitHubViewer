@@ -5,15 +5,20 @@ final class IssuesVM {
     //MARK: - API
     typealias SelectorState = CollectionSelectorHeader.SelectorState
     
-    private let issuesNumber = 23
+    private var paginator = PaginationManager()
     
     private var allIssues: [Issue] = []
     var issuesHaveBeenFetched: () -> Void = { }
     
+    func resetDataSource() {
+        allIssues = []
+        paginator = PaginationManager()
+    }
+    
     func getOwnIssues() {
         guard let owner = Global.apiClient.ownUser else { return }
         let order = IssueOrder(field: .createdAt, direction: .desc)
-        GitHubViewerApollo.shared.client.fetch(query: UserIssuesQuery(userLogin: owner.login, numberOfIssues: issuesNumber, order: order)) { [weak self] response in
+        GitHubViewerApollo.shared.client.fetch(query: UserIssuesQuery(userLogin: owner.login, numberOfIssues: paginator.itemsNumber, cursor: paginator.cursor, order: order)) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
@@ -26,11 +31,22 @@ final class IssuesVM {
                     log("Failed to load pull requests info ")
                     return
                 }
-                #warning("Rework pagination!")
-                log("Issues has next page: \(data.pageInfo.hasNextPage)")
-                self.allIssues = issues
-                self.issuesHaveBeenFetched()
+                let pageInfo = data.pageInfo
                 
+                if self.paginator.hasNextPage == nil {
+                    self.paginator.hasNextPage = pageInfo.hasNextPage
+                }
+                
+                if self.paginator.hasNextPage! || !issues.isEmpty {
+                    self.allIssues += issues
+                    self.issuesHaveBeenFetched()
+                    self.paginator.cursor = pageInfo.endCursor
+                } else {
+                    self.allIssues += []
+                    self.issuesHaveBeenFetched()
+                }
+                
+                self.paginator.hasNextPage = pageInfo.hasNextPage
             case .failure(let error):
                 log("Error fetching own issues \(error.localizedDescription)")
             }

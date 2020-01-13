@@ -23,7 +23,6 @@ final class IssuesVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupViewModel()
-        viewModel.getOwnIssues()
         Spinner.start()
     }
     
@@ -41,6 +40,10 @@ final class IssuesVC: UIViewController {
         }
         fixedPageController.viewControllers.enumerated().forEach { index, controller in
             let vc = controller as! IssueCollectionVC
+            vc.collectionWillAppear = { [weak self] in
+                self?.viewModel.resetDataSource()
+                self?.viewModel.getOwnIssues()
+            }
             vc.onCollectionheaderSelectChanged = { [weak self] in
                 self?.setIssuesCollection(at: index)
             }

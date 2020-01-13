@@ -10,6 +10,7 @@ final class PullRequestsCollectionVC: UIViewController {
     
     private let router: GithubViewerRouter
     
+    var collectionWillAppear: () -> Void = { }
     var onCollectionHeaderSelectChanged: () -> Void = { }
     var getNextPullRequests: () -> Void = { }
     
@@ -26,6 +27,11 @@ final class PullRequestsCollectionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionWillAppear()
     }
     
     private func setupUI() {

@@ -23,7 +23,6 @@ final class PullRequestsVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupViewModel()
-        viewModel.getOwnPullRequests()
         Spinner.start()
     }
     
@@ -41,6 +40,10 @@ final class PullRequestsVC: UIViewController {
         }
         fixedPageController.viewControllers.enumerated().forEach { index, controller in
             let vc = controller as! PullRequestsCollectionVC
+            vc.collectionWillAppear = { [weak self] in
+                self?.viewModel.resetDataSource()
+                self?.viewModel.getOwnPullRequests()
+            }
             vc.onCollectionHeaderSelectChanged = { [weak self] in
                 self?.setPullRequestsCollection(at: index)
             }

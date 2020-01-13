@@ -423,7 +423,6 @@ public final class UserRepositoriesQuery: GraphQLQuery {
               __typename
               ...RepositoriesListFragment
             }
-            cursor
           }
           totalCount
           pageInfo {
@@ -585,7 +584,6 @@ public final class UserRepositoriesQuery: GraphQLQuery {
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("node", type: .object(Node.selections)),
-            GraphQLField("cursor", type: .nonNull(.scalar(String.self))),
           ]
 
           public private(set) var resultMap: ResultMap
@@ -594,8 +592,8 @@ public final class UserRepositoriesQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(node: Node? = nil, cursor: String) {
-            self.init(unsafeResultMap: ["__typename": "RepositoryEdge", "node": node.flatMap { (value: Node) -> ResultMap in value.resultMap }, "cursor": cursor])
+          public init(node: Node? = nil) {
+            self.init(unsafeResultMap: ["__typename": "RepositoryEdge", "node": node.flatMap { (value: Node) -> ResultMap in value.resultMap }])
           }
 
           public var __typename: String {
@@ -614,16 +612,6 @@ public final class UserRepositoriesQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue?.resultMap, forKey: "node")
-            }
-          }
-
-          /// A cursor for use in pagination.
-          public var cursor: String {
-            get {
-              return resultMap["cursor"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "cursor")
             }
           }
 
@@ -960,7 +948,6 @@ public final class UserPullRequestsQuery: GraphQLQuery {
               __typename
               ...PullRequestsListFragment
             }
-            cursor
           }
           totalCount
           pageInfo {
@@ -1122,7 +1109,6 @@ public final class UserPullRequestsQuery: GraphQLQuery {
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("node", type: .object(Node.selections)),
-            GraphQLField("cursor", type: .nonNull(.scalar(String.self))),
           ]
 
           public private(set) var resultMap: ResultMap
@@ -1131,8 +1117,8 @@ public final class UserPullRequestsQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(node: Node? = nil, cursor: String) {
-            self.init(unsafeResultMap: ["__typename": "PullRequestEdge", "node": node.flatMap { (value: Node) -> ResultMap in value.resultMap }, "cursor": cursor])
+          public init(node: Node? = nil) {
+            self.init(unsafeResultMap: ["__typename": "PullRequestEdge", "node": node.flatMap { (value: Node) -> ResultMap in value.resultMap }])
           }
 
           public var __typename: String {
@@ -1151,16 +1137,6 @@ public final class UserPullRequestsQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue?.resultMap, forKey: "node")
-            }
-          }
-
-          /// A cursor for use in pagination.
-          public var cursor: String {
-            get {
-              return resultMap["cursor"]! as! String
-            }
-            set {
-              resultMap.updateValue(newValue, forKey: "cursor")
             }
           }
 
@@ -1272,10 +1248,10 @@ public final class UserIssuesQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition =
     """
-    query UserIssues($userLogin: String!, $numberOfIssues: Int!, $order: IssueOrder) {
+    query UserIssues($userLogin: String!, $numberOfIssues: Int!, $cursor: String, $order: IssueOrder) {
       user(login: $userLogin) {
         __typename
-        issues(first: $numberOfIssues, orderBy: $order) {
+        issues(first: $numberOfIssues, after: $cursor, orderBy: $order) {
           __typename
           edges {
             __typename
@@ -1301,16 +1277,18 @@ public final class UserIssuesQuery: GraphQLQuery {
 
   public var userLogin: String
   public var numberOfIssues: Int
+  public var cursor: String?
   public var order: IssueOrder?
 
-  public init(userLogin: String, numberOfIssues: Int, order: IssueOrder? = nil) {
+  public init(userLogin: String, numberOfIssues: Int, cursor: String? = nil, order: IssueOrder? = nil) {
     self.userLogin = userLogin
     self.numberOfIssues = numberOfIssues
+    self.cursor = cursor
     self.order = order
   }
 
   public var variables: GraphQLMap? {
-    return ["userLogin": userLogin, "numberOfIssues": numberOfIssues, "order": order]
+    return ["userLogin": userLogin, "numberOfIssues": numberOfIssues, "cursor": cursor, "order": order]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -1345,7 +1323,7 @@ public final class UserIssuesQuery: GraphQLQuery {
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-        GraphQLField("issues", arguments: ["first": GraphQLVariable("numberOfIssues"), "orderBy": GraphQLVariable("order")], type: .nonNull(.object(Issue.selections))),
+        GraphQLField("issues", arguments: ["first": GraphQLVariable("numberOfIssues"), "after": GraphQLVariable("cursor"), "orderBy": GraphQLVariable("order")], type: .nonNull(.object(Issue.selections))),
       ]
 
       public private(set) var resultMap: ResultMap

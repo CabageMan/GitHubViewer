@@ -155,7 +155,6 @@ query UserRepositories($userLogin: String!, $numberOfRepositories: Int!, $cursor
                 node {
                     ...RepositoriesListFragment
                 }
-                cursor
             }
             totalCount
             pageInfo {
@@ -173,7 +172,7 @@ query RepositoryDetails($ownerLogin: String!, $repositoryName: String!) {
     }
 }
 
-# Find RepositoryOrder
+# Find Repository
 query FindRepository($ownerLogin: String!, $repositoryName: String!) {
     repository(owner: $ownerLogin name: $repositoryName) {
         ...RepositoriesListFragment
@@ -190,7 +189,6 @@ query UserPullRequests($userLogin: String!, $numberOfRequests: Int!, $cursor: St
                 node {
                     ...PullRequestsListFragment
                 }
-                cursor
             }
             totalCount
             pageInfo {
@@ -204,9 +202,9 @@ query UserPullRequests($userLogin: String!, $numberOfRequests: Int!, $cursor: St
 
 
 # Get User Issues
-query UserIssues($userLogin: String!, $numberOfIssues: Int!, $order: IssueOrder) {
+query UserIssues($userLogin: String!, $numberOfIssues: Int!, $cursor: String, $order: IssueOrder) {
     user(login: $userLogin) {
-        issues(first: $numberOfIssues orderBy: $order) {
+        issues(first: $numberOfIssues after: $cursor orderBy: $order) {
             edges {
                 node {
                     ...IssuesListFragment

@@ -33,7 +33,7 @@ final class RepositoriesVC: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
         searchController.isActive = false
-        #warning("Change updating logic to update all fetched repositores")
+        
         collection.items = []
         allRepositories = []
         viewModel.resetPaginationOptions()

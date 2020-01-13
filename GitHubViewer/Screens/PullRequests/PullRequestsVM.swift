@@ -5,17 +5,20 @@ final class PullRequestsVM {
     //MARK: - API
     typealias SelectorState = CollectionSelectorHeader.SelectorState
     
-    private let pullRequestsNumber = 10
-    private var lastPRCursor: String?
-    private var hasNextPage: Bool?
+    private var paginator = PaginationManager()
     
     private var allPullRequests: [PullRequest] = []
     var pullRequestsHaveBeenFetched: () -> Void = { }
     
+    func resetDataSource() {
+        allPullRequests = []
+        paginator = PaginationManager()
+    }
+    
     func getOwnPullRequests() {
         guard let owner = Global.apiClient.ownUser else { return }
         let order = IssueOrder(field: .createdAt, direction: .desc)
-        GitHubViewerApollo.shared.client.fetch(query: UserPullRequestsQuery(userLogin: owner.login, numberOfRequests: pullRequestsNumber, cursor: lastPRCursor, order: order)) { [weak self] response in
+        GitHubViewerApollo.shared.client.fetch(query: UserPullRequestsQuery(userLogin: owner.login, numberOfRequests: paginator.itemsNumber, cursor: paginator.cursor, order: order)) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
@@ -30,20 +33,20 @@ final class PullRequestsVM {
                 }
                 let pageInfo = data.pageInfo
                 
-                if self.hasNextPage == nil {
-                    self.hasNextPage = pageInfo.hasNextPage
+                if self.paginator.hasNextPage == nil {
+                    self.paginator.hasNextPage = pageInfo.hasNextPage
                 }
                 
-                if self.hasNextPage! {
+                if self.paginator.hasNextPage! || !pullRequests.isEmpty {
                     self.allPullRequests += pullRequests
                     self.pullRequestsHaveBeenFetched()
-                    self.lastPRCursor = pageInfo.endCursor
+                    self.paginator.cursor = pageInfo.endCursor
                 } else {
                     self.allPullRequests += []
                     self.pullRequestsHaveBeenFetched()
                 }
                 
-                self.hasNextPage = pageInfo.hasNextPage
+                self.paginator.hasNextPage = pageInfo.hasNextPage
             case .failure(let error):
                 log("Error fetching own pull requests \(error.localizedDescription)")
             }
