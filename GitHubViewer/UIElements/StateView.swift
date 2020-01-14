@@ -39,9 +39,9 @@ final class StateView: UIView {
         }
         
         switch mode {
-        case .open: setColoredView(with: Theme.openColor)
-        case .merged: setColoredView(with: Theme.mergedColor)
-        case .closed: setColoredView(with: Theme.closedColor)
+        case .requestOpenDetails, .issueOpenDetails: setColoredView(with: Theme.openColor)
+        case .requestMergedDetails: setColoredView(with: Theme.mergedColor)
+        case .requestClosedDetails, .issueClosedDetails: setColoredView(with: Theme.closedColor)
         default: break
         }
         
@@ -72,26 +72,28 @@ extension StateView {
         case requestOpen
         case issueOpen
         case completed
-        case open
-        case merged
-        case closed
+        case requestOpenDetails
+        case requestMergedDetails
+        case requestClosedDetails
+        case issueOpenDetails
+        case issueClosedDetails
         case unknown
         
         var icon: UIImage {
             switch self {
-            case .requestOpen, .open, .closed: return #imageLiteral(resourceName: "pullRequest")
-            case .issueOpen: return #imageLiteral(resourceName: "openIssue")
+            case .requestOpen, .requestOpenDetails, .requestClosedDetails: return #imageLiteral(resourceName: "pullRequest")
+            case .issueOpen, .issueOpenDetails, .issueClosedDetails: return #imageLiteral(resourceName: "openIssue")
             case .completed: return #imageLiteral(resourceName: "checkmark")
-            case .merged: return #imageLiteral(resourceName: "merge")
+            case .requestMergedDetails: return #imageLiteral(resourceName: "merge")
             case .unknown: return UIImage()
             }
         }
         
         var title: String {
             switch self {
-            case .open, .requestOpen, .issueOpen: return String.General.open
-            case .completed, .closed: return String.General.closed
-            case .merged: return String.Pr.merged
+            case .requestOpenDetails, .requestOpen, .issueOpenDetails, .issueOpen: return String.General.open
+            case .completed, .requestClosedDetails, .issueClosedDetails: return String.General.closed
+            case .requestMergedDetails: return String.Pr.merged
             case .unknown: return ""
             }
         }

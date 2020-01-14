@@ -58,9 +58,11 @@
 "pr.mergedCommitsBy"    = "%@ merged %@ commits\ninto %@ on %@";
 
 //MARK: - Issues
-"issues.title"      = "Issues";
-"issues.openedBy"   = "#%@ opened %@ ago by %@";
-"issues.closedBy"   = "#%@ by %@ was closed %@ ago";
+"issues.title"          = "Issues";
+"issues.openedBy"       = "#%@ opened %@ ago by %@";
+"issues.closedBy"       = "#%@ by %@ was closed %@ ago";
+"issues.issueNumber"    = "#%@";
+"issues.issueOpened"    = "%@ opened this issue on %@";
 
 //MARK: - Profile
 "profile.title" = "Profile";

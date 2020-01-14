@@ -16,9 +16,9 @@ final class PullRequestDetailsVC: UIViewController {
         self.pullRequest = pullRequest
         self.requestStateView = {
             switch pullRequest.state {
-            case .open: return StateView(mode: .open)
-            case .merged: return StateView(mode: .merged)
-            case .closed: return StateView(mode: .closed)
+            case .open: return StateView(mode: .requestOpenDetails)
+            case .merged: return StateView(mode: .requestMergedDetails)
+            case .closed: return StateView(mode: .requestClosedDetails)
             default: return StateView(mode: .unknown)
             }
         }()
@@ -45,7 +45,9 @@ final class PullRequestDetailsVC: UIViewController {
         requestNameLabel.add(to: view).do {
             $0.topToSuperview(offset: Theme.nameLabelTopOffset)
             $0.leftToSuperview(offset: Theme.nameLabelSideOffset)
+            $0.rightToSuperview()
             $0.height(Theme.requestNameLabelheight)
+            
             $0.textAlignment = .left
             $0.font = Theme.requestNameFont
             $0.textColor = .darkCoal

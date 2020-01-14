@@ -86,6 +86,14 @@ extension String {
     static func closedBy(_ p1: String, _ p2: String, _ p3: String) -> String {
       return String.tr("Localizable", "issues.closedBy", p1, p2, p3)
     }
+    // #%@
+    static func issueNumber(_ p1: String) -> String {
+      return String.tr("Localizable", "issues.issueNumber", p1)
+    }
+    // %@ opened this issue on %@
+    static func issueOpened(_ p1: String, _ p2: String) -> String {
+      return String.tr("Localizable", "issues.issueOpened", p1, p2)
+    }
     // #%@ opened %@ ago by %@
     static func openedBy(_ p1: String, _ p2: String, _ p3: String) -> String {
       return String.tr("Localizable", "issues.openedBy", p1, p2, p3)
