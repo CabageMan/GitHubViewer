@@ -1273,7 +1273,7 @@ public final class UserIssuesQuery: GraphQLQuery {
 
   public let operationName = "UserIssues"
 
-  public var queryDocument: String { return operationDefinition.appending(IssuesListFragment.fragmentDefinition).appending(RepositoriesListFragment.fragmentDefinition) }
+  public var queryDocument: String { return operationDefinition.appending(IssuesListFragment.fragmentDefinition).appending(RepositoriesListFragment.fragmentDefinition).appending(IssueCommentFragment.fragmentDefinition) }
 
   public var userLogin: String
   public var numberOfIssues: Int
@@ -3239,6 +3239,145 @@ public struct PullRequestsListFragment: GraphQLFragment {
   }
 }
 
+public struct IssueCommentFragment: GraphQLFragment {
+  /// The raw GraphQL definition of this fragment.
+  public static let fragmentDefinition =
+    """
+    fragment IssueCommentFragment on IssueComment {
+      __typename
+      id
+      bodyText
+      createdAt
+      author {
+        __typename
+        login
+      }
+    }
+    """
+
+  public static let possibleTypes = ["IssueComment"]
+
+  public static let selections: [GraphQLSelection] = [
+    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+    GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+    GraphQLField("bodyText", type: .nonNull(.scalar(String.self))),
+    GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+    GraphQLField("author", type: .object(Author.selections)),
+  ]
+
+  public private(set) var resultMap: ResultMap
+
+  public init(unsafeResultMap: ResultMap) {
+    self.resultMap = unsafeResultMap
+  }
+
+  public init(id: GraphQLID, bodyText: String, createdAt: String, author: Author? = nil) {
+    self.init(unsafeResultMap: ["__typename": "IssueComment", "id": id, "bodyText": bodyText, "createdAt": createdAt, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }])
+  }
+
+  public var __typename: String {
+    get {
+      return resultMap["__typename"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "__typename")
+    }
+  }
+
+  public var id: GraphQLID {
+    get {
+      return resultMap["id"]! as! GraphQLID
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "id")
+    }
+  }
+
+  /// The body rendered to text.
+  public var bodyText: String {
+    get {
+      return resultMap["bodyText"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "bodyText")
+    }
+  }
+
+  /// Identifies the date and time when the object was created.
+  public var createdAt: String {
+    get {
+      return resultMap["createdAt"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "createdAt")
+    }
+  }
+
+  /// The actor who authored the comment.
+  public var author: Author? {
+    get {
+      return (resultMap["author"] as? ResultMap).flatMap { Author(unsafeResultMap: $0) }
+    }
+    set {
+      resultMap.updateValue(newValue?.resultMap, forKey: "author")
+    }
+  }
+
+  public struct Author: GraphQLSelectionSet {
+    public static let possibleTypes = ["User", "Organization", "Bot", "Mannequin", "EnterpriseUserAccount"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("login", type: .nonNull(.scalar(String.self))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public static func makeUser(login: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "User", "login": login])
+    }
+
+    public static func makeOrganization(login: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "Organization", "login": login])
+    }
+
+    public static func makeBot(login: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "Bot", "login": login])
+    }
+
+    public static func makeMannequin(login: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "Mannequin", "login": login])
+    }
+
+    public static func makeEnterpriseUserAccount(login: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// The username of the actor.
+    public var login: String {
+      get {
+        return resultMap["login"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "login")
+      }
+    }
+  }
+}
+
 public struct IssuesListFragment: GraphQLFragment {
   /// The raw GraphQL definition of this fragment.
   public static let fragmentDefinition =
@@ -3260,7 +3399,7 @@ public struct IssuesListFragment: GraphQLFragment {
         __typename
         ...RepositoriesListFragment
       }
-      labels(first: 10) {
+      labels(first: 15) {
         __typename
         edges {
           __typename
@@ -3281,6 +3420,16 @@ public struct IssuesListFragment: GraphQLFragment {
           }
         }
       }
+      comments(first: 15) {
+        __typename
+        edges {
+          __typename
+          node {
+            __typename
+            ...IssueCommentFragment
+          }
+        }
+      }
     }
     """
 
@@ -3297,8 +3446,9 @@ public struct IssuesListFragment: GraphQLFragment {
     GraphQLField("closedAt", type: .scalar(String.self)),
     GraphQLField("author", type: .object(Author.selections)),
     GraphQLField("repository", type: .nonNull(.object(Repository.selections))),
-    GraphQLField("labels", arguments: ["first": 10], type: .object(Label.selections)),
+    GraphQLField("labels", arguments: ["first": 15], type: .object(Label.selections)),
     GraphQLField("assignees", arguments: ["first": 15], type: .nonNull(.object(Assignee.selections))),
+    GraphQLField("comments", arguments: ["first": 15], type: .nonNull(.object(Comment.selections))),
   ]
 
   public private(set) var resultMap: ResultMap
@@ -3307,8 +3457,8 @@ public struct IssuesListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, number: Int, title: String, state: IssueState, createdAt: String, updatedAt: String, closedAt: String? = nil, author: Author? = nil, repository: Repository, labels: Label? = nil, assignees: Assignee) {
-    self.init(unsafeResultMap: ["__typename": "Issue", "id": id, "number": number, "title": title, "state": state, "createdAt": createdAt, "updatedAt": updatedAt, "closedAt": closedAt, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "repository": repository.resultMap, "labels": labels.flatMap { (value: Label) -> ResultMap in value.resultMap }, "assignees": assignees.resultMap])
+  public init(id: GraphQLID, number: Int, title: String, state: IssueState, createdAt: String, updatedAt: String, closedAt: String? = nil, author: Author? = nil, repository: Repository, labels: Label? = nil, assignees: Assignee, comments: Comment) {
+    self.init(unsafeResultMap: ["__typename": "Issue", "id": id, "number": number, "title": title, "state": state, "createdAt": createdAt, "updatedAt": updatedAt, "closedAt": closedAt, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "repository": repository.resultMap, "labels": labels.flatMap { (value: Label) -> ResultMap in value.resultMap }, "assignees": assignees.resultMap, "comments": comments.resultMap])
   }
 
   public var __typename: String {
@@ -3426,6 +3576,16 @@ public struct IssuesListFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue.resultMap, forKey: "assignees")
+    }
+  }
+
+  /// A list of comments associated with the Issue.
+  public var comments: Comment {
+    get {
+      return Comment(unsafeResultMap: resultMap["comments"]! as! ResultMap)
+    }
+    set {
+      resultMap.updateValue(newValue.resultMap, forKey: "comments")
     }
   }
 
@@ -3766,6 +3926,132 @@ public struct IssuesListFragment: GraphQLFragment {
           }
           set {
             resultMap.updateValue(newValue, forKey: "login")
+          }
+        }
+      }
+    }
+  }
+
+  public struct Comment: GraphQLSelectionSet {
+    public static let possibleTypes = ["IssueCommentConnection"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("edges", type: .list(.object(Edge.selections))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(edges: [Edge?]? = nil) {
+      self.init(unsafeResultMap: ["__typename": "IssueCommentConnection", "edges": edges.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// A list of edges.
+    public var edges: [Edge?]? {
+      get {
+        return (resultMap["edges"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Edge?] in value.map { (value: ResultMap?) -> Edge? in value.flatMap { (value: ResultMap) -> Edge in Edge(unsafeResultMap: value) } } }
+      }
+      set {
+        resultMap.updateValue(newValue.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }, forKey: "edges")
+      }
+    }
+
+    public struct Edge: GraphQLSelectionSet {
+      public static let possibleTypes = ["IssueCommentEdge"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("node", type: .object(Node.selections)),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(node: Node? = nil) {
+        self.init(unsafeResultMap: ["__typename": "IssueCommentEdge", "node": node.flatMap { (value: Node) -> ResultMap in value.resultMap }])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The item at the end of the edge.
+      public var node: Node? {
+        get {
+          return (resultMap["node"] as? ResultMap).flatMap { Node(unsafeResultMap: $0) }
+        }
+        set {
+          resultMap.updateValue(newValue?.resultMap, forKey: "node")
+        }
+      }
+
+      public struct Node: GraphQLSelectionSet {
+        public static let possibleTypes = ["IssueComment"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLFragmentSpread(IssueCommentFragment.self),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var fragments: Fragments {
+          get {
+            return Fragments(unsafeResultMap: resultMap)
+          }
+          set {
+            resultMap += newValue.resultMap
+          }
+        }
+
+        public struct Fragments {
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public var issueCommentFragment: IssueCommentFragment {
+            get {
+              return IssueCommentFragment(unsafeResultMap: resultMap)
+            }
+            set {
+              resultMap += newValue.resultMap
+            }
           }
         }
       }

@@ -1,6 +1,6 @@
 import UIKit
 
-final class PullRequestStateView: UIView {
+final class StateView: UIView {
     
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
@@ -60,10 +60,14 @@ final class PullRequestStateView: UIView {
         iconView.tintColor = isSelected ? .darkCoal : .textGray
         titleLabel.textColor = isSelected ? .darkCoal : .textGray
     }
+    
+    func changeIcon(with mode: Mode) {
+        iconView.image = mode.icon.withRenderingMode(.alwaysTemplate)
+    }
 }
 
 //MARK: - Mode
-extension PullRequestStateView {
+extension StateView {
     enum Mode {
         case requestOpen
         case issueOpen
@@ -95,7 +99,7 @@ extension PullRequestStateView {
 }
 
 //MARK: - Theme
-extension PullRequestStateView {
+extension StateView {
     enum Theme {
         // Fonts
         static let titleFont: UIFont = .circular(style: .medium, size: 13.0)

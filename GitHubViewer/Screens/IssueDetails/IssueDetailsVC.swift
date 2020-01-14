@@ -4,11 +4,18 @@ final class IssueDetailsVC: UIViewController {
     
     private let router: GithubViewerRouter
     
+    private let issue: Issue
+    private let issueNameLabel = UILabel()
+//    private let issueStateView: PullRequestStateView
+    private let descriptionLabel = UILabel()
+//    private let commentsCollection = GitHubViewerCollection
+    
     //MARK: - Life Cycle
     init(router: GithubViewerRouter, issue: Issue) {
         self.router = router
+        self.issue = issue
         super.init(nibName: nil, bundle: nil)
-        title = issue.title
+        title = issue.repository.resourcePath
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -16,6 +23,7 @@ final class IssueDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        log("Comments: \(issue.comments)")
     }
     
     

@@ -6,7 +6,7 @@ final class PullRequestDetailsVC: UIViewController {
     
     private let pullRequest: PullRequest
     private let requestNameLabel = UILabel()
-    private let requestStateView: PullRequestStateView
+    private let requestStateView: StateView
     private let descriptionLabel = UILabel()
     private let commitsCollection = GitHubViewerCollection<PullRequestDetailsCollectionCell>(mode: .commits)
     
@@ -16,10 +16,10 @@ final class PullRequestDetailsVC: UIViewController {
         self.pullRequest = pullRequest
         self.requestStateView = {
             switch pullRequest.state {
-            case .open: return PullRequestStateView(mode: .open)
-            case .merged: return PullRequestStateView(mode: .merged)
-            case .closed: return PullRequestStateView(mode: .closed)
-            default: return PullRequestStateView(mode: .unknown)
+            case .open: return StateView(mode: .open)
+            case .merged: return StateView(mode: .merged)
+            case .closed: return StateView(mode: .closed)
+            default: return StateView(mode: .unknown)
             }
         }()
         super.init(nibName: nil, bundle: nil)

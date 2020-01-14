@@ -11,6 +11,7 @@ struct Issue {
     let createdAt: Date
     let closedAt: Date?
     let updatedAt: Date
+    let comments: [IssueComment]
     
     init(issue: IssuesListFragment) {
         self.id = issue.id
@@ -23,6 +24,7 @@ struct Issue {
         self.createdAt = ISO8601DateFormatter().date(from: issue.createdAt) ?? Date()
         self.closedAt = issue.closedAt != nil ? ISO8601DateFormatter().date(from: issue.closedAt!) : nil
         self.updatedAt = ISO8601DateFormatter().date(from: issue.updatedAt) ?? Date()
+        self.comments = issue.comments.edges?.compactMap({ $0?.node }).map({ IssueComment(comment: $0.fragments.issueCommentFragment) }) ?? []
 //        let labels = issue.labels?.edges?.compactMap({ $0?.node }).map({ Label(name: $0.name, color: $0.color) }) ?? []
 //        log("Labels: \(labels)")
     }

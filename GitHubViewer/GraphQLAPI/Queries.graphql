@@ -109,6 +109,16 @@ fragment PullRequestsListFragment on PullRequest {
     }
 }
 
+# Issue Comment Fragment
+fragment IssueCommentFragment on IssueComment {
+    id
+    bodyText
+    createdAt
+    author {
+        login
+    }
+}
+
 # Issue Fragment
 fragment IssuesListFragment on Issue {
     id
@@ -124,7 +134,7 @@ fragment IssuesListFragment on Issue {
     repository {
         ...RepositoriesListFragment
     }
-    labels(first: 10){
+    labels(first: 15){
         edges{
             node{
                 color
@@ -136,6 +146,13 @@ fragment IssuesListFragment on Issue {
         edges {
             node {
                 login
+            }
+        }
+    }
+    comments(first: 15) {
+        edges {
+            node {
+                ...IssueCommentFragment
             }
         }
     }

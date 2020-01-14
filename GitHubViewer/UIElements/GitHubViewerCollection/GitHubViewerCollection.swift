@@ -71,8 +71,11 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
             switch mode {
             case .pullRequests, .issues:
                 let header: CollectionSelectorHeader = collectionView.dequeueHeader(for: indexPath)
-                selectorHeader = header
+                if case .issues = mode {
+                    header.configure(mode: .issueOpen)
+                }
                 header.onSelectorChanged = onHeaderSelectorChanged
+                selectorHeader = header
                 return header
             case .repositories, .commits:
                 return UICollectionReusableView()

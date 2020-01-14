@@ -18,8 +18,8 @@ final class CollectionSelectorHeader: UICollectionReusableView {
     
     var onSelectorChanged: () -> Void = { }
     
-    private let openView = PullRequestStateView(mode: .requestOpen)
-    private let closedView = PullRequestStateView(mode: .completed)
+    private let openView = StateView(mode: .requestOpen)
+    private let closedView = StateView(mode: .completed)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,6 +32,11 @@ final class CollectionSelectorHeader: UICollectionReusableView {
     }
     
     //MARK: - Actions
+    func configure(mode: StateView.Mode) {
+        assert(mode == .requestOpen || mode == .issueOpen, "Wrong state view mode. Use only .requestOpen or .issueOpen")
+        openView.changeIcon(with: mode)
+    }
+    
     private func setup() {
         openView.add(to: self).do {
             $0.leftToSuperview(offset: Theme.selectorLeftOffset)
