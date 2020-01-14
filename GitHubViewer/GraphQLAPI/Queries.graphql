@@ -115,8 +115,14 @@ fragment IssuesListFragment on Issue {
     number
     title
     state
+    createdAt
+    updatedAt
+    closedAt
     author {
         login
+    }
+    repository {
+        ...RepositoriesListFragment
     }
     labels(first: 10){
         edges{

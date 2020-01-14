@@ -1,6 +1,37 @@
 import Foundation
 
 public struct DateUtilities {
+    private enum DateElement {
+        case year(count: Int?)
+        case month(count: Int?)
+        case day(count: Int?)
+        case hour(count: Int?)
+        case minute(count: Int?)
+        case second(count: Int?)
+        
+        var suffix: String? {
+            switch self {
+            case .year(let count):
+                return createSuffixForElement(elementsCount: count, elementName: "year")
+            case .month(let count):
+                return createSuffixForElement(elementsCount: count, elementName: "month")
+            case .day(let count):
+                return createSuffixForElement(elementsCount: count, elementName: "day")
+            case .hour(let count):
+                return createSuffixForElement(elementsCount: count, elementName: "hour")
+            case .minute(let count):
+                return createSuffixForElement(elementsCount: count, elementName: "minute")
+            case .second(let count):
+                return createSuffixForElement(elementsCount: count, elementName: "second")
+            }
+        }
+        
+        func createSuffixForElement(elementsCount: Int?, elementName: String) -> String? {
+            guard let count = elementsCount, count != 0 else { return nil }
+            let suffix = "\(count) " + elementName
+            return count > 1 ? suffix + "s" : suffix
+        }
+    }
   
   public static func agoFormat(_ date: Date) -> String? {
     let dateFormatter = DateComponentsFormatter()
@@ -16,19 +47,34 @@ public struct DateUtilities {
     let flags: Set<Calendar.Component> = [.second, .minute, .hour, .day, .month, .year]
     let components: DateComponents = calendar.dateComponents(flags, from: fromDate, to: toDate)
     
-    func checkCalendarComponent(_ component: Int?, _ suffix: String) -> String? {
-      guard let dateComponent = component, dateComponent != 0, dateComponent != 0 else { return nil }
-      return String(dateComponent) + suffix
-    }
-    
-    if let ago = checkCalendarComponent(components.year, "y") { return ago }
-    if let ago = checkCalendarComponent(components.month, "mo") { return ago }
-    if let ago = checkCalendarComponent(components.day, "d") { return ago }
-    if let ago = checkCalendarComponent(components.hour, "h") { return ago }
-    if let ago = checkCalendarComponent(components.minute, "m") { return ago }
-    if let ago = checkCalendarComponent(components.second, "s") { return ago }
-    return "1s"
+    if let ago = DateElement.year(count: components.year).suffix { return ago }
+    if let ago = DateElement.month(count: components.month).suffix { return ago }
+    if let ago = DateElement.day(count: components.day).suffix { return ago }
+    if let ago = DateElement.hour(count: components.hour).suffix { return ago }
+    if let ago = DateElement.minute(count: components.hour).suffix { return ago }
+    if let ago = DateElement.second(count: components.second).suffix { return ago }
+    return "1 second"
   }
+    
+    // Old method
+//    public static func postedDateFormat(fromDate: Date, toDate: Date) -> String {
+//      let calendar = Calendar.current
+//      let flags: Set<Calendar.Component> = [.second, .minute, .hour, .day, .month, .year]
+//      let components: DateComponents = calendar.dateComponents(flags, from: fromDate, to: toDate)
+//
+//      func checkCalendarComponent(_ component: Int?, _ suffix: String) -> String? {
+//        guard let dateComponent = component, dateComponent != 0, dateComponent != 0 else { return nil }
+//        return String(dateComponent) + suffix
+//      }
+//
+//      if let ago = checkCalendarComponent(components.year, "y") { return ago }
+//      if let ago = checkCalendarComponent(components.month, "mo") { return ago }
+//      if let ago = checkCalendarComponent(components.day, "d") { return ago }
+//      if let ago = checkCalendarComponent(components.hour, "h") { return ago }
+//      if let ago = checkCalendarComponent(components.minute, "m") { return ago }
+//      if let ago = checkCalendarComponent(components.second, "s") { return ago }
+//      return "1s"
+//    }
   
   fileprivate static let durationDateFormatter: DateFormatter = DateUtilities.mkDurationDateFormatter()
   fileprivate static func mkDurationDateFormatter() -> DateFormatter {

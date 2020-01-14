@@ -82,6 +82,14 @@ extension String {
   }
 
   enum Issues {
+    // #%@ by %@ was closed %@ ago
+    static func closedBy(_ p1: String, _ p2: String, _ p3: String) -> String {
+      return String.tr("Localizable", "issues.closedBy", p1, p2, p3)
+    }
+    // #%@ opened %@ ago by %@
+    static func openedBy(_ p1: String, _ p2: String, _ p3: String) -> String {
+      return String.tr("Localizable", "issues.openedBy", p1, p2, p3)
+    }
     // Issues
     static let title = String.tr("Localizable", "issues.title")
   }

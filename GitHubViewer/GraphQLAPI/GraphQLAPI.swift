@@ -1273,7 +1273,7 @@ public final class UserIssuesQuery: GraphQLQuery {
 
   public let operationName = "UserIssues"
 
-  public var queryDocument: String { return operationDefinition.appending(IssuesListFragment.fragmentDefinition) }
+  public var queryDocument: String { return operationDefinition.appending(IssuesListFragment.fragmentDefinition).appending(RepositoriesListFragment.fragmentDefinition) }
 
   public var userLogin: String
   public var numberOfIssues: Int
@@ -3249,9 +3249,16 @@ public struct IssuesListFragment: GraphQLFragment {
       number
       title
       state
+      createdAt
+      updatedAt
+      closedAt
       author {
         __typename
         login
+      }
+      repository {
+        __typename
+        ...RepositoriesListFragment
       }
       labels(first: 10) {
         __typename
@@ -3285,7 +3292,11 @@ public struct IssuesListFragment: GraphQLFragment {
     GraphQLField("number", type: .nonNull(.scalar(Int.self))),
     GraphQLField("title", type: .nonNull(.scalar(String.self))),
     GraphQLField("state", type: .nonNull(.scalar(IssueState.self))),
+    GraphQLField("createdAt", type: .nonNull(.scalar(String.self))),
+    GraphQLField("updatedAt", type: .nonNull(.scalar(String.self))),
+    GraphQLField("closedAt", type: .scalar(String.self)),
     GraphQLField("author", type: .object(Author.selections)),
+    GraphQLField("repository", type: .nonNull(.object(Repository.selections))),
     GraphQLField("labels", arguments: ["first": 10], type: .object(Label.selections)),
     GraphQLField("assignees", arguments: ["first": 15], type: .nonNull(.object(Assignee.selections))),
   ]
@@ -3296,8 +3307,8 @@ public struct IssuesListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, number: Int, title: String, state: IssueState, author: Author? = nil, labels: Label? = nil, assignees: Assignee) {
-    self.init(unsafeResultMap: ["__typename": "Issue", "id": id, "number": number, "title": title, "state": state, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "labels": labels.flatMap { (value: Label) -> ResultMap in value.resultMap }, "assignees": assignees.resultMap])
+  public init(id: GraphQLID, number: Int, title: String, state: IssueState, createdAt: String, updatedAt: String, closedAt: String? = nil, author: Author? = nil, repository: Repository, labels: Label? = nil, assignees: Assignee) {
+    self.init(unsafeResultMap: ["__typename": "Issue", "id": id, "number": number, "title": title, "state": state, "createdAt": createdAt, "updatedAt": updatedAt, "closedAt": closedAt, "author": author.flatMap { (value: Author) -> ResultMap in value.resultMap }, "repository": repository.resultMap, "labels": labels.flatMap { (value: Label) -> ResultMap in value.resultMap }, "assignees": assignees.resultMap])
   }
 
   public var __typename: String {
@@ -3348,6 +3359,36 @@ public struct IssuesListFragment: GraphQLFragment {
     }
   }
 
+  /// Identifies the date and time when the object was created.
+  public var createdAt: String {
+    get {
+      return resultMap["createdAt"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "createdAt")
+    }
+  }
+
+  /// Identifies the date and time when the object was last updated.
+  public var updatedAt: String {
+    get {
+      return resultMap["updatedAt"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "updatedAt")
+    }
+  }
+
+  /// Identifies the date and time when the object was closed.
+  public var closedAt: String? {
+    get {
+      return resultMap["closedAt"] as? String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "closedAt")
+    }
+  }
+
   /// The actor who authored the comment.
   public var author: Author? {
     get {
@@ -3355,6 +3396,16 @@ public struct IssuesListFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue?.resultMap, forKey: "author")
+    }
+  }
+
+  /// The repository associated with this node.
+  public var repository: Repository {
+    get {
+      return Repository(unsafeResultMap: resultMap["repository"]! as! ResultMap)
+    }
+    set {
+      resultMap.updateValue(newValue.resultMap, forKey: "repository")
     }
   }
 
@@ -3428,6 +3479,56 @@ public struct IssuesListFragment: GraphQLFragment {
       }
       set {
         resultMap.updateValue(newValue, forKey: "login")
+      }
+    }
+  }
+
+  public struct Repository: GraphQLSelectionSet {
+    public static let possibleTypes = ["Repository"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLFragmentSpread(RepositoriesListFragment.self),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    public var fragments: Fragments {
+      get {
+        return Fragments(unsafeResultMap: resultMap)
+      }
+      set {
+        resultMap += newValue.resultMap
+      }
+    }
+
+    public struct Fragments {
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public var repositoriesListFragment: RepositoriesListFragment {
+        get {
+          return RepositoriesListFragment(unsafeResultMap: resultMap)
+        }
+        set {
+          resultMap += newValue.resultMap
+        }
       }
     }
   }
