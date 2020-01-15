@@ -77,8 +77,7 @@ final class IssueDetailsVC: UIViewController {
             $0.text = String.Issues.issueOpened(issue.author, "\(formatter.string(from: issue.createdAt))")
         }
         
-        let topDividerLine = UIView()
-        topDividerLine.add(to: view).do {
+        let topDividerLine = UIView().add(to: view).then {
             $0.edgesToSuperview(excluding: [.top, .bottom])
             $0.topToBottom(of: descriptionLabel, offset: Theme.separatorLineOffset)
             $0.height(1.0)
