@@ -8,7 +8,7 @@ final class IssueDetailsVC: UIViewController {
     private let issueNameLabel = UILabel()
     private let issueStateView: StateView
     private let descriptionLabel = UILabel()
-//    private let commentsCollection = GitHubViewerCollection
+    private let commentsCollection = GitHubViewerCollection<IssueCommentCell>(mode: .issueComments)
     
     //MARK: - Life Cycle
     init(router: GithubViewerRouter, issue: Issue) {
@@ -30,6 +30,7 @@ final class IssueDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        commentsCollection.items = issue.comments
     }
     
     private func setupUI() {
@@ -75,6 +76,20 @@ final class IssueDetailsVC: UIViewController {
             formatter.dateFormat = "dd MMM yyyy"
             $0.text = String.Issues.issueOpened(issue.author, "\(formatter.string(from: issue.createdAt))")
         }
+        
+        let topDividerLine = UIView()
+        topDividerLine.add(to: view).do {
+            $0.edgesToSuperview(excluding: [.top, .bottom])
+            $0.topToBottom(of: descriptionLabel, offset: Theme.separatorLineOffset)
+            $0.height(1.0)
+            $0.backgroundColor = .textGray
+        }
+        
+        commentsCollection.collectionView.add(to: view).do {
+            $0.edgesToSuperview(excluding: [.top, .bottom])
+            $0.topToBottom(of: topDividerLine)
+            $0.height(Theme.commentsCollectionHeight)
+        }
     }
 }
 
@@ -99,10 +114,12 @@ extension IssueDetailsVC {
         static let issueNameLabelheight: CGFloat = 25.0
         static let stateViewHeight: CGFloat = 30.0
         static let descriptionHeight: CGFloat = 33.0
+        static let commentsCollectionHeight: CGFloat = 300.0
         
         // Offsets
         static let nameLabelSideOffset: CGFloat = 8.0
         static let nameLabelTopOffset: CGFloat = 13.0
         static let descriptionLabelLeftOffset: CGFloat = 5.0
+        static let separatorLineOffset: CGFloat = 8.0
     }
 }

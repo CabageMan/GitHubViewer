@@ -77,7 +77,7 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
                 header.onSelectorChanged = onHeaderSelectorChanged
                 selectorHeader = header
                 return header
-            case .repositories, .commits:
+            case .repositories, .commits, .issueComments:
                 return UICollectionReusableView()
             }
         case UICollectionView.elementKindSectionFooter:
@@ -98,7 +98,7 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
         switch mode {
         case .pullRequests, .issues:
             return CGSize(width: UIScreen.main.bounds.width, height: CollectionSelectorHeader.Theme.headerHeight)
-        case .repositories, .commits:
+        case .repositories, .commits, .issueComments:
             return CGSize.zero
         }
         
@@ -131,6 +131,7 @@ extension GitHubViewerCollection {
         case pullRequests
         case commits
         case issues
+        case issueComments
         
         var backGround: UIView {
             switch self {
@@ -141,6 +142,8 @@ extension GitHubViewerCollection {
             case .commits:
                 return EmptyView.createEmptyCommits(offset: -Theme.emptyViewOffset)
             case .issues:
+                return EmptyView.createEmptyIssues(offset: -Theme.emptyViewOffset)
+            case .issueComments:
                 return EmptyView.createEmptyIssues(offset: -Theme.emptyViewOffset)
             }
         }
@@ -155,6 +158,8 @@ extension GitHubViewerCollection {
                 return Theme.commitCellHeight
             case .issues:
                 return Theme.issueCellHeight
+            case .issueComments:
+                return Theme.issueCommentHeight
             }
         }
     }
@@ -167,6 +172,7 @@ fileprivate enum Theme {
     static let pullRequestCellHeight: CGFloat = 80.0
     static let commitCellHeight: CGFloat = 50.0
     static let issueCellHeight: CGFloat = 80.0
+    static let issueCommentHeight: CGFloat = 90.0
     
     // Offsets
     static let cellSideOffset: CGFloat = 36.0

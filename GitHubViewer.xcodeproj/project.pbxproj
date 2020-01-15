@@ -14,6 +14,7 @@
 		3707CC8E2382D542008D2D3E /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3707CC8D2382D542008D2D3E /* UIStackView+Extensions.swift */; };
 		3710D39623AD06DC00FAF5C7 /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3710D39523AD06DC00FAF5C7 /* PullRequest.swift */; };
 		3710D39823AD089C00FAF5C7 /* PullRequestsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3710D39723AD089C00FAF5C7 /* PullRequestsVM.swift */; };
+		371AF38323CF1C7500A45F75 /* IssueCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371AF38223CF1C7500A45F75 /* IssueCommentCell.swift */; };
 		371B10DA238E704C005E98D6 /* RepositoryDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B10D9238E704C005E98D6 /* RepositoryDetailsVM.swift */; };
 		372A9C48238E74A6007F1BA9 /* RepositoryDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372A9C47238E74A6007F1BA9 /* RepositoryDetails.swift */; };
 		372A9C4A238E9E6F007F1BA9 /* ScrollableStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372A9C49238E9E6F007F1BA9 /* ScrollableStack.swift */; };
@@ -223,6 +224,7 @@
 		3707CC8D2382D542008D2D3E /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
 		3710D39523AD06DC00FAF5C7 /* PullRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
 		3710D39723AD089C00FAF5C7 /* PullRequestsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsVM.swift; sourceTree = "<group>"; };
+		371AF38223CF1C7500A45F75 /* IssueCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueCommentCell.swift; sourceTree = "<group>"; };
 		371B10D9238E704C005E98D6 /* RepositoryDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsVM.swift; sourceTree = "<group>"; };
 		372A9C47238E74A6007F1BA9 /* RepositoryDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetails.swift; sourceTree = "<group>"; };
 		372A9C49238E9E6F007F1BA9 /* ScrollableStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStack.swift; sourceTree = "<group>"; };
@@ -457,6 +459,14 @@
 			path = CollectionCells;
 			sourceTree = "<group>";
 		};
+		371AF38123CF185100A45F75 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				371AF38223CF1C7500A45F75 /* IssueCommentCell.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
 		372A9C4B238EA4B3007F1BA9 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -568,6 +578,7 @@
 			isa = PBXGroup;
 			children = (
 				37419C4323CCBB2F00B73B66 /* IssueDetailsVC.swift */,
+				371AF38123CF185100A45F75 /* SubViews */,
 			);
 			path = IssueDetails;
 			sourceTree = "<group>";
@@ -1514,6 +1525,7 @@
 				373C58CA23857680003F2BEB /* Routers.swift in Sources */,
 				377C2203237C23640046D4E8 /* DateUtilities.swift in Sources */,
 				375EB188237EA1BD005B6252 /* GitHubViewerApollo.swift in Sources */,
+				371AF38323CF1C7500A45F75 /* IssueCommentCell.swift in Sources */,
 				379A7AD323B65051007CA335 /* PullRequestDetailsVC.swift in Sources */,
 				373C58D323858080003F2BEB /* TransitionController.swift in Sources */,
 				37C3D8E223950F3A00037154 /* RepositoryDetailsTVLinkCell.swift in Sources */,
