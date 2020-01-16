@@ -59,6 +59,8 @@ extension String {
   }
 
   enum General {
+    // ago
+    static let ago = String.tr("Localizable", "general.ago")
     // Cancel
     static let cancel = String.tr("Localizable", "general.cancel")
     // Closed
@@ -86,6 +88,8 @@ extension String {
     static func closedBy(_ p1: String, _ p2: String, _ p3: String) -> String {
       return String.tr("Localizable", "issues.closedBy", p1, p2, p3)
     }
+    // commented
+    static let commented = String.tr("Localizable", "issues.commented")
     // #%@
     static func issueNumber(_ p1: String) -> String {
       return String.tr("Localizable", "issues.issueNumber", p1)

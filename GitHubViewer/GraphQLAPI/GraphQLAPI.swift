@@ -3251,6 +3251,7 @@ public struct IssueCommentFragment: GraphQLFragment {
       author {
         __typename
         login
+        avatarUrl
       }
     }
     """
@@ -3329,6 +3330,7 @@ public struct IssueCommentFragment: GraphQLFragment {
     public static let selections: [GraphQLSelection] = [
       GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
       GraphQLField("login", type: .nonNull(.scalar(String.self))),
+      GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -3337,24 +3339,24 @@ public struct IssueCommentFragment: GraphQLFragment {
       self.resultMap = unsafeResultMap
     }
 
-    public static func makeUser(login: String) -> Author {
-      return Author(unsafeResultMap: ["__typename": "User", "login": login])
+    public static func makeUser(login: String, avatarUrl: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "User", "login": login, "avatarUrl": avatarUrl])
     }
 
-    public static func makeOrganization(login: String) -> Author {
-      return Author(unsafeResultMap: ["__typename": "Organization", "login": login])
+    public static func makeOrganization(login: String, avatarUrl: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "Organization", "login": login, "avatarUrl": avatarUrl])
     }
 
-    public static func makeBot(login: String) -> Author {
-      return Author(unsafeResultMap: ["__typename": "Bot", "login": login])
+    public static func makeBot(login: String, avatarUrl: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "Bot", "login": login, "avatarUrl": avatarUrl])
     }
 
-    public static func makeMannequin(login: String) -> Author {
-      return Author(unsafeResultMap: ["__typename": "Mannequin", "login": login])
+    public static func makeMannequin(login: String, avatarUrl: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "Mannequin", "login": login, "avatarUrl": avatarUrl])
     }
 
-    public static func makeEnterpriseUserAccount(login: String) -> Author {
-      return Author(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login])
+    public static func makeEnterpriseUserAccount(login: String, avatarUrl: String) -> Author {
+      return Author(unsafeResultMap: ["__typename": "EnterpriseUserAccount", "login": login, "avatarUrl": avatarUrl])
     }
 
     public var __typename: String {
@@ -3373,6 +3375,16 @@ public struct IssueCommentFragment: GraphQLFragment {
       }
       set {
         resultMap.updateValue(newValue, forKey: "login")
+      }
+    }
+
+    /// A URL pointing to the actor's public avatar.
+    public var avatarUrl: String {
+      get {
+        return resultMap["avatarUrl"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "avatarUrl")
       }
     }
   }

@@ -116,6 +116,7 @@ fragment IssueCommentFragment on IssueComment {
     createdAt
     author {
         login
+        avatarUrl
     }
 }
 

@@ -15,6 +15,7 @@
 "general.openLink"      = "Open link in Safari";
 "general.open"          = "Open";
 "general.closed"        = "Closed";
+"general.ago"           = "ago";
 
 
 //MARK: - Authentication
@@ -63,6 +64,7 @@
 "issues.closedBy"       = "#%@ by %@ was closed %@ ago";
 "issues.issueNumber"    = "#%@";
 "issues.issueOpened"    = "%@ opened this issue on %@";
+"issues.commented"      = "commented";
 
 //MARK: - Profile
 "profile.title" = "Profile";
