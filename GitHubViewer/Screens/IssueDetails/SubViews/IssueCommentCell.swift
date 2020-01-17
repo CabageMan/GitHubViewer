@@ -6,6 +6,7 @@ final class IssueCommentCell: UICollectionViewCell {
     private let commentContainer = UIView()
     private let descriptionContainer = UIView()
     private let descriptionLabel = UILabel()
+    private let contentTextView = UITextView()
     
     //MARK: - Initializers
     override init(frame: CGRect) {
@@ -57,6 +58,21 @@ final class IssueCommentCell: UICollectionViewCell {
             $0.height(1.0)
             $0.backgroundColor = Theme.containerBorderColor
         }
+        
+        contentTextView.add(to: commentContainer).do {
+            $0.topToBottom(of: descriptionLabel, offset: Theme.commentContentOffset)
+            $0.leftToSuperview(offset: Theme.commentContentOffset)
+            $0.rightToSuperview(offset: -Theme.commentContentOffset)
+            $0.bottomToSuperview(offset: -Theme.commentContentOffset)
+            
+//            $0.translatesAutoresizingMaskIntoConstraints = true
+//            $0.sizeToFit()
+            $0.isScrollEnabled = false
+            $0.backgroundColor = .clear
+            $0.textAlignment = .left
+            $0.textColor = .darkCoal
+            $0.font = Theme.descriptionLabelFont
+        }
     }
     
     private func createTriangle() -> CAShapeLayer {
@@ -79,6 +95,7 @@ final class IssueCommentCell: UICollectionViewCell {
         super.prepareForReuse()
         authorAvatar.configure(image: Theme.avatarPlaceHolder, animated: false)
         descriptionLabel.attributedText = nil
+        contentTextView.text = nil
     }
 }
 
@@ -96,6 +113,7 @@ extension IssueCommentCell: ConfigurableCell {
         }
         
         descriptionLabel.attributedText = makeCommentDescription(for: comment)
+        contentTextView.text = comment.bodyText
     }
     
     private func makeCommentDescription(for comment: IssueComment) -> NSAttributedString {
@@ -130,5 +148,6 @@ extension IssueCommentCell {
         static let avatarLeftOffset: CGFloat = 5.0
         static let containerSideOffset: CGFloat = 10.0
         static let descriptionLeftOffset: CGFloat = 8.0
+        static let commentContentOffset: CGFloat = 5.0
     }
 }

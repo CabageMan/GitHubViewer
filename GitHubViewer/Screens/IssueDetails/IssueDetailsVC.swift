@@ -122,3 +122,24 @@ extension IssueDetailsVC {
         static let separatorLineOffset: CGFloat = 8.0
     }
 }
+
+//struct CommentContent {
+//    let content: IssueComment
+//    var contentHeight: CGFloat {
+//        return getHeight(of: content.bodyText)
+//    }
+//    
+//    init(comment: IssueComment) {
+//        self.content = comment
+//    }
+//    
+//    private func getHeight(of content: String) -> CGFloat {
+//        let textView = UITextView().then {
+//            $0.translatesAutoresizingMaskIntoConstraints = true
+//            $0.sizeToFit()
+//            $0.isScrollEnabled = false
+//        }
+//        
+//        return 5.0
+//    }
+//}
