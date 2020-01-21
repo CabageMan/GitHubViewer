@@ -65,6 +65,8 @@
 "issues.issueNumber"    = "#%@";
 "issues.issueOpened"    = "%@ opened this issue on %@";
 "issues.commented"      = "commented";
+"issues.comment"        = "Comment";
+"issues.closeIssue"     = "Close issue";
 
 //MARK: - Profile
 "profile.title" = "Profile";

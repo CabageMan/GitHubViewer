@@ -67,6 +67,7 @@ final class IssueCommentCell: UICollectionViewCell {
             
 //            $0.translatesAutoresizingMaskIntoConstraints = true
 //            $0.sizeToFit()
+            $0.isEditable = false 
             $0.isScrollEnabled = false
             $0.backgroundColor = .clear
             $0.textAlignment = .left

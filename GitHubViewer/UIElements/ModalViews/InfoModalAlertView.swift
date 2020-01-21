@@ -40,12 +40,12 @@ final class InfoModalAlertView: UIView, ModalAlertViewCompatibility {
             }
         }
         
-        Buttons.roundedButton.add(to: self).do {
+        Buttons.roundedButton(title: String.General.ok).add(to: self).do {
             $0.leftToSuperview(offset: Theme.okButtonSideOffset)
             $0.rightToSuperview(offset: -Theme.okButtonSideOffset)
             $0.bottomToSuperview(offset: -Theme.okButtonBottomOffset)
+            $0.height(.defaultButtonHeight)
             
-            $0.setTitle(String.General.ok, for: .normal)
             $0.addTarget(for: .touchUpInside) { [unowned self] in self.closeAction() }
         }
     }

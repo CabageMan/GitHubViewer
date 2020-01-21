@@ -88,6 +88,10 @@ extension String {
     static func closedBy(_ p1: String, _ p2: String, _ p3: String) -> String {
       return String.tr("Localizable", "issues.closedBy", p1, p2, p3)
     }
+    // Close issue
+    static let closeIssue = String.tr("Localizable", "issues.closeIssue")
+    // Comment
+    static let comment = String.tr("Localizable", "issues.comment")
     // commented
     static let commented = String.tr("Localizable", "issues.commented")
     // #%@
