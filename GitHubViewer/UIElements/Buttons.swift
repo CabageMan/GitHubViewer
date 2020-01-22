@@ -13,6 +13,8 @@ struct Buttons {
     static func roundedButton(title: String) -> UIButton {
         return defaultButton.then {
             $0.backgroundColor = .buttonGreen
+//            $0.setBackgroundColor(.buttonGreen, for: .normal)
+//            $0.setBackgroundColor(Theme.disableGreen, for: .disabled)
             $0.layer.borderColor = UIColor.buttonGreenBorder.cgColor
             $0.tintColor = .white
             $0.setTitle(title, for: .normal)
@@ -32,6 +34,9 @@ struct Buttons {
     
     //MARK: - Theme
     enum Theme {
+        // Colors
+        static let disableGreen = #colorLiteral(red: 0.1529411765, green: 0.6549019608, blue: 0.2666666667, alpha: 0.6952054795) // #27A744, opacity: 70%
+        
         // Fonts
         static let buttonFont: UIFont = .circular(style: .book, size: 18)
         

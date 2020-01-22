@@ -20,7 +20,7 @@ final class IssueDetailsVM {
         issueClosed(true)
     }
     
-    func sendComment() {
+    func sendComment(_ comment: String) {
         commentSended(true)
     }
 }

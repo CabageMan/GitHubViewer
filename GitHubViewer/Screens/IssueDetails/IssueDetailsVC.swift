@@ -7,6 +7,9 @@ final class IssueDetailsVC: UIViewController {
         guard let coordinator: TabBarCoordinator = viewModel.router.currentCoordinator?.findParent() else { return nil }
         return coordinator.tabBarViewController
     }
+    private let keyBoardObserver = KeyboardObserver()
+    private var textViewPreviousHeight: CGFloat = 0.0
+    
     private let issueNameLabel = UILabel()
     private let issueStateView: StateView
     private let descriptionLabel = UILabel()
@@ -62,6 +65,27 @@ final class IssueDetailsVC: UIViewController {
         
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.viewModel.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
+        
+        keyBoardObserver.observe { [weak self] event in
+            switch event.type {
+            case .willHide, .didHide:
+                self?.newCommentContainerBottomConstraint.constant = -.safeBottom
+            default:
+                let inset = UIScreen.main.bounds.height - event.keyboardFrameEnd.minY
+                self?.newCommentContainerBottomConstraint.constant = -inset
+            }
+            UIView.animate(
+                withDuration: event.duration,
+                delay: 0,
+                options: event.options,
+                animations: { [weak self] in self?.view.layoutIfNeeded() },
+                completion: nil
+            )
+        }
+        
+        view.addGesture(type: .tap) { [weak self] _ in
+            self?.newCommentTextView.resignFirstResponder()
+        }
         
         issueNameLabel.add(to: view).do {
             $0.topToSuperview(offset: Theme.nameLabelTopOffset)
@@ -148,8 +172,13 @@ final class IssueDetailsVC: UIViewController {
             $0.rightToSuperview(offset: -Theme.buttonOffset)
             $0.bottomToSuperview(offset: -Theme.buttonOffset)
             $0.height(Theme.buttonHeight)
-            
-            $0.addTarget(for: .touchUpInside) { [weak self] in self?.viewModel.sendComment() }
+            $0.isUserInteractionEnabled = false
+            $0.backgroundColor = Theme.disableGreen
+            $0.addTarget(for: .touchUpInside) { [weak self] in
+                self?.newCommentTextView.resignFirstResponder()
+                guard let comment = self?.newCommentTextView.text else { return }
+                self?.viewModel.sendComment(comment)
+            }
         }
         
         Buttons.iconButton(icon: #imageLiteral(resourceName: "openIssue"), title: String.Issues.closeIssue).add(to: newCommentContainer).do {
@@ -157,7 +186,10 @@ final class IssueDetailsVC: UIViewController {
             $0.bottom(to: commentButton)
             $0.height(Theme.buttonHeight)
             
-            $0.addTarget(for: .touchUpInside) { [weak self] in self?.viewModel.closeIssue() }
+            $0.addTarget(for: .touchUpInside) { [weak self] in
+                self?.newCommentTextView.resignFirstResponder()
+                self?.viewModel.closeIssue()
+            }
         }
         
         newCommentTextView.add(to: newCommentContainer).do {
@@ -167,6 +199,8 @@ final class IssueDetailsVC: UIViewController {
             $0.layer.borderColor = Theme.textFieldBorderColor.cgColor
             $0.layer.borderWidth = 1.0
             $0.layer.cornerRadius = 3.0
+            $0.delegate = self
+            $0.font = Theme.textViewFont
         }
     }
     
@@ -182,6 +216,27 @@ final class IssueDetailsVC: UIViewController {
     }
 }
 
+//MARK: - Text View Delegate
+extension IssueDetailsVC: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewPreviousHeight = textView.contentSize.height
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        commentButton.isUserInteractionEnabled = !textView.text.isEmpty
+        commentButton.backgroundColor = textView.text.isEmpty ? Theme.disableGreen : .buttonGreen
+        checkCommentHeight(contentHeight: textView.contentSize.height)
+    }
+    
+    private func checkCommentHeight(contentHeight: CGFloat) {
+        if contentHeight != textViewPreviousHeight && contentHeight <= Theme.commentMaxHeight {
+            let heightDifference = contentHeight - textViewPreviousHeight
+            textViewPreviousHeight = contentHeight
+            newCommentContainerHeightConstraint.constant += heightDifference
+        }
+    }
+}
+
 //MARK: - Theme
 extension IssueDetailsVC {
     enum Theme {
@@ -189,6 +244,7 @@ extension IssueDetailsVC {
         static let avatarPlaceHolder: UIImage = #imageLiteral(resourceName: "AvatarPlaceholder")
         
         // Colors
+        static let disableGreen = #colorLiteral(red: 0.1529411765, green: 0.6549019608, blue: 0.2666666667, alpha: 0.6952054795) // #27A744, opacity: 70%
         static let buttonIconColor: UIColor = #colorLiteral(red: 0.7960784314, green: 0.137254902, blue: 0.1921568627, alpha: 1) // #CB2331
         static let newCommentBackGround: UIColor = #colorLiteral(red: 0.9803921569, green: 0.9843137255, blue: 0.9882352941, alpha: 1) // #FAFBFC
         static let textFieldBorderColor: UIColor = #colorLiteral(red: 0.8196078431, green: 0.8352941176, blue: 0.8549019608, alpha: 1) // #D1D5DA
@@ -207,12 +263,14 @@ extension IssueDetailsVC {
             }
         }
         static let descriptionFont: UIFont = .circular(style: .black, size: 13.0)
+        static let textViewFont: UIFont = .circular(style: .medium, size: 13.0)
         
         // Sizes
         static let issueNameLabelheight: CGFloat = 25.0
         static let stateViewHeight: CGFloat = 30.0
         static let descriptionHeight: CGFloat = 33.0
-        static let newCommentContainerHeight: CGFloat = 200.0
+        static let newCommentContainerHeight: CGFloat = 118.0
+        static let commentMaxHeight: CGFloat = 99.0
         static let avatarSize = CGSize(30.0)
         static let buttonsheight: CGFloat = 40.0
         
@@ -234,6 +292,3 @@ extension IssueDetailsVC {
 // Add logic to add comments and close issues.
 // Make comments collection cells auto resizable.
 // Fix Bezier triangles drawing in comments collection cell. Add this solution to newCommentContainer.
-// Handle keyboard appearing.
-// Resize new comment text view.
-// Validate new comment text to block/unblock comment button
