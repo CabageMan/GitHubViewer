@@ -164,6 +164,7 @@
 		377F1CFA23C77121005724E9 /* IssueVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377F1CF923C77121005724E9 /* IssueVM.swift */; };
 		3781DC5F23B1FEBE00C08486 /* PullRequestsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3781DC5E23B1FEBE00C08486 /* PullRequestsCollectionCell.swift */; };
 		378408C623A91CDC00A74D88 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378408C523A91CDC00A74D88 /* WebViewController.swift */; };
+		37848BA823D74C5200637043 /* IssueDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37848BA723D74C5200637043 /* IssueDetailsVM.swift */; };
 		3787FD8B239F833D00D472E6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787FD8A239F833D00D472E6 /* EmptyView.swift */; };
 		378B818223963C89005E4875 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B818123963C89005E4875 /* ImageContentView.swift */; };
 		378CD99323B4A10D004F29FF /* GitHabViewerPagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378CD99223B4A10D004F29FF /* GitHabViewerPagingController.swift */; };
@@ -380,6 +381,7 @@
 		377F1CF923C77121005724E9 /* IssueVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueVM.swift; sourceTree = "<group>"; };
 		3781DC5E23B1FEBE00C08486 /* PullRequestsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsCollectionCell.swift; sourceTree = "<group>"; };
 		378408C523A91CDC00A74D88 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		37848BA723D74C5200637043 /* IssueDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDetailsVM.swift; sourceTree = "<group>"; };
 		3787FD8A239F833D00D472E6 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		378B818123963C89005E4875 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
 		378CD99223B4A10D004F29FF /* GitHabViewerPagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHabViewerPagingController.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 			isa = PBXGroup;
 			children = (
 				37419C4323CCBB2F00B73B66 /* IssueDetailsVC.swift */,
+				37848BA723D74C5200637043 /* IssueDetailsVM.swift */,
 				371AF38123CF185100A45F75 /* SubViews */,
 			);
 			path = IssueDetails;
@@ -1512,6 +1515,7 @@
 				377C220C237C23640046D4E8 /* Comparable+ext.swift in Sources */,
 				3781DC5F23B1FEBE00C08486 /* PullRequestsCollectionCell.swift in Sources */,
 				3752AE602383EC5C00170C79 /* AuthVC.swift in Sources */,
+				37848BA823D74C5200637043 /* IssueDetailsVM.swift in Sources */,
 				375EB19C237EEC2E005B6252 /* Buttons.swift in Sources */,
 				377C21D8237C23640046D4E8 /* PinnedHeaderFlowLayout.swift in Sources */,
 				376A158023A3B0A7003E6D23 /* SideMenuCell.swift in Sources */,

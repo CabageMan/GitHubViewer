@@ -2,13 +2,11 @@ import UIKit
 
 final class IssueDetailsVC: UIViewController {
     
-    private let router: GithubViewerRouter
+    private let viewModel: IssueDetailsVM
     private var tabBarViewController: TabBarViewController? {
-        guard let coordinator: TabBarCoordinator = router.currentCoordinator?.findParent() else { return nil }
+        guard let coordinator: TabBarCoordinator = viewModel.router.currentCoordinator?.findParent() else { return nil }
         return coordinator.tabBarViewController
     }
-    
-    private let issue: Issue
     private let issueNameLabel = UILabel()
     private let issueStateView: StateView
     private let descriptionLabel = UILabel()
@@ -24,8 +22,7 @@ final class IssueDetailsVC: UIViewController {
     
     //MARK: - Life Cycle
     init(router: GithubViewerRouter, issue: Issue) {
-        self.router = router
-        self.issue = issue
+        self.viewModel = IssueDetailsVM(router: router, issue: issue)
         self.issueStateView = {
             switch issue.state {
             case .open: return StateView(mode: .issueOpenDetails)
@@ -42,7 +39,8 @@ final class IssueDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        commentsCollection.items = issue.comments
+        setupViewModel()
+        commentsCollection.items = viewModel.issue.comments
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +60,7 @@ final class IssueDetailsVC: UIViewController {
         let backButton = UIBarButtonItem.back { [weak self] in self?.dismiss() }
         navigationItem.setLeftBarButton(backButton, animated: false)
         
-        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
+        let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.viewModel.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
         issueNameLabel.add(to: view).do {
@@ -74,8 +72,8 @@ final class IssueDetailsVC: UIViewController {
             $0.textAlignment = .left
             $0.font = Theme.issueNameFont
             $0.textColor = .darkCoal
-            let issueName = (issue.title + " ").attributed.paint(with: .darkCoal)
-            let issueNumber = String.Issues.issueNumber("\(issue.number)").attributed.paint(with: .textGray)
+            let issueName = (viewModel.issue.title + " ").attributed.paint(with: .darkCoal)
+            let issueNumber = String.Issues.issueNumber("\(viewModel.issue.number)").attributed.paint(with: .textGray)
             $0.attributedText = issueName + issueNumber
         }
         
@@ -97,7 +95,7 @@ final class IssueDetailsVC: UIViewController {
             
             let formatter = DateFormatter()
             formatter.dateFormat = "dd MMM yyyy"
-            $0.text = String.Issues.issueOpened(issue.author, "\(formatter.string(from: issue.createdAt))")
+            $0.text = String.Issues.issueOpened(viewModel.issue.author, "\(formatter.string(from: viewModel.issue.createdAt))")
         }
         
         let topDividerLine = UIView().add(to: view).then {
@@ -151,7 +149,7 @@ final class IssueDetailsVC: UIViewController {
             $0.bottomToSuperview(offset: -Theme.buttonOffset)
             $0.height(Theme.buttonHeight)
             
-            $0.addTarget(for: .touchUpInside) { Global.showComingSoon() }
+            $0.addTarget(for: .touchUpInside) { [weak self] in self?.viewModel.sendComment() }
         }
         
         Buttons.iconButton(icon: #imageLiteral(resourceName: "openIssue"), title: String.Issues.closeIssue).add(to: newCommentContainer).do {
@@ -159,7 +157,7 @@ final class IssueDetailsVC: UIViewController {
             $0.bottom(to: commentButton)
             $0.height(Theme.buttonHeight)
             
-            $0.addTarget(for: .touchUpInside) { Global.showComingSoon() }
+            $0.addTarget(for: .touchUpInside) { [weak self] in self?.viewModel.closeIssue() }
         }
         
         newCommentTextView.add(to: newCommentContainer).do {
@@ -169,6 +167,17 @@ final class IssueDetailsVC: UIViewController {
             $0.layer.borderColor = Theme.textFieldBorderColor.cgColor
             $0.layer.borderWidth = 1.0
             $0.layer.cornerRadius = 3.0
+        }
+    }
+    
+    private func setupViewModel() {
+        viewModel.issueClosed = { result in
+            guard result else { return }
+            Global.showComingSoon()
+        }
+        viewModel.commentSended = { result in
+            guard result else { return }
+            Global.showComingSoon()
         }
     }
 }
@@ -222,7 +231,7 @@ extension IssueDetailsVC {
 }
 
 //TODO: - Need To do -
-// Add IssueDetails view model. Add logic to add comments and close issues.
+// Add logic to add comments and close issues.
 // Make comments collection cells auto resizable.
 // Fix Bezier triangles drawing in comments collection cell. Add this solution to newCommentContainer.
 // Handle keyboard appearing.
