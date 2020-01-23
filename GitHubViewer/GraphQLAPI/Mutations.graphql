@@ -1,0 +1,17 @@
+# Mutations
+
+# Add Comment To Issue
+mutation AddCommentToIssue($issueComment: AddCommentInput!) {
+    addComment(input:$issueComment) {
+        subject {
+            id
+        }
+        commentEdge {
+            node {
+                issue {
+                    ...IssuesListFragment
+                }
+            }
+        }
+    }
+}

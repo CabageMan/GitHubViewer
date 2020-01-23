@@ -68,6 +68,8 @@
 		376A157E23A3B087003E6D23 /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376A157D23A3B087003E6D23 /* SideMenuTableView.swift */; };
 		376A158023A3B0A7003E6D23 /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376A157F23A3B0A7003E6D23 /* SideMenuCell.swift */; };
 		376A158623A3CDCA003E6D23 /* SideMenuVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376A158523A3CDCA003E6D23 /* SideMenuVM.swift */; };
+		3778754223D97FFD004774A5 /* Fragments.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 3778754123D97FFD004774A5 /* Fragments.graphql */; };
+		3778754423D9807E004774A5 /* Mutations.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 3778754323D9807E004774A5 /* Mutations.graphql */; };
 		377C213B237C06800046D4E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377C213A237C06800046D4E8 /* AppDelegate.swift */; };
 		377C2141237C06810046D4E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377C2140237C06810046D4E8 /* Assets.xcassets */; };
 		377C2144237C06810046D4E8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 377C2143237C06810046D4E8 /* Preview Assets.xcassets */; };
@@ -275,6 +277,8 @@
 		376A157D23A3B087003E6D23 /* SideMenuTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableView.swift; sourceTree = "<group>"; };
 		376A157F23A3B0A7003E6D23 /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		376A158523A3CDCA003E6D23 /* SideMenuVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVM.swift; sourceTree = "<group>"; };
+		3778754123D97FFD004774A5 /* Fragments.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fragments.graphql; sourceTree = "<group>"; };
+		3778754323D9807E004774A5 /* Mutations.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Mutations.graphql; sourceTree = "<group>"; };
 		377C2137237C06800046D4E8 /* GitHubViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		377C213A237C06800046D4E8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		377C2140237C06810046D4E8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -602,7 +606,9 @@
 				373C58BD23851FA0003F2BEB /* APIClient.swift */,
 				3752AE612384393900170C79 /* APIAccessTokenStorage.swift */,
 				375EB187237EA1BD005B6252 /* GitHubViewerApollo.swift */,
+				3778754123D97FFD004774A5 /* Fragments.graphql */,
 				37446772237D728B00762EB8 /* Queries.graphql */,
+				3778754323D9807E004774A5 /* Mutations.graphql */,
 				375AB8A0237D863C007E390A /* schema.json */,
 				375EB185237EA072005B6252 /* GraphQLAPI.swift */,
 				379B15F723CC46BA00681E04 /* PaginationManager.swift */,
@@ -1331,12 +1337,14 @@
 				377C2227237C2EC90046D4E8 /* Localizable.strings in Resources */,
 				377C2225237C2E7C0046D4E8 /* swiftgen.yml in Resources */,
 				375AB8A1237D863C007E390A /* schema.json in Resources */,
+				3778754223D97FFD004774A5 /* Fragments.graphql in Resources */,
 				375EB192237EE0A9005B6252 /* SFCompactDisplay-Thin.otf in Resources */,
 				377C2223237C2E340046D4E8 /* StringsGenerationTemplate.stencil in Resources */,
 				375EB194237EE0B0005B6252 /* SFProDisplay-Light.otf in Resources */,
 				375EB193237EE0AD005B6252 /* SFCompactRounded-Thin.otf in Resources */,
 				375EB198237EE0BC005B6252 /* CircularStd-Black.otf in Resources */,
 				377C2144237C06810046D4E8 /* Preview Assets.xcassets in Resources */,
+				3778754423D9807E004774A5 /* Mutations.graphql in Resources */,
 				377C2141237C06810046D4E8 /* Assets.xcassets in Resources */,
 				375EB196237EE0B6005B6252 /* CircularStd-Book.otf in Resources */,
 				375EB195237EE0B3005B6252 /* CircularStd-Medium.otf in Resources */,
