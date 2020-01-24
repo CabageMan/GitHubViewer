@@ -316,6 +316,6 @@ extension IssueDetailsVC {
 }
 
 //TODO: - Need To do -
-// Add logic to add comments and close issues.
 // Make comments collection cells auto resizable.
+// Find the reason why all issues is not updated after close one of them.
 // Fix Bezier triangles drawing in comments collection cell. Add this solution to newCommentContainer.

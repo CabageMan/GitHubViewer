@@ -18,6 +18,7 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
     var items: [T.CellData] = [] {
         didSet {
             collectionView.do {
+                #warning("Fix emptyview flashing on swipe left")
                 $0.backgroundView = items.isEmpty ? mode.backGround : nil
                 $0.reloadData()
             }
@@ -144,7 +145,7 @@ extension GitHubViewerCollection {
             case .issues:
                 return EmptyView.createEmptyIssues(offset: -Theme.emptyViewOffset)
             case .issueComments:
-                return EmptyView.createEmptyIssues(offset: -Theme.emptyViewOffset)
+                return EmptyView.createEmptyIssueComments(offset: -Theme.emptyViewOffset)
             }
         }
         
