@@ -15,3 +15,21 @@ mutation AddCommentToIssue($issueComment: AddCommentInput!) {
         }
     }
 }
+
+# Close Issue By Id
+mutation CloseIssue($issueInput: CloseIssueInput!) {
+    closeIssue(input:$issueInput) {
+        issue {
+            ...IssuesListFragment
+        }
+    }
+}
+
+# Reopen Issue By Id
+mutation ReopenIssue($issueInput: ReopenIssueInput!) {
+    reopenIssue(input:$issueInput) {
+        issue {
+            ...IssuesListFragment
+        }
+    }
+}

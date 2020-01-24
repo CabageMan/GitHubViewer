@@ -40,7 +40,8 @@ final class IssuesVC: UIViewController {
         }
         fixedPageController.viewControllers.enumerated().forEach { index, controller in
             let vc = controller as! IssueCollectionVC
-            vc.collectionWillAppear = { [weak self] in
+            vc.collectionWillAppear = { [weak self, weak vc] in
+                vc?.collection.nextDataIsLoading = true
                 self?.viewModel.resetDataSource()
                 self?.viewModel.getOwnIssues()
             }
@@ -48,8 +49,8 @@ final class IssuesVC: UIViewController {
                 self?.setIssuesCollection(at: index)
             }
             vc.getNextIssues = { [weak self, weak vc] in
-                self?.viewModel.getOwnIssues()
                 vc?.collection.nextDataIsLoading = true
+                self?.viewModel.getOwnIssues()
             }
         }
     }

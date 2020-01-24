@@ -34,7 +34,7 @@ final class CollectionSelectorHeader: UICollectionReusableView {
     //MARK: - Actions
     func configure(mode: StateView.Mode) {
         assert(mode == .requestOpen || mode == .issueOpen, "Wrong state view mode. Use only .requestOpen or .issueOpen")
-        openView.changeIcon(with: mode)
+        openView.changeMode(to: mode)
     }
     
     private func setup() {

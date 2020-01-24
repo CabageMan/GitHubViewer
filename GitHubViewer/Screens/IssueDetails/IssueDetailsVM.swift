@@ -6,8 +6,7 @@ final class IssueDetailsVM {
     
     var issue: Issue
     
-    var commentSended: () -> Void = { }
-    var issueClosed: () -> Void = { }
+    var issueUpdated: () -> Void = { }
     
     //MARK: -Initializers
     init(router: GithubViewerRouter, issue: Issue) {
@@ -16,10 +15,12 @@ final class IssueDetailsVM {
     }
     
     //MARK: -Actions
-    func closeIssue() {
-        Spinner.start()
-        issueClosed()
-        Spinner.stop()
+    func closeOpenIssue() {
+        switch issue.state {
+        case .open: closeIssue()
+        case .closed: reopenIssue()
+        default: break
+        }
     }
     
     func sendComment(_ comment: String) {
@@ -35,11 +36,55 @@ final class IssueDetailsVM {
                     return
                 }
                 self.issue = Issue(issue: updatedIssue)
-                self.commentSended()
+                self.issueUpdated()
                 Spinner.stop()
             case .failure(let error):
                 Spinner.stop()
-                log("Failure to send comment \(error.localizedDescription)")
+                log("Failed to send comment \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func closeIssue() {
+        Spinner.start()
+        let issueInput = CloseIssueInput(issueId: issue.id)
+        GitHubViewerApollo.shared.client.perform(mutation: CloseIssueMutation(issueInput: issueInput)) { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let result):
+                guard let updatedIssue = result.data?.closeIssue?.issue?.fragments.issuesListFragment else {
+                    Spinner.stop()
+                    log("Failed to close issue")
+                    return
+                }
+                self.issue = Issue(issue: updatedIssue)
+                self.issueUpdated()
+                Spinner.stop()
+            case .failure(let error):
+                Spinner.stop()
+                log("Failed to close issue \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    private func reopenIssue() {
+        Spinner.start()
+        let issueInput = ReopenIssueInput(issueId: issue.id)
+        GitHubViewerApollo.shared.client.perform(mutation: ReopenIssueMutation(issueInput: issueInput)) { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let result):
+                guard let updatedIssue = result.data?.reopenIssue?.issue?.fragments.issuesListFragment else {
+                    Spinner.stop()
+                    log("Failed to load issue")
+                    return
+                }
+                self.issue = Issue(issue: updatedIssue)
+                self.issueUpdated()
+                Spinner.stop()
+            case .failure(let error):
+                Spinner.stop()
+                log("Failed to reopen issue")
             }
         }
     }

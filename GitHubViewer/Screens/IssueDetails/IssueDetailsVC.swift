@@ -18,6 +18,7 @@ final class IssueDetailsVC: UIViewController {
     private let newCommentContainer = UIView()
     private let newCommentTextView = UITextView()
     private let ownerAvatar = ImageContentView()
+    private let closeOpenButton: UIButton
     private let commentButton = Buttons.roundedButton(title: String.Issues.comment)
     
     private var newCommentContainerHeightConstraint: NSLayoutConstraint!
@@ -26,13 +27,17 @@ final class IssueDetailsVC: UIViewController {
     //MARK: - Life Cycle
     init(router: GithubViewerRouter, issue: Issue) {
         self.viewModel = IssueDetailsVM(router: router, issue: issue)
-        self.issueStateView = {
-            switch issue.state {
-            case .open: return StateView(mode: .issueDetailsOpen)
-            case .closed: return StateView(mode: .issueDetailsClosed)
-            default: return StateView(mode: .unknown)
-            }
-        }()
+        switch issue.state {
+        case .open:
+            self.issueStateView = StateView(mode: .issueDetailsOpen)
+            self.closeOpenButton = Buttons.iconButton(icon: Theme.closeButtonIcon, title: String.Issues.closeIssue)
+        case .closed:
+            self.issueStateView = StateView(mode: .issueDetailsClosed)
+            self.closeOpenButton = Buttons.iconButton(icon: nil, title: String.Issues.reopenIssue)
+        default:
+            self.issueStateView = StateView(mode: .unknown)
+            self.closeOpenButton = Buttons.roundedButton(title: String.Issues.closeIssue)
+        }
         super.init(nibName: nil, bundle: nil)
         title = issue.repository.resourcePath
     }
@@ -167,14 +172,14 @@ final class IssueDetailsVC: UIViewController {
             }
         }
         
-        Buttons.iconButton(icon: #imageLiteral(resourceName: "openIssue"), title: String.Issues.closeIssue).add(to: newCommentContainer).do {
+        closeOpenButton.add(to: newCommentContainer).do {
             $0.rightToLeft(of: commentButton, offset: -Theme.buttonOffset)
             $0.bottom(to: commentButton)
             $0.height(Theme.buttonHeight)
             
             $0.addTarget(for: .touchUpInside) { [weak self] in
                 self?.newCommentTextView.resignFirstResponder()
-                self?.viewModel.closeIssue()
+                self?.viewModel.closeOpenIssue()
             }
         }
         
@@ -191,29 +196,38 @@ final class IssueDetailsVC: UIViewController {
     }
     
     private func setupViewModel() {
-        viewModel.issueClosed = { [weak self] in self?.configureContent() }
-        viewModel.commentSended = { [weak self] in
-            self?.newCommentTextView.text = ""
-            self?.enableCommentButton(false)
-            self?.configureContent()
-        }
+        viewModel.issueUpdated = { [weak self] in self?.configureContent() }
     }
     
     private func configureContent() {
+        newCommentTextView.text = ""
+        enableCommentButton(false)
+        
         let issueName = (viewModel.issue.title + " ").attributed.paint(with: .darkCoal)
         let issueNumber = String.Issues.issueNumber("\(viewModel.issue.number)").attributed.paint(with: .textGray)
         issueNameLabel.attributedText = issueName + issueNumber
         
         switch viewModel.issue.state {
-        case .open: issueStateView.changeIcon(with: .issueDetailsOpen)
-        case .closed: issueStateView.changeIcon(with: .issueDetailsClosed)
-        default: issueStateView.changeIcon(with: .unknown)
+        case .open:
+            issueStateView.changeMode(to: .issueDetailsOpen)
+            closeOpenButton.do {
+                $0.setTitle(String.Issues.closeIssue, for: .normal)
+                $0.setImage(Theme.closeButtonIcon, for: .normal)
+            }
+        case .closed:
+            issueStateView.changeMode(to: .issueDetailsClosed)
+            closeOpenButton.do {
+                $0.setTitle(String.Issues.reopenIssue, for: .normal)
+                $0.setImage(nil, for: .normal)
+            }
+        default: issueStateView.changeMode(to: .unknown)
         }
         
         let formatter = DateFormatter()
         formatter.dateFormat = "dd MMM yyyy"
         descriptionLabel.text = String.Issues.issueOpened(viewModel.issue.author, "\(formatter.string(from: viewModel.issue.createdAt))")
         
+        #warning("Implement two variants of issue details cell")
         commentsCollection.items = viewModel.issue.comments
         
         if let url = Global.apiClient.ownUser?.avatarURL, let avatarUrl = URL(string: url) {
@@ -254,6 +268,7 @@ extension IssueDetailsVC {
     enum Theme {
         // Images
         static let avatarPlaceHolder: UIImage = #imageLiteral(resourceName: "AvatarPlaceholder")
+        static let closeButtonIcon: UIImage = #imageLiteral(resourceName: "openIssue")
         
         // Colors
         static let disableGreen = #colorLiteral(red: 0.1529411765, green: 0.6549019608, blue: 0.2666666667, alpha: 0.6952054795) // #27A744, opacity: 70%

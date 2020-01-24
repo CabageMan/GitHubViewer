@@ -21,7 +21,7 @@ struct Buttons {
         }
     }
     
-    static func iconButton(icon: UIImage, title: String) -> UIButton {
+    static func iconButton(icon: UIImage?, title: String) -> UIButton {
         return defaultButton.then {
             $0.backgroundColor = .buttonLight
             $0.layer.borderColor = UIColor.buttonLightBorder.cgColor

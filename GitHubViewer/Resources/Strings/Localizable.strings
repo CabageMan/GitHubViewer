@@ -67,6 +67,7 @@
 "issues.commented"      = "commented";
 "issues.comment"        = "Comment";
 "issues.closeIssue"     = "Close issue";
+"issues.reopenIssue"    = "Reopen issue";
 
 //MARK: - Profile
 "profile.title" = "Profile";
