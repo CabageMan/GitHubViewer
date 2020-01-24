@@ -28,8 +28,8 @@ final class IssueDetailsVC: UIViewController {
         self.viewModel = IssueDetailsVM(router: router, issue: issue)
         self.issueStateView = {
             switch issue.state {
-            case .open: return StateView(mode: .issueOpenDetails)
-            case .closed: return StateView(mode: .issueClosedDetails)
+            case .open: return StateView(mode: .issueDetailsOpen)
+            case .closed: return StateView(mode: .issueDetailsClosed)
             default: return StateView(mode: .unknown)
             }
         }()
@@ -43,12 +43,12 @@ final class IssueDetailsVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupViewModel()
-        commentsCollection.items = viewModel.issue.comments
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarViewController?.hideTabBar()
+        configureContent()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -83,9 +83,7 @@ final class IssueDetailsVC: UIViewController {
             )
         }
         
-        view.addGesture(type: .tap) { [weak self] _ in
-            self?.newCommentTextView.resignFirstResponder()
-        }
+        view.addGesture(type: .tap) { [weak self] _ in self?.newCommentTextView.resignFirstResponder() }
         
         issueNameLabel.add(to: view).do {
             $0.topToSuperview(offset: Theme.nameLabelTopOffset)
@@ -96,9 +94,6 @@ final class IssueDetailsVC: UIViewController {
             $0.textAlignment = .left
             $0.font = Theme.issueNameFont
             $0.textColor = .darkCoal
-            let issueName = (viewModel.issue.title + " ").attributed.paint(with: .darkCoal)
-            let issueNumber = String.Issues.issueNumber("\(viewModel.issue.number)").attributed.paint(with: .textGray)
-            $0.attributedText = issueName + issueNumber
         }
         
         issueStateView.add(to: view).do {
@@ -116,10 +111,6 @@ final class IssueDetailsVC: UIViewController {
             $0.numberOfLines = 0
             $0.font = Theme.descriptionFont
             $0.textColor = .textGray
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd MMM yyyy"
-            $0.text = String.Issues.issueOpened(viewModel.issue.author, "\(formatter.string(from: viewModel.issue.createdAt))")
         }
         
         let topDividerLine = UIView().add(to: view).then {
@@ -152,11 +143,6 @@ final class IssueDetailsVC: UIViewController {
             $0.leftToSuperview(offset: Theme.avatarLeftOffset)
             $0.topToSuperview(offset: Theme.avatarTopOffset)
             $0.size(Theme.avatarSize)
-            if let url = Global.apiClient.ownUser?.avatarURL, let avatarUrl = URL(string: url) {
-                $0.configure(url: avatarUrl, diameter: Theme.avatarSize.width, animated: true)
-            } else {
-                $0.configure(image: Theme.avatarPlaceHolder, animated: true)
-            }
         }
         
         newCommentContainer.add(to: bottomContainer).do {
@@ -205,13 +191,35 @@ final class IssueDetailsVC: UIViewController {
     }
     
     private func setupViewModel() {
-        viewModel.issueClosed = { result in
-            guard result else { return }
-            Global.showComingSoon()
+        viewModel.issueClosed = { [weak self] in self?.configureContent() }
+        viewModel.commentSended = { [weak self] in
+            self?.newCommentTextView.text = ""
+            self?.enableCommentButton(false)
+            self?.configureContent()
         }
-        viewModel.commentSended = { result in
-            guard result else { return }
-            Global.showComingSoon()
+    }
+    
+    private func configureContent() {
+        let issueName = (viewModel.issue.title + " ").attributed.paint(with: .darkCoal)
+        let issueNumber = String.Issues.issueNumber("\(viewModel.issue.number)").attributed.paint(with: .textGray)
+        issueNameLabel.attributedText = issueName + issueNumber
+        
+        switch viewModel.issue.state {
+        case .open: issueStateView.changeIcon(with: .issueDetailsOpen)
+        case .closed: issueStateView.changeIcon(with: .issueDetailsClosed)
+        default: issueStateView.changeIcon(with: .unknown)
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMM yyyy"
+        descriptionLabel.text = String.Issues.issueOpened(viewModel.issue.author, "\(formatter.string(from: viewModel.issue.createdAt))")
+        
+        commentsCollection.items = viewModel.issue.comments
+        
+        if let url = Global.apiClient.ownUser?.avatarURL, let avatarUrl = URL(string: url) {
+            ownerAvatar.configure(url: avatarUrl, diameter: Theme.avatarSize.width, animated: true)
+        } else {
+            ownerAvatar.configure(image: Theme.avatarPlaceHolder, animated: true)
         }
     }
 }
@@ -223,8 +231,7 @@ extension IssueDetailsVC: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        commentButton.isUserInteractionEnabled = !textView.text.isEmpty
-        commentButton.backgroundColor = textView.text.isEmpty ? Theme.disableGreen : .buttonGreen
+        enableCommentButton(!textView.text.isEmpty)
         checkCommentHeight(contentHeight: textView.contentSize.height)
     }
     
@@ -234,6 +241,11 @@ extension IssueDetailsVC: UITextViewDelegate {
             textViewPreviousHeight = contentHeight
             newCommentContainerHeightConstraint.constant += heightDifference
         }
+    }
+    
+    private func enableCommentButton(_ isEnabled: Bool) {
+        commentButton.isUserInteractionEnabled = isEnabled
+        commentButton.backgroundColor = !isEnabled ? Theme.disableGreen : .buttonGreen
     }
 }
 

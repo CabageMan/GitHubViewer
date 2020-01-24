@@ -39,9 +39,9 @@ final class StateView: UIView {
         }
         
         switch mode {
-        case .requestOpenDetails, .issueOpenDetails: setColoredView(with: Theme.openColor)
-        case .requestMergedDetails: setColoredView(with: Theme.mergedColor)
-        case .requestClosedDetails, .issueClosedDetails: setColoredView(with: Theme.closedColor)
+        case .requestDetailsOpen, .issueDetailsOpen: setColoredView(with: Theme.openColor)
+        case .requestDetailsMerged: setColoredView(with: Theme.mergedColor)
+        case .requestDetailsClosed, .issueDetailsClosed: setColoredView(with: Theme.closedColor)
         default: break
         }
         
@@ -72,28 +72,28 @@ extension StateView {
         case requestOpen
         case issueOpen
         case completed
-        case requestOpenDetails
-        case requestMergedDetails
-        case requestClosedDetails
-        case issueOpenDetails
-        case issueClosedDetails
+        case requestDetailsOpen
+        case requestDetailsMerged
+        case requestDetailsClosed
+        case issueDetailsOpen
+        case issueDetailsClosed
         case unknown
         
         var icon: UIImage {
             switch self {
-            case .requestOpen, .requestOpenDetails, .requestClosedDetails: return #imageLiteral(resourceName: "pullRequest")
-            case .issueOpen, .issueOpenDetails, .issueClosedDetails: return #imageLiteral(resourceName: "openIssue")
+            case .requestOpen, .requestDetailsOpen, .requestDetailsClosed: return #imageLiteral(resourceName: "pullRequest")
+            case .issueOpen, .issueDetailsOpen, .issueDetailsClosed: return #imageLiteral(resourceName: "openIssue")
             case .completed: return #imageLiteral(resourceName: "checkmark")
-            case .requestMergedDetails: return #imageLiteral(resourceName: "merge")
+            case .requestDetailsMerged: return #imageLiteral(resourceName: "merge")
             case .unknown: return UIImage()
             }
         }
         
         var title: String {
             switch self {
-            case .requestOpenDetails, .requestOpen, .issueOpenDetails, .issueOpen: return String.General.open
-            case .completed, .requestClosedDetails, .issueClosedDetails: return String.General.closed
-            case .requestMergedDetails: return String.Pr.merged
+            case .requestDetailsOpen, .requestOpen, .issueDetailsOpen, .issueOpen: return String.General.open
+            case .completed, .requestDetailsClosed, .issueDetailsClosed: return String.General.closed
+            case .requestDetailsMerged: return String.Pr.merged
             case .unknown: return ""
             }
         }

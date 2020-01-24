@@ -6,8 +6,8 @@ final class IssueDetailsVM {
     
     var issue: Issue
     
-    var commentSended: (Bool) -> Void = { _ in }
-    var issueClosed: (Bool) -> Void = { _ in }
+    var commentSended: () -> Void = { }
+    var issueClosed: () -> Void = { }
     
     //MARK: -Initializers
     init(router: GithubViewerRouter, issue: Issue) {
@@ -17,20 +17,30 @@ final class IssueDetailsVM {
     
     //MARK: -Actions
     func closeIssue() {
-        issueClosed(true)
+        Spinner.start()
+        issueClosed()
+        Spinner.stop()
     }
     
     func sendComment(_ comment: String) {
+        Spinner.start()
         let commentInput = AddCommentInput(subjectId: issue.id, body: comment)
         GitHubViewerApollo.shared.client.perform(mutation: AddCommentToIssueMutation(issueComment: commentInput)) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
-                log("Issue: \(result)")
+                guard let updatedIssue = result.data?.addComment?.commentEdge?.node?.issue.fragments.issuesListFragment else {
+                    Spinner.stop()
+                    log("Failed to send comment")
+                    return
+                }
+                self.issue = Issue(issue: updatedIssue)
+                self.commentSended()
+                Spinner.stop()
             case .failure(let error):
+                Spinner.stop()
                 log("Failure to send comment \(error.localizedDescription)")
             }
         }
-        commentSended(true)
     }
 }

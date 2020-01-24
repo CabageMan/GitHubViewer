@@ -16,9 +16,9 @@ final class PullRequestDetailsVC: UIViewController {
         self.pullRequest = pullRequest
         self.requestStateView = {
             switch pullRequest.state {
-            case .open: return StateView(mode: .requestOpenDetails)
-            case .merged: return StateView(mode: .requestMergedDetails)
-            case .closed: return StateView(mode: .requestClosedDetails)
+            case .open: return StateView(mode: .requestDetailsOpen)
+            case .merged: return StateView(mode: .requestDetailsMerged)
+            case .closed: return StateView(mode: .requestDetailsClosed)
             default: return StateView(mode: .unknown)
             }
         }()
