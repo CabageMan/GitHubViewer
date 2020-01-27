@@ -9,13 +9,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var shared: AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
-    #warning("Read about this solution: Fix in iOS 13: UIWindows were created prior to initial application activation. This may result in incorrect visual appearance.")
+    
     var window: UIWindow?
-//    var window: UIWindow? = {
-//        let window = UIWindow(frame: UIScreen.main.bounds)
-//        window.backgroundColor = .mainBackground
-//        return window
-//    }()
     
     private lazy var appCoordinator: AppCoordinator = {
         return AppCoordinator(window: window!)

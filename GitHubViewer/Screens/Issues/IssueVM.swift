@@ -18,7 +18,7 @@ final class IssuesVM {
     func getOwnIssues() {
         guard let owner = Global.apiClient.ownUser else { return }
         let order = IssueOrder(field: .createdAt, direction: .desc)
-        GitHubViewerApollo.shared.client.fetch(query: UserIssuesQuery(userLogin: owner.login, numberOfIssues: paginator.itemsNumber, cursor: paginator.cursor, order: order)) { [weak self] response in
+        GitHubViewerApollo.shared.client.fetch(query: UserIssuesQuery(userLogin: owner.login, numberOfIssues: paginator.itemsNumber, cursor: paginator.cursor, order: order), cachePolicy: .fetchIgnoringCacheCompletely) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
