@@ -41,6 +41,7 @@ final class IssuesVC: UIViewController {
         fixedPageController.viewControllers.enumerated().forEach { index, controller in
             let vc = controller as! IssueCollectionVC
             vc.collectionWillAppear = { [weak self, weak vc] in
+                #warning("Fix updating on swiping first or last VC to the edges")
                 vc?.collection.nextDataIsLoading = true
                 self?.viewModel.resetDataSource()
                 self?.viewModel.getOwnIssues()
