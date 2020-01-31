@@ -11,7 +11,7 @@ final class GitHabViewerPagingController: NSObject {
         return UIScreen.main.bounds.width / CGFloat(viewControllers.count) - Theme.itemsSpacing * 2
     }
     
-    var didScroll: (_ index: Int) -> Void = { _ in }
+    var didScroll: (Int) -> Void = { _ in }
 
     //MARK: - Initializers
     init(viewControllers: [UIViewController], currentPage: Int) {
@@ -60,10 +60,14 @@ extension GitHabViewerPagingController: PagingViewControllerDataSource {
 
 //MARK: - Paging View Controller Delegate Methods
 extension GitHabViewerPagingController: PagingViewControllerDelegate {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, willScrollToItem pagingItem: T, startingViewController: UIViewController, destinationViewController: UIViewController) where T : PagingItem, T : Comparable, T : Hashable {
+        #warning("Find why transition started in the edge position")
+        log("Transition is started")
+    }
+    
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
         
         if transitionSuccessful, let index = viewControllers.firstIndex(of: destinationViewController), currentPageIndex != index {
-            log("\nCurrent Index: \(currentPageIndex)\nIndex: \(index)")
             currentPageIndex = index
             didScroll(index)
         }
