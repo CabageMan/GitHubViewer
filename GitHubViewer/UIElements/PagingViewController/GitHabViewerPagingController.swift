@@ -61,15 +61,16 @@ extension GitHabViewerPagingController: PagingViewControllerDataSource {
 //MARK: - Paging View Controller Delegate Methods
 extension GitHabViewerPagingController: PagingViewControllerDelegate {
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, willScrollToItem pagingItem: T, startingViewController: UIViewController, destinationViewController: UIViewController) where T : PagingItem, T : Comparable, T : Hashable {
-        #warning("Find why transition started in the edge position")
-        log("Transition is started")
+        #warning("Fix wrong transition on the edge controller swipe")
+//        let destinationIndex = viewControllers.firstIndex(of: destinationViewController)
+//        let startIndex = viewControllers.firstIndex(of: startingViewController)
+//        log("\nWill Destination Index: \(destinationIndex)\nStart Index: \(startIndex)")
     }
     
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
-        
-        if transitionSuccessful, let index = viewControllers.firstIndex(of: destinationViewController), currentPageIndex != index {
-            currentPageIndex = index
-            didScroll(index)
+        if transitionSuccessful, let destinationIndex = viewControllers.firstIndex(of: destinationViewController), currentPageIndex != destinationIndex {
+            currentPageIndex = destinationIndex
+            didScroll(destinationIndex)
         }
     }
     

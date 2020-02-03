@@ -3,13 +3,13 @@ import UIKit
 final class PullRequestsVC: UIViewController {
     
     private let router: GithubViewerRouter
-    private let fixedPageController: GitHabViewerPagingController
+    private let scrollPageController: GitHabViewerPagingController
     private let viewModel = PullRequestsVM()
     
     //MARK: - Life Cycle
     init(router: GithubViewerRouter, currentPage: PageMode) {
         self.router = router
-        self.fixedPageController = GitHabViewerPagingController(
+        self.scrollPageController = GitHabViewerPagingController(
             viewControllers: PageMode.all.map { PullRequestsCollectionVC(router: router, mode: $0) },
             currentPage: currentPage.rawValue
         )
@@ -33,12 +33,12 @@ final class PullRequestsVC: UIViewController {
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
-        add(fixedPageController.pagingController)
-        fixedPageController.pagingController.view.edgesToSuperview()
-        fixedPageController.didScroll = { [weak self] index in
+        add(scrollPageController.pagingController)
+        scrollPageController.pagingController.view.edgesToSuperview()
+        scrollPageController.didScroll = { [weak self] index in
             self?.setPullRequestsCollection(at: index)
         }
-        fixedPageController.viewControllers.enumerated().forEach { index, controller in
+        scrollPageController.viewControllers.enumerated().forEach { index, controller in
             let vc = controller as! PullRequestsCollectionVC
             vc.collectionWillAppear = { [weak self] in
                 self?.viewModel.resetDataSource()
@@ -58,12 +58,12 @@ final class PullRequestsVC: UIViewController {
         viewModel.pullRequestsHaveBeenFetched = { [weak self] in
             guard let self = self else { return }
             Spinner.stop()
-            self.setPullRequestsCollection(at: self.fixedPageController.currentPageIndex)
+            self.setPullRequestsCollection(at: self.scrollPageController.currentPageIndex)
         }
     }
     
     private func setPullRequestsCollection(at index: Int) {
-        guard let vc = self.fixedPageController.viewControllers[index] as? PullRequestsCollectionVC,
+        guard let vc = self.scrollPageController.viewControllers[index] as? PullRequestsCollectionVC,
               let page = PageMode(rawValue: index),
               let selector = vc.collection.selectorHeader?.selector
         else { return }

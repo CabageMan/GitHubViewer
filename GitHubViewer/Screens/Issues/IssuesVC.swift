@@ -3,13 +3,13 @@ import UIKit
 final class IssuesVC: UIViewController {
     
     private let router: GithubViewerRouter
-    private let fixedPageController: GitHabViewerPagingController
+    private let scrollPageController: GitHabViewerPagingController
     private let viewModel = IssuesVM()
     
     //MARK: - Life Cycle
     init(router: GithubViewerRouter, currentPage: PageMode) {
         self.router = router
-        self.fixedPageController = GitHabViewerPagingController(
+        self.scrollPageController = GitHabViewerPagingController(
             viewControllers: PageMode.issueMode.map { IssueCollectionVC(router: router, mode: $0) },
             currentPage: currentPage.rawValue
         )
@@ -33,15 +33,14 @@ final class IssuesVC: UIViewController {
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
-        add(fixedPageController.pagingController)
-        fixedPageController.pagingController.view.edgesToSuperview()
-        fixedPageController.didScroll = { [weak self] index in
+        add(scrollPageController.pagingController)
+        scrollPageController.pagingController.view.edgesToSuperview()
+        scrollPageController.didScroll = { [weak self] index in
             self?.setIssuesCollection(at: index)
         }
-        fixedPageController.viewControllers.enumerated().forEach { index, controller in
+        scrollPageController.viewControllers.enumerated().forEach { index, controller in
             let vc = controller as! IssueCollectionVC
             vc.collectionWillAppear = { [weak self, weak vc] in
-                #warning("Fix updating on swiping first or last VC to the edgesw")
                 vc?.collection.nextDataIsLoading = true
                 self?.viewModel.resetDataSource()
                 self?.viewModel.getOwnIssues()
@@ -60,12 +59,12 @@ final class IssuesVC: UIViewController {
         viewModel.issuesHaveBeenFetched = { [weak self] in
             guard let self = self else { return }
             Spinner.stop()
-            self.setIssuesCollection(at: self.fixedPageController.currentPageIndex)
+            self.setIssuesCollection(at: self.scrollPageController.currentPageIndex)
         }
     }
     
     private func setIssuesCollection(at index: Int) {
-        guard let vc = self.fixedPageController.viewControllers[index] as? IssueCollectionVC,
+        guard let vc = self.scrollPageController.viewControllers[index] as? IssueCollectionVC,
               let page = PageMode(rawValue: index),
               let selector = vc.collection.selectorHeader?.selector
         else { return }
