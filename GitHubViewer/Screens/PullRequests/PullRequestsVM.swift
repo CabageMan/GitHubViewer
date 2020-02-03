@@ -3,17 +3,22 @@ import Foundation
 final class PullRequestsVM {
     
     //MARK: - API
-    private let prCount = 10
-    private var lastPRCursor: String?
-    private var hasNextPage: Bool?
+    typealias SelectorState = CollectionSelectorHeader.SelectorState
+    
+    private var paginator = PaginationManager()
     
     private var allPullRequests: [PullRequest] = []
     var pullRequestsHaveBeenFetched: () -> Void = { }
     
+    func resetDataSource() {
+        allPullRequests = []
+        paginator = PaginationManager()
+    }
+    
     func getOwnPullRequests() {
         guard let owner = Global.apiClient.ownUser else { return }
         let order = IssueOrder(field: .createdAt, direction: .desc)
-        GitHubViewerApollo.shared.client.fetch(query: UserPullRequestsQuery(userLogin: owner.login, numberOfRequests: prCount, cursor: lastPRCursor, order: order)) { [weak self] response in
+        GitHubViewerApollo.shared.client.fetch(query: UserPullRequestsQuery(userLogin: owner.login, numberOfRequests: paginator.itemsNumber, cursor: paginator.cursor, order: order), cachePolicy: .fetchIgnoringCacheCompletely) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
@@ -28,33 +33,33 @@ final class PullRequestsVM {
                 }
                 let pageInfo = data.pageInfo
                 
-                if self.hasNextPage == nil {
-                    self.hasNextPage = pageInfo.hasNextPage
+                if self.paginator.hasNextPage == nil {
+                    self.paginator.hasNextPage = pageInfo.hasNextPage
                 }
                 
-                if self.hasNextPage! {
+                if self.paginator.hasNextPage! || !pullRequests.isEmpty {
                     self.allPullRequests += pullRequests
                     self.pullRequestsHaveBeenFetched()
-                    self.lastPRCursor = pageInfo.endCursor
+                    self.paginator.cursor = pageInfo.endCursor
                 } else {
                     self.allPullRequests += []
                     self.pullRequestsHaveBeenFetched()
                 }
                 
-                self.hasNextPage = pageInfo.hasNextPage
+                self.paginator.hasNextPage = pageInfo.hasNextPage
             case .failure(let error):
                 log("Error fetching own pull requests \(error.localizedDescription)")
             }
         }
     }
     
-    func getPullRequests(for page: PullRequestsVC.Page, selector: PullRequestState) -> [PullRequest] {
+    func getPullRequests(for page: PageMode, selector: SelectorState) -> [PullRequest] {
         switch page {
         case .created:
             guard let owner = Global.apiClient.ownUser?.login else { return [] }
-            return allPullRequests.filter { $0.author == owner && stateMatch(selector: selector, state: $0.state) }
+            return allPullRequests.filter { $0.author == owner && stateMatch(selectorState: selector, prState: $0.state) }
         case .assigned:
-            return allPullRequests.filter { $0.assignees.contains(Global.apiClient.ownUser?.login) && stateMatch(selector: selector, state: $0.state) }
+            return allPullRequests.filter { $0.assignees.contains(Global.apiClient.ownUser?.login) && stateMatch(selectorState: selector, prState: $0.state) }
         case .mentioned:
             Global.showComingSoon()
             return []
@@ -64,13 +69,12 @@ final class PullRequestsVM {
         }
     }
     
-    private func stateMatch(selector: PullRequestState, state: PullRequestState) -> Bool {
-        switch selector {
+    private func stateMatch(selectorState: SelectorState, prState: PullRequestState) -> Bool {
+        switch selectorState {
         case .open:
-            return state == selector
+            return prState == .open
         case .closed:
-            return state == .closed || state == .merged
-        default: return false
+            return prState == .closed || prState == .merged
         }
     }
 }

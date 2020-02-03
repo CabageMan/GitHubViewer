@@ -36,11 +36,12 @@ final class IntroVC: UIViewController {
             $0.textColor = .darkCoal
         }
         
-        Buttons.roundedButton.add(to: view).do {
+        Buttons.roundedButton(title: String.General.next).add(to: view).do {
             $0.topToBottom(of: logo, offset: Theme.titleOffset)
             $0.leftToSuperview(offset: Theme.buttonSideOffset)
             $0.rightToSuperview(offset: -Theme.buttonSideOffset)
-            $0.setTitle(String.General.next, for: .normal)
+            $0.height(.defaultButtonHeight)
+            
             $0.addTarget(for: .touchUpInside) { [unowned self] in self.completion() }
         }
     }

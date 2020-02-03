@@ -35,6 +35,8 @@ extension String {
   enum EmptyView {
     // Pull request's commits will be displayed here
     static let emptyCommits = String.tr("Localizable", "emptyView.emptyCommits")
+    // Issue comments will be displayed here
+    static let emptyIssueComments = String.tr("Localizable", "emptyView.emptyIssueComments")
     // Your issues will be displayed here
     static let emptyIssues = String.tr("Localizable", "emptyView.emptyIssues")
     // Your profile will be displayed here
@@ -59,6 +61,8 @@ extension String {
   }
 
   enum General {
+    // ago
+    static let ago = String.tr("Localizable", "general.ago")
     // Cancel
     static let cancel = String.tr("Localizable", "general.cancel")
     // Closed
@@ -82,17 +86,46 @@ extension String {
   }
 
   enum Issues {
+    // #%@ by %@ was closed %@ ago
+    static func closedBy(_ p1: String, _ p2: String, _ p3: String) -> String {
+      return String.tr("Localizable", "issues.closedBy", p1, p2, p3)
+    }
+    // Close issue
+    static let closeIssue = String.tr("Localizable", "issues.closeIssue")
+    // Comment
+    static let comment = String.tr("Localizable", "issues.comment")
+    // commented
+    static let commented = String.tr("Localizable", "issues.commented")
+    // #%@
+    static func issueNumber(_ p1: String) -> String {
+      return String.tr("Localizable", "issues.issueNumber", p1)
+    }
+    // %@ opened this issue on %@
+    static func issueOpened(_ p1: String, _ p2: String) -> String {
+      return String.tr("Localizable", "issues.issueOpened", p1, p2)
+    }
+    // #%@ opened %@ ago by %@
+    static func openedBy(_ p1: String, _ p2: String, _ p3: String) -> String {
+      return String.tr("Localizable", "issues.openedBy", p1, p2, p3)
+    }
+    // Reopen issue
+    static let reopenIssue = String.tr("Localizable", "issues.reopenIssue")
     // Issues
     static let title = String.tr("Localizable", "issues.title")
   }
 
-  enum Pr {
+  enum PagesMode {
     // Assigned
-    static let assigned = String.tr("Localizable", "pr.assigned")
+    static let assigned = String.tr("Localizable", "pagesMode.assigned")
     // Created
-    static let created = String.tr("Localizable", "pr.created")
+    static let created = String.tr("Localizable", "pagesMode.created")
     // Mentioned
-    static let mentioned = String.tr("Localizable", "pr.mentioned")
+    static let mentioned = String.tr("Localizable", "pagesMode.mentioned")
+    // Review Requests
+    static let reviewRequests = String.tr("Localizable", "pagesMode.reviewRequests")
+  }
+
+  enum Pr {
     // Merged
     static let merged = String.tr("Localizable", "pr.merged")
     // %@ merged %@ commits\ninto %@ on %@
@@ -111,8 +144,6 @@ extension String {
     static func requestByAuthor(_ p1: String, _ p2: String) -> String {
       return String.tr("Localizable", "pr.requestByAuthor", p1, p2)
     }
-    // Review Requests
-    static let reviewRequests = String.tr("Localizable", "pr.reviewRequests")
     // Pull Requests
     static let title = String.tr("Localizable", "pr.title")
     // %@ wants to merge %@ commits\ninto %@ from %@

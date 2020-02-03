@@ -1,0 +1,160 @@
+# FRAGMENTS
+
+# User Fragment
+fragment UserFragment on User {
+    name
+    login
+    avatarUrl
+}
+
+# Repository Fragment
+fragment RepositoriesListFragment on Repository {
+    id
+    name
+    createdAt
+    resourcePath
+    isPrivate
+    isFork
+    description
+    primaryLanguage {
+      name
+      color
+    }
+}
+
+# Repository Details Fragment
+fragment RepositoryDetailsFragment on Repository {
+    pushedAt
+    url
+    updatedAt
+    forkCount
+    parent {
+      name
+    }
+    assignableUsers(first: 13) {
+        nodes {
+            ...UserFragment
+        }
+    }
+}
+
+# Review Request Fragment
+fragment ReviewRequestListFragment on ReviewRequest {
+    id
+    pullRequest {
+        headRefName
+    }
+    requestedReviewer {
+        __typename
+    }
+}
+
+# Commit List Fragment
+fragment CommitListFragment on Commit {
+    id
+    abbreviatedOid
+    message
+}
+
+# Pull Request Fragment
+fragment PullRequestsListFragment on PullRequest {
+    id
+    state
+    headRefName
+    baseRefName
+    title
+    number
+    createdAt
+    mergedAt
+    closedAt
+    mergedBy {
+        login
+    }
+    labels(first: 10){
+        edges{
+            node{
+                color
+                name
+            }
+        }
+    }
+    commits(first: 23) {
+        edges {
+            node {
+                commit {
+                    ...CommitListFragment
+                }
+            }
+        }
+    }
+    author {
+        login
+    }
+    reviewRequests {
+        edges {
+            node {
+                ...ReviewRequestListFragment
+            }
+        }
+    }
+    assignees(first: 15) {
+        edges {
+            node {
+                login
+            }
+        }
+    }
+    baseRepository {
+        ...RepositoriesListFragment
+    }
+}
+
+# Issue Comment Fragment
+fragment IssueCommentFragment on IssueComment {
+    id
+    bodyText
+    createdAt
+    author {
+        login
+        avatarUrl
+    }
+}
+
+# Issue Fragment
+fragment IssuesListFragment on Issue {
+    id
+    number
+    title
+    state
+    createdAt
+    updatedAt
+    closedAt
+    author {
+        login
+    }
+    repository {
+        ...RepositoriesListFragment
+    }
+    labels(first: 15){
+        edges{
+            node{
+                color
+                name
+            }
+        }
+    }
+    assignees(first: 15) {
+        edges {
+            node {
+                login
+            }
+        }
+    }
+    comments(first: 15) {
+        edges {
+            node {
+                ...IssueCommentFragment
+            }
+        }
+    }
+}

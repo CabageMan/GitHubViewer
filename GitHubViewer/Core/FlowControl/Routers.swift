@@ -10,14 +10,19 @@ class BaseRouter: RouterProtocol {
     }
 }
 
-final class RepositoriesRouter: BaseRouter {
+final class GithubViewerRouter: BaseRouter {
     func showMenu() {
         let settingsController = SideMenuController(router: self)
         navigationController?.pushViewController(settingsController)
     }
     
     func showPullRequestDetails(pullRequest: PullRequest) {
-        let detailsController = PullRequestDetailsVC(router: self, pullRequest: pullRequest)
-        navigationController?.pushViewController(detailsController)
+        let pullRequestDetailsController = PullRequestDetailsVC(router: self, pullRequest: pullRequest)
+        navigationController?.pushViewController(pullRequestDetailsController)
+    }
+    
+    func showIssueDetails(issue: Issue) {
+        let issueDetailsController = IssueDetailsVC(router: self, issue: issue)
+        navigationController?.pushViewController(issueDetailsController)
     }
 }

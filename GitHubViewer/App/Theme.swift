@@ -17,8 +17,10 @@ extension UIColor {
     static let barFieldBackGround   = #colorLiteral(red: 0.2470588235, green: 0.2666666667, blue: 0.2823529412, alpha: 1) // #3F4448
     
     // Buttons
-    static let buttonGreen  = #colorLiteral(red: 0.1529411765, green: 0.6549019608, blue: 0.2666666667, alpha: 1) // #27A744
-    static let buttonBorder = #colorLiteral(red: 0.1647058824, green: 0.4588235294, blue: 0.2352941176, alpha: 1) // #2A753C
+    static let buttonGreen          = #colorLiteral(red: 0.1529411765, green: 0.6549019608, blue: 0.2666666667, alpha: 1) // #27A744
+    static let buttonGreenBorder    = #colorLiteral(red: 0.1647058824, green: 0.4588235294, blue: 0.2352941176, alpha: 1) // #2A753C
+    static let buttonLight          = #colorLiteral(red: 0.9333333333, green: 0.9490196078, blue: 0.9607843137, alpha: 1) // #EEF2F5
+    static let buttonLightBorder    = #colorLiteral(red: 0.7215686275, green: 0.737254902, blue: 0.7490196078, alpha: 1) // #B8BCBF
     
     // Texts
     static let textGray             = #colorLiteral(red: 0.6666666667, green: 0.6784313725, blue: 0.6862745098, alpha: 1) // #AAADAF

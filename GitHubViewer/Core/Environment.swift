@@ -31,8 +31,7 @@ enum Environment: String {
     }
     
     var authScope: String {
-//        return "user,repo"
-        return ""
+        return "repo"
     }
     
     private var baseURLString: String {

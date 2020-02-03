@@ -14,7 +14,7 @@ final class RepositoriesCoordinator: Coordinator {
     
     private var reposDetailsCoordinator: RepositoryDetailsCoordinator?
     
-    private lazy var repositoriesRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
+    private lazy var router = GithubViewerRouter(currentCoordinator: self, navigationController: navigationController)
     
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
@@ -27,7 +27,7 @@ final class RepositoriesCoordinator: Coordinator {
     }
     
     private func showReposVC() {
-        let controller = RepositoriesVC(router: repositoriesRouter)
+        let controller = RepositoriesVC(router: router)
         controller.onReposCellTap = { [weak self] repository in
             self?.runRepositoryDetailsFlow(repository: repository)
         }

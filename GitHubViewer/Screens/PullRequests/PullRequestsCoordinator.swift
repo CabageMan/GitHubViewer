@@ -12,7 +12,7 @@ final class PullRequestsCoordinator: Coordinator {
     private var navigationController: NavigationViewController
     private var pullRequestVC: PullRequestsVC?
     
-    private lazy var repositoriesRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
+    private lazy var router = GithubViewerRouter(currentCoordinator: self, navigationController: navigationController)
     
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
@@ -25,7 +25,7 @@ final class PullRequestsCoordinator: Coordinator {
     }
     
     private func showPullRequestVC() {
-        let controller = PullRequestsVC(router: repositoriesRouter, currentPage: .created)
+        let controller = PullRequestsVC(router: router, currentPage: .created)
         navigationController.pushViewController(controller, animated: true)
         pullRequestVC = controller
     }

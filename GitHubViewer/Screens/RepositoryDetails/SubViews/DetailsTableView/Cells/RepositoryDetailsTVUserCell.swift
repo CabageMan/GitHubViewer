@@ -8,7 +8,6 @@ final class RepositoryDetailsTVUserCell: UITableViewCell {
     private let nameLabel = UILabel()
     private let loginLabel = UILabel()
     private let arrowView = UIImageView()
-    private let avatarPlaceHolder = #imageLiteral(resourceName: "AvatarPlaceholder")
     
     private var user: User?
     
@@ -62,7 +61,7 @@ final class RepositoryDetailsTVUserCell: UITableViewCell {
         if let avatarUrl = URL(string: user.avatarURL) {
             avatarView.configure(url: avatarUrl, diameter: Theme.avatarSize.width, animated: true)
         } else {
-            avatarView.configure(image: avatarPlaceHolder, animated: true)
+            avatarView.configure(image: Theme.avatarPlaceHolder, animated: true)
         }
     }
     
@@ -71,7 +70,7 @@ final class RepositoryDetailsTVUserCell: UITableViewCell {
         user = nil
         nameLabel.text = nil
         loginLabel.text = nil
-        avatarView.configure(image: avatarPlaceHolder, animated: false)
+        avatarView.configure(image: Theme.avatarPlaceHolder, animated: false)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -84,15 +83,18 @@ final class RepositoryDetailsTVUserCell: UITableViewCell {
 //MARK: - Theme
 extension RepositoryDetailsTVUserCell {
     enum Theme {
+        // Images
+        static let avatarPlaceHolder = #imageLiteral(resourceName: "AvatarPlaceholder")
+        
         // Fonts
         static let nameFont: UIFont = .circular(style: .bold, size: 14.0)
         static let loginFont: UIFont = .cf(style: .compactDisplayThin, size: 13.0)
         
         // Sizes
-        static let avatarSize: CGSize = CGSize(30.0)
+        static let avatarSize = CGSize(30.0)
+        static let arrowSize = CGSize(20.0)
         static let nameHeight: CGFloat = 15.0
         static let loginHeight: CGFloat = 15.0
-        static let arrowSize: CGSize = CGSize(20.0)
         
         // Offsets
         static let avatarLeftOffset: CGFloat = 10.0

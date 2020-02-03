@@ -1,51 +1,64 @@
 import UIKit
 
-final class PullRequestStateView: UIView {
+final class StateView: UIView {
+    
+    private var mode: Mode
     
     private let iconView = UIImageView()
     private let titleLabel = UILabel()
-    private var titleWidth: CGFloat
-    private var selectorWidth: CGFloat
+    private var titleWidth: CGFloat {
+        return mode.title.getWidth(with: Theme.titleFont).rounded(.up)
+    }
+    private var selectorWidth: CGFloat {
+        return Theme.selectorOffsetsSum + mode.title.getWidth(with: Theme.titleFont).rounded(.up)
+    }
+    private var titleWidthConstraint: NSLayoutConstraint!
+    private var selectorWidthConstraint: NSLayoutConstraint!
     
     init(mode: Mode) {
-        self.titleWidth = mode.title.getWidth(with: Theme.titleFont).rounded(.up)
-        self.selectorWidth = Theme.selectorOffsetsSum + mode.title.getWidth(with: Theme.titleFont).rounded(.up)
+        self.mode = mode
         super.init(frame: .zero)
-        setupUI(mode: mode)
+        setupUI()
+        configure()
     }
     
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    //MARK: - Actions
-    private func setupUI(mode: Mode) {
+    //MARK: - Private Methods
+    private func setupUI() {
         isUserInteractionEnabled = true
         iconView.add(to: self).do {
             $0.leftToSuperview(offset: Theme.iconLeftOffset)
             $0.centerYToSuperview()
             $0.size(Theme.iconSize)
             $0.contentMode = .scaleAspectFit
-            $0.image = mode.icon.withRenderingMode(.alwaysTemplate)
             $0.tintColor = .darkCoal
         }
         
         titleLabel.add(to: self).do {
             $0.leftToRight(of: iconView, offset: Theme.titleLeftOffset)
             $0.centerYToSuperview()
-            $0.size(CGSize(width: titleWidth, height: Theme.titleHeight))
+            titleWidthConstraint = $0.width(titleWidth)
+            $0.height(Theme.titleHeight)
             $0.textAlignment = .left
             $0.font = Theme.titleFont
             $0.textColor = .darkCoal
-            $0.text = mode.title
         }
         
+        selectorWidthConstraint = width(selectorWidth)
+    }
+    
+    private func configure() {
+        titleWidthConstraint.constant = titleWidth
+        selectorWidthConstraint.constant = selectorWidth
+        iconView.image = mode.icon.withRenderingMode(.alwaysTemplate)
+        titleLabel.text = mode.title
         switch mode {
-        case .open: setColoredView(with: Theme.openColor)
-        case .merged: setColoredView(with: Theme.mergedColor)
-        case .closed: setColoredView(with: Theme.closedColor)
+        case .requestDetailsOpen, .issueDetailsOpen: setColoredView(with: Theme.openColor)
+        case .requestDetailsMerged: setColoredView(with: Theme.mergedColor)
+        case .requestDetailsClosed, .issueDetailsClosed: setColoredView(with: Theme.closedColor)
         default: break
         }
-        
-        width(selectorWidth)
     }
     
     private func setColoredView(with color: UIColor) {
@@ -56,38 +69,46 @@ final class PullRequestStateView: UIView {
         isUserInteractionEnabled = false
     }
     
+    //MARK: - Public Methods
     func setSelected(isSelected: Bool) {
         iconView.tintColor = isSelected ? .darkCoal : .textGray
         titleLabel.textColor = isSelected ? .darkCoal : .textGray
     }
+    
+    func changeMode(to mode: Mode) {
+        self.mode = mode
+        configure()
+    }
 }
 
 //MARK: - Mode
-extension PullRequestStateView {
+extension StateView {
     enum Mode {
         case requestOpen
         case issueOpen
         case completed
-        case open
-        case merged
-        case closed
+        case requestDetailsOpen
+        case requestDetailsMerged
+        case requestDetailsClosed
+        case issueDetailsOpen
+        case issueDetailsClosed
         case unknown
         
         var icon: UIImage {
             switch self {
-            case .requestOpen, .open, .closed: return #imageLiteral(resourceName: "pullRequest")
-            case .issueOpen: return #imageLiteral(resourceName: "openIssue")
+            case .requestOpen, .requestDetailsOpen, .requestDetailsClosed: return #imageLiteral(resourceName: "pullRequest")
+            case .issueOpen, .issueDetailsOpen, .issueDetailsClosed: return #imageLiteral(resourceName: "openIssue")
             case .completed: return #imageLiteral(resourceName: "checkmark")
-            case .merged: return #imageLiteral(resourceName: "merge")
+            case .requestDetailsMerged: return #imageLiteral(resourceName: "merge")
             case .unknown: return UIImage()
             }
         }
         
         var title: String {
             switch self {
-            case .open, .requestOpen, .issueOpen: return String.General.open
-            case .completed, .closed: return String.General.closed
-            case .merged: return String.Pr.merged
+            case .requestDetailsOpen, .requestOpen, .issueDetailsOpen, .issueOpen: return String.General.open
+            case .completed, .requestDetailsClosed, .issueDetailsClosed: return String.General.closed
+            case .requestDetailsMerged: return String.Pr.merged
             case .unknown: return ""
             }
         }
@@ -95,7 +116,7 @@ extension PullRequestStateView {
 }
 
 //MARK: - Theme
-extension PullRequestStateView {
+extension StateView {
     enum Theme {
         // Fonts
         static let titleFont: UIFont = .circular(style: .medium, size: 13.0)

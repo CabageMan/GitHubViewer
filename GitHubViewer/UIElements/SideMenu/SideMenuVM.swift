@@ -5,10 +5,10 @@ final class SideMenuVM {
     typealias Section = SideMenuTableView.Section
     typealias MenuItem = SideMenuTableView.MenuItem
     
-    let router: RepositoriesRouter
+    let router: GithubViewerRouter
     let menuTable: SideMenuTableView
     
-    init(router: RepositoriesRouter) {
+    init(router: GithubViewerRouter) {
         self.router = router
         menuTable = SideMenuTableView()
         createMenuItems()

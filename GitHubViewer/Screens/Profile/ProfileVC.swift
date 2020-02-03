@@ -2,10 +2,10 @@ import UIKit
 
 final class ProfileVC: UIViewController {
     
-    private let router: RepositoriesRouter
+    private let router: GithubViewerRouter
     
     //MARK: - Life Cycle
-    init(router: RepositoriesRouter) {
+    init(router: GithubViewerRouter) {
         self.router = router
         super.init(nibName: nil, bundle: nil)
         title = String.Profile.title

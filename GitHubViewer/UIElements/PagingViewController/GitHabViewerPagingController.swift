@@ -5,7 +5,7 @@ final class GitHabViewerPagingController: NSObject {
     
     let pagingController = PagingViewController<PagingIndexItem>()
     let viewControllers: [UIViewController]
-    var currentPageIndex: Int
+    private(set) var currentPageIndex: Int
     
     private var defaultItemWidth: CGFloat {
         return UIScreen.main.bounds.width / CGFloat(viewControllers.count) - Theme.itemsSpacing * 2
@@ -60,12 +60,18 @@ extension GitHabViewerPagingController: PagingViewControllerDataSource {
 
 //MARK: - Paging View Controller Delegate Methods
 extension GitHabViewerPagingController: PagingViewControllerDelegate {
+    func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, willScrollToItem pagingItem: T, startingViewController: UIViewController, destinationViewController: UIViewController) where T : PagingItem, T : Comparable, T : Hashable {
+        #warning("Fix wrong transition on the edge controller swipe")
+//        let destinationIndex = viewControllers.firstIndex(of: destinationViewController)
+//        let startIndex = viewControllers.firstIndex(of: startingViewController)
+//        log("\nWill Destination Index: \(destinationIndex)\nStart Index: \(startIndex)")
+    }
+    
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
-        guard transitionSuccessful,
-              let index = viewControllers.firstIndex(of: destinationViewController)
-        else { return }
-        currentPageIndex = index
-        didScroll(index)
+        if transitionSuccessful, let destinationIndex = viewControllers.firstIndex(of: destinationViewController), currentPageIndex != destinationIndex {
+            currentPageIndex = destinationIndex
+            didScroll(destinationIndex)
+        }
     }
     
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, widthForPagingItem pagingItem: T, isSelected: Bool) -> CGFloat? where T : PagingItem, T : Comparable, T : Hashable {
@@ -110,3 +116,29 @@ extension GitHabViewerPagingController {
         }
     }
 }
+
+//MARK: - Page Mode
+enum PageMode: Int {
+    case created = 0
+    case assigned
+    case mentioned
+    case reviewRequests
+    
+    static var all: [PageMode] {
+        return [.created, .assigned, .mentioned, .reviewRequests]
+    }
+    
+    static var issueMode: [PageMode] {
+        return [.created, .assigned, .mentioned]
+    }
+    
+    var title: String {
+        switch self {
+        case .created: return String.PagesMode.created
+        case .assigned: return String.PagesMode.assigned
+        case .mentioned: return String.PagesMode.mentioned
+        case .reviewRequests: return String.PagesMode.reviewRequests
+        }
+    }
+}
+

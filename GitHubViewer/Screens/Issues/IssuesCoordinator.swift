@@ -12,7 +12,7 @@ final class IssuesCoordinator: Coordinator {
     private var navigationController: NavigationViewController
     private var issuesVC: IssuesVC?
     
-    private lazy var repositoriesRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
+    private lazy var router = GithubViewerRouter(currentCoordinator: self, navigationController: navigationController)
     
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
@@ -25,7 +25,7 @@ final class IssuesCoordinator: Coordinator {
     }
     
     private func showIssuesVC() {
-        let controller = IssuesVC(router: repositoriesRouter)
+        let controller = IssuesVC(router: router, currentPage: .created)
         navigationController.pushViewController(controller, animated: true)
         issuesVC = controller
     }

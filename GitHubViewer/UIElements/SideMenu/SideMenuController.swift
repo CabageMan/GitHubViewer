@@ -9,7 +9,7 @@ final class SideMenuController: UIViewController {
     }
     
     //MARK: - Life Cycle
-    init(router: RepositoriesRouter) {
+    init(router: GithubViewerRouter) {
         viewModel = SideMenuVM(router: router)
         super.init(nibName: nil, bundle: nil)
     }

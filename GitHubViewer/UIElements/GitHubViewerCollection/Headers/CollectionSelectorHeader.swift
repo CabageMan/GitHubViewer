@@ -1,8 +1,8 @@
 import UIKit
 
 final class CollectionSelectorHeader: UICollectionReusableView {
-    #warning("May be make it generic for issue collection")
-    var selector: PullRequestState = .open {
+    
+    var selector: SelectorState = .open {
         didSet {
             switch selector {
             case .open:
@@ -11,7 +11,6 @@ final class CollectionSelectorHeader: UICollectionReusableView {
             case .closed:
                 openView.setSelected(isSelected: false)
                 closedView.setSelected(isSelected: true)
-            default: break
             }
             onSelectorChanged()
         }
@@ -19,8 +18,8 @@ final class CollectionSelectorHeader: UICollectionReusableView {
     
     var onSelectorChanged: () -> Void = { }
     
-    private let openView = PullRequestStateView(mode: .requestOpen)
-    private let closedView = PullRequestStateView(mode: .completed)
+    private let openView = StateView(mode: .requestOpen)
+    private let closedView = StateView(mode: .completed)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,6 +32,11 @@ final class CollectionSelectorHeader: UICollectionReusableView {
     }
     
     //MARK: - Actions
+    func configure(mode: StateView.Mode) {
+        assert(mode == .requestOpen || mode == .issueOpen, "Wrong state view mode. Use only .requestOpen or .issueOpen")
+        openView.changeMode(to: mode)
+    }
+    
     private func setup() {
         openView.add(to: self).do {
             $0.leftToSuperview(offset: Theme.selectorLeftOffset)
@@ -48,6 +52,14 @@ final class CollectionSelectorHeader: UICollectionReusableView {
             $0.setSelected(isSelected: false)
             $0.addGesture(type: .tap) { [weak self] _ in self?.selector = .closed }
         }
+    }
+}
+
+//MARK: - State
+extension CollectionSelectorHeader {
+    enum SelectorState {
+        case open
+        case closed
     }
 }
 

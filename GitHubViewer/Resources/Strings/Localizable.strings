@@ -15,6 +15,7 @@
 "general.openLink"      = "Open link in Safari";
 "general.open"          = "Open";
 "general.closed"        = "Closed";
+"general.ago"           = "ago";
 
 
 //MARK: - Authentication
@@ -48,10 +49,6 @@
 
 //MARK: - Pull Requests
 "pr.title"              = "Pull Requests";
-"pr.created"            = "Created";
-"pr.assigned"           = "Assigned";
-"pr.mentioned"          = "Mentioned";
-"pr.reviewRequests"     = "Review Requests";
 "pr.requestByAuthor"    = "#%@ by %@";
 "pr.openedRequest"      = "#%@ opened %@ ago by %@";
 "pr.wasMerged"          = " was merged %@ ago";
@@ -62,10 +59,24 @@
 "pr.mergedCommitsBy"    = "%@ merged %@ commits\ninto %@ on %@";
 
 //MARK: - Issues
-"issues.title"  = "Issues";
+"issues.title"          = "Issues";
+"issues.openedBy"       = "#%@ opened %@ ago by %@";
+"issues.closedBy"       = "#%@ by %@ was closed %@ ago";
+"issues.issueNumber"    = "#%@";
+"issues.issueOpened"    = "%@ opened this issue on %@";
+"issues.commented"      = "commented";
+"issues.comment"        = "Comment";
+"issues.closeIssue"     = "Close issue";
+"issues.reopenIssue"    = "Reopen issue";
 
 //MARK: - Profile
 "profile.title" = "Profile";
+
+//MARK: - Pages Mode
+"pagesMode.created"            = "Created";
+"pagesMode.assigned"           = "Assigned";
+"pagesMode.mentioned"          = "Mentioned";
+"pagesMode.reviewRequests"     = "Review Requests";
 
 //MARK: - Empty View Messages
 "emptyView.emptyRepositories"       = "Your repositories will be\ndisplayed here";
@@ -73,6 +84,7 @@
 "emptyView.emptyPullRequests"       = "Your pull requests will be displayed here";
 "emptyView.emptyCommits"            = "Pull request's commits will be displayed here";
 "emptyView.emptyIssues"             = "Your issues will be displayed here";
+"emptyView.emptyIssueComments"      = "Issue comments will be displayed here";
 "emptyView.emptyProfile"            = "Your profile will be displayed here";
 
 //MARK: - Side Menu

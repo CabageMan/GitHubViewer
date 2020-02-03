@@ -1,116 +1,3 @@
-# FRAGMENTS
-
-# User Fragment
-fragment UserFragment on User {
-    name
-    login
-    avatarUrl
-}
-
-# Repository Fragment
-fragment RepositoriesListFragment on Repository {
-    id
-    name
-    createdAt
-    resourcePath
-    isPrivate
-    isFork
-    description
-    primaryLanguage {
-      name
-      color
-    }
-}
-
-# Repository Details Fragment
-fragment RepositoryDetailsFragment on Repository {
-    pushedAt
-    url
-    updatedAt
-    forkCount
-    parent {
-      name
-    }
-    assignableUsers(first: 13) {
-        nodes {
-            ...UserFragment
-        }
-    }
-}
-
-# Review Request Fragment
-fragment ReviewRequestListFragment on ReviewRequest {
-    id
-    pullRequest {
-        headRefName
-    }
-    requestedReviewer {
-        __typename
-    }
-}
-
-# Commit List Fragment
-fragment CommitListFragment on Commit {
-    id
-    abbreviatedOid
-    message
-}
-
-# Pull Request Fragment
-fragment PullRequestsListFragment on PullRequest {
-    id
-    state
-    headRefName
-    baseRefName
-    title
-    number
-    createdAt
-    mergedAt
-    closedAt
-    mergedBy {
-        login
-    }
-    labels(first: 10){
-        edges{
-            node{
-                color
-                name
-            }
-        }
-    }
-    commits(first: 23) {
-        edges {
-            node {
-                commit {
-                    ...CommitListFragment
-                }
-            }
-        }
-    }
-
-    author {
-        login
-    }
-    reviewRequests {
-        edges {
-            node {
-                ...ReviewRequestListFragment
-            }
-        }
-    }
-    assignees(first: 15) {
-        edges {
-            node {
-                login
-            }
-        }
-    }
-    baseRepository {
-        ...RepositoriesListFragment
-    }
-}
-
-
 # QUERIES
 
 # Get Own User
@@ -120,8 +7,6 @@ query OwnUser {
     }
 }
 
-
-
 # Get User Repositories
 query UserRepositories($userLogin: String!, $numberOfRepositories: Int!, $cursor: String, $order: RepositoryOrder) {
     user(login: $userLogin) {
@@ -130,7 +15,6 @@ query UserRepositories($userLogin: String!, $numberOfRepositories: Int!, $cursor
                 node {
                     ...RepositoriesListFragment
                 }
-                cursor
             }
             totalCount
             pageInfo {
@@ -148,14 +32,12 @@ query RepositoryDetails($ownerLogin: String!, $repositoryName: String!) {
     }
 }
 
-# Find RepositoryOrder
+# Find Repository
 query FindRepository($ownerLogin: String!, $repositoryName: String!) {
     repository(owner: $ownerLogin name: $repositoryName) {
         ...RepositoriesListFragment
     }
 }
-
-
 
 # Get User Pull Requests
 query UserPullRequests($userLogin: String!, $numberOfRequests: Int!, $cursor: String, $order: IssueOrder) {
@@ -165,7 +47,24 @@ query UserPullRequests($userLogin: String!, $numberOfRequests: Int!, $cursor: St
                 node {
                     ...PullRequestsListFragment
                 }
-                cursor
+            }
+            totalCount
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+        }
+    }
+}
+
+# Get User Issues
+query UserIssues($userLogin: String!, $numberOfIssues: Int!, $cursor: String, $order: IssueOrder) {
+    user(login: $userLogin) {
+        issues(first: $numberOfIssues after: $cursor orderBy: $order) {
+            edges {
+                node {
+                    ...IssuesListFragment
+                }
             }
             totalCount
             pageInfo {

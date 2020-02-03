@@ -1,0 +1,35 @@
+# Mutations
+
+# Add Comment To Issue
+mutation AddCommentToIssue($issueComment: AddCommentInput!) {
+    addComment(input:$issueComment) {
+        subject {
+            id
+        }
+        commentEdge {
+            node {
+                issue {
+                    ...IssuesListFragment
+                }
+            }
+        }
+    }
+}
+
+# Close Issue By Id
+mutation CloseIssue($issueInput: CloseIssueInput!) {
+    closeIssue(input:$issueInput) {
+        issue {
+            ...IssuesListFragment
+        }
+    }
+}
+
+# Reopen Issue By Id
+mutation ReopenIssue($issueInput: ReopenIssueInput!) {
+    reopenIssue(input:$issueInput) {
+        issue {
+            ...IssuesListFragment
+        }
+    }
+}

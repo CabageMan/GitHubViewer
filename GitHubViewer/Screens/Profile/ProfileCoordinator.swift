@@ -12,7 +12,7 @@ final class ProfileCoordinator: Coordinator {
     private var navigationController: NavigationViewController
     private var profileVC: ProfileVC?
     
-    private lazy var repositoriesRouter = RepositoriesRouter(currentCoordinator: self, navigationController: navigationController)
+    private lazy var router = GithubViewerRouter(currentCoordinator: self, navigationController: navigationController)
     
     init(presenter: NavigationViewController = NavigationViewController()) {
         self.navigationController = presenter
@@ -25,7 +25,7 @@ final class ProfileCoordinator: Coordinator {
     }
     
     private func showProfileVC() {
-        let controller = ProfileVC(router: repositoriesRouter)
+        let controller = ProfileVC(router: router)
         navigationController.pushViewController(controller, animated: true)
         profileVC = controller
     }

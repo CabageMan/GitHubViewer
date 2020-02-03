@@ -2,24 +2,24 @@ import UIKit
 
 final class PullRequestDetailsVC: UIViewController {
     
-    private let router: RepositoriesRouter
+    private let router: GithubViewerRouter
     
     private let pullRequest: PullRequest
     private let requestNameLabel = UILabel()
-    private let requestStateView: PullRequestStateView
+    private let requestStateView: StateView
     private let descriptionLabel = UILabel()
     private let commitsCollection = GitHubViewerCollection<PullRequestDetailsCollectionCell>(mode: .commits)
     
     //MARK: - Life Cycle
-    init(router: RepositoriesRouter, pullRequest: PullRequest) {
+    init(router: GithubViewerRouter, pullRequest: PullRequest) {
         self.router = router
         self.pullRequest = pullRequest
         self.requestStateView = {
             switch pullRequest.state {
-            case .open: return PullRequestStateView(mode: .open)
-            case .merged: return PullRequestStateView(mode: .merged)
-            case .closed: return PullRequestStateView(mode: .closed)
-            default: return PullRequestStateView(mode: .unknown)
+            case .open: return StateView(mode: .requestDetailsOpen)
+            case .merged: return StateView(mode: .requestDetailsMerged)
+            case .closed: return StateView(mode: .requestDetailsClosed)
+            default: return StateView(mode: .unknown)
             }
         }()
         super.init(nibName: nil, bundle: nil)
@@ -45,7 +45,9 @@ final class PullRequestDetailsVC: UIViewController {
         requestNameLabel.add(to: view).do {
             $0.topToSuperview(offset: Theme.nameLabelTopOffset)
             $0.leftToSuperview(offset: Theme.nameLabelSideOffset)
+            $0.rightToSuperview()
             $0.height(Theme.requestNameLabelheight)
+            
             $0.textAlignment = .left
             $0.font = Theme.requestNameFont
             $0.textColor = .darkCoal

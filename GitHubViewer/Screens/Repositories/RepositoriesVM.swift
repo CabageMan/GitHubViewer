@@ -3,12 +3,14 @@ import Foundation
 final class RepositoriesVM {
     
     //MARK: - API
-    private let repositoriesCount = 10
-    private var lastRepositoryCursor: String?
-    private var hasNextPage: Bool?
+    private var paginator = PaginationManager()
     
     var ownerHasBeenFetched: () -> Void = { }
     var repositoriesHaveBeenFetched: ([Repository]) -> Void = { _ in }
+    
+    func resetPaginationOptions() {
+        paginator = PaginationManager()
+    }
     
     func getOwnUser() {
         GitHubViewerApollo.shared.client.fetch(query: OwnUserQuery()) { [weak self] response in
@@ -29,7 +31,7 @@ final class RepositoriesVM {
     func getOwnRepositories() {
         guard let owner = Global.apiClient.ownUser else { return }
         let order = RepositoryOrder(field: .createdAt, direction: .desc)
-        GitHubViewerApollo.shared.client.fetch(query: UserRepositoriesQuery(userLogin: owner.login, numberOfRepositories: repositoriesCount, cursor: lastRepositoryCursor, order: order)) { [weak self] response in
+        GitHubViewerApollo.shared.client.fetch(query: UserRepositoriesQuery(userLogin: owner.login, numberOfRepositories: paginator.itemsNumber, cursor: paginator.cursor, order: order), cachePolicy: .fetchIgnoringCacheCompletely) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
@@ -44,19 +46,19 @@ final class RepositoriesVM {
                 }
                 let pageInfo = data.pageInfo
                 
-                if self.hasNextPage == nil {
-                    self.hasNextPage = pageInfo.hasNextPage
+                if self.paginator.hasNextPage == nil {
+                    self.paginator.hasNextPage = pageInfo.hasNextPage
                 }
 
-                if self.hasNextPage! {
+                if self.paginator.hasNextPage! || !repositories.isEmpty {
                     Global.apiClient.ownUser?.setRepositories(repositories)
                     self.repositoriesHaveBeenFetched(repositories)
-                    self.lastRepositoryCursor = pageInfo.endCursor
+                    self.paginator.cursor = pageInfo.endCursor
                 } else {
                     self.repositoriesHaveBeenFetched([])
                 }
                 
-                self.hasNextPage = pageInfo.hasNextPage
+                self.paginator.hasNextPage = pageInfo.hasNextPage
             case .failure(let error):
                 log("Error fetching own repositories: \(error.localizedDescription)")
             }
@@ -77,11 +79,5 @@ final class RepositoriesVM {
                 log("Error fetching repository:\n\(error.localizedDescription)")
             }
         }
-    }
-    
-    //MARK: - Actions
-    func resetPaginationOptions() {
-        lastRepositoryCursor = nil
-        hasNextPage = nil
     }
 }
