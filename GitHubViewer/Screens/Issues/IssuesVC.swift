@@ -26,6 +26,11 @@ final class IssuesVC: UIViewController {
         Spinner.start()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadDataToCollection(at: scrollPageController.currentPageIndex)
+    }
+    
     //MARK: - Actions
     private func setupUI() {
         view.backgroundColor = .mainBackground
@@ -36,15 +41,10 @@ final class IssuesVC: UIViewController {
         add(scrollPageController.pagingController)
         scrollPageController.pagingController.view.edgesToSuperview()
         scrollPageController.didScroll = { [weak self] index in
-            self?.setIssuesCollection(at: index)
+            self?.loadDataToCollection(at: index)
         }
         scrollPageController.viewControllers.enumerated().forEach { index, controller in
             let vc = controller as! IssueCollectionVC
-            vc.collectionWillAppear = { [weak self, weak vc] in
-                vc?.collection.nextDataIsLoading = true
-                self?.viewModel.resetDataSource()
-                self?.viewModel.getOwnIssues()
-            }
             vc.onCollectionheaderSelectChanged = { [weak self] in
                 self?.setIssuesCollection(at: index)
             }
@@ -61,6 +61,17 @@ final class IssuesVC: UIViewController {
             Spinner.stop()
             self.setIssuesCollection(at: self.scrollPageController.currentPageIndex)
         }
+    }
+    
+    private func loadDataToCollection(at index: Int) {
+        guard let vc = scrollPageController.viewControllers[index] as? IssueCollectionVC else {
+            setIssuesCollection(at: index)
+            return
+        }
+        vc.collection.nextDataIsLoading = true
+        viewModel.resetDataSource()
+        viewModel.getOwnIssues()
+        setIssuesCollection(at: index)
     }
     
     private func setIssuesCollection(at index: Int) {

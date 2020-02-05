@@ -10,7 +10,6 @@ final class IssueCollectionVC: UIViewController {
     
     private let router: GithubViewerRouter
     
-    var collectionWillAppear: () -> Void = { }
     var onCollectionheaderSelectChanged: () -> Void = { }
     var getNextIssues: () -> Void = { }
     
@@ -27,11 +26,6 @@ final class IssueCollectionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        collectionWillAppear()
     }
     
     private func setupUI() {
