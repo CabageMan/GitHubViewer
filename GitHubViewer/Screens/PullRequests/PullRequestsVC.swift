@@ -26,6 +26,11 @@ final class PullRequestsVC: UIViewController {
         Spinner.start()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadDataToCollection(at: scrollPageController.currentPageIndex)
+    }
+    
     //MARK: - Actions
     private func setupUI() {
         view.backgroundColor = .mainBackground
@@ -36,20 +41,16 @@ final class PullRequestsVC: UIViewController {
         add(scrollPageController.pagingController)
         scrollPageController.pagingController.view.edgesToSuperview()
         scrollPageController.didScroll = { [weak self] index in
-            self?.setPullRequestsCollection(at: index)
+            self?.loadDataToCollection(at: index)
         }
         scrollPageController.viewControllers.enumerated().forEach { index, controller in
             let vc = controller as! PullRequestsCollectionVC
-            vc.collectionWillAppear = { [weak self] in
-                self?.viewModel.resetDataSource()
-                self?.viewModel.getOwnPullRequests()
-            }
             vc.onCollectionHeaderSelectChanged = { [weak self] in
                 self?.setPullRequestsCollection(at: index)
             }
             vc.getNextPullRequests = { [weak self, weak vc] in
-                self?.viewModel.getOwnPullRequests()
                 vc?.collection.nextDataIsLoading = true
+                self?.viewModel.getOwnPullRequests()
             }
         }
     }
@@ -60,6 +61,17 @@ final class PullRequestsVC: UIViewController {
             Spinner.stop()
             self.setPullRequestsCollection(at: self.scrollPageController.currentPageIndex)
         }
+    }
+    
+    private func loadDataToCollection(at index: Int) {
+        guard let vc = scrollPageController.viewControllers[index] as? PullRequestsCollectionVC else {
+            setPullRequestsCollection(at: index)
+            return
+        }
+        vc.collection.nextDataIsLoading = true
+        viewModel.resetDataSource()
+        viewModel.getOwnPullRequests()
+        setPullRequestsCollection(at: index)
     }
     
     private func setPullRequestsCollection(at index: Int) {
