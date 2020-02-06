@@ -84,7 +84,7 @@ final class IssueDetailsVM {
                 Spinner.stop()
             case .failure(let error):
                 Spinner.stop()
-                log("Failed to reopen issue")
+                log("Failed to reopen issue \(error.localizedDescription)")
             }
         }
     }

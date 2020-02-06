@@ -58,7 +58,8 @@ extension SideMenuController {
     }
 }
 
-//TODO:
+//TODO: - Need to implement
 // Check on leaks
 // Create setting config
+// Make modal view to change status (like in github)
 // Push settings from bottom?

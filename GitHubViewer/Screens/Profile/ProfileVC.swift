@@ -3,10 +3,12 @@ import UIKit
 final class ProfileVC: UIViewController {
     
     private let router: GithubViewerRouter
+    private let viewModel: ProfileVM
     
     //MARK: - Life Cycle
     init(router: GithubViewerRouter) {
         self.router = router
+        self.viewModel = ProfileVM()
         super.init(nibName: nil, bundle: nil)
         title = String.Profile.title
     }
@@ -16,6 +18,7 @@ final class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        viewModel.getPinnedItems()
     }
     
     private func setupUI() {

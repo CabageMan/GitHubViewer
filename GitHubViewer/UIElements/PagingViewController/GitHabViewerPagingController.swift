@@ -60,7 +60,6 @@ extension GitHabViewerPagingController: PagingViewControllerDataSource {
 
 //MARK: - Paging View Controller Delegate Methods
 extension GitHabViewerPagingController: PagingViewControllerDelegate {
-    
     func pagingViewController<T>(_ pagingViewController: PagingViewController<T>, didScrollToItem pagingItem: T, startingViewController: UIViewController?, destinationViewController: UIViewController, transitionSuccessful: Bool) where T : PagingItem, T : Comparable, T : Hashable {
         if transitionSuccessful, let destinationIndex = viewControllers.firstIndex(of: destinationViewController), currentPageIndex != destinationIndex {
             currentPageIndex = destinationIndex
@@ -135,4 +134,3 @@ enum PageMode: Int {
         }
     }
 }
-

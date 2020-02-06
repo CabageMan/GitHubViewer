@@ -74,3 +74,27 @@ query UserIssues($userLogin: String!, $numberOfIssues: Int!, $cursor: String, $o
         }
     }
 }
+
+# Get User Profile Pinned Items (Rpositories, Gists)
+query ProfilePinnedItems($userLogin: String!, $numberOfItems: Int!, $pinnedTypes: [PinnableItemType!]) {
+    user(login: $userLogin) {
+        pinnedItems(first: $numberOfItems types: $pinnedTypes) {
+            edges {
+                node {
+                    __typename
+                    ... on Repository {
+                        ...RepositoriesListFragment
+                    }
+                    ... on Gist {
+                        ...GistsListFragment
+                    }
+                }
+            }
+            totalCount
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+        }
+    }
+}

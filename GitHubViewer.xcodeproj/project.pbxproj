@@ -168,6 +168,7 @@
 		378408C623A91CDC00A74D88 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378408C523A91CDC00A74D88 /* WebViewController.swift */; };
 		37848BA823D74C5200637043 /* IssueDetailsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37848BA723D74C5200637043 /* IssueDetailsVM.swift */; };
 		3787FD8B239F833D00D472E6 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3787FD8A239F833D00D472E6 /* EmptyView.swift */; };
+		378831A423EC2ED1005A4E3F /* Gist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378831A323EC2ED1005A4E3F /* Gist.swift */; };
 		378B818223963C89005E4875 /* ImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378B818123963C89005E4875 /* ImageContentView.swift */; };
 		378CD99323B4A10D004F29FF /* GitHabViewerPagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 378CD99223B4A10D004F29FF /* GitHabViewerPagingController.swift */; };
 		3791194D238FE3E9000FF474 /* ModalAlertViewCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */; };
@@ -199,6 +200,7 @@
 		37C3D8E723955E9000037154 /* ImageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C3D8E623955E9000037154 /* ImageContent.swift */; };
 		37C41C6F238BC58A00AB06D4 /* GitHubViewerCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C41C6E238BC58A00AB06D4 /* GitHubViewerCollection.swift */; };
 		37C41C71238BC9A400AB06D4 /* RepositoriesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C41C70238BC9A400AB06D4 /* RepositoriesCollectionCell.swift */; };
+		37D52AED23EBFE160092BF48 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D52AEC23EBFE160092BF48 /* ProfileVM.swift */; };
 		37E80E8A23BA0B1A00D47ACF /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E80E8923BA0B1A00D47ACF /* Commit.swift */; };
 /* End PBXBuildFile section */
 
@@ -387,6 +389,7 @@
 		378408C523A91CDC00A74D88 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		37848BA723D74C5200637043 /* IssueDetailsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDetailsVM.swift; sourceTree = "<group>"; };
 		3787FD8A239F833D00D472E6 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		378831A323EC2ED1005A4E3F /* Gist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gist.swift; sourceTree = "<group>"; };
 		378B818123963C89005E4875 /* ImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContentView.swift; sourceTree = "<group>"; };
 		378CD99223B4A10D004F29FF /* GitHabViewerPagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHabViewerPagingController.swift; sourceTree = "<group>"; };
 		3791194C238FE3E9000FF474 /* ModalAlertViewCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalAlertViewCompatibility.swift; sourceTree = "<group>"; };
@@ -418,6 +421,7 @@
 		37C3D8E623955E9000037154 /* ImageContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContent.swift; sourceTree = "<group>"; };
 		37C41C6E238BC58A00AB06D4 /* GitHubViewerCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubViewerCollection.swift; sourceTree = "<group>"; };
 		37C41C70238BC9A400AB06D4 /* RepositoriesCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesCollectionCell.swift; sourceTree = "<group>"; };
+		37D52AEC23EBFE160092BF48 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		37E80E8923BA0B1A00D47ACF /* Commit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
 		B99CB3917DC37CF75D05357E /* Pods_GitHubViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitHubViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E44CD98BF8971AEBE0BB60 /* Pods-GitHubViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubViewer.release.xcconfig"; path = "Target Support Files/Pods-GitHubViewer/Pods-GitHubViewer.release.xcconfig"; sourceTree = "<group>"; };
@@ -595,6 +599,7 @@
 			children = (
 				3743F456238D1A8100C54A0A /* ProfileCoordinator.swift */,
 				3743F458238D1A8C00C54A0A /* ProfileVC.swift */,
+				37D52AEC23EBFE160092BF48 /* ProfileVM.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -1127,6 +1132,7 @@
 				377F1CF523C76DFD005724E9 /* Issue.swift */,
 				377F1CF723C76EA4005724E9 /* Label.swift */,
 				373D676C23CDE80700E423A0 /* IssueComment.swift */,
+				378831A323EC2ED1005A4E3F /* Gist.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1467,9 +1473,11 @@
 				377C21DC237C23640046D4E8 /* HorizontalAlignmentLayout.swift in Sources */,
 				370117AF23B10E50002C42AE /* ConfigurableProtocol.swift in Sources */,
 				37419C4423CCBB2F00B73B66 /* IssueDetailsVC.swift in Sources */,
+				37D52AED23EBFE160092BF48 /* ProfileVM.swift in Sources */,
 				377C21DB237C23640046D4E8 /* PaginationFlowLayout.swift in Sources */,
 				377C2215237C23640046D4E8 /* UIBarButtonItem+Signals.swift in Sources */,
 				377C2234237C38AA0046D4E8 /* Global.swift in Sources */,
+				378831A423EC2ED1005A4E3F /* Gist.swift in Sources */,
 				37C3D8E723955E9000037154 /* ImageContent.swift in Sources */,
 				373C58DC23858994003F2BEB /* TabBarViewController.swift in Sources */,
 				377C2205237C23640046D4E8 /* Reachability.swift in Sources */,

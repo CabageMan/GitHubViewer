@@ -22,6 +22,17 @@ fragment RepositoriesListFragment on Repository {
     }
 }
 
+# Gist Fragment
+fragment GistsListFragment on Gist {
+    id
+    name
+    createdAt
+    resourcePath
+    isPublic
+    isFork
+    description
+}
+
 # Repository Details Fragment
 fragment RepositoryDetailsFragment on Repository {
     pushedAt
