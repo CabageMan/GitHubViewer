@@ -38,4 +38,6 @@ final class ProfileVM {
         }
     }
     
+    
+    //TODO: - Need to create query "contributionsCollection"
 }

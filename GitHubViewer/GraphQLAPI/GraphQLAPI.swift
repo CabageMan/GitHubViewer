@@ -390,6 +390,78 @@ public enum PinnableItemType: RawRepresentable, Equatable, Hashable, CaseIterabl
   }
 }
 
+/// Ordering options for commit contribution connections.
+public struct CommitContributionOrder: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(field: CommitContributionOrderField, direction: OrderDirection) {
+    graphQLMap = ["field": field, "direction": direction]
+  }
+
+  /// The field by which to order commit contributions.
+  public var field: CommitContributionOrderField {
+    get {
+      return graphQLMap["field"] as! CommitContributionOrderField
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "field")
+    }
+  }
+
+  /// The ordering direction.
+  public var direction: OrderDirection {
+    get {
+      return graphQLMap["direction"] as! OrderDirection
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "direction")
+    }
+  }
+}
+
+/// Properties by which commit contribution connections can be ordered.
+public enum CommitContributionOrderField: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  /// Order commit contributions by when they were made.
+  case occurredAt
+  /// Order commit contributions by how many commits they represent.
+  case commitCount
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "OCCURRED_AT": self = .occurredAt
+      case "COMMIT_COUNT": self = .commitCount
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .occurredAt: return "OCCURRED_AT"
+      case .commitCount: return "COMMIT_COUNT"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: CommitContributionOrderField, rhs: CommitContributionOrderField) -> Bool {
+    switch (lhs, rhs) {
+      case (.occurredAt, .occurredAt): return true
+      case (.commitCount, .commitCount): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [CommitContributionOrderField] {
+    return [
+      .occurredAt,
+      .commitCount,
+    ]
+  }
+}
+
 /// The possible states of a pull request.
 public enum PullRequestState: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
   public typealias RawValue = String
@@ -3406,6 +3478,558 @@ public final class ProfilePinnedItemsQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue, forKey: "hasNextPage")
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+public final class ContributionsQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition =
+    """
+    query Contributions($userLogin: String!, $numberOfRepositories: Int, $repoOrder: CommitContributionOrder, $from: DateTime, $to: DateTime) {
+      user(login: $userLogin) {
+        __typename
+        contributionsCollection(from: $from, to: $to) {
+          __typename
+          totalCommitContributions
+          contributionYears
+          contributionCalendar {
+            __typename
+            totalContributions
+            months {
+              __typename
+              name
+            }
+          }
+          commitContributionsByRepository(maxRepositories: 5) {
+            __typename
+            contributions(first: $numberOfRepositories, orderBy: $repoOrder) {
+              __typename
+              edges {
+                __typename
+                node {
+                  __typename
+                  commitCount
+                  occurredAt
+                  repository {
+                    __typename
+                    name
+                  }
+                }
+              }
+            }
+            repository {
+              __typename
+              name
+            }
+          }
+        }
+      }
+    }
+    """
+
+  public let operationName = "Contributions"
+
+  public var userLogin: String
+  public var numberOfRepositories: Int?
+  public var repoOrder: CommitContributionOrder?
+  public var from: String?
+  public var to: String?
+
+  public init(userLogin: String, numberOfRepositories: Int? = nil, repoOrder: CommitContributionOrder? = nil, from: String? = nil, to: String? = nil) {
+    self.userLogin = userLogin
+    self.numberOfRepositories = numberOfRepositories
+    self.repoOrder = repoOrder
+    self.from = from
+    self.to = to
+  }
+
+  public var variables: GraphQLMap? {
+    return ["userLogin": userLogin, "numberOfRepositories": numberOfRepositories, "repoOrder": repoOrder, "from": from, "to": to]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes = ["Query"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("user", arguments: ["login": GraphQLVariable("userLogin")], type: .object(User.selections)),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(user: User? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "user": user.flatMap { (value: User) -> ResultMap in value.resultMap }])
+    }
+
+    /// Lookup a user by login.
+    public var user: User? {
+      get {
+        return (resultMap["user"] as? ResultMap).flatMap { User(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "user")
+      }
+    }
+
+    public struct User: GraphQLSelectionSet {
+      public static let possibleTypes = ["User"]
+
+      public static let selections: [GraphQLSelection] = [
+        GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+        GraphQLField("contributionsCollection", arguments: ["from": GraphQLVariable("from"), "to": GraphQLVariable("to")], type: .nonNull(.object(ContributionsCollection.selections))),
+      ]
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(contributionsCollection: ContributionsCollection) {
+        self.init(unsafeResultMap: ["__typename": "User", "contributionsCollection": contributionsCollection.resultMap])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      /// The collection of contributions this user has made to different repositories.
+      public var contributionsCollection: ContributionsCollection {
+        get {
+          return ContributionsCollection(unsafeResultMap: resultMap["contributionsCollection"]! as! ResultMap)
+        }
+        set {
+          resultMap.updateValue(newValue.resultMap, forKey: "contributionsCollection")
+        }
+      }
+
+      public struct ContributionsCollection: GraphQLSelectionSet {
+        public static let possibleTypes = ["ContributionsCollection"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("totalCommitContributions", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("contributionYears", type: .nonNull(.list(.nonNull(.scalar(Int.self))))),
+          GraphQLField("contributionCalendar", type: .nonNull(.object(ContributionCalendar.selections))),
+          GraphQLField("commitContributionsByRepository", arguments: ["maxRepositories": 5], type: .nonNull(.list(.nonNull(.object(CommitContributionsByRepository.selections))))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(totalCommitContributions: Int, contributionYears: [Int], contributionCalendar: ContributionCalendar, commitContributionsByRepository: [CommitContributionsByRepository]) {
+          self.init(unsafeResultMap: ["__typename": "ContributionsCollection", "totalCommitContributions": totalCommitContributions, "contributionYears": contributionYears, "contributionCalendar": contributionCalendar.resultMap, "commitContributionsByRepository": commitContributionsByRepository.map { (value: CommitContributionsByRepository) -> ResultMap in value.resultMap }])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// How many commits were made by the user in this time span.
+        public var totalCommitContributions: Int {
+          get {
+            return resultMap["totalCommitContributions"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "totalCommitContributions")
+          }
+        }
+
+        /// The years the user has been making contributions with the most recent year first.
+        public var contributionYears: [Int] {
+          get {
+            return resultMap["contributionYears"]! as! [Int]
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "contributionYears")
+          }
+        }
+
+        /// A calendar of this user's contributions on GitHub.
+        public var contributionCalendar: ContributionCalendar {
+          get {
+            return ContributionCalendar(unsafeResultMap: resultMap["contributionCalendar"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "contributionCalendar")
+          }
+        }
+
+        /// Commit contributions made by the user, grouped by repository.
+        public var commitContributionsByRepository: [CommitContributionsByRepository] {
+          get {
+            return (resultMap["commitContributionsByRepository"] as! [ResultMap]).map { (value: ResultMap) -> CommitContributionsByRepository in CommitContributionsByRepository(unsafeResultMap: value) }
+          }
+          set {
+            resultMap.updateValue(newValue.map { (value: CommitContributionsByRepository) -> ResultMap in value.resultMap }, forKey: "commitContributionsByRepository")
+          }
+        }
+
+        public struct ContributionCalendar: GraphQLSelectionSet {
+          public static let possibleTypes = ["ContributionCalendar"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("totalContributions", type: .nonNull(.scalar(Int.self))),
+            GraphQLField("months", type: .nonNull(.list(.nonNull(.object(Month.selections))))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(totalContributions: Int, months: [Month]) {
+            self.init(unsafeResultMap: ["__typename": "ContributionCalendar", "totalContributions": totalContributions, "months": months.map { (value: Month) -> ResultMap in value.resultMap }])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// The count of total contributions in the calendar.
+          public var totalContributions: Int {
+            get {
+              return resultMap["totalContributions"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "totalContributions")
+            }
+          }
+
+          /// A list of the months of contributions in this calendar.
+          public var months: [Month] {
+            get {
+              return (resultMap["months"] as! [ResultMap]).map { (value: ResultMap) -> Month in Month(unsafeResultMap: value) }
+            }
+            set {
+              resultMap.updateValue(newValue.map { (value: Month) -> ResultMap in value.resultMap }, forKey: "months")
+            }
+          }
+
+          public struct Month: GraphQLSelectionSet {
+            public static let possibleTypes = ["ContributionCalendarMonth"]
+
+            public static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("name", type: .nonNull(.scalar(String.self))),
+            ]
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(name: String) {
+              self.init(unsafeResultMap: ["__typename": "ContributionCalendarMonth", "name": name])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// The name of the month.
+            public var name: String {
+              get {
+                return resultMap["name"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "name")
+              }
+            }
+          }
+        }
+
+        public struct CommitContributionsByRepository: GraphQLSelectionSet {
+          public static let possibleTypes = ["CommitContributionsByRepository"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("contributions", arguments: ["first": GraphQLVariable("numberOfRepositories"), "orderBy": GraphQLVariable("repoOrder")], type: .nonNull(.object(Contribution.selections))),
+            GraphQLField("repository", type: .nonNull(.object(Repository.selections))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(contributions: Contribution, repository: Repository) {
+            self.init(unsafeResultMap: ["__typename": "CommitContributionsByRepository", "contributions": contributions.resultMap, "repository": repository.resultMap])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// The commit contributions, each representing a day.
+          public var contributions: Contribution {
+            get {
+              return Contribution(unsafeResultMap: resultMap["contributions"]! as! ResultMap)
+            }
+            set {
+              resultMap.updateValue(newValue.resultMap, forKey: "contributions")
+            }
+          }
+
+          /// The repository in which the commits were made.
+          public var repository: Repository {
+            get {
+              return Repository(unsafeResultMap: resultMap["repository"]! as! ResultMap)
+            }
+            set {
+              resultMap.updateValue(newValue.resultMap, forKey: "repository")
+            }
+          }
+
+          public struct Contribution: GraphQLSelectionSet {
+            public static let possibleTypes = ["CreatedCommitContributionConnection"]
+
+            public static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("edges", type: .list(.object(Edge.selections))),
+            ]
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(edges: [Edge?]? = nil) {
+              self.init(unsafeResultMap: ["__typename": "CreatedCommitContributionConnection", "edges": edges.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// A list of edges.
+            public var edges: [Edge?]? {
+              get {
+                return (resultMap["edges"] as? [ResultMap?]).flatMap { (value: [ResultMap?]) -> [Edge?] in value.map { (value: ResultMap?) -> Edge? in value.flatMap { (value: ResultMap) -> Edge in Edge(unsafeResultMap: value) } } }
+              }
+              set {
+                resultMap.updateValue(newValue.flatMap { (value: [Edge?]) -> [ResultMap?] in value.map { (value: Edge?) -> ResultMap? in value.flatMap { (value: Edge) -> ResultMap in value.resultMap } } }, forKey: "edges")
+              }
+            }
+
+            public struct Edge: GraphQLSelectionSet {
+              public static let possibleTypes = ["CreatedCommitContributionEdge"]
+
+              public static let selections: [GraphQLSelection] = [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("node", type: .object(Node.selections)),
+              ]
+
+              public private(set) var resultMap: ResultMap
+
+              public init(unsafeResultMap: ResultMap) {
+                self.resultMap = unsafeResultMap
+              }
+
+              public init(node: Node? = nil) {
+                self.init(unsafeResultMap: ["__typename": "CreatedCommitContributionEdge", "node": node.flatMap { (value: Node) -> ResultMap in value.resultMap }])
+              }
+
+              public var __typename: String {
+                get {
+                  return resultMap["__typename"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              /// The item at the end of the edge.
+              public var node: Node? {
+                get {
+                  return (resultMap["node"] as? ResultMap).flatMap { Node(unsafeResultMap: $0) }
+                }
+                set {
+                  resultMap.updateValue(newValue?.resultMap, forKey: "node")
+                }
+              }
+
+              public struct Node: GraphQLSelectionSet {
+                public static let possibleTypes = ["CreatedCommitContribution"]
+
+                public static let selections: [GraphQLSelection] = [
+                  GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("commitCount", type: .nonNull(.scalar(Int.self))),
+                  GraphQLField("occurredAt", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("repository", type: .nonNull(.object(Repository.selections))),
+                ]
+
+                public private(set) var resultMap: ResultMap
+
+                public init(unsafeResultMap: ResultMap) {
+                  self.resultMap = unsafeResultMap
+                }
+
+                public init(commitCount: Int, occurredAt: String, repository: Repository) {
+                  self.init(unsafeResultMap: ["__typename": "CreatedCommitContribution", "commitCount": commitCount, "occurredAt": occurredAt, "repository": repository.resultMap])
+                }
+
+                public var __typename: String {
+                  get {
+                    return resultMap["__typename"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "__typename")
+                  }
+                }
+
+                /// How many commits were made on this day to this repository by the user.
+                public var commitCount: Int {
+                  get {
+                    return resultMap["commitCount"]! as! Int
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "commitCount")
+                  }
+                }
+
+                /// When this contribution was made.
+                public var occurredAt: String {
+                  get {
+                    return resultMap["occurredAt"]! as! String
+                  }
+                  set {
+                    resultMap.updateValue(newValue, forKey: "occurredAt")
+                  }
+                }
+
+                /// The repository the user made a commit in.
+                public var repository: Repository {
+                  get {
+                    return Repository(unsafeResultMap: resultMap["repository"]! as! ResultMap)
+                  }
+                  set {
+                    resultMap.updateValue(newValue.resultMap, forKey: "repository")
+                  }
+                }
+
+                public struct Repository: GraphQLSelectionSet {
+                  public static let possibleTypes = ["Repository"]
+
+                  public static let selections: [GraphQLSelection] = [
+                    GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                    GraphQLField("name", type: .nonNull(.scalar(String.self))),
+                  ]
+
+                  public private(set) var resultMap: ResultMap
+
+                  public init(unsafeResultMap: ResultMap) {
+                    self.resultMap = unsafeResultMap
+                  }
+
+                  public init(name: String) {
+                    self.init(unsafeResultMap: ["__typename": "Repository", "name": name])
+                  }
+
+                  public var __typename: String {
+                    get {
+                      return resultMap["__typename"]! as! String
+                    }
+                    set {
+                      resultMap.updateValue(newValue, forKey: "__typename")
+                    }
+                  }
+
+                  /// The name of the repository.
+                  public var name: String {
+                    get {
+                      return resultMap["name"]! as! String
+                    }
+                    set {
+                      resultMap.updateValue(newValue, forKey: "name")
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          public struct Repository: GraphQLSelectionSet {
+            public static let possibleTypes = ["Repository"]
+
+            public static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("name", type: .nonNull(.scalar(String.self))),
+            ]
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(name: String) {
+              self.init(unsafeResultMap: ["__typename": "Repository", "name": name])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// The name of the repository.
+            public var name: String {
+              get {
+                return resultMap["name"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "name")
+              }
             }
           }
         }

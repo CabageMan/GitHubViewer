@@ -27,8 +27,14 @@ final class ProfileVC: UIViewController {
         let menuButtonItem = UIBarButtonItem.menu { [weak self] in self?.router.showMenu() }
         navigationItem.setRightBarButton(menuButtonItem, animated: false)
         
-        EmptyView.createEmptyProfile(offset: -Theme.emptyViewOffset).add(to: view).do {
-            $0.edgesToSuperview()
+//        EmptyView.createEmptyProfile(offset: -Theme.emptyViewOffset).add(to: view).do {
+//            $0.edgesToSuperview()
+//        }
+        
+        ChartView().add(to: view).do {
+            $0.centerInSuperview()
+            $0.width(UIScreen.main.bounds.width - 20.0)
+            $0.height(UIScreen.main.bounds.height / 2)
         }
     }
 }
