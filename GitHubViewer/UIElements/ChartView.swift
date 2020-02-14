@@ -71,6 +71,7 @@ final class ChartView: UIView {
         }
         
         // Draw chart gradient
+        context.saveGState()
         let clippingPath = chartPath.copy() as! UIBezierPath
         clippingPath.do {
             $0.addLine(to: CGPoint(x: columnXPoint(chartPoints.count - 1), y: rect.height))
@@ -88,10 +89,19 @@ final class ChartView: UIView {
             end: chartEndPoint,
             options: []
         )
+        context.restoreGState()
         
         chartPath.do {
             $0.lineWidth = 2.0
             $0.stroke()
+        }
+        
+        (0..<chartPoints.count).forEach {
+            var point = CGPoint(x: columnXPoint($0), y: columnYPoint(chartPoints[$0]))
+            point.x -= Theme.circleDiameter / 2
+            point.y -= Theme.circleDiameter / 2
+            UIBezierPath(ovalIn: CGRect(origin: point, size: CGSize(Theme.circleDiameter))).fill()
+            
         }
     }
 }
