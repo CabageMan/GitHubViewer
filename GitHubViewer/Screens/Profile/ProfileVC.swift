@@ -18,9 +18,13 @@ final class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupViewmodel()
+        Spinner.start()
         viewModel.getPinnedItems()
+        viewModel.getContributionsHistory()
     }
     
+    //MARK: - Actions
     private func setupUI() {
         view.backgroundColor = .mainBackground
         
@@ -35,6 +39,20 @@ final class ProfileVC: UIViewController {
             $0.centerInSuperview()
             $0.width(UIScreen.main.bounds.width - 20.0)
             $0.height(UIScreen.main.bounds.height / 2)
+        }
+    }
+    
+    private func setupViewmodel() {
+        viewModel.pinnedItemsHaveBeenFetched = { [weak self] in
+            guard let self = self else { return }
+            Spinner.stop()
+            log("\nPinned Items:\nRepositories: \(self.viewModel.pinnedRepositories)\nGists: \(self.viewModel.pinnedGists)")
+        }
+        viewModel.contributionsHaveBeenFetched = { [weak self] in
+            guard let self = self else { return }
+            Spinner.stop()
+            guard let contributions = self.viewModel.contributionsCollection, contributions.hasAnyContributions else { return }
+            log("\nContributions: \(contributions)")
         }
     }
 }

@@ -169,3 +169,22 @@ fragment IssuesListFragment on Issue {
         }
     }
 }
+
+# Contribution Calendar Fragment
+fragment ContributionCalendarFragment on ContributionCalendar {
+    totalContributions
+    months {
+        name
+    }
+}
+
+# Contributions Collections Fragment
+fragment ContributionsCollectionFragment on ContributionsCollection {
+    hasAnyContributions
+    contributionYears
+    contributionCalendar {
+        ...ContributionCalendarFragment
+    }
+    startedAt
+    endedAt
+}

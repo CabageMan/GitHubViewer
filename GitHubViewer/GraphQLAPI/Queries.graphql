@@ -99,34 +99,11 @@ query ProfilePinnedItems($userLogin: String!, $numberOfItems: Int!, $pinnedTypes
     }
 }
 
-
-query Contributions($userLogin: String!, $numberOfRepositories: Int, $repoOrder: CommitContributionOrder, $from: DateTime, $to: DateTime) {
+# Get User Contribution History
+query Contributions($userLogin: String!, $from: DateTime, $to: DateTime) {
     user(login: $userLogin) {
         contributionsCollection(from: $from, to: $to) {
-            totalCommitContributions
-            contributionYears
-            contributionCalendar {
-                totalContributions
-                months {
-                    name
-                }
-            }
-            commitContributionsByRepository(maxRepositories: 5) {
-                contributions(first: $numberOfRepositories, orderBy: $repoOrder) {
-                    edges {
-                        node {
-                            commitCount
-                            occurredAt
-                            repository {
-                                name
-                            }
-                        }
-                    }
-                }
-                repository {
-                    name
-                }
-            }
+            ...ContributionsCollectionFragment
         }
     }
 }

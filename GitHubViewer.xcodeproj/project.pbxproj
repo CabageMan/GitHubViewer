@@ -203,6 +203,7 @@
 		37C41C71238BC9A400AB06D4 /* RepositoriesCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C41C70238BC9A400AB06D4 /* RepositoriesCollectionCell.swift */; };
 		37D52AED23EBFE160092BF48 /* ProfileVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37D52AEC23EBFE160092BF48 /* ProfileVM.swift */; };
 		37E80E8A23BA0B1A00D47ACF /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E80E8923BA0B1A00D47ACF /* Commit.swift */; };
+		37FEFCA123FBCFF90085A164 /* ContributionsCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37FEFCA023FBCFF90085A164 /* ContributionsCollection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -425,6 +426,7 @@
 		37C41C70238BC9A400AB06D4 /* RepositoriesCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesCollectionCell.swift; sourceTree = "<group>"; };
 		37D52AEC23EBFE160092BF48 /* ProfileVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVM.swift; sourceTree = "<group>"; };
 		37E80E8923BA0B1A00D47ACF /* Commit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
+		37FEFCA023FBCFF90085A164 /* ContributionsCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionsCollection.swift; sourceTree = "<group>"; };
 		B99CB3917DC37CF75D05357E /* Pods_GitHubViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitHubViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2E44CD98BF8971AEBE0BB60 /* Pods-GitHubViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitHubViewer.release.xcconfig"; path = "Target Support Files/Pods-GitHubViewer/Pods-GitHubViewer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1136,6 +1138,7 @@
 				377F1CF723C76EA4005724E9 /* Label.swift */,
 				373D676C23CDE80700E423A0 /* IssueComment.swift */,
 				378831A323EC2ED1005A4E3F /* Gist.swift */,
+				37FEFCA023FBCFF90085A164 /* ContributionsCollection.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1553,6 +1556,7 @@
 				379A7AD323B65051007CA335 /* PullRequestDetailsVC.swift in Sources */,
 				373C58D323858080003F2BEB /* TransitionController.swift in Sources */,
 				37C3D8E223950F3A00037154 /* RepositoryDetailsTVLinkCell.swift in Sources */,
+				37FEFCA123FBCFF90085A164 /* ContributionsCollection.swift in Sources */,
 				377C21FF237C23640046D4E8 /* Time.swift in Sources */,
 				379B15F823CC46BA00681E04 /* PaginationManager.swift in Sources */,
 				375EB18A237EBFCE005B6252 /* Theme.swift in Sources */,
