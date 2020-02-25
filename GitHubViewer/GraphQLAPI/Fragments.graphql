@@ -170,11 +170,35 @@ fragment IssuesListFragment on Issue {
     }
 }
 
-# Contribution Calendar Fragment
+# Contribution Calendar Fragments
+fragment ContributionDayFragment on ContributionCalendarDay {
+    contributionCount
+    color
+    weekday
+    date
+}
+
+fragment ContributionWeekFragment on ContributionCalendarWeek {
+    firstDay
+    contributionDays {
+        ...ContributionDayFragment
+    }
+}
+
+fragment ContributionMonthFragment on ContributionCalendarMonth {
+    name
+    year
+    totalWeeks
+}
+
 fragment ContributionCalendarFragment on ContributionCalendar {
     totalContributions
+    colors
     months {
-        name
+        ...ContributionMonthFragment
+    }
+    weeks {
+        ...ContributionWeekFragment
     }
 }
 
@@ -182,9 +206,9 @@ fragment ContributionCalendarFragment on ContributionCalendar {
 fragment ContributionsCollectionFragment on ContributionsCollection {
     hasAnyContributions
     contributionYears
+    startedAt
+    endedAt
     contributionCalendar {
         ...ContributionCalendarFragment
     }
-    startedAt
-    endedAt
 }

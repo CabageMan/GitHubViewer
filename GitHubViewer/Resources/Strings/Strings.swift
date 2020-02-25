@@ -32,6 +32,37 @@ extension String {
     static let welcome = String.tr("Localizable", "auth.welcome")
   }
 
+  enum Calendar {
+    // Fri
+    static let fri = String.tr("Localizable", "calendar.fri")
+    // Friday
+    static let friday = String.tr("Localizable", "calendar.friday")
+    // Mon
+    static let mon = String.tr("Localizable", "calendar.mon")
+    // Monday
+    static let monday = String.tr("Localizable", "calendar.monday")
+    // Sat
+    static let sat = String.tr("Localizable", "calendar.sat")
+    // Saturday
+    static let saturday = String.tr("Localizable", "calendar.saturday")
+    // Sun
+    static let sun = String.tr("Localizable", "calendar.sun")
+    // Sunday
+    static let sunday = String.tr("Localizable", "calendar.sunday")
+    // Thu
+    static let thu = String.tr("Localizable", "calendar.thu")
+    // Thursday
+    static let thursday = String.tr("Localizable", "calendar.thursday")
+    // Tue
+    static let tue = String.tr("Localizable", "calendar.tue")
+    // Tuesday
+    static let tuesday = String.tr("Localizable", "calendar.tuesday")
+    // Wed
+    static let wed = String.tr("Localizable", "calendar.wed")
+    // Wednesday
+    static let wednesday = String.tr("Localizable", "calendar.wednesday")
+  }
+
   enum EmptyView {
     // Pull request's commits will be displayed here
     static let emptyCommits = String.tr("Localizable", "emptyView.emptyCommits")

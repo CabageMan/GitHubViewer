@@ -67,8 +67,9 @@ final class ProfileVM {
         dateComponents.day = 1
         dateComponents.month = 1
         dateComponents.year = 2019
-        guard let date = Calendar.current.date(from: dateComponents) else { return Date().iso8601 }
-        return Calendar.current.startOfDay(for: date).iso8601
+        dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
+        guard let date = Calendar.current.date(from: dateComponents) else { return Date().startOfDay.iso8601 }
+        return date.startOfDay.iso8601
     }
     
     private func getEndDate() -> String {
@@ -76,8 +77,9 @@ final class ProfileVM {
         dateComponents.day = 31
         dateComponents.month = 12
         dateComponents.year = 2019
-        guard let date = Calendar.current.date(from: dateComponents), let endDate = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: date) else { return Date().iso8601 }
-        return endDate.iso8601
+        dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
+        guard let date = Calendar.current.date(from: dateComponents) else { return Date().endOfDay.iso8601 }
+        return date.endOfDay.iso8601
     }
 }
 
@@ -103,5 +105,23 @@ extension Date {
 extension String {
     var iso8601: Date? {
         return Formatter.iso8601.date(from: self)
+    }
+}
+
+//MARK: - Start and End of Day
+extension Date {
+    var startOfDay : Date {
+        let calendar = Calendar.current
+        let unitFlags = Set<Calendar.Component>([.year, .month, .day])
+        var components = calendar.dateComponents(unitFlags, from: self)
+        components.timeZone = TimeZone(secondsFromGMT: 0)
+        return calendar.date(from: components)!
+   }
+
+    var endOfDay : Date {
+        var components = DateComponents()
+        components.day = 1
+        let date = Calendar.current.date(byAdding: components, to: self.startOfDay)
+        return (date?.addingTimeInterval(-1))!
     }
 }

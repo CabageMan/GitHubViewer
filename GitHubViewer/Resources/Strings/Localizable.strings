@@ -91,3 +91,19 @@
 "sideMenu.signedInAs"   = "Signed in as";
 "sideMenu.settings"     = "Settings";
 "sideMenu.logout"       = "Sign out";
+
+//MARK: - Calendar
+"calendar.sunday"       = "Sunday";
+"calendar.monday"       = "Monday";
+"calendar.tuesday"      = "Tuesday";
+"calendar.wednesday"    = "Wednesday";
+"calendar.thursday"     = "Thursday";
+"calendar.friday"       = "Friday";
+"calendar.saturday"     = "Saturday";
+"calendar.sun"          = "Sun";
+"calendar.mon"          = "Mon";
+"calendar.tue"          = "Tue";
+"calendar.wed"          = "Wed";
+"calendar.thu"          = "Thu";
+"calendar.fri"          = "Fri";
+"calendar.sat"          = "Sat";

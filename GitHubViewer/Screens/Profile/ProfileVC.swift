@@ -52,7 +52,13 @@ final class ProfileVC: UIViewController {
             guard let self = self else { return }
             Spinner.stop()
             guard let contributions = self.viewModel.contributionsCollection, contributions.hasAnyContributions else { return }
-            log("\nContributions: \(contributions)")
+            
+            contributions.calendar.weeks.forEach {
+                log("\nNew week")
+                $0.days.forEach {
+                    log("Full day name: \($0.weekday.fullName)")
+                }
+            }
         }
     }
 }
