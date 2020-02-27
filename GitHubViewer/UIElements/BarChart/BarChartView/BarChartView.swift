@@ -62,9 +62,9 @@ final class BarChartView: UIView {
     
     private func showEntry(index: Int, entry: ChartBarEntry, oldEntry: ChartBarEntry?, animated: Bool) {
         let color = entry.data.color.cgColor
-        chartLayer.addRectangleLayer(frame: entry.barFrame, oldFrame: oldEntry?.barFrame, color: color, animated: animated)
+        chartLayer.addRectangleLayer(frame: entry.barFrame, oldFrame: oldEntry?.barFrame, startColor: color, endColor: Theme.barEndColor.cgColor, animated: animated)
         chartLayer.addTextLayer(frame: entry.textValueFrame, oldFrame: oldEntry?.textValueFrame, color: color, fontSize: 14, text: entry.data.textValue, animated: animated)
-        chartLayer.addTextLayer(frame: entry.titleFrame, oldFrame: oldEntry?.titleFrame, color: color, fontSize: 14, text: entry.data.title, animated: animated)
+        chartLayer.addTextLayer(frame: entry.titleFrame, oldFrame: oldEntry?.titleFrame, color: Theme.titleColor.cgColor, fontSize: 14, text: entry.data.title, animated: animated)
     }
     
     private func showHorisontalLines(for barsNumber: Int) {
@@ -83,6 +83,8 @@ extension BarChartView {
     enum Theme {
         // Colors
         static let horiZontalLineColor: UIColor = #colorLiteral(red: 0.8039215686, green: 0.8039215686, blue: 0.8039215686, alpha: 1) // #CDCDCD
+        static let titleColor: UIColor = #colorLiteral(red: 0.462745098, green: 0.462745098, blue: 0.462745098, alpha: 1) // #767676
+        static let barEndColor: UIColor = #colorLiteral(red: 0.8784313725, green: 0.968627451, blue: 0.6980392157, alpha: 1) // #E0F7B2
         
         // Sizes
         static let barWidth: CGFloat = 40.0

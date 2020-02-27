@@ -39,22 +39,23 @@ extension CALayer {
         }
     }
     
-    func addRectangleLayer(frame: CGRect, oldFrame: CGRect?, color: CGColor, animated: Bool) {
-        let layer = CALayer().then {
+    func addRectangleLayer(frame: CGRect, oldFrame: CGRect?, startColor: CGColor, endColor: CGColor, animated: Bool) {
+        
+        let gradientLayer = CAGradientLayer().then {
             $0.frame = frame
-            $0.backgroundColor = color
+            $0.colors = [startColor, endColor]
             self.addSublayer($0)
         }
         
         if animated, let previousFrame = oldFrame {
-            layer.animate(
+            gradientLayer.animate(
                 fromValue: CGPoint(x: previousFrame.midX, y: previousFrame.midY),
-                toValue: layer.position,
+                toValue: gradientLayer.position,
                 keyPath: "position"
             )
-            layer.animate(
+            gradientLayer.animate(
                 fromValue: CGRect(x: 0.0, y: 0.0, width: previousFrame.width, height: previousFrame.height),
-                toValue: layer.bounds,
+                toValue: gradientLayer.bounds,
                 keyPath: "bounds"
             )
         }
