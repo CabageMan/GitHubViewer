@@ -1,13 +1,13 @@
 import UIKit
 
-//MARK: -Array Extensions
+//MARK: - Array Extensions
 extension Array {
     func safeValue(at index: Int) -> Element? {
         return index < self.count ? self[index] : nil
     }
 }
 
-//MARK: -UIBezierPath Extensions
+//MARK: - UIBezierPath Extensions
 extension UIBezierPath {
     convenience init(lineSegment: LineSegment) {
         self.init()
@@ -16,7 +16,7 @@ extension UIBezierPath {
     }
 }
 
-//MARK: -CALayer Extensions
+//MARK: - CALayer Extensions
 extension CALayer {
     func addLineLayer(lineSegment: LineSegment, oldSegment: LineSegment?, color: CGColor, width: CGFloat, isDashed: Bool, animated: Bool) {
         let layer = CAShapeLayer().then {

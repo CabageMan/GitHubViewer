@@ -2,11 +2,11 @@ import UIKit
 
 final class BarChartView: UIView {
     
-    //MARK: -Public properties
+    //MARK: - Public properties
     var barWidth: CGFloat = Theme.barWidth
     var barsSpace: CGFloat = Theme.barsSpace
     
-    //MARK: -Private properties
+    //MARK: - Private properties
     private let chartScrollView: UIScrollView = UIScrollView()
     private let chartLayer: CALayer = CALayer()
     private var animated: Bool = false
@@ -18,7 +18,7 @@ final class BarChartView: UIView {
         didSet { updateChart(oldValue) }
     }
     
-    //MARK: -Initializers
+    //MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -36,20 +36,20 @@ final class BarChartView: UIView {
         }
     }
     
-    //MARK: -Overrides
+    //MARK: - Overrides
     override func layoutSubviews() {
         super.layoutSubviews()
         updateDataEntries(with: dataEntries)
     }
     
-    //MARK: -Public Actions
+    //MARK: - Public Actions
     func updateDataEntries(with dataEntries: [ChartDataEntry], animated: Bool = false) {
         self.animated = animated
         self.dataEntries = dataEntries
         self.barEntries = chartPresenter.createBarEntries(for: dataEntries)
     }
     
-    //MARK: -Private Actions
+    //MARK: - Private Actions
     private func updateChart(_ oldEntries: [ChartBarEntry]?) {
         chartLayer.sublayers?.forEach { $0.removeFromSuperlayer() }
         chartScrollView.contentSize = CGSize(width: chartPresenter.calculateContentWidth(for: barEntries.count), height: self.frame.size.height)

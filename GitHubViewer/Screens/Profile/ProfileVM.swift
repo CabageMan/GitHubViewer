@@ -61,7 +61,23 @@ final class ProfileVM {
         }
     }
     
-    //MARK: - Temporary
+    typealias ContributionsDay = ContributionsCollection.ContributionDay
+    
+    func getContributionsDays() -> [ContributionsDay] {
+        var contributionsDays: [ContributionsDay] = []
+        contributionsCollection?.calendar.weeks.forEach { week in
+            week.days.forEach { day in
+                if day.contributionCount > 0 {
+                    contributionsDays.append(day)
+                }
+            }
+        }
+        return contributionsDays
+    }
+}
+
+//MARK: - Temporary
+extension ProfileVM {
     private func getStartDate() -> String {
         var dateComponents = DateComponents()
         dateComponents.day = 1

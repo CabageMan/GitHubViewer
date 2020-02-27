@@ -54,62 +54,36 @@ final class ProfileVC: UIViewController {
             guard let self = self else { return }
             Spinner.stop()
             guard let contributions = self.viewModel.contributionsCollection, contributions.hasAnyContributions else { return }
-            log("Colors: \(contributions.calendar.colors)")
-            contributions.calendar.weeks.forEach {
-                log("\nNew week")
-                $0.days.forEach {
-                    log("Full day name: \($0.weekday.fullName)")
-                }
-            }
-            
             self.drawChart()
         }
     }
     
     private func drawChart() {
-        let dataEntries = generateEmptyDataEntries()
-        chartView.updateDataEntries(with: dataEntries, animated: false)
+        let contributionsDays = viewModel.getContributionsDays()
+        chartView.updateDataEntries(with: generateEmptyDataEntries(contributionsDays.count), animated: false)
+        chartView.updateDataEntries(with: generateDataEntries(for: contributionsDays), animated: true)
         
-        
-        let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) {[unowned self] (timer) in
-            let dataEntries = self.generateRandomDataEntries()
-            self.chartView.updateDataEntries(with: dataEntries, animated: true)
-        }
-        timer.fire()
-    }
-}
-
-//MARK: - Fake Data
-extension ProfileVC {
-    
-    var numEntry: Int {
-        return 20
+//        contributionsDays.forEach { day in
+//            log("New Day:\nContributions count: \(day.contributionCount)\nColor: \(day.color)\n WeekDay: \(day.weekday.fullName)\nDate: \(day.date)")
+//        }
     }
     
-    func generateEmptyDataEntries() -> [ChartDataEntry] {
-        var result: [ChartDataEntry] = []
-        Array(0..<numEntry).forEach {_ in
-            result.append(ChartDataEntry(color: UIColor.clear, height: 0, textValue: "0", title: ""))
-        }
-        return result
+    func generateEmptyDataEntries(_ entryNumber: Int) -> [ChartDataEntry] {
+        return (0..<entryNumber).map { _ in ChartDataEntry(color: .clear, height: 0, textValue: "0", title: "") }
     }
-
-    func generateRandomDataEntries() -> [ChartDataEntry] {
-        let colors = [#colorLiteral(red: 0.7764705882, green: 0.8941176471, blue: 0.5450980392, alpha: 1), #colorLiteral(red: 0.4823529412, green: 0.7882352941, blue: 0.4352941176, alpha: 1), #colorLiteral(red: 0.137254902, green: 0.6039215686, blue: 0.231372549, alpha: 1), #colorLiteral(red: 0.09803921569, green: 0.3803921569, blue: 0.1529411765, alpha: 1), #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1), #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)]
-        var result: [ChartDataEntry] = []
-        for i in 0..<numEntry {
-            let value = (arc4random() % 90) + 10
-            let height: Float = Float(value) / 100.0
+    
+    func generateDataEntries(for contributionsDays: [ContributionsCollection.ContributionDay]) -> [ChartDataEntry] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMM"
+        return contributionsDays.map { day in
+            let color: UIColor = UIColor(hexString: day.color)
+            let height: Float = Float(day.contributionCount) / 100.0
+            let textValue: String = "\(day.contributionCount)"
+            let title: String = formatter.string(from: day.date)
             
-            let formatter = DateFormatter()
-            formatter.dateFormat = "d MMM"
-            var date = Date()
-            date.addTimeInterval(TimeInterval(24*60*60*i))
-            result.append(ChartDataEntry(color: colors[i % colors.count], height: height, textValue: "\(value)", title: formatter.string(from: date)))
+            return ChartDataEntry(color: color, height: height, textValue: textValue, title: title)
         }
-        return result
     }
-    
 }
 
 //MARK: - Theme

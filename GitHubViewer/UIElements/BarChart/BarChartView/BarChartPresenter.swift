@@ -7,14 +7,14 @@ final class BarChartPresenter {
     private let barWidth: CGFloat
     private let barsSpace: CGFloat
     
-    //MARK: -Initializers
+    //MARK: - Initializers
     init(viewHeight: CGFloat, barWidth: CGFloat, barsSpace: CGFloat) {
         self.viewHeight = viewHeight
         self.barWidth = barWidth
         self.barsSpace = barsSpace
     }
     
-    //MARK: -Actions
+    //MARK: - Actions
     func calculateContentWidth(for entriesNumber: Int) -> CGFloat {
         return (barWidth + barsSpace) * CGFloat(entriesNumber) + barsSpace
     }

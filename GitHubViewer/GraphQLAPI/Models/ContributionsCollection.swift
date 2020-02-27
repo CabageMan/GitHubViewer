@@ -20,6 +20,57 @@ struct ContributionsCollection {
 
 extension ContributionsCollection {
     
+    struct ContributionCalendar {
+        let totalContributions: Int
+        let colors: [String]
+        let months: [ContributionMonth]
+        let weeks: [ContributionWeek]
+        
+        init(calendar: ContributionCalendarFragment) {
+            self.totalContributions = calendar.totalContributions
+            self.colors = calendar.colors
+            self.months = calendar.months.map { ContributionMonth(month: $0.fragments.contributionMonthFragment) }
+            self.weeks = calendar.weeks.map { ContributionWeek(week: $0.fragments.contributionWeekFragment) }
+        }
+    }
+    
+    struct ContributionMonth {
+        let name: String
+        let year: Int
+        let totalWeeks: Int
+        
+        init(month: ContributionMonthFragment) {
+            self.name = month.name
+            self.year = month.year
+            self.totalWeeks = month.totalWeeks
+        }
+    }
+    
+    struct ContributionWeek {
+        let firstDay: Date
+        let days: [ContributionDay]
+        
+        init(week: ContributionWeekFragment) {
+            self.firstDay = ISO8601DateFormatter().date(from: week.firstDay) ?? Date()
+            self.days = week.contributionDays.map { ContributionDay(day: $0.fragments.contributionDayFragment) }
+        }
+    }
+    
+    struct ContributionDay {
+        let contributionCount: Int
+        let color: String
+        let weekday: WeekDay
+        let date: Date
+        
+        init(day: ContributionDayFragment) {
+            self.contributionCount = day.contributionCount
+            self.color = day.color
+            self.weekday = WeekDay(rawValue: day.weekday) ?? .undefined
+            log("Date: \(day.date)")
+            self.date = ISO8601DateFormatter().date(from: day.date) ?? Date()
+        }
+    }
+    
     enum WeekDay: Int {
         case sun = 0
         case mon
@@ -54,56 +105,6 @@ extension ContributionsCollection {
             case .sat: return String.Calendar.sat
             default: return ""
             }
-        }
-    }
-    
-    struct ContributionDay {
-        let contributionCount: Int
-        let color: String
-        let weekday: WeekDay
-        let date: Date
-        
-        init(day: ContributionDayFragment) {
-            self.contributionCount = day.contributionCount
-            self.color = day.color
-            self.weekday = WeekDay(rawValue: day.weekday) ?? .undefined
-            self.date = ISO8601DateFormatter().date(from: day.date) ?? Date()
-        }
-    }
-    
-    struct ContributionWeek {
-        let firstDay: Date
-        let days: [ContributionDay]
-        
-        init(week: ContributionWeekFragment) {
-            self.firstDay = ISO8601DateFormatter().date(from: week.firstDay) ?? Date()
-            self.days = week.contributionDays.map { ContributionDay(day: $0.fragments.contributionDayFragment) }
-        }
-    }
-    
-    struct ContributionMonth {
-        let name: String
-        let year: Int
-        let totalWeeks: Int
-        
-        init(month: ContributionMonthFragment) {
-            self.name = month.name
-            self.year = month.year
-            self.totalWeeks = month.totalWeeks
-        }
-    }
-    
-    struct ContributionCalendar {
-        let totalContributions: Int
-        let colors: [String]
-        let months: [ContributionMonth]
-        let weeks: [ContributionWeek]
-        
-        init(calendar: ContributionCalendarFragment) {
-            self.totalContributions = calendar.totalContributions
-            self.colors = calendar.colors
-            self.months = calendar.months.map { ContributionMonth(month: $0.fragments.contributionMonthFragment) }
-            self.weeks = calendar.weeks.map { ContributionWeek(week: $0.fragments.contributionWeekFragment) }
         }
     }
 }
