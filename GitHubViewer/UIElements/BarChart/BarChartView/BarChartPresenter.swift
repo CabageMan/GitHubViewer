@@ -20,8 +20,12 @@ final class BarChartPresenter {
     }
     
     func createBarEntries(for data: [ChartDataEntry]) -> [ChartBarEntry] {
+        let maxValue = data.map({ $0.value }).max()
+        let maxBarHeight = viewHeight - Theme.textValueSpace - Theme.titleSpace
+        let valueHeight: CGFloat = (maxValue != nil && maxValue != 0.0) ? maxBarHeight / CGFloat(maxValue!) : 0.0
+        
         return data.enumerated().map { index, entry in
-            let entryHeight = CGFloat(entry.height) * (viewHeight - Theme.textValueSpace - Theme.titleSpace)
+            let entryHeight = CGFloat(entry.value) * valueHeight - Theme.textValueSpace
             let xPosition = barsSpace + CGFloat(index) * (barWidth + barsSpace)
             let yPosition = viewHeight - Theme.titleSpace - entryHeight
             

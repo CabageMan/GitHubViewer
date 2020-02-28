@@ -37,10 +37,10 @@ final class BarChartView: UIView {
     }
     
     //MARK: - Overrides
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        updateDataEntries(with: dataEntries)
-    }
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//        updateDataEntries(with: dataEntries)
+//    }
     
     //MARK: - Public Actions
     func updateDataEntries(with dataEntries: [ChartDataEntry], animated: Bool = false) {

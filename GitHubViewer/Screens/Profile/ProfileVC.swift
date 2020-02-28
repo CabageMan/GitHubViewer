@@ -48,7 +48,7 @@ final class ProfileVC: UIViewController {
         viewModel.pinnedItemsHaveBeenFetched = { [weak self] in
             guard let self = self else { return }
             Spinner.stop()
-            log("\nPinned Items:\nRepositories: \(self.viewModel.pinnedRepositories)\nGists: \(self.viewModel.pinnedGists)")
+//            log("\nPinned Items:\nRepositories: \(self.viewModel.pinnedRepositories)\nGists: \(self.viewModel.pinnedGists)")
         }
         viewModel.contributionsHaveBeenFetched = { [weak self] in
             guard let self = self else { return }
@@ -69,7 +69,7 @@ final class ProfileVC: UIViewController {
     }
     
     func generateEmptyDataEntries(_ entryNumber: Int) -> [ChartDataEntry] {
-        return (0..<entryNumber).map { _ in ChartDataEntry(color: .clear, height: 0, textValue: "0", title: "") }
+        return (0..<entryNumber).map { _ in ChartDataEntry(color: .clear, value: 0, textValue: "0", title: "") }
     }
     
     func generateDataEntries(for contributionsDays: [ContributionsCollection.ContributionDay]) -> [ChartDataEntry] {
@@ -77,11 +77,10 @@ final class ProfileVC: UIViewController {
         formatter.dateFormat = "d MMM"
         return contributionsDays.map { day in
             let color: UIColor = UIColor(hexString: day.color)
-            let height: Float = Float(day.contributionCount) / 100.0
             let textValue: String = "\(day.contributionCount)"
             let title: String = formatter.string(from: day.date)
             
-            return ChartDataEntry(color: color, height: height, textValue: textValue, title: title)
+            return ChartDataEntry(color: color, value: Float(day.contributionCount), textValue: textValue, title: title)
         }
     }
 }

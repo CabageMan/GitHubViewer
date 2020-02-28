@@ -82,7 +82,7 @@ extension ProfileVM {
         var dateComponents = DateComponents()
         dateComponents.day = 1
         dateComponents.month = 1
-        dateComponents.year = 2019
+        dateComponents.year = 2020
         dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
         guard let date = Calendar.current.date(from: dateComponents) else { return Date().startOfDay.iso8601 }
         return date.startOfDay.iso8601
@@ -95,7 +95,8 @@ extension ProfileVM {
         dateComponents.year = 2019
         dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
         guard let date = Calendar.current.date(from: dateComponents) else { return Date().endOfDay.iso8601 }
-        return date.endOfDay.iso8601
+//        return date.endOfDay.iso8601
+        return Date().endOfDay.iso8601
     }
 }
 
