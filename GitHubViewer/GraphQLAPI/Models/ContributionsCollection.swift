@@ -66,8 +66,11 @@ extension ContributionsCollection {
             self.contributionCount = day.contributionCount
             self.color = day.color
             self.weekday = WeekDay(rawValue: day.weekday) ?? .undefined
-            log("Date: \(day.date)")
-            self.date = ISO8601DateFormatter().date(from: day.date) ?? Date()
+            let formater = DateFormatter()
+            formater.dateFormat = "yyyy-MM-dd"
+            formater.timeZone = TimeZone(secondsFromGMT: 0)
+            self.date = formater.date(from: day.date) ?? Date()
+//            self.date = ISO8601DateFormatter().date(from: day.date) ?? Date()
         }
     }
     

@@ -496,9 +496,6 @@
 			children = (
 				378512D623F1454F002324DF /* BarChartView.swift */,
 				37F4B02F2407A68D00FA6FA0 /* BarChartPresenter.swift */,
-				37F4B0322407A8AD00FA6FA0 /* ChartDataEntry.swift */,
-				37F4B0342407AE6D00FA6FA0 /* ChartBarEntry.swift */,
-				37F4B0362407B20D00FA6FA0 /* ChartHorizontalLine.swift */,
 			);
 			path = BarChartView;
 			sourceTree = "<group>";
@@ -645,6 +642,16 @@
 				379B15F723CC46BA00681E04 /* PaginationManager.swift */,
 			);
 			path = GraphQLAPI;
+			sourceTree = "<group>";
+		};
+		3752E45624090BFD00ED389C /* BarChartModels */ = {
+			isa = PBXGroup;
+			children = (
+				37F4B0342407AE6D00FA6FA0 /* ChartBarEntry.swift */,
+				37F4B0322407A8AD00FA6FA0 /* ChartDataEntry.swift */,
+				37F4B0362407B20D00FA6FA0 /* ChartHorizontalLine.swift */,
+			);
+			path = BarChartModels;
 			sourceTree = "<group>";
 		};
 		375EB190237ED2DE005B6252 /* SF */ = {
@@ -1245,6 +1252,7 @@
 			isa = PBXGroup;
 			children = (
 				37909BE32407C99C00DBFC53 /* Extensions.swift */,
+				3752E45624090BFD00ED389C /* BarChartModels */,
 				3720ADA52406BF7A00300BD6 /* BarChartView */,
 			);
 			path = BarChart;
