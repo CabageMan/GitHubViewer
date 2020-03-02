@@ -65,6 +65,7 @@
 		375EB1A0237EF4AB005B6252 /* UIControl+Actionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375EB19F237EF4AB005B6252 /* UIControl+Actionable.swift */; };
 		37638FA3239E3C7000100783 /* UIScrollView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37638FA2239E3C7000100783 /* UIScrollView+Extensions.swift */; };
 		37638FA6239E775900100783 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37638FA5239E775900100783 /* Spinner.swift */; };
+		37644007240CF3D800C22E8E /* YearSelectorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37644006240CF3D800C22E8E /* YearSelectorItem.swift */; };
 		376A157E23A3B087003E6D23 /* SideMenuTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376A157D23A3B087003E6D23 /* SideMenuTableView.swift */; };
 		376A158023A3B0A7003E6D23 /* SideMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376A157F23A3B0A7003E6D23 /* SideMenuCell.swift */; };
 		376A158623A3CDCA003E6D23 /* SideMenuVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376A158523A3CDCA003E6D23 /* SideMenuVM.swift */; };
@@ -184,6 +185,7 @@
 		37A80ADC238816AB00BA2496 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADB238816AB00BA2496 /* User.swift */; };
 		37A80ADE2388174E00BA2496 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37A80ADD2388174E00BA2496 /* Repository.swift */; };
 		37AD89572387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */; };
+		37B28346240CE36F00FD5A8C /* YearSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B28345240CE36F00FD5A8C /* YearSelector.swift */; };
 		37B3789B23C84F250028AF55 /* IssueCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B3789A23C84F250028AF55 /* IssueCollectionVC.swift */; };
 		37B378A223C851E50028AF55 /* IssueCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B378A123C851E50028AF55 /* IssueCollectionCell.swift */; };
 		37B82912238683A100E991D4 /* AuthNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37B82911238683A100E991D4 /* AuthNavigationViewController.swift */; };
@@ -283,6 +285,7 @@
 		375EB19F237EF4AB005B6252 /* UIControl+Actionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Actionable.swift"; sourceTree = "<group>"; };
 		37638FA2239E3C7000100783 /* UIScrollView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extensions.swift"; sourceTree = "<group>"; };
 		37638FA5239E775900100783 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		37644006240CF3D800C22E8E /* YearSelectorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearSelectorItem.swift; sourceTree = "<group>"; };
 		376A157D23A3B087003E6D23 /* SideMenuTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableView.swift; sourceTree = "<group>"; };
 		376A157F23A3B0A7003E6D23 /* SideMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuCell.swift; sourceTree = "<group>"; };
 		376A158523A3CDCA003E6D23 /* SideMenuVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuVM.swift; sourceTree = "<group>"; };
@@ -412,6 +415,7 @@
 		37A80ADB238816AB00BA2496 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		37A80ADD2388174E00BA2496 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
+		37B28345240CE36F00FD5A8C /* YearSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearSelector.swift; sourceTree = "<group>"; };
 		37B3789A23C84F250028AF55 /* IssueCollectionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueCollectionVC.swift; sourceTree = "<group>"; };
 		37B378A123C851E50028AF55 /* IssueCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueCollectionCell.swift; sourceTree = "<group>"; };
 		37B82911238683A100E991D4 /* AuthNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNavigationViewController.swift; sourceTree = "<group>"; };
@@ -830,6 +834,7 @@
 		377C2172237C23300046D4E8 /* UIElements */ = {
 			isa = PBXGroup;
 			children = (
+				37B28344240CE21600FD5A8C /* YearSelector */,
 				37F4B02E2407A65E00FA6FA0 /* BarChart */,
 				378CD99123B4A0B3004F29FF /* PagingViewController */,
 				3791F62723A0DACC00DFA1AA /* SideMenu */,
@@ -1170,6 +1175,15 @@
 				37FEFCA023FBCFF90085A164 /* ContributionsCollection.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		37B28344240CE21600FD5A8C /* YearSelector */ = {
+			isa = PBXGroup;
+			children = (
+				37B28345240CE36F00FD5A8C /* YearSelector.swift */,
+				37644006240CF3D800C22E8E /* YearSelectorItem.swift */,
+			);
+			path = YearSelector;
 			sourceTree = "<group>";
 		};
 		37B3789F23C851BD0028AF55 /* SubViews */ = {
@@ -1536,6 +1550,7 @@
 				377C2206237C23640046D4E8 /* Then.swift in Sources */,
 				377C220F237C23640046D4E8 /* SwiftyImageView.swift in Sources */,
 				377C21F8237C23640046D4E8 /* InputVisibilityController.swift in Sources */,
+				37644007240CF3D800C22E8E /* YearSelectorItem.swift in Sources */,
 				371B10DA238E704C005E98D6 /* RepositoryDetailsVM.swift in Sources */,
 				377C21F4237C23640046D4E8 /* StatusBarAppearance.swift in Sources */,
 				377C2214237C23640046D4E8 /* SignalSubscription.swift in Sources */,
@@ -1674,6 +1689,7 @@
 				37B829192386BEA000E991D4 /* RepositoriesCoordinator.swift in Sources */,
 				377C221C237C23640046D4E8 /* Haptic.swift in Sources */,
 				3743F459238D1A8C00C54A0A /* ProfileVC.swift in Sources */,
+				37B28346240CE36F00FD5A8C /* YearSelector.swift in Sources */,
 				377C21E7237C23640046D4E8 /* UIImage+Gradient.swift in Sources */,
 				377F1CF823C76EA4005724E9 /* Label.swift in Sources */,
 				37F4B0332407A8AD00FA6FA0 /* ChartDataEntry.swift in Sources */,

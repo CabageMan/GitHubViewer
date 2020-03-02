@@ -9,7 +9,7 @@ struct ContributionsCollection {
     
     init(collection: ContributionsCollectionFragment) {
         self.hasAnyContributions = collection.hasAnyContributions
-        self.contributionsYears = collection.contributionYears
+        self.contributionsYears = collection.contributionYears.sorted { $0 < $1 } 
         self.calendar = ContributionCalendar(calendar: collection.contributionCalendar.fragments.contributionCalendarFragment)
         self.startedAt = ISO8601DateFormatter().date(from: collection.startedAt) ?? Date()
         self.endedAt = ISO8601DateFormatter().date(from: collection.endedAt) ?? Date()

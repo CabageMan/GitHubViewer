@@ -39,7 +39,7 @@ final class BarChartPresenter {
         }
     }
     
-    func createHorizontalLnes(for entriesNumber: Int) -> [HorizontalLine] {
+    func createHorizontalLines(for entriesNumber: Int) -> [HorizontalLine] {
         let linesStyles = [
             (position: CGFloat(0.0), isDashed: false),
             (position: CGFloat(0.5), isDashed: true),

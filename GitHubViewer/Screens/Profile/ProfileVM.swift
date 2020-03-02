@@ -40,12 +40,10 @@ final class ProfileVM {
         }
     }
     
-    func getContributionsHistory() {
+    func getContributionsHistory(fromDate: Date, toDate: Date) {
         guard let owner = Global.apiClient.ownUser else { return }
-        let fromDate = getStartDate()
-        let toDate = getEndDate()
         
-        GitHubViewerApollo.shared.client.fetch(query: ContributionsQuery(userLogin: owner.login, from: fromDate, to: toDate), cachePolicy: .fetchIgnoringCacheCompletely) { [weak self] response in
+        GitHubViewerApollo.shared.client.fetch(query: ContributionsQuery(userLogin: owner.login, from: fromDate.startOfDay.iso8601, to: toDate.endOfDay.iso8601), cachePolicy: .fetchIgnoringCacheCompletely) { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
@@ -74,29 +72,26 @@ final class ProfileVM {
         }
         return contributionsDays
     }
-}
-
-//MARK: - Temporary
-extension ProfileVM {
-    private func getStartDate() -> String {
-        var dateComponents = DateComponents()
-        dateComponents.day = 1
-        dateComponents.month = 1
-        dateComponents.year = 2020
-        dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
-        guard let date = Calendar.current.date(from: dateComponents) else { return Date().startOfDay.iso8601 }
-        return date.startOfDay.iso8601
-    }
     
-    private func getEndDate() -> String {
-        var dateComponents = DateComponents()
-        dateComponents.day = 31
-        dateComponents.month = 12
-        dateComponents.year = 2019
-        dateComponents.timeZone = TimeZone(secondsFromGMT: 0)
-        guard let date = Calendar.current.date(from: dateComponents) else { return Date().endOfDay.iso8601 }
-//        return date.endOfDay.iso8601
-        return Date().endOfDay.iso8601
+    func getBoundsOfYear(_ year: Int) -> (start: Date, end: Date) {
+        var startDateComponents = DateComponents()
+        startDateComponents.day = 1
+        startDateComponents.month = 1
+        startDateComponents.year = year
+        startDateComponents.timeZone = TimeZone(secondsFromGMT: 0)
+        let startDate: Date = Calendar.current.date(from: startDateComponents) ?? Date()
+        
+        var endDateComponents = DateComponents()
+        if year != Calendar.current.component(.year, from: Date()) {
+            endDateComponents.day = 31
+            endDateComponents.month = 12
+            endDateComponents.year = year
+            endDateComponents.timeZone = TimeZone(secondsFromGMT: 0)
+            let endDate: Date = Calendar.current.date(from: endDateComponents) ?? Date()
+            return (startDate, endDate)
+        }
+        
+        return (startDate, Date())
     }
 }
 

@@ -27,6 +27,10 @@ extension UIColor {
     static let selectedText         = #colorLiteral(red: 0.7843137255, green: 0.7882352941, blue: 0.7960784314, alpha: 1) // #C8C9CB
     static let textDarkBlue         = #colorLiteral(red: 0.007843137255, green: 0.4, blue: 0.8392156863, alpha: 1) // #0266D6
     static let barFieldPlaceHolder  = #colorLiteral(red: 0.6392156863, green: 0.6588235294, blue: 0.6784313725, alpha: 1) // #A3A8AD
+    
+    // Year Picker
+    static let yearSelectorActiveColor  = #colorLiteral(red: 0.007843137255, green: 0.4, blue: 0.8392156863, alpha: 1) // #0266D6
+    static let yearSelectorColor       = #colorLiteral(red: 0.9215686275, green: 0.9254901961, blue: 0.937254902, alpha: 1) // #EBECEF
 }
 
 //MARK: - Sizes

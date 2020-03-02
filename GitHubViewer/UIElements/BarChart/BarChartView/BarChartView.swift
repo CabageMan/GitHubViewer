@@ -2,12 +2,12 @@ import UIKit
 
 final class BarChartView: UIView {
     
-    //MARK: - Public properties
+    //MARK: - Public Properties
     var barWidth: CGFloat = Theme.barWidth
     var barsSpace: CGFloat = Theme.barsSpace
     
-    //MARK: - Private properties
-    private let chartScrollView: UIScrollView = UIScrollView()
+    //MARK: - Private Properties
+    private let chartScrollView = UIScrollView()
     private let chartLayer: CALayer = CALayer()
     private var animated: Bool = false
     private var chartPresenter: BarChartPresenter {
@@ -73,7 +73,7 @@ final class BarChartView: UIView {
                 $0.removeFromSuperlayer()
             }
         }
-        chartPresenter.createHorizontalLnes(for: barsNumber).forEach {
+        chartPresenter.createHorizontalLines(for: barsNumber).forEach {
             chartLayer.addLineLayer(lineSegment: $0.segment, oldSegment: nil, color: Theme.horiZontalLineColor.cgColor, width: $0.width, isDashed: $0.isDashed, animated: false)
         }
     }
