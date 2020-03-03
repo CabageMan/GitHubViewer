@@ -71,6 +71,10 @@ final class ProfileVC: UIViewController {
     
     private func addYearSelector() {
         guard let contributionsYears = viewModel.contributionsCollection?.contributionsYears else { return }
+        if yearSelector != nil {
+            yearSelector!.selectorContainer.removeFromSuperview()
+            yearSelector = nil
+        }
         yearSelector = YearSelector(years: contributionsYears).then {
             $0.yearDidSelect = { [weak self] selectedYear in
                 guard let self = self else { return }
