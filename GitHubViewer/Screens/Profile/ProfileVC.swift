@@ -6,7 +6,7 @@ final class ProfileVC: UIViewController {
     private let viewModel: ProfileVM
     
     private let chartView = BarChartView()
-    private var yearSelector: YearSelector?
+    private var yearSelector = YearSelector()
     
     //MARK: - Life Cycle
     init(router: GithubViewerRouter) {
@@ -46,6 +46,17 @@ final class ProfileVC: UIViewController {
             $0.width(UIScreen.main.bounds.width - 20.0)
             $0.height(UIScreen.main.bounds.height / 2)
         }
+        
+        yearSelector.selectorContainer.add(to: view).do {
+            $0.centerXToSuperview()
+            $0.width(UIScreen.main.bounds.width - 20.0)
+            $0.topToBottom(of: chartView, offset: Theme.yearSelectorOffset)
+        }
+        yearSelector.yearDidSelect = { [weak self] selectedYear in
+            guard let self = self else { return }
+            let selectedYearBounds = self.viewModel.getBoundsOfYear(selectedYear)
+            self.viewModel.getContributionsHistory(fromDate: selectedYearBounds.start, toDate: selectedYearBounds.end)
+        }
     }
     
     private func setupViewmodel() {
@@ -57,9 +68,8 @@ final class ProfileVC: UIViewController {
         viewModel.contributionsHaveBeenFetched = { [weak self] in
             guard let self = self else { return }
             Spinner.stop()
-            guard let contributions = self.viewModel.contributionsCollection, contributions.hasAnyContributions else { return }
             self.drawChart()
-            self.addYearSelector()
+            self.updateYearSelector()
         }
     }
     
@@ -69,24 +79,10 @@ final class ProfileVC: UIViewController {
         chartView.updateDataEntries(with: generateDataEntries(for: contributionsDays), animated: true)
     }
     
-    private func addYearSelector() {
-        guard let contributionsYears = viewModel.contributionsCollection?.contributionsYears else { return }
-        if yearSelector != nil {
-            yearSelector!.selectorContainer.removeFromSuperview()
-            yearSelector = nil
-        }
-        yearSelector = YearSelector(years: contributionsYears).then {
-            $0.yearDidSelect = { [weak self] selectedYear in
-                guard let self = self else { return }
-                let selectedYearBounds = self.viewModel.getBoundsOfYear(selectedYear)
-                self.viewModel.getContributionsHistory(fromDate: selectedYearBounds.start, toDate: selectedYearBounds.end)
-            }
-            $0.selectorContainer.add(to: view).do {
-                $0.centerXToSuperview()
-                $0.width(UIScreen.main.bounds.width - 20.0)
-                $0.topToBottom(of: chartView, offset: Theme.yearelectorOffset)
-            }
-        }
+    private func updateYearSelector() {
+        guard let contributionsCollection = viewModel.contributionsCollection else { return }
+        let selectedYear = Calendar.current.dateComponents([.year], from: contributionsCollection.startedAt).year
+        yearSelector.update(with: contributionsCollection.contributionsYears, selectedYear: selectedYear)
     }
     
     private func generateEmptyDataEntries(_ entryNumber: Int) -> [ChartDataEntry] {
@@ -111,6 +107,6 @@ extension ProfileVC {
     enum Theme {
         // Offsets
         static let emptyViewOffset: CGFloat = 70.0
-        static let yearelectorOffset: CGFloat = 13.0
+        static let yearSelectorOffset: CGFloat = 13.0
     }
 }

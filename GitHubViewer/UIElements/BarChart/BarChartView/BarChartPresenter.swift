@@ -1,5 +1,6 @@
-import Foundation
-import CoreGraphics.CGGeometry
+//import Foundation
+//import CoreGraphics.CGGeometry
+import UIKit
 
 final class BarChartPresenter {
 
@@ -16,7 +17,9 @@ final class BarChartPresenter {
     
     //MARK: - Actions
     func calculateContentWidth(for entriesNumber: Int) -> CGFloat {
-        return (barWidth + barsSpace) * CGFloat(entriesNumber) + barsSpace
+        let contentWidth = (barWidth + barsSpace) * CGFloat(entriesNumber) + barsSpace
+        let screenWidth = UIScreen.main.bounds.width
+        return contentWidth > screenWidth ? contentWidth : screenWidth
     }
     
     func createBarEntries(for data: [ChartDataEntry]) -> [ChartBarEntry] {
@@ -60,6 +63,7 @@ final class BarChartPresenter {
     }
 }
 
+//MARK: - Theme
 extension BarChartPresenter {
     enum Theme {
         // Offsets
