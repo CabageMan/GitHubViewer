@@ -7,6 +7,7 @@ final class BarChartView: UIView {
     var barsSpace: CGFloat = Theme.barsSpace
     
     //MARK: - Private Properties
+    private let emptyMessageLabel = UILabel()
     private let chartScrollView = UIScrollView()
     private let chartLayer: CALayer = CALayer()
     private var animated: Bool = false
@@ -30,6 +31,16 @@ final class BarChartView: UIView {
     }
     
     private func setup() {
+        emptyMessageLabel.add(to: self).do {
+            $0.centerInSuperview()
+            $0.widthToSuperview()
+            $0.font = Theme.emptyMessageFont
+            $0.textAlignment = .center
+            $0.numberOfLines = 0
+            $0.textColor = Theme.titleColor
+            $0.text = String.EmptyView.emptyContributions
+            $0.isHidden = true
+        }
         chartScrollView.add(to: self).do {
             $0.layer.addSublayer(chartLayer)
             $0.edgesToSuperview()
@@ -54,9 +65,14 @@ final class BarChartView: UIView {
         chartLayer.sublayers?.forEach { $0.removeFromSuperlayer() }
         chartScrollView.contentSize = CGSize(width: chartPresenter.calculateContentWidth(for: barEntries.count), height: self.frame.size.height)
         chartLayer.frame = CGRect(x: 0.0, y: 0.0, width: chartScrollView.contentSize.width, height: chartScrollView.contentSize.height)
-        showHorisontalLines(for: barEntries.count)
-        barEntries.enumerated().forEach { index, entry in
-            showEntry(index: index, entry: entry, oldEntry: oldEntries?.safeValue(at: index), animated: animated)
+        if barEntries.isEmpty {
+            emptyMessageLabel.isHidden = false
+        } else {
+            emptyMessageLabel.isHidden = true
+            showHorisontalLines(for: barEntries.count)
+            barEntries.enumerated().forEach { index, entry in
+                showEntry(index: index, entry: entry, oldEntry: oldEntries?.safeValue(at: index), animated: animated)
+            }
         }
     }
     
@@ -81,6 +97,8 @@ final class BarChartView: UIView {
 
 extension BarChartView {
     enum Theme {
+        // Fonts
+        static let emptyMessageFont: UIFont = .cf(style: .compactDisplayThin, size: 23.0)
         // Colors
         static let horiZontalLineColor: UIColor = #colorLiteral(red: 0.8039215686, green: 0.8039215686, blue: 0.8039215686, alpha: 1) // #CDCDCD
         static let titleColor: UIColor = #colorLiteral(red: 0.462745098, green: 0.462745098, blue: 0.462745098, alpha: 1) // #767676

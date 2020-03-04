@@ -66,6 +66,8 @@ extension String {
   enum EmptyView {
     // Pull request's commits will be displayed here
     static let emptyCommits = String.tr("Localizable", "emptyView.emptyCommits")
+    // There is no contributions for selected year
+    static let emptyContributions = String.tr("Localizable", "emptyView.emptyContributions")
     // Issue comments will be displayed here
     static let emptyIssueComments = String.tr("Localizable", "emptyView.emptyIssueComments")
     // Your issues will be displayed here

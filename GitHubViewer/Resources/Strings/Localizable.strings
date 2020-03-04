@@ -86,6 +86,7 @@
 "emptyView.emptyIssues"             = "Your issues will be displayed here";
 "emptyView.emptyIssueComments"      = "Issue comments will be displayed here";
 "emptyView.emptyProfile"            = "Your profile will be displayed here";
+"emptyView.emptyContributions"      = "There is no contributions for selected year";
 
 //MARK: - Side Menu
 "sideMenu.signedInAs"   = "Signed in as";
