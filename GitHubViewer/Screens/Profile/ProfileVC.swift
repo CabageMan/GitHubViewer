@@ -54,6 +54,7 @@ final class ProfileVC: UIViewController {
         }
         yearSelector.yearDidSelect = { [weak self] selectedYear in
             guard let self = self else { return }
+            Spinner.start()
             let selectedYearBounds = self.viewModel.getBoundsOfYear(selectedYear)
             self.viewModel.getContributionsHistory(fromDate: selectedYearBounds.start, toDate: selectedYearBounds.end)
         }

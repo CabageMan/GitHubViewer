@@ -24,6 +24,7 @@ final class YearSelector: NSObject {
     
     //MARK: - Public Actions
     func update(with years: [Int], selectedYear: Int?) {
+        #warning("Scroll to active item!")
         currentSelectedItem = nil
         selectorContainer.stackView.arrangedSubviews.forEach {
             selectorContainer.stackView.removeArrangedSubview($0)
