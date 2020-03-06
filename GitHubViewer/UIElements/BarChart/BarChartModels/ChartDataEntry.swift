@@ -1,6 +1,6 @@
 import UIKit
 
-struct ChartDataEntry {
+struct ChartDataEntry: Equatable {
     let color: UIColor
     let value: Float
     let textValue: String

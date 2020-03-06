@@ -44,6 +44,11 @@ final class ProfileVC: UIViewController {
             $0.centerInSuperview()
             $0.width(BarChartView.Theme.chartViewFrame.width)
             $0.height(BarChartView.Theme.chartViewFrame.height)
+            $0.barHasTouched = { [weak self] barIndex in
+                guard let self = self, let index = barIndex else { return }
+                let day = self.viewModel.getContributionsDays()[index]
+                log("Selected day date: \(day.date)")
+            }
         }
         
         yearSelector.selectorContainer.add(to: view).do {

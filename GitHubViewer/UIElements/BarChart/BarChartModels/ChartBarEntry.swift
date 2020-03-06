@@ -1,7 +1,7 @@
 import Foundation
 import CoreGraphics.CGGeometry
 
-struct ChartBarEntry {
+struct ChartBarEntry: Equatable {
     let origin: CGPoint
     let barWidth: CGFloat
     let barHeight: CGFloat
@@ -31,6 +31,10 @@ struct ChartBarEntry {
             width: barWidth,
             height: barHeight
         )
+    }
+    
+    static func == (lhs: ChartBarEntry, rhs: ChartBarEntry) -> Bool {
+        return lhs.origin == rhs.origin && lhs.barWidth == rhs.barWidth && lhs.barHeight == rhs.barHeight && lhs.space == rhs.space && lhs.data == rhs.data
     }
 }
 
