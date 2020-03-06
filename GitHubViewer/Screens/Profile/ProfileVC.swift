@@ -41,10 +41,9 @@ final class ProfileVC: UIViewController {
 //        }
         
         chartView.add(to: view).do {
-            $0.backgroundColor = .cyan
             $0.centerInSuperview()
-            $0.width(UIScreen.main.bounds.width - 20.0)
-            $0.height(UIScreen.main.bounds.height / 2)
+            $0.width(BarChartView.Theme.chartViewFrame.width)
+            $0.height(BarChartView.Theme.chartViewFrame.height)
         }
         
         yearSelector.selectorContainer.add(to: view).do {

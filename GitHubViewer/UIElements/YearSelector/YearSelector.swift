@@ -24,13 +24,13 @@ final class YearSelector: NSObject {
     
     //MARK: - Public Actions
     func update(with years: [Int], selectedYear: Int?) {
-        #warning("Scroll to active item!")
         currentSelectedItem = nil
         selectorContainer.stackView.arrangedSubviews.forEach {
             selectorContainer.stackView.removeArrangedSubview($0)
             $0.removeFromSuperview()
         }
         selectorContainer.stackView.addArrangedSubviews(createYearsItems(from: years, currentYear: selectedYear))
+        scrollToSelectedItem()
     }
     
     //MARK: - Private Actions
@@ -55,6 +55,24 @@ final class YearSelector: NSObject {
             $0.isSelected = true
             yearDidSelect($0.year)
         }
+    }
+    
+    private func scrollToSelectedItem() {
+        guard let selectedItem = currentSelectedItem,
+              let selectedItemIndex = selectorContainer.stackView.arrangedSubviews.firstIndex(of: selectedItem)
+        else { return }
+        let scrollViewWidth = selectorContainer.scrollView.frame.width
+        let lastItemIndex = selectorContainer.stackView.arrangedSubviews.endIndex - 1
+        let selectedItemPositionX = CGFloat(selectedItemIndex) * (YearSelectorItem.Theme.itemWidth + Theme.itemsSpace)
+        var xPositionToScroll: CGFloat
+        if selectedItemIndex == 0 {
+            xPositionToScroll = selectedItemPositionX
+        } else if selectedItemIndex == lastItemIndex {
+            xPositionToScroll = selectedItemPositionX - (scrollViewWidth - YearSelectorItem.Theme.itemWidth)
+        } else {
+            xPositionToScroll = selectedItemPositionX - (scrollViewWidth / 2 - (YearSelectorItem.Theme.itemWidth) / 2)
+        }
+        selectorContainer.scrollView.setContentOffset(CGPoint(x: xPositionToScroll, y: 0), animated: true)
     }
 }
 
