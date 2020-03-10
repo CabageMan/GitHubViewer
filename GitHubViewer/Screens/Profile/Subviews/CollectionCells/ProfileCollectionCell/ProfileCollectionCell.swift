@@ -37,7 +37,6 @@ extension ProfileCollectionCell: ConfigurableCell {
     typealias CellData = ProfileItem
     
     func configure(with data: ProfileItem) {
-        log("Configure CEll")
         switch data {
         case .user(let user):
             configureUserContent(user: user)
@@ -50,8 +49,13 @@ extension ProfileCollectionCell: ConfigurableCell {
     }
     
     private func configureUserContent(user: User) {
-        log("-----\n")
-        log("User Content: \(user.name)")
+        UserCard().add(to: container).do {
+            $0.topToSuperview(offset: Theme.contentSideOffset)
+            $0.leftToSuperview(offset: Theme.contentSideOffset)
+            $0.rightToSuperview(offset: -Theme.contentSideOffset)
+            $0.bottomToSuperview(offset: -Theme.contentSideOffset)
+            $0.configure(with: user)
+        }
     }
     
     private func configurePinnedContent(items: ProfileItem.PinnedItems) {
@@ -72,6 +76,7 @@ extension ProfileCollectionCell: ConfigurableCell {
 //MARK: - Theme
 extension ProfileCollectionCell {
     enum Theme {
-        
+        //Offsets
+        static let contentSideOffset: CGFloat = 13.0
     }
 }
