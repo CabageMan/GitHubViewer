@@ -117,8 +117,8 @@ extension BarChartView {
         static let horiZontalLineColor: UIColor = #colorLiteral(red: 0.8039215686, green: 0.8039215686, blue: 0.8039215686, alpha: 1) // #CDCDCD
         static let titleColor: UIColor = #colorLiteral(red: 0.462745098, green: 0.462745098, blue: 0.462745098, alpha: 1) // #767676
         static let barEndColor: UIColor = #colorLiteral(red: 0.8784313725, green: 0.968627451, blue: 0.6980392157, alpha: 1) // #E0F7B2
-        static let gradientStartColor: CGColor = #colorLiteral(red: 0.8784313725, green: 1, blue: 1, alpha: 1).cgColor // #E0FFFF
-        static let gradientEndColor: CGColor = #colorLiteral(red: 0, green: 1, blue: 1, alpha: 1).cgColor // #00FFFF
+        static let gradientStartColor: CGColor = #colorLiteral(red: 0.8823529412, green: 0.9490196078, blue: 0.9960784314, alpha: 1).cgColor // #E1F2FE
+        static let gradientEndColor: CGColor = #colorLiteral(red: 0.5960784314, green: 0.8235294118, blue: 0.9215686275, alpha: 1).cgColor // #98D2EB
         
         // Sizes
         static let barWidth: CGFloat = 40.0

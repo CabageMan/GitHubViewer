@@ -77,7 +77,7 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
                 header.onSelectorChanged = onHeaderSelectorChanged
                 selectorHeader = header
                 return header
-            case .repositories, .commits, .issueComments:
+            case .repositories, .commits, .issueComments, .profile:
                 return UICollectionReusableView()
             }
         case UICollectionView.elementKindSectionFooter:
@@ -98,7 +98,7 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
         switch mode {
         case .pullRequests, .issues:
             return CGSize(width: UIScreen.main.bounds.width, height: CollectionSelectorHeader.Theme.headerHeight)
-        case .repositories, .commits, .issueComments:
+        case .repositories, .commits, .issueComments, .profile:
             return CGSize.zero
         }
         
@@ -132,6 +132,7 @@ extension GitHubViewerCollection {
         case commits
         case issues
         case issueComments
+        case profile
         
         var backGround: UIView {
             switch self {
@@ -145,6 +146,8 @@ extension GitHubViewerCollection {
                 return EmptyView.createEmptyIssues(offset: -Theme.emptyViewOffset)
             case .issueComments:
                 return EmptyView.createEmptyIssueComments(offset: -Theme.emptyViewOffset)
+            case .profile:
+                return EmptyView.createEmptyProfile(offset: -Theme.emptyViewOffset)
             }
         }
         
@@ -159,7 +162,9 @@ extension GitHubViewerCollection {
             case .issues:
                 return Theme.issueCellHeight
             case .issueComments:
-                return Theme.issueCommentHeight
+                return Theme.issueCommentCellHeight
+            case .profile:
+                return Theme.profileCellHeight
             }
         }
     }
@@ -172,7 +177,8 @@ fileprivate enum Theme {
     static let pullRequestCellHeight: CGFloat = 80.0
     static let commitCellHeight: CGFloat = 50.0
     static let issueCellHeight: CGFloat = 80.0
-    static let issueCommentHeight: CGFloat = 90.0
+    static let issueCommentCellHeight: CGFloat = 90.0
+    static let profileCellHeight: CGFloat = 130.0
     
     // Offsets
     static let cellSideOffset: CGFloat = 36.0
