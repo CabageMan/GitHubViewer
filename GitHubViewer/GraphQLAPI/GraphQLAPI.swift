@@ -1803,8 +1803,8 @@ public final class OwnUserQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String? = nil, login: String, avatarUrl: String) {
-        self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl])
+      public init(name: String? = nil, login: String, avatarUrl: String, email: String) {
+        self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl, "email": email])
       }
 
       public var __typename: String {
@@ -3573,6 +3573,7 @@ public struct UserFragment: GraphQLFragment {
       name
       login
       avatarUrl
+      email
     }
     """
 
@@ -3583,6 +3584,7 @@ public struct UserFragment: GraphQLFragment {
     GraphQLField("name", type: .scalar(String.self)),
     GraphQLField("login", type: .nonNull(.scalar(String.self))),
     GraphQLField("avatarUrl", type: .nonNull(.scalar(String.self))),
+    GraphQLField("email", type: .nonNull(.scalar(String.self))),
   ]
 
   public private(set) var resultMap: ResultMap
@@ -3591,8 +3593,8 @@ public struct UserFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(name: String? = nil, login: String, avatarUrl: String) {
-    self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl])
+  public init(name: String? = nil, login: String, avatarUrl: String, email: String) {
+    self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl, "email": email])
   }
 
   public var __typename: String {
@@ -3631,6 +3633,16 @@ public struct UserFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue, forKey: "avatarUrl")
+    }
+  }
+
+  /// The user's publicly visible profile email.
+  public var email: String {
+    get {
+      return resultMap["email"]! as! String
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "email")
     }
   }
 }
@@ -4140,8 +4152,8 @@ public struct RepositoryDetailsFragment: GraphQLFragment {
         self.resultMap = unsafeResultMap
       }
 
-      public init(name: String? = nil, login: String, avatarUrl: String) {
-        self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl])
+      public init(name: String? = nil, login: String, avatarUrl: String, email: String) {
+        self.init(unsafeResultMap: ["__typename": "User", "name": name, "login": login, "avatarUrl": avatarUrl, "email": email])
       }
 
       public var __typename: String {

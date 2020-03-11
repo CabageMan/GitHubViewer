@@ -1,7 +1,6 @@
 import Foundation
 
 enum ProfileItem {
-    typealias ContributionDay = ContributionsCollection.ContributionDay
         
     struct PinnedItems {
         let repositories: [Repository]
@@ -10,6 +9,7 @@ enum ProfileItem {
     
     case user(User)
     case pinned(PinnedItems)
-    case contributions([ContributionDay])
+    case contributions([ContributionsCollection.ContributionDay], (ContributionsCollection.ContributionDay) -> Void)
     case empty
+    
 }

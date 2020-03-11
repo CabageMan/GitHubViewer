@@ -86,7 +86,10 @@ final class ProfileVC: UIViewController {
             guard let self = self else { return }
             Spinner.stop()
             let contributionsDays = self.viewModel.getContributionsDays()
-            self.profileItems[Theme.chartItemIndex] = ProfileItem.contributions(contributionsDays)
+            let completion: (ContributionsCollection.ContributionDay) -> Void = { day in
+                log("Selected day date: \(day.date)")
+            }
+            self.profileItems[Theme.chartItemIndex] = ProfileItem.contributions(contributionsDays, completion)
             
 //            self.drawChart()
 //            self.updateYearSelector()
@@ -137,6 +140,6 @@ extension ProfileVC {
         
         // Offsets
         static let emptyViewOffset: CGFloat = 70.0
-        static let yearSelectorOffset: CGFloat = 13.0
+//        static let yearSelectorOffset: CGFloat = 13.0
     }
 }

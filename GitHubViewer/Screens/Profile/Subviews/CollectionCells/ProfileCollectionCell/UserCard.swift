@@ -26,7 +26,7 @@ final class UserCard: UIView {
             $0.topToSuperview()
             $0.leftToSuperview()
             $0.widthToSuperview()
-            $0.heightToSuperview(offset: -Theme.avaterHeightOffset)
+            $0.heightToSuperview(offset: -Theme.avatarHeightOffset)
         }
         
         nameLabel.add(to: self).do {
@@ -60,7 +60,7 @@ final class UserCard: UIView {
         
         emailLabel.add(to: self).do {
             $0.top(to: envelopeImageView)
-            $0.leftToRight(of: envelopeImageView)
+            $0.leftToRight(of: envelopeImageView, offset: Theme.emailLabelLeftOffset)
             $0.height(Theme.emailLabelHeight)
             
             $0.textAlignment = .left
@@ -77,7 +77,7 @@ final class UserCard: UIView {
         }
         nameLabel.text = user.name
         loginLabel.text = user.login
-        emailLabel.text = "Need to implement"
+        emailLabel.text = user.email
     }
 }
 
@@ -102,11 +102,12 @@ extension UserCard {
         static let emailLabelHeight: CGFloat = 15.0
         
         // Offsets
-        static var avaterHeightOffset: CGFloat {
+        static var avatarHeightOffset: CGFloat {
             return nameLabelHeight + nameLabelTopOffset + loginLabelHeight + loginLabelTopOffset + emailLabelHeight + emailLabelTopOffset
         }
         static let nameLabelTopOffset: CGFloat = 5.0
         static let loginLabelTopOffset: CGFloat = 5.0
         static let emailLabelTopOffset: CGFloat = 5.0
+        static let emailLabelLeftOffset: CGFloat = 5.0
     }
 }
