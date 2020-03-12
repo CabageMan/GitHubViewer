@@ -30,7 +30,7 @@ final class ProfileVC: UIViewController {
         Spinner.start()
         viewModel.getPinnedItems()
         let currentYear = Calendar.current.component(.year, from: Date())
-        let currentYearBounds = viewModel.getBoundsOfYear(currentYear)
+        let currentYearBounds = currentYear.getBoundsOfYear()
         viewModel.getContributionsHistory(fromDate: currentYearBounds.start, toDate: currentYearBounds.end)
     }
     
@@ -77,19 +77,34 @@ final class ProfileVC: UIViewController {
     
     private func setupViewmodel() {
         viewModel.pinnedItemsHaveBeenFetched = { [weak self] in
-            guard let self = self else { return }
             Spinner.stop()
+            guard let self = self else { return }
             let pinnedItems = ProfileItem.PinnedItems(repositories: self.viewModel.pinnedRepositories, gists: self.viewModel.pinnedGists)
             self.profileItems[Theme.pinnedItemsIndex] = ProfileItem.pinned(pinnedItems)
         }
         viewModel.contributionsHaveBeenFetched = { [weak self] in
-            guard let self = self else { return }
             Spinner.stop()
-            let contributionsDays = self.viewModel.getContributionsDays()
-            let completion: (ContributionsCollection.ContributionDay) -> Void = { day in
+            guard let self = self, let contributionCollection = self.viewModel.contributionsCollection else { return }
+            let startedAt = Calendar.current.dateComponents([.year], from: contributionCollection.startedAt).year
+            let years = contributionCollection.contributionsYears
+            let days = self.viewModel.getContributionsDays()
+            let onBarSelect: (ContributionsCollection.ContributionDay) -> Void = { day in
                 log("Selected day date: \(day.date)")
             }
-            self.profileItems[Theme.chartItemIndex] = ProfileItem.contributions(contributionsDays, completion)
+            let onYearSelect: (Int) -> Void = { [weak self] selectedYear in
+                guard let self = self else { return }
+                Spinner.start()
+                let selectedYearBounds = selectedYear.getBoundsOfYear()
+                self.viewModel.getContributionsHistory(fromDate: selectedYearBounds.start, toDate: selectedYearBounds.end)
+            }
+            let contributions = ProfileItem.Contributions(
+                contributionsStartedAt: startedAt,
+                contributionsYears: years,
+                contributionsDays: days,
+                onBarSelect: onBarSelect,
+                onYearSelect: onYearSelect
+            )
+            self.profileItems[Theme.chartItemIndex] = ProfileItem.contributions(contributions)
             
 //            self.drawChart()
 //            self.updateYearSelector()

@@ -127,6 +127,6 @@ extension BarChartView {
         static let chartBarFontSize: CGFloat = 14.0
         
         // Rects
-        static let chartViewFrame: CGRect = CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width - 20.0, height: UIScreen.main.bounds.height / 2)
+        static let chartViewFrame: CGRect = CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.width - 20.0, height: UIScreen.main.bounds.width + 20.0)
     }
 }

@@ -114,3 +114,71 @@ extension Date {
         return DateUtilities.postedDateFormat(fromDate: Date(), toDate: self)
     }
 }
+
+//MARK: - ISO8601 converting
+extension ISO8601DateFormatter {
+    convenience init(_ formatOptions: Options, timeZone: TimeZone = TimeZone(secondsFromGMT: 0)!) {
+        self.init()
+        self.formatOptions = formatOptions
+        self.timeZone = timeZone
+    }
+}
+
+extension Formatter {
+    static let iso8601 = ISO8601DateFormatter([.withInternetDateTime, .withFractionalSeconds])
+}
+
+extension Date {
+    var iso8601: String {
+        return Formatter.iso8601.string(from: self)
+    }
+}
+
+extension String {
+    var iso8601: Date? {
+        return Formatter.iso8601.date(from: self)
+    }
+}
+
+//MARK: - Start and End of Day
+extension Date {
+    var startOfDay : Date {
+        let calendar = Calendar.current
+        let unitFlags = Set<Calendar.Component>([.year, .month, .day])
+        var components = calendar.dateComponents(unitFlags, from: self)
+        components.timeZone = TimeZone(secondsFromGMT: 0)
+        return calendar.date(from: components)!
+   }
+
+    var endOfDay : Date {
+        var components = DateComponents()
+        components.day = 1
+        let date = Calendar.current.date(byAdding: components, to: self.startOfDay)
+        return (date?.addingTimeInterval(-1))!
+    }
+}
+
+//MARK: - Year bounds
+extension Int {
+    func getBoundsOfYear() -> (start: Date, end: Date) {
+        var startDateComponents = DateComponents()
+        startDateComponents.day = 1
+        startDateComponents.month = 1
+        startDateComponents.year = self
+        startDateComponents.timeZone = TimeZone(secondsFromGMT: 0)
+        let startDate: Date = Calendar.current.date(from: startDateComponents) ?? Date()
+        
+        var endDateComponents = DateComponents()
+        if self != Calendar.current.component(.year, from: Date()) {
+            endDateComponents.day = 31
+            endDateComponents.month = 12
+            endDateComponents.year = self
+            endDateComponents.timeZone = TimeZone(secondsFromGMT: 0)
+            let endDate: Date = Calendar.current.date(from: endDateComponents) ?? Date()
+            return (startDate, endDate)
+        }
+        
+        return (startDate, Date())
+    }
+}
+

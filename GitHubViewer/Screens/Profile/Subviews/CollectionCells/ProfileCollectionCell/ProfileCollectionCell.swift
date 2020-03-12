@@ -3,6 +3,7 @@ import UIKit
 final class ProfileCollectionCell: UICollectionViewCell {
     
     private let container = UIView()
+    private var yearSelector: YearSelector?
     
     //MARK: - Initializers
     override init(frame: CGRect) {
@@ -42,8 +43,14 @@ extension ProfileCollectionCell: ConfigurableCell {
             configureUserContent(user: user)
         case .pinned(let pinnedItems):
             configurePinnedContent(items: pinnedItems)
-        case .contributions(let contributions, let completion):
-            configureContributionsChart(contributions: contributions, completion: completion)
+        case .contributions(let contributions):
+            configureContributionsChart(
+                days: contributions.contributionsDays,
+                years: contributions.contributionsYears,
+                startedAt: contributions.contributionsStartedAt,
+                onBarSelect: contributions.onBarSelect,
+                onYearSelect: contributions.onYearSelect
+            )
         default: break
         }
     }
@@ -66,38 +73,37 @@ extension ProfileCollectionCell: ConfigurableCell {
         items.gists.forEach { gist in log("Gist Name \(gist.name)") }
     }
     
-    private func configureContributionsChart(contributions: [ContributionsCollection.ContributionDay], completion: @escaping (ContributionsCollection.ContributionDay) -> Void) {
+    private func configureContributionsChart(days: [ContributionsCollection.ContributionDay], years: [Int], startedAt: Int?, onBarSelect: @escaping (ContributionsCollection.ContributionDay) -> Void, onYearSelect: @escaping (Int) -> Void) {
         let chartView = BarChartView().add(to: container).then {
-            $0.centerInSuperview()
+            $0.topToSuperview()
+            $0.leftToSuperview(offset: Theme.contentSideOffset)
             $0.width(BarChartView.Theme.chartViewFrame.width)
             $0.height(BarChartView.Theme.chartViewFrame.height)
-            $0.barHasTouched = { [weak self] barIndex in
-                guard let self = self, let index = barIndex else { return }
-                let day = contributions[index]
-                completion(day)
+            $0.barHasTouched = { barIndex in
+                guard let index = barIndex else { return }
+                onBarSelect(days[index])
             }
         }
-        chartView.updateDataEntries(with: generateEmptyDataEntries(contributions.count), animated: false)
-        chartView.updateDataEntries(with: generateDataEntries(for: contributions), animated: true)
+        chartView.updateDataEntries(with: generateEmptyDataEntries(days.count), animated: false)
+        chartView.updateDataEntries(with: generateDataEntries(for: days), animated: true)
         
-//        let yearSelector = YearSelector()
-//        yearSelector.selectorContainer.add(to: container).do {
-//            $0.centerXToSuperview()
-//            $0.width(UIScreen.main.bounds.width - 20.0)
-//            $0.topToBottom(of: chartView, offset: Theme.contentSideOffset)
-//        }
-//        yearSelector.yearDidSelect = { [weak self] selectedYear in
-//            guard let self = self else { return }
-//            Spinner.start()
-//            let selectedYearBounds = self.viewModel.getBoundsOfYear(selectedYear)
-//            self.viewModel.getContributionsHistory(fromDate: selectedYearBounds.start, toDate: selectedYearBounds.end)
-//        }
+        #warning("Check and fix year selector")
+        yearSelector = YearSelector()
+        yearSelector!.selectorContainer.add(to: container).do {
+            $0.centerXToSuperview()
+            $0.width(BarChartView.Theme.chartViewFrame.width)
+            $0.topToBottom(of: chartView, offset: Theme.contentSideOffset)
+        }
+        yearSelector!.yearDidSelect = { selectedYear in
+            log("Selected year is: \(selectedYear)")
+            onYearSelect(selectedYear)
+        }
+        yearSelector!.update(with: years, selectedYear: startedAt)
     }
 }
 
 //MARK: - Chart View Methods
 extension ProfileCollectionCell {
-    
     private func generateEmptyDataEntries(_ entryNumber: Int) -> [ChartDataEntry] {
         return (0..<entryNumber).map { _ in ChartDataEntry(color: .clear, value: 0, textValue: "0", title: "") }
     }
@@ -119,6 +125,6 @@ extension ProfileCollectionCell {
 extension ProfileCollectionCell {
     enum Theme {
         //Offsets
-        static let contentSideOffset: CGFloat = 13.0
+        static let contentSideOffset: CGFloat = 10.0
     }
 }
