@@ -20,6 +20,7 @@
 		371F9104241788600007D825 /* ProfilePinnedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371F9103241788600007D825 /* ProfilePinnedCell.swift */; };
 		371F910624178A9E0007D825 /* ProfilePinnedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371F910524178A9E0007D825 /* ProfilePinnedItem.swift */; };
 		371F91082417B7F20007D825 /* ProfileUserCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371F91072417B7F20007D825 /* ProfileUserCard.swift */; };
+		37254CDE241BCA26008A2EAD /* ProfileTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37254CDD241BCA26008A2EAD /* ProfileTitleView.swift */; };
 		372A9C48238E74A6007F1BA9 /* RepositoryDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372A9C47238E74A6007F1BA9 /* RepositoryDetails.swift */; };
 		372A9C4A238E9E6F007F1BA9 /* ScrollableStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372A9C49238E9E6F007F1BA9 /* ScrollableStack.swift */; };
 		372D9662238C1206006BE68B /* RepositoryDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372D9661238C1206006BE68B /* RepositoryDetailsVC.swift */; };
@@ -249,6 +250,7 @@
 		371F9103241788600007D825 /* ProfilePinnedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePinnedCell.swift; sourceTree = "<group>"; };
 		371F910524178A9E0007D825 /* ProfilePinnedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePinnedItem.swift; sourceTree = "<group>"; };
 		371F91072417B7F20007D825 /* ProfileUserCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserCard.swift; sourceTree = "<group>"; };
+		37254CDD241BCA26008A2EAD /* ProfileTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTitleView.swift; sourceTree = "<group>"; };
 		372A9C47238E74A6007F1BA9 /* RepositoryDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetails.swift; sourceTree = "<group>"; };
 		372A9C49238E9E6F007F1BA9 /* ScrollableStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStack.swift; sourceTree = "<group>"; };
 		372D9661238C1206006BE68B /* RepositoryDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailsVC.swift; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 				371F91072417B7F20007D825 /* ProfileUserCard.swift */,
 				371ADFC9241B7FA000D5E9FB /* PinnedItemsCard.swift */,
 				37A521A9241A84B500CA5FE5 /* ProfileChartCard.swift */,
+				37254CDD241BCA26008A2EAD /* ProfileTitleView.swift */,
 				371ADFC8241B7F7000D5E9FB /* CollectionCells */,
 			);
 			path = Subviews;
@@ -1570,6 +1573,7 @@
 				377C2215237C23640046D4E8 /* UIBarButtonItem+Signals.swift in Sources */,
 				377C2234237C38AA0046D4E8 /* Global.swift in Sources */,
 				378831A423EC2ED1005A4E3F /* Gist.swift in Sources */,
+				37254CDE241BCA26008A2EAD /* ProfileTitleView.swift in Sources */,
 				37C3D8E723955E9000037154 /* ImageContent.swift in Sources */,
 				373C58DC23858994003F2BEB /* TabBarViewController.swift in Sources */,
 				377C2205237C23640046D4E8 /* Reachability.swift in Sources */,

@@ -194,6 +194,14 @@ extension String {
   }
 
   enum Profile {
+    // %@ contributions in %@
+    static func contributionsInYear(_ p1: String, _ p2: String) -> String {
+      return String.tr("Localizable", "profile.contributionsInYear", p1, p2)
+    }
+    // the last year
+    static let lastYear = String.tr("Localizable", "profile.lastYear")
+    // Pinned
+    static let pinned = String.tr("Localizable", "profile.pinned")
     // Profile
     static let title = String.tr("Localizable", "profile.title")
   }

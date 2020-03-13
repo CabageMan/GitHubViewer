@@ -109,7 +109,10 @@ final class GitHubViewerCollection<T: UICollectionViewCell & ConfigurableCell>: 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return Theme.collectionViewInsets
+        switch mode {
+        case .profile: return Theme.collectionViewProfileInsets
+        default: return Theme.collectionViewDefaultInsets
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -182,6 +185,7 @@ fileprivate enum Theme {
     
     // Offsets
     static let cellSideOffset: CGFloat = 36.0
-    static let collectionViewInsets: UIEdgeInsets = UIEdgeInsets(top: 15.0, left: 0, bottom: 15.0, right: 0)
+    static let collectionViewProfileInsets: UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0, bottom: 0.0, right: 0)
+    static let collectionViewDefaultInsets: UIEdgeInsets = UIEdgeInsets(top: 15.0, left: 0, bottom: 15.0, right: 0)
     static let emptyViewOffset: CGFloat = 50.0
 }

@@ -7,6 +7,7 @@ final class ProfileVC: UIViewController {
     private let profileContainer = ScrollableStack(axis: .vertical, spacing: Theme.profileItemsSpace, distribution: .fill)
     private let userCard = ProfileUserCard()
     private let pinnedCard = PinnedItemsCard()
+    private let chartTitle = ProfileTitleView()
     private let chartCard = ProfileChartCard()
     
     //MARK: - Life Cycle
@@ -45,6 +46,10 @@ final class ProfileVC: UIViewController {
             }
         }
         
+        let pinnedTitle = ProfileTitleView().then {
+            $0.update(title: String.Profile.pinned)
+        }
+        
         pinnedCard.do {
             $0.width(UIScreen.main.bounds.width)
             $0.itemDidSelect = { item in
@@ -77,7 +82,7 @@ final class ProfileVC: UIViewController {
             $0.edgesToSuperview(excluding: .bottom)
             $0.bottomToSuperview(offset: -Theme.containerBottomOffset)
             $0.scrollView.alwaysBounceHorizontal = false
-            $0.stackView.addArrangedSubviews([userCard, pinnedCard, chartCard])
+            $0.stackView.addArrangedSubviews([userCard, pinnedTitle, pinnedCard, chartTitle, chartCard])
         }
     }
     
@@ -94,9 +99,22 @@ final class ProfileVC: UIViewController {
             let startedAt = Calendar.current.dateComponents([.year], from: contributionCollection.startedAt).year
             let years = contributionCollection.contributionsYears
             
+            self.updateChartTitle()
             self.chartCard.updateChart(days: self.viewModel.getContributionsDays())
             self.chartCard.updateSelectorView(years: years, startedAt: startedAt)
         }
+    }
+    
+    private func updateChartTitle() {
+        guard
+            let totalContributions = viewModel.contributionsCollection?.calendar.totalContributions,
+            let contributionsYear = viewModel.contributionsCollection?.startedAt
+        else { return }
+        
+        let year = Calendar.current.dateComponents([.year], from: contributionsYear)
+        let currentYear = Calendar.current.dateComponents([.year], from: Date())
+        let lastYear = year == currentYear ? String.Profile.lastYear : "\(year.year ?? 0)"
+        chartTitle.update(title: String.Profile.contributionsInYear("\(totalContributions)", lastYear))
     }
 }
 

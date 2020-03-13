@@ -70,13 +70,16 @@
 "issues.reopenIssue"    = "Reopen issue";
 
 //MARK: - Profile
-"profile.title" = "Profile";
+"profile.title"                 = "Profile";
+"profile.pinned"                = "Pinned";
+"profile.contributionsInYear"   = "%@ contributions in %@";
+"profile.lastYear"              = "the last year";
 
 //MARK: - Pages Mode
-"pagesMode.created"            = "Created";
-"pagesMode.assigned"           = "Assigned";
-"pagesMode.mentioned"          = "Mentioned";
-"pagesMode.reviewRequests"     = "Review Requests";
+"pagesMode.created"             = "Created";
+"pagesMode.assigned"            = "Assigned";
+"pagesMode.mentioned"           = "Mentioned";
+"pagesMode.reviewRequests"      = "Review Requests";
 
 //MARK: - Empty View Messages
 "emptyView.emptyRepositories"       = "Your repositories will be\ndisplayed here";
