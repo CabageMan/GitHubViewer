@@ -56,7 +56,7 @@ extension EmptyView {
     }
     
     static func createEmptyProfile(offset: CGFloat = 0.0) -> EmptyView {
-        return EmptyView(image: #imageLiteral(resourceName: "OctoCatInClouds"), text: String.EmptyView.emptyProfile, offset: offset)
+        return EmptyView(image: #imageLiteral(resourceName: "OctoCatInClouds"), text: String.EmptyView.emptyPinnedItems, offset: offset)
     }
 }
 

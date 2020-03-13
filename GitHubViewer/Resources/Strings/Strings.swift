@@ -72,8 +72,8 @@ extension String {
     static let emptyIssueComments = String.tr("Localizable", "emptyView.emptyIssueComments")
     // Your issues will be displayed here
     static let emptyIssues = String.tr("Localizable", "emptyView.emptyIssues")
-    // Your profile will be displayed here
-    static let emptyProfile = String.tr("Localizable", "emptyView.emptyProfile")
+    // Your pins will be displayed here
+    static let emptyPinnedItems = String.tr("Localizable", "emptyView.emptyPinnedItems")
     // Your pull requests will be displayed here
     static let emptyPullRequests = String.tr("Localizable", "emptyView.emptyPullRequests")
     // Your repositories will be\ndisplayed here

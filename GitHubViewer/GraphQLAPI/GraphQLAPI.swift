@@ -3659,11 +3659,16 @@ public struct RepositoriesListFragment: GraphQLFragment {
       resourcePath
       isPrivate
       isFork
+      forkCount
       description
       primaryLanguage {
         __typename
         name
         color
+      }
+      stargazers(first: 15) {
+        __typename
+        totalCount
       }
     }
     """
@@ -3678,8 +3683,10 @@ public struct RepositoriesListFragment: GraphQLFragment {
     GraphQLField("resourcePath", type: .nonNull(.scalar(String.self))),
     GraphQLField("isPrivate", type: .nonNull(.scalar(Bool.self))),
     GraphQLField("isFork", type: .nonNull(.scalar(Bool.self))),
+    GraphQLField("forkCount", type: .nonNull(.scalar(Int.self))),
     GraphQLField("description", type: .scalar(String.self)),
     GraphQLField("primaryLanguage", type: .object(PrimaryLanguage.selections)),
+    GraphQLField("stargazers", arguments: ["first": 15], type: .nonNull(.object(Stargazer.selections))),
   ]
 
   public private(set) var resultMap: ResultMap
@@ -3688,8 +3695,8 @@ public struct RepositoriesListFragment: GraphQLFragment {
     self.resultMap = unsafeResultMap
   }
 
-  public init(id: GraphQLID, name: String, createdAt: String, resourcePath: String, isPrivate: Bool, isFork: Bool, description: String? = nil, primaryLanguage: PrimaryLanguage? = nil) {
-    self.init(unsafeResultMap: ["__typename": "Repository", "id": id, "name": name, "createdAt": createdAt, "resourcePath": resourcePath, "isPrivate": isPrivate, "isFork": isFork, "description": description, "primaryLanguage": primaryLanguage.flatMap { (value: PrimaryLanguage) -> ResultMap in value.resultMap }])
+  public init(id: GraphQLID, name: String, createdAt: String, resourcePath: String, isPrivate: Bool, isFork: Bool, forkCount: Int, description: String? = nil, primaryLanguage: PrimaryLanguage? = nil, stargazers: Stargazer) {
+    self.init(unsafeResultMap: ["__typename": "Repository", "id": id, "name": name, "createdAt": createdAt, "resourcePath": resourcePath, "isPrivate": isPrivate, "isFork": isFork, "forkCount": forkCount, "description": description, "primaryLanguage": primaryLanguage.flatMap { (value: PrimaryLanguage) -> ResultMap in value.resultMap }, "stargazers": stargazers.resultMap])
   }
 
   public var __typename: String {
@@ -3760,6 +3767,16 @@ public struct RepositoriesListFragment: GraphQLFragment {
     }
   }
 
+  /// Returns how many forks there are of this repository in the whole network.
+  public var forkCount: Int {
+    get {
+      return resultMap["forkCount"]! as! Int
+    }
+    set {
+      resultMap.updateValue(newValue, forKey: "forkCount")
+    }
+  }
+
   /// The description of the repository.
   public var description: String? {
     get {
@@ -3777,6 +3794,16 @@ public struct RepositoriesListFragment: GraphQLFragment {
     }
     set {
       resultMap.updateValue(newValue?.resultMap, forKey: "primaryLanguage")
+    }
+  }
+
+  /// A list of users who have starred this starrable.
+  public var stargazers: Stargazer {
+    get {
+      return Stargazer(unsafeResultMap: resultMap["stargazers"]! as! ResultMap)
+    }
+    set {
+      resultMap.updateValue(newValue.resultMap, forKey: "stargazers")
     }
   }
 
@@ -3825,6 +3852,44 @@ public struct RepositoriesListFragment: GraphQLFragment {
       }
       set {
         resultMap.updateValue(newValue, forKey: "color")
+      }
+    }
+  }
+
+  public struct Stargazer: GraphQLSelectionSet {
+    public static let possibleTypes = ["StargazerConnection"]
+
+    public static let selections: [GraphQLSelection] = [
+      GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+      GraphQLField("totalCount", type: .nonNull(.scalar(Int.self))),
+    ]
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(totalCount: Int) {
+      self.init(unsafeResultMap: ["__typename": "StargazerConnection", "totalCount": totalCount])
+    }
+
+    public var __typename: String {
+      get {
+        return resultMap["__typename"]! as! String
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "__typename")
+      }
+    }
+
+    /// Identifies the total count of items in the connection.
+    public var totalCount: Int {
+      get {
+        return resultMap["totalCount"]! as! Int
+      }
+      set {
+        resultMap.updateValue(newValue, forKey: "totalCount")
       }
     }
   }

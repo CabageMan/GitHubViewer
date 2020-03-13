@@ -178,9 +178,7 @@ fileprivate enum Theme {
     static let commitCellHeight: CGFloat = 50.0
     static let issueCellHeight: CGFloat = 80.0
     static let issueCommentCellHeight: CGFloat = 90.0
-    static var profileCellHeight: CGFloat {
-        return UIScreen.main.bounds.width + UserCard.Theme.avatarHeightOffset
-    }
+    static var profileCellHeight: CGFloat = 70.0
     
     // Offsets
     static let cellSideOffset: CGFloat = 36.0

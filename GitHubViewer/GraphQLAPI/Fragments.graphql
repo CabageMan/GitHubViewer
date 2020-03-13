@@ -16,10 +16,14 @@ fragment RepositoriesListFragment on Repository {
     resourcePath
     isPrivate
     isFork
+    forkCount
     description
     primaryLanguage {
       name
       color
+    }
+    stargazers(first: 15) {
+        totalCount
     }
 }
 

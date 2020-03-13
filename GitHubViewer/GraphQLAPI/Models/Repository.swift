@@ -7,8 +7,10 @@ struct Repository {
     let resourcePath: String
     var isPrivate: Bool
     let isFork: Bool
+    let forkCount: Int
     var description: String?
     var primaryLanguage: RepositoriesListFragment.PrimaryLanguage?
+    let stargazersCount: Int
     
     init(repo: RepositoriesListFragment) {
         self.id = repo.id
@@ -17,7 +19,9 @@ struct Repository {
         self.resourcePath = String(repo.resourcePath.dropFirst())
         self.isPrivate = repo.isPrivate
         self.isFork = repo.isFork
+        self.forkCount = repo.forkCount
         self.description = repo.description
         self.primaryLanguage = repo.primaryLanguage
+        self.stargazersCount = repo.stargazers.totalCount
     }
 }

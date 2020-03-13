@@ -51,13 +51,13 @@ final class YearSelectorItem: UIView {
 extension YearSelectorItem {
     enum Theme {
         // Fonts
-        static let yearLabelFont: UIFont = .circular(style: .medium, size: 9.0)
+        static let yearLabelFont: UIFont = .circular(style: .medium, size: 14.0)
         
         // Sizes
         static let itemWidth: CGFloat = 123.0
         static let itemHeight: CGFloat = 34.0
         static let itemCornerRadius: CGFloat = 3.0
-        static let yearLabelWidth: CGFloat = 27.0
-        static let yearLabelHeigth: CGFloat = 9.0
+        static let yearLabelWidth: CGFloat = 70.0
+        static let yearLabelHeigth: CGFloat = 15.0
     }
 }

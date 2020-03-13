@@ -1,6 +1,6 @@
 import UIKit
 
-final class UserCard: UIView {
+final class ProfileUserCard: UIView {
     
     private let avatarView = ImageContentView()
     private let nameLabel = UILabel()
@@ -23,15 +23,14 @@ final class UserCard: UIView {
     //MARK: - Actions
     private func setup() {
         avatarView.add(to: self).do {
-            $0.topToSuperview()
-            $0.leftToSuperview()
-            $0.widthToSuperview()
-            $0.heightToSuperview(offset: -Theme.avatarHeightOffset)
+            $0.topToSuperview(offset: Theme.sideOffset)
+            $0.centerXToSuperview()
+            $0.size(Theme.avatarSize)
         }
         
         nameLabel.add(to: self).do {
             $0.topToBottom(of: avatarView, offset: Theme.nameLabelTopOffset)
-            $0.leftToSuperview()
+            $0.leftToSuperview(offset: Theme.sideOffset)
             $0.height(Theme.nameLabelHeight)
             
             $0.textAlignment = .left
@@ -41,7 +40,7 @@ final class UserCard: UIView {
         
         loginLabel.add(to: self).do {
             $0.topToBottom(of: nameLabel, offset: Theme.loginLabelTopOffset)
-            $0.leftToSuperview()
+            $0.leftToSuperview(offset: Theme.sideOffset)
             $0.height(Theme.loginLabelHeight)
             
             $0.textAlignment = .left
@@ -51,7 +50,7 @@ final class UserCard: UIView {
         
         envelopeImageView.add(to: self).do {
             $0.topToBottom(of: loginLabel, offset: Theme.emailLabelTopOffset)
-            $0.leftToSuperview()
+            $0.leftToSuperview(offset: Theme.sideOffset)
             $0.size(Theme.envelopeSize)
             
             $0.contentMode = .scaleAspectFit
@@ -71,7 +70,7 @@ final class UserCard: UIView {
     
     func configure(with user: User) {
         if let avatarUrl = URL(string: user.avatarURL) {
-            avatarView.configure(url: avatarUrl, diameter: Theme.avatarDiameter, animated: true)
+            avatarView.configure(url: avatarUrl, diameter: Theme.avatarSize.width, animated: true)
         } else {
             avatarView.configure(image: Theme.avatarPlaceHolder, animated: true)
         }
@@ -82,7 +81,7 @@ final class UserCard: UIView {
 }
 
 //MARK: - Theme
-extension UserCard {
+extension ProfileUserCard {
     enum Theme {
         // Images
         static let avatarPlaceHolder = #imageLiteral(resourceName: "AvatarPlaceholder")
@@ -93,8 +92,8 @@ extension UserCard {
         static let emailLabelFont: UIFont = .circular(style: .medium, size: 13.0)
         
         // Sizes
-        static var avatarDiameter: CGFloat {
-            return UIScreen.main.bounds.width - ProfileCollectionCell.Theme.contentSideOffset * 2
+        static var avatarSize: CGSize {
+            return CGSize(UIScreen.main.bounds.width - 20.0)
         }
         static let nameLabelHeight: CGFloat = 25.0
         static let loginLabelHeight: CGFloat = 17.0
@@ -102,6 +101,7 @@ extension UserCard {
         static let emailLabelHeight: CGFloat = 15.0
         
         // Offsets
+        static let sideOffset: CGFloat = 10.0
         static var avatarHeightOffset: CGFloat {
             return nameLabelHeight + nameLabelTopOffset + loginLabelHeight + loginLabelTopOffset + emailLabelHeight + emailLabelTopOffset
         }
