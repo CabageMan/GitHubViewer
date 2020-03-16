@@ -29,6 +29,35 @@ struct Global {
         alert.addAction(.ok())
         UIViewController.current?.present(alert, animated: true, completion: nil)
     }
+    
+    //MARK: - Error Handling
+    static func handle(error: Error) {
+//        guard !apiClient.isLoggingOut else { return }
+//        apiClient.isLoggingOut = true
+//        var errorMessage: String?
+//        var completion: (() -> Void)?
+//
+//        switch error {
+//        case is APIErrors.UnauthorizedError:
+//            errorMessage = (error as? APIErrors.UnauthorizedError)?.message
+//            completion = { Global.apiClient.logout() }
+//        case is APIErrors.UndefinedError:
+//            errorMessage = (error as? APIErrors.UndefinedError)?.message
+//        case is APIErrors.ConnectionLockedByTimeout:
+//            errorMessage = (error as? APIErrors.ConnectionLockedByTimeout)?.message
+//        case is APIErrors.ConnectionBlockedByUser:
+//            errorMessage = (error as? APIErrors.ConnectionBlockedByUser)?.message
+//        case is ParsedAPIError:
+//            errorMessage = (error as? ParsedAPIError)?.message
+//        default:
+//            errorMessage = String.Error.somethingWrong
+//        }
+//
+//        let message = errorMessage ?? String.Error.somethingWrong
+//        UIViewController.current?.showErrorAlert(title: String.General.oops, message: message) { _ in
+//            completion?()
+//        }
+    }
 }
 
 //MARK: - Logging

@@ -12,6 +12,7 @@
 		370117AF23B10E50002C42AE /* ConfigurableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370117AE23B10E50002C42AE /* ConfigurableProtocol.swift */; };
 		3702A15B238298CE006D9598 /* TitledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3702A15A238298CE006D9598 /* TitledTextField.swift */; };
 		3707CC8E2382D542008D2D3E /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3707CC8D2382D542008D2D3E /* UIStackView+Extensions.swift */; };
+		370D83AB241FD1B800CCBA2C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370D83AA241FD1B800CCBA2C /* UIViewController+Extensions.swift */; };
 		3710D39623AD06DC00FAF5C7 /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3710D39523AD06DC00FAF5C7 /* PullRequest.swift */; };
 		3710D39823AD089C00FAF5C7 /* PullRequestsVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3710D39723AD089C00FAF5C7 /* PullRequestsVM.swift */; };
 		371ADFCA241B7FA000D5E9FB /* PinnedItemsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371ADFC9241B7FA000D5E9FB /* PinnedItemsCard.swift */; };
@@ -242,6 +243,7 @@
 		370117AE23B10E50002C42AE /* ConfigurableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableProtocol.swift; sourceTree = "<group>"; };
 		3702A15A238298CE006D9598 /* TitledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitledTextField.swift; sourceTree = "<group>"; };
 		3707CC8D2382D542008D2D3E /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
+		370D83AA241FD1B800CCBA2C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		3710D39523AD06DC00FAF5C7 /* PullRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
 		3710D39723AD089C00FAF5C7 /* PullRequestsVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRequestsVM.swift; sourceTree = "<group>"; };
 		371ADFC9241B7FA000D5E9FB /* PinnedItemsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedItemsCard.swift; sourceTree = "<group>"; };
@@ -1136,6 +1138,7 @@
 				37AD89562387C6BF009B42A3 /* UIBarButtonItem+Extensions.swift */,
 				3743F45D238D213400C54A0A /* UIColor+Extension.swift */,
 				37638FA2239E3C7000100783 /* UIScrollView+Extensions.swift */,
+				370D83AA241FD1B800CCBA2C /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1693,6 +1696,7 @@
 				377C221A237C23640046D4E8 /* InteractiveDismiss.swift in Sources */,
 				377C21FC237C23640046D4E8 /* Optional+ext.swift in Sources */,
 				373C58BE23851FA0003F2BEB /* APIClient.swift in Sources */,
+				370D83AB241FD1B800CCBA2C /* UIViewController+Extensions.swift in Sources */,
 				377C220D237C23640046D4E8 /* TimingFunction.swift in Sources */,
 				373C58D62385857E003F2BEB /* NavigationPresentationAC.swift in Sources */,
 				377C2232237C36700046D4E8 /* Fonts.swift in Sources */,
